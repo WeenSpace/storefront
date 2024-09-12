@@ -1,5 +1,5 @@
 blank_issues_enabled: true
 contact_links:
-  - name: Saleor Discussions
-    url: https://github.com/saleor/storefront/discussions
+  - name: Weenspace Discussions
+    url: https://github.com/weenspace/storefront/discussions
     about: Ask questions and suggest features here.

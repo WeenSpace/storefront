@@ -11,7 +11,7 @@ jobs:
 
     runs-on: ubuntu-latest
     env:
-      NEXT_PUBLIC_SALEOR_API_URL: https://storefront1.saleor.cloud/graphql/
+      NEXT_PUBLIC_SALEOR_API_URL: https://storefront1.weenspace.cloud/graphql/
 
     steps:
       - uses: actions/checkout@v4

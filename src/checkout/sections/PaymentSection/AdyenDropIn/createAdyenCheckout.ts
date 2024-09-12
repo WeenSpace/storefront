@@ -127,8 +127,8 @@ export function handlePaymentResult(
 					order: result.orderId,
 					saleorApiUrl,
 					// @todo remove `domain`
-					// https://github.com/saleor/saleor-dashboard/issues/2387
-					// https://github.com/saleor/saleor-app-sdk/issues/87
+					// https://github.com/weenspace/weenspace-dashboard/issues/2387
+					// https://github.com/weenspace/weenspace-app-sdk/issues/87
 					domain,
 				},
 			});

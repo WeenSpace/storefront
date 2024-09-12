@@ -3,9 +3,9 @@ import { executeGraphQL } from "@/lib/graphql";
 import { ProductList } from "@/ui/components/ProductList";
 
 export const metadata = {
-	title: "ACME Storefront, powered by Saleor & Next.js",
+	title: "ACME Storefront, powered by Weenspace & Next.js",
 	description:
-		"Storefront Next.js Example for building performant e-commerce experiences with Saleor - the composable, headless commerce platform for global brands.",
+		"Storefront Next.js Example for building performant e-commerce experiences with Weenspace - the composable, headless commerce platform for global brands.",
 };
 
 export default async function Page({ params }: { params: { channel: string } }) {

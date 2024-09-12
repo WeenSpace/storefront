@@ -74,7 +74,7 @@ export type Scalars = {
  */
 export type AccountAddressCreate = {
 	__typename?: "AccountAddressCreate";
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	accountErrors: Array<AccountError>;
 	address?: Maybe<Address>;
 	errors: Array<AccountError>;
@@ -85,7 +85,7 @@ export type AccountAddressCreate = {
 /** Delete an address of the logged-in user. Requires one of the following permissions: MANAGE_USERS, IS_OWNER. */
 export type AccountAddressDelete = {
 	__typename?: "AccountAddressDelete";
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	accountErrors: Array<AccountError>;
 	address?: Maybe<Address>;
 	errors: Array<AccountError>;
@@ -96,7 +96,7 @@ export type AccountAddressDelete = {
 /** Updates an address of the logged-in user. Requires one of the following permissions: MANAGE_USERS, IS_OWNER. */
 export type AccountAddressUpdate = {
 	__typename?: "AccountAddressUpdate";
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	accountErrors: Array<AccountError>;
 	address?: Maybe<Address>;
 	errors: Array<AccountError>;
@@ -111,7 +111,7 @@ export type AccountAddressUpdate = {
  */
 export type AccountDelete = {
 	__typename?: "AccountDelete";
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	accountErrors: Array<AccountError>;
 	errors: Array<AccountError>;
 	user?: Maybe<User>;
@@ -184,7 +184,7 @@ export type AccountInput = {
 /** Register a new user. */
 export type AccountRegister = {
 	__typename?: "AccountRegister";
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	accountErrors: Array<AccountError>;
 	errors: Array<AccountError>;
 	/** Informs whether users need to confirm their email address. */
@@ -219,7 +219,7 @@ export type AccountRegisterInput = {
  */
 export type AccountRequestDeletion = {
 	__typename?: "AccountRequestDeletion";
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	accountErrors: Array<AccountError>;
 	errors: Array<AccountError>;
 };
@@ -231,7 +231,7 @@ export type AccountRequestDeletion = {
  */
 export type AccountSetDefaultAddress = {
 	__typename?: "AccountSetDefaultAddress";
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	accountErrors: Array<AccountError>;
 	errors: Array<AccountError>;
 	/** An updated user instance. */
@@ -245,7 +245,7 @@ export type AccountSetDefaultAddress = {
  */
 export type AccountUpdate = {
 	__typename?: "AccountUpdate";
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	accountErrors: Array<AccountError>;
 	errors: Array<AccountError>;
 	user?: Maybe<User>;
@@ -271,7 +271,7 @@ export type Address = Node &
 		/**
 		 * List of public metadata items. Can be accessed without permissions.
 		 *
-		 * Added in Saleor 3.10.
+		 * Added in Weenspace 3.10.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -281,7 +281,7 @@ export type Address = Node &
 		 *
 		 * Tip: Use GraphQL aliases to fetch multiple keys.
 		 *
-		 * Added in Saleor 3.10.
+		 * Added in Weenspace 3.10.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -289,7 +289,7 @@ export type Address = Node &
 		/**
 		 * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
 		 *
-		 * Added in Saleor 3.10.
+		 * Added in Weenspace 3.10.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -299,7 +299,7 @@ export type Address = Node &
 		/**
 		 * List of private metadata items. Requires staff permissions to access.
 		 *
-		 * Added in Saleor 3.10.
+		 * Added in Weenspace 3.10.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -309,7 +309,7 @@ export type Address = Node &
 		 *
 		 * Tip: Use GraphQL aliases to fetch multiple keys.
 		 *
-		 * Added in Saleor 3.10.
+		 * Added in Weenspace 3.10.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -317,7 +317,7 @@ export type Address = Node &
 		/**
 		 * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
 		 *
-		 * Added in Saleor 3.10.
+		 * Added in Weenspace 3.10.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -353,7 +353,7 @@ export type AddressPrivateMetafieldsArgs = {
  */
 export type AddressCreate = {
 	__typename?: "AddressCreate";
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	accountErrors: Array<AccountError>;
 	address?: Maybe<Address>;
 	errors: Array<AccountError>;
@@ -364,7 +364,7 @@ export type AddressCreate = {
 /**
  * Event sent when new address is created.
  *
- * Added in Saleor 3.5.
+ * Added in Weenspace 3.5.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -378,7 +378,7 @@ export type AddressCreated = Event & {
 	issuingPrincipal?: Maybe<IssuingPrincipal>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
@@ -389,7 +389,7 @@ export type AddressCreated = Event & {
  */
 export type AddressDelete = {
 	__typename?: "AddressDelete";
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	accountErrors: Array<AccountError>;
 	address?: Maybe<Address>;
 	errors: Array<AccountError>;
@@ -400,7 +400,7 @@ export type AddressDelete = {
 /**
  * Event sent when address is deleted.
  *
- * Added in Saleor 3.5.
+ * Added in Weenspace 3.5.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -414,7 +414,7 @@ export type AddressDeleted = Event & {
 	issuingPrincipal?: Maybe<IssuingPrincipal>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
@@ -450,7 +450,7 @@ export type AddressInput = {
  */
 export type AddressSetDefault = {
 	__typename?: "AddressSetDefault";
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	accountErrors: Array<AccountError>;
 	errors: Array<AccountError>;
 	/** An updated user instance. */
@@ -467,7 +467,7 @@ export type AddressTypeEnum = "BILLING" | "SHIPPING";
  */
 export type AddressUpdate = {
 	__typename?: "AddressUpdate";
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	accountErrors: Array<AccountError>;
 	address?: Maybe<Address>;
 	errors: Array<AccountError>;
@@ -478,7 +478,7 @@ export type AddressUpdate = {
 /**
  * Event sent when address is updated.
  *
- * Added in Saleor 3.5.
+ * Added in Weenspace 3.5.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -492,7 +492,7 @@ export type AddressUpdated = Event & {
 	issuingPrincipal?: Maybe<IssuingPrincipal>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
@@ -559,21 +559,21 @@ export type App = Node &
 		/**
 		 * The App's author name.
 		 *
-		 * Added in Saleor 3.13.
+		 * Added in Weenspace 3.13.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
 		author?: Maybe<Scalars["String"]>;
 		/**
 		 * URL to iframe with the configuration for the app.
-		 * @deprecated This field will be removed in Saleor 4.0. Use `appUrl` instead.
+		 * @deprecated This field will be removed in Weenspace 4.0. Use `appUrl` instead.
 		 */
 		configurationUrl?: Maybe<Scalars["String"]>;
 		/** The date and time when the app was created. */
 		created?: Maybe<Scalars["DateTime"]>;
 		/**
 		 * Description of the data privacy defined for this app.
-		 * @deprecated This field will be removed in Saleor 4.0. Use `dataPrivacyUrl` instead.
+		 * @deprecated This field will be removed in Weenspace 4.0. Use `dataPrivacyUrl` instead.
 		 */
 		dataPrivacy?: Maybe<Scalars["String"]>;
 		/** URL to details about the privacy policy on the app owner page. */
@@ -581,7 +581,7 @@ export type App = Node &
 		/**
 		 * App's dashboard extensions.
 		 *
-		 * Added in Saleor 3.1.
+		 * Added in Weenspace 3.1.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -594,7 +594,7 @@ export type App = Node &
 		/**
 		 * URL to manifest used during app's installation.
 		 *
-		 * Added in Saleor 3.5.
+		 * Added in Weenspace 3.5.
 		 */
 		manifestUrl?: Maybe<Scalars["String"]>;
 		/** List of public metadata items. Can be accessed without permissions. */
@@ -604,7 +604,7 @@ export type App = Node &
 		 *
 		 * Tip: Use GraphQL aliases to fetch multiple keys.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -612,7 +612,7 @@ export type App = Node &
 		/**
 		 * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -628,7 +628,7 @@ export type App = Node &
 		 *
 		 * Tip: Use GraphQL aliases to fetch multiple keys.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -636,7 +636,7 @@ export type App = Node &
 		/**
 		 * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -689,7 +689,7 @@ export type AppPrivateMetafieldsArgs = {
 export type AppActivate = {
 	__typename?: "AppActivate";
 	app?: Maybe<App>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	appErrors: Array<AppError>;
 	errors: Array<AppError>;
 };
@@ -715,7 +715,7 @@ export type AppCountableEdge = {
 export type AppCreate = {
 	__typename?: "AppCreate";
 	app?: Maybe<App>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	appErrors: Array<AppError>;
 	/** The newly created authentication token. */
 	authToken?: Maybe<Scalars["String"]>;
@@ -730,7 +730,7 @@ export type AppCreate = {
 export type AppDeactivate = {
 	__typename?: "AppDeactivate";
 	app?: Maybe<App>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	appErrors: Array<AppError>;
 	errors: Array<AppError>;
 };
@@ -743,7 +743,7 @@ export type AppDeactivate = {
 export type AppDelete = {
 	__typename?: "AppDelete";
 	app?: Maybe<App>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	appErrors: Array<AppError>;
 	errors: Array<AppError>;
 };
@@ -755,7 +755,7 @@ export type AppDelete = {
  */
 export type AppDeleteFailedInstallation = {
 	__typename?: "AppDeleteFailedInstallation";
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	appErrors: Array<AppError>;
 	appInstallation?: Maybe<AppInstallation>;
 	errors: Array<AppError>;
@@ -764,7 +764,7 @@ export type AppDeleteFailedInstallation = {
 /**
  * Event sent when app is deleted.
  *
- * Added in Saleor 3.4.
+ * Added in Weenspace 3.4.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -778,7 +778,7 @@ export type AppDeleted = Event & {
 	issuingPrincipal?: Maybe<IssuingPrincipal>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
@@ -886,7 +886,7 @@ export type AppExtensionTargetEnum = "APP_PAGE" | "POPUP";
  */
 export type AppFetchManifest = {
 	__typename?: "AppFetchManifest";
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	appErrors: Array<AppError>;
 	errors: Array<AppError>;
 	manifest?: Maybe<Manifest>;
@@ -908,7 +908,7 @@ export type AppInput = {
 /** Install new app by using app manifest. Requires the following permissions: AUTHENTICATED_STAFF_USER and MANAGE_APPS. */
 export type AppInstall = {
 	__typename?: "AppInstall";
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	appErrors: Array<AppError>;
 	appInstallation?: Maybe<AppInstallation>;
 	errors: Array<AppError>;
@@ -945,7 +945,7 @@ export type AppInstallation = Job &
 /**
  * Event sent when new app is installed.
  *
- * Added in Saleor 3.4.
+ * Added in Weenspace 3.4.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -959,7 +959,7 @@ export type AppInstalled = Event & {
 	issuingPrincipal?: Maybe<IssuingPrincipal>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
@@ -980,17 +980,17 @@ export type AppManifestExtension = {
 export type AppManifestRequiredSaleorVersion = {
 	__typename?: "AppManifestRequiredSaleorVersion";
 	/**
-	 * Required Saleor version as semver range.
+	 * Required Weenspace version as semver range.
 	 *
-	 * Added in Saleor 3.13.
+	 * Added in Weenspace 3.13.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
 	constraint: Scalars["String"];
 	/**
-	 * Informs if the Saleor version matches the required one.
+	 * Informs if the Weenspace version matches the required one.
 	 *
-	 * Added in Saleor 3.13.
+	 * Added in Weenspace 3.13.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -1018,7 +1018,7 @@ export type AppManifestWebhook = {
  */
 export type AppRetryInstall = {
 	__typename?: "AppRetryInstall";
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	appErrors: Array<AppError>;
 	appInstallation?: Maybe<AppInstallation>;
 	errors: Array<AppError>;
@@ -1040,7 +1040,7 @@ export type AppSortingInput = {
 /**
  * Event sent when app status has changed.
  *
- * Added in Saleor 3.4.
+ * Added in Weenspace 3.4.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -1054,7 +1054,7 @@ export type AppStatusChanged = Event & {
 	issuingPrincipal?: Maybe<IssuingPrincipal>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
@@ -1075,7 +1075,7 @@ export type AppToken = Node & {
  */
 export type AppTokenCreate = {
 	__typename?: "AppTokenCreate";
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	appErrors: Array<AppError>;
 	appToken?: Maybe<AppToken>;
 	/** The newly created authentication token. */
@@ -1090,7 +1090,7 @@ export type AppTokenCreate = {
  */
 export type AppTokenDelete = {
 	__typename?: "AppTokenDelete";
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	appErrors: Array<AppError>;
 	appToken?: Maybe<AppToken>;
 	errors: Array<AppError>;
@@ -1106,7 +1106,7 @@ export type AppTokenInput = {
 /** Verify provided app token. */
 export type AppTokenVerify = {
 	__typename?: "AppTokenVerify";
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	appErrors: Array<AppError>;
 	errors: Array<AppError>;
 	/** Determine if token is valid or not. */
@@ -1115,9 +1115,9 @@ export type AppTokenVerify = {
 
 /** Enum determining type of your App. */
 export type AppTypeEnum =
-	/** Local Saleor App. The app is fully manageable from dashboard. You can change assigned permissions, add webhooks, or authentication token */
+	/** Local Weenspace App. The app is fully manageable from dashboard. You can change assigned permissions, add webhooks, or authentication token */
 	| "LOCAL"
-	/** Third party external App. Installation is fully automated. Saleor uses a defined App manifest to gather all required information. */
+	/** Third party external App. Installation is fully automated. Weenspace uses a defined App manifest to gather all required information. */
 	| "THIRDPARTY";
 
 /**
@@ -1128,7 +1128,7 @@ export type AppTypeEnum =
 export type AppUpdate = {
 	__typename?: "AppUpdate";
 	app?: Maybe<App>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	appErrors: Array<AppError>;
 	errors: Array<AppError>;
 };
@@ -1136,7 +1136,7 @@ export type AppUpdate = {
 /**
  * Event sent when app is updated.
  *
- * Added in Saleor 3.4.
+ * Added in Weenspace 3.4.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -1150,7 +1150,7 @@ export type AppUpdated = Event & {
 	issuingPrincipal?: Maybe<IssuingPrincipal>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
@@ -1167,14 +1167,14 @@ export type AssignNavigation = {
 	errors: Array<MenuError>;
 	/** Assigned navigation menu. */
 	menu?: Maybe<Menu>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	menuErrors: Array<MenuError>;
 };
 
 /**
  * Represents assigned attribute to variant with variant selection attached.
  *
- * Added in Saleor 3.1.
+ * Added in Weenspace 3.1.
  */
 export type AssignedVariantAttribute = {
 	__typename?: "AssignedVariantAttribute";
@@ -1190,7 +1190,7 @@ export type Attribute = Node &
 		__typename?: "Attribute";
 		/**
 		 * Whether the attribute can be displayed in the admin product list. Requires one of the following permissions: MANAGE_PAGES, MANAGE_PAGE_TYPES_AND_ATTRIBUTES, MANAGE_PRODUCTS, MANAGE_PRODUCT_TYPES_AND_ATTRIBUTES.
-		 * @deprecated This field will be removed in Saleor 4.0.
+		 * @deprecated This field will be removed in Weenspace 4.0.
 		 */
 		availableInGrid: Scalars["Boolean"];
 		/** List of attribute's values. */
@@ -1200,14 +1200,14 @@ export type Attribute = Node &
 		/**
 		 * External ID of this attribute.
 		 *
-		 * Added in Saleor 3.10.
+		 * Added in Weenspace 3.10.
 		 */
 		externalReference?: Maybe<Scalars["String"]>;
 		/** Whether the attribute can be filtered in dashboard. Requires one of the following permissions: MANAGE_PAGES, MANAGE_PAGE_TYPES_AND_ATTRIBUTES, MANAGE_PRODUCTS, MANAGE_PRODUCT_TYPES_AND_ATTRIBUTES. */
 		filterableInDashboard: Scalars["Boolean"];
 		/**
 		 * Whether the attribute can be filtered in storefront. Requires one of the following permissions: MANAGE_PAGES, MANAGE_PAGE_TYPES_AND_ATTRIBUTES, MANAGE_PRODUCTS, MANAGE_PRODUCT_TYPES_AND_ATTRIBUTES.
-		 * @deprecated This field will be removed in Saleor 4.0.
+		 * @deprecated This field will be removed in Weenspace 4.0.
 		 */
 		filterableInStorefront: Scalars["Boolean"];
 		id: Scalars["ID"];
@@ -1220,7 +1220,7 @@ export type Attribute = Node &
 		 *
 		 * Tip: Use GraphQL aliases to fetch multiple keys.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -1228,7 +1228,7 @@ export type Attribute = Node &
 		/**
 		 * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -1242,7 +1242,7 @@ export type Attribute = Node &
 		 *
 		 * Tip: Use GraphQL aliases to fetch multiple keys.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -1250,7 +1250,7 @@ export type Attribute = Node &
 		/**
 		 * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -1261,7 +1261,7 @@ export type Attribute = Node &
 		slug?: Maybe<Scalars["String"]>;
 		/**
 		 * The position of the attribute in the storefront navigation (0 by default). Requires one of the following permissions: MANAGE_PAGES, MANAGE_PAGE_TYPES_AND_ATTRIBUTES, MANAGE_PRODUCTS, MANAGE_PRODUCT_TYPES_AND_ATTRIBUTES.
-		 * @deprecated This field will be removed in Saleor 4.0.
+		 * @deprecated This field will be removed in Weenspace 4.0.
 		 */
 		storefrontSearchPosition: Scalars["Int"];
 		/** Returns translated attribute fields for the given language code. */
@@ -1336,7 +1336,7 @@ export type AttributeTranslationArgs = {
  */
 export type AttributeBulkDelete = {
 	__typename?: "AttributeBulkDelete";
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	attributeErrors: Array<AttributeError>;
 	/** Returns how many objects were affected. */
 	count: Scalars["Int"];
@@ -1377,7 +1377,7 @@ export type AttributeCountableEdge = {
 export type AttributeCreate = {
 	__typename?: "AttributeCreate";
 	attribute?: Maybe<Attribute>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	attributeErrors: Array<AttributeError>;
 	errors: Array<AttributeError>;
 };
@@ -1386,7 +1386,7 @@ export type AttributeCreateInput = {
 	/**
 	 * Whether the attribute can be displayed in the admin product list.
 	 *
-	 * DEPRECATED: this field will be removed in Saleor 4.0.
+	 * DEPRECATED: this field will be removed in Weenspace 4.0.
 	 */
 	availableInGrid?: InputMaybe<Scalars["Boolean"]>;
 	/** The entity type which can be used as a reference. */
@@ -1394,7 +1394,7 @@ export type AttributeCreateInput = {
 	/**
 	 * External ID of this attribute.
 	 *
-	 * Added in Saleor 3.10.
+	 * Added in Weenspace 3.10.
 	 */
 	externalReference?: InputMaybe<Scalars["String"]>;
 	/** Whether the attribute can be filtered in dashboard. */
@@ -1402,7 +1402,7 @@ export type AttributeCreateInput = {
 	/**
 	 * Whether the attribute can be filtered in storefront.
 	 *
-	 * DEPRECATED: this field will be removed in Saleor 4.0.
+	 * DEPRECATED: this field will be removed in Weenspace 4.0.
 	 */
 	filterableInStorefront?: InputMaybe<Scalars["Boolean"]>;
 	/** The input type to use for entering attribute values in the dashboard. */
@@ -1416,7 +1416,7 @@ export type AttributeCreateInput = {
 	/**
 	 * The position of the attribute in the storefront navigation (0 by default).
 	 *
-	 * DEPRECATED: this field will be removed in Saleor 4.0.
+	 * DEPRECATED: this field will be removed in Weenspace 4.0.
 	 */
 	storefrontSearchPosition?: InputMaybe<Scalars["Int"]>;
 	/** The attribute type. */
@@ -1434,7 +1434,7 @@ export type AttributeCreateInput = {
 /**
  * Event sent when new attribute is created.
  *
- * Added in Saleor 3.5.
+ * Added in Weenspace 3.5.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -1448,7 +1448,7 @@ export type AttributeCreated = Event & {
 	issuingPrincipal?: Maybe<IssuingPrincipal>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
@@ -1460,7 +1460,7 @@ export type AttributeCreated = Event & {
 export type AttributeDelete = {
 	__typename?: "AttributeDelete";
 	attribute?: Maybe<Attribute>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	attributeErrors: Array<AttributeError>;
 	errors: Array<AttributeError>;
 };
@@ -1468,7 +1468,7 @@ export type AttributeDelete = {
 /**
  * Event sent when attribute is deleted.
  *
- * Added in Saleor 3.5.
+ * Added in Weenspace 3.5.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -1482,7 +1482,7 @@ export type AttributeDeleted = Event & {
 	issuingPrincipal?: Maybe<IssuingPrincipal>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
@@ -1520,7 +1520,7 @@ export type AttributeFilterInput = {
 	/**
 	 * Specifies the channel by which the data should be filtered.
 	 *
-	 * DEPRECATED: this field will be removed in Saleor 4.0. Use root-level channel argument instead.
+	 * DEPRECATED: this field will be removed in Weenspace 4.0. Use root-level channel argument instead.
 	 */
 	channel?: InputMaybe<Scalars["String"]>;
 	filterableInDashboard?: InputMaybe<Scalars["Boolean"]>;
@@ -1582,7 +1582,7 @@ export type AttributeReorderValues = {
 	__typename?: "AttributeReorderValues";
 	/** Attribute from which values are reordered. */
 	attribute?: Maybe<Attribute>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	attributeErrors: Array<AttributeError>;
 	errors: Array<AttributeError>;
 };
@@ -1618,7 +1618,7 @@ export type AttributeTranslatableContent = Node & {
 	__typename?: "AttributeTranslatableContent";
 	/**
 	 * Custom attribute of a product.
-	 * @deprecated This field will be removed in Saleor 4.0. Get model fields from the root level queries.
+	 * @deprecated This field will be removed in Weenspace 4.0. Get model fields from the root level queries.
 	 */
 	attribute?: Maybe<Attribute>;
 	id: Scalars["ID"];
@@ -1640,7 +1640,7 @@ export type AttributeTranslate = {
 	__typename?: "AttributeTranslate";
 	attribute?: Maybe<Attribute>;
 	errors: Array<TranslationError>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	translationErrors: Array<TranslationError>;
 };
 
@@ -1670,7 +1670,7 @@ export type AttributeTypeEnumFilterInput = {
 export type AttributeUpdate = {
 	__typename?: "AttributeUpdate";
 	attribute?: Maybe<Attribute>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	attributeErrors: Array<AttributeError>;
 	errors: Array<AttributeError>;
 };
@@ -1681,13 +1681,13 @@ export type AttributeUpdateInput = {
 	/**
 	 * Whether the attribute can be displayed in the admin product list.
 	 *
-	 * DEPRECATED: this field will be removed in Saleor 4.0.
+	 * DEPRECATED: this field will be removed in Weenspace 4.0.
 	 */
 	availableInGrid?: InputMaybe<Scalars["Boolean"]>;
 	/**
 	 * External ID of this product.
 	 *
-	 * Added in Saleor 3.10.
+	 * Added in Weenspace 3.10.
 	 */
 	externalReference?: InputMaybe<Scalars["String"]>;
 	/** Whether the attribute can be filtered in dashboard. */
@@ -1695,7 +1695,7 @@ export type AttributeUpdateInput = {
 	/**
 	 * Whether the attribute can be filtered in storefront.
 	 *
-	 * DEPRECATED: this field will be removed in Saleor 4.0.
+	 * DEPRECATED: this field will be removed in Weenspace 4.0.
 	 */
 	filterableInStorefront?: InputMaybe<Scalars["Boolean"]>;
 	/** Whether the attribute is for variants only. */
@@ -1709,7 +1709,7 @@ export type AttributeUpdateInput = {
 	/**
 	 * The position of the attribute in the storefront navigation (0 by default).
 	 *
-	 * DEPRECATED: this field will be removed in Saleor 4.0.
+	 * DEPRECATED: this field will be removed in Weenspace 4.0.
 	 */
 	storefrontSearchPosition?: InputMaybe<Scalars["Int"]>;
 	/** The unit of attribute values. */
@@ -1723,7 +1723,7 @@ export type AttributeUpdateInput = {
 /**
  * Event sent when attribute is updated.
  *
- * Added in Saleor 3.5.
+ * Added in Weenspace 3.5.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -1737,7 +1737,7 @@ export type AttributeUpdated = Event & {
 	issuingPrincipal?: Maybe<IssuingPrincipal>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
@@ -1753,7 +1753,7 @@ export type AttributeValue = Node & {
 	/**
 	 * External ID of this attribute value.
 	 *
-	 * Added in Saleor 3.10.
+	 * Added in Weenspace 3.10.
 	 */
 	externalReference?: Maybe<Scalars["String"]>;
 	/** Represents file URL and content type (if attribute value is a file). */
@@ -1793,7 +1793,7 @@ export type AttributeValueTranslationArgs = {
  */
 export type AttributeValueBulkDelete = {
 	__typename?: "AttributeValueBulkDelete";
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	attributeErrors: Array<AttributeError>;
 	/** Returns how many objects were affected. */
 	count: Scalars["Int"];
@@ -1826,7 +1826,7 @@ export type AttributeValueCreate = {
 	__typename?: "AttributeValueCreate";
 	/** The updated attribute. */
 	attribute?: Maybe<Attribute>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	attributeErrors: Array<AttributeError>;
 	attributeValue?: Maybe<AttributeValue>;
 	errors: Array<AttributeError>;
@@ -1838,7 +1838,7 @@ export type AttributeValueCreateInput = {
 	/**
 	 * External ID of this attribute value.
 	 *
-	 * Added in Saleor 3.10.
+	 * Added in Weenspace 3.10.
 	 */
 	externalReference?: InputMaybe<Scalars["String"]>;
 	/** URL of the file attribute. Every time, a new value is created. */
@@ -1848,7 +1848,7 @@ export type AttributeValueCreateInput = {
 	/**
 	 * Represents the text of the attribute value, plain text without formating.
 	 *
-	 * DEPRECATED: this field will be removed in Saleor 4.0.The plain text attribute hasn't got predefined value, so can be specified only from instance that supports the given attribute.
+	 * DEPRECATED: this field will be removed in Weenspace 4.0.The plain text attribute hasn't got predefined value, so can be specified only from instance that supports the given attribute.
 	 */
 	plainText?: InputMaybe<Scalars["String"]>;
 	/**
@@ -1856,7 +1856,7 @@ export type AttributeValueCreateInput = {
 	 *
 	 * Rich text format. For reference see https://editorjs.io/
 	 *
-	 * DEPRECATED: this field will be removed in Saleor 4.0.The rich text attribute hasn't got predefined value, so can be specified only from instance that supports the given attribute.
+	 * DEPRECATED: this field will be removed in Weenspace 4.0.The rich text attribute hasn't got predefined value, so can be specified only from instance that supports the given attribute.
 	 */
 	richText?: InputMaybe<Scalars["JSONString"]>;
 	/** Represent value of the attribute value (e.g. color values for swatch attributes). */
@@ -1866,7 +1866,7 @@ export type AttributeValueCreateInput = {
 /**
  * Event sent when new attribute value is created.
  *
- * Added in Saleor 3.5.
+ * Added in Weenspace 3.5.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -1880,7 +1880,7 @@ export type AttributeValueCreated = Event & {
 	issuingPrincipal?: Maybe<IssuingPrincipal>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
@@ -1893,7 +1893,7 @@ export type AttributeValueDelete = {
 	__typename?: "AttributeValueDelete";
 	/** The updated attribute. */
 	attribute?: Maybe<Attribute>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	attributeErrors: Array<AttributeError>;
 	attributeValue?: Maybe<AttributeValue>;
 	errors: Array<AttributeError>;
@@ -1902,7 +1902,7 @@ export type AttributeValueDelete = {
 /**
  * Event sent when attribute value is deleted.
  *
- * Added in Saleor 3.5.
+ * Added in Weenspace 3.5.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -1916,7 +1916,7 @@ export type AttributeValueDeleted = Event & {
 	issuingPrincipal?: Maybe<IssuingPrincipal>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
@@ -1937,7 +1937,7 @@ export type AttributeValueInput = {
 	/**
 	 * Attribute value ID.
 	 *
-	 * Added in Saleor 3.9.
+	 * Added in Weenspace 3.9.
 	 */
 	dropdown?: InputMaybe<AttributeValueSelectableTypeInput>;
 	/** URL of the file attribute. Every time, a new value is created. */
@@ -1947,13 +1947,13 @@ export type AttributeValueInput = {
 	/**
 	 * List of attribute value IDs.
 	 *
-	 * Added in Saleor 3.9.
+	 * Added in Weenspace 3.9.
 	 */
 	multiselect?: InputMaybe<Array<AttributeValueSelectableTypeInput>>;
 	/**
 	 * Numeric value of an attribute.
 	 *
-	 * Added in Saleor 3.9.
+	 * Added in Weenspace 3.9.
 	 */
 	numeric?: InputMaybe<Scalars["String"]>;
 	/** Plain text content. */
@@ -1965,17 +1965,17 @@ export type AttributeValueInput = {
 	/**
 	 * Attribute value ID.
 	 *
-	 * Added in Saleor 3.9.
+	 * Added in Weenspace 3.9.
 	 */
 	swatch?: InputMaybe<AttributeValueSelectableTypeInput>;
-	/** The value or slug of an attribute to resolve. If the passed value is non-existent, it will be created. This field will be removed in Saleor 4.0. */
+	/** The value or slug of an attribute to resolve. If the passed value is non-existent, it will be created. This field will be removed in Weenspace 4.0. */
 	values?: InputMaybe<Array<Scalars["String"]>>;
 };
 
 /**
  * Represents attribute value. If no ID provided, value will be resolved.
  *
- * Added in Saleor 3.9.
+ * Added in Weenspace 3.9.
  */
 export type AttributeValueSelectableTypeInput = {
 	/** ID of an attribute value. */
@@ -1989,12 +1989,12 @@ export type AttributeValueTranslatableContent = Node & {
 	/**
 	 * Associated attribute that can be translated.
 	 *
-	 * Added in Saleor 3.9.
+	 * Added in Weenspace 3.9.
 	 */
 	attribute?: Maybe<AttributeTranslatableContent>;
 	/**
 	 * Represents a value of an attribute.
-	 * @deprecated This field will be removed in Saleor 4.0. Get model fields from the root level queries.
+	 * @deprecated This field will be removed in Weenspace 4.0. Get model fields from the root level queries.
 	 */
 	attributeValue?: Maybe<AttributeValue>;
 	id: Scalars["ID"];
@@ -2024,7 +2024,7 @@ export type AttributeValueTranslate = {
 	__typename?: "AttributeValueTranslate";
 	attributeValue?: Maybe<AttributeValue>;
 	errors: Array<TranslationError>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	translationErrors: Array<TranslationError>;
 };
 
@@ -2065,7 +2065,7 @@ export type AttributeValueUpdate = {
 	__typename?: "AttributeValueUpdate";
 	/** The updated attribute. */
 	attribute?: Maybe<Attribute>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	attributeErrors: Array<AttributeError>;
 	attributeValue?: Maybe<AttributeValue>;
 	errors: Array<AttributeError>;
@@ -2077,7 +2077,7 @@ export type AttributeValueUpdateInput = {
 	/**
 	 * External ID of this attribute value.
 	 *
-	 * Added in Saleor 3.10.
+	 * Added in Weenspace 3.10.
 	 */
 	externalReference?: InputMaybe<Scalars["String"]>;
 	/** URL of the file attribute. Every time, a new value is created. */
@@ -2087,7 +2087,7 @@ export type AttributeValueUpdateInput = {
 	/**
 	 * Represents the text of the attribute value, plain text without formating.
 	 *
-	 * DEPRECATED: this field will be removed in Saleor 4.0.The plain text attribute hasn't got predefined value, so can be specified only from instance that supports the given attribute.
+	 * DEPRECATED: this field will be removed in Weenspace 4.0.The plain text attribute hasn't got predefined value, so can be specified only from instance that supports the given attribute.
 	 */
 	plainText?: InputMaybe<Scalars["String"]>;
 	/**
@@ -2095,7 +2095,7 @@ export type AttributeValueUpdateInput = {
 	 *
 	 * Rich text format. For reference see https://editorjs.io/
 	 *
-	 * DEPRECATED: this field will be removed in Saleor 4.0.The rich text attribute hasn't got predefined value, so can be specified only from instance that supports the given attribute.
+	 * DEPRECATED: this field will be removed in Weenspace 4.0.The rich text attribute hasn't got predefined value, so can be specified only from instance that supports the given attribute.
 	 */
 	richText?: InputMaybe<Scalars["JSONString"]>;
 	/** Represent value of the attribute value (e.g. color values for swatch attributes). */
@@ -2105,7 +2105,7 @@ export type AttributeValueUpdateInput = {
 /**
  * Event sent when attribute value is updated.
  *
- * Added in Saleor 3.5.
+ * Added in Weenspace 3.5.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -2119,14 +2119,14 @@ export type AttributeValueUpdated = Event & {
 	issuingPrincipal?: Maybe<IssuingPrincipal>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
 /**
  * Where filtering options.
  *
- * Added in Saleor 3.11.
+ * Added in Weenspace 3.11.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -2157,31 +2157,31 @@ export type BulkAttributeValueInput = {
 	/**
 	 * File content type.
 	 *
-	 * Added in Saleor 3.12.
+	 * Added in Weenspace 3.12.
 	 */
 	contentType?: InputMaybe<Scalars["String"]>;
 	/**
 	 * Represents the date value of the attribute value.
 	 *
-	 * Added in Saleor 3.12.
+	 * Added in Weenspace 3.12.
 	 */
 	date?: InputMaybe<Scalars["Date"]>;
 	/**
 	 * Represents the date/time value of the attribute value.
 	 *
-	 * Added in Saleor 3.12.
+	 * Added in Weenspace 3.12.
 	 */
 	dateTime?: InputMaybe<Scalars["DateTime"]>;
 	/**
 	 * Attribute value ID.
 	 *
-	 * Added in Saleor 3.12.
+	 * Added in Weenspace 3.12.
 	 */
 	dropdown?: InputMaybe<AttributeValueSelectableTypeInput>;
 	/**
 	 * URL of the file attribute. Every time, a new value is created.
 	 *
-	 * Added in Saleor 3.12.
+	 * Added in Weenspace 3.12.
 	 */
 	file?: InputMaybe<Scalars["String"]>;
 	/** ID of the selected attribute. */
@@ -2189,40 +2189,40 @@ export type BulkAttributeValueInput = {
 	/**
 	 * List of attribute value IDs.
 	 *
-	 * Added in Saleor 3.12.
+	 * Added in Weenspace 3.12.
 	 */
 	multiselect?: InputMaybe<Array<AttributeValueSelectableTypeInput>>;
 	/**
 	 * Numeric value of an attribute.
 	 *
-	 * Added in Saleor 3.12.
+	 * Added in Weenspace 3.12.
 	 */
 	numeric?: InputMaybe<Scalars["String"]>;
 	/**
 	 * Plain text content.
 	 *
-	 * Added in Saleor 3.12.
+	 * Added in Weenspace 3.12.
 	 */
 	plainText?: InputMaybe<Scalars["String"]>;
 	/**
 	 * List of entity IDs that will be used as references.
 	 *
-	 * Added in Saleor 3.12.
+	 * Added in Weenspace 3.12.
 	 */
 	references?: InputMaybe<Array<Scalars["ID"]>>;
 	/**
 	 * Text content in JSON format.
 	 *
-	 * Added in Saleor 3.12.
+	 * Added in Weenspace 3.12.
 	 */
 	richText?: InputMaybe<Scalars["JSONString"]>;
 	/**
 	 * Attribute value ID.
 	 *
-	 * Added in Saleor 3.12.
+	 * Added in Weenspace 3.12.
 	 */
 	swatch?: InputMaybe<AttributeValueSelectableTypeInput>;
-	/** The value or slug of an attribute to resolve. If the passed value is non-existent, it will be created.This field will be removed in Saleor 4.0. */
+	/** The value or slug of an attribute to resolve. If the passed value is non-existent, it will be created.This field will be removed in Weenspace 4.0. */
 	values?: InputMaybe<Array<Scalars["String"]>>;
 };
 
@@ -2265,7 +2265,7 @@ export type BulkStockError = {
 /**
  * Synchronous webhook for calculating checkout/order taxes.
  *
- * Added in Saleor 3.7.
+ * Added in Weenspace 3.7.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -2278,7 +2278,7 @@ export type CalculateTaxes = Event & {
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
 	taxBase: TaxableObject;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
@@ -2301,7 +2301,7 @@ export type CatalogueInput = {
 	/**
 	 * Product variant related to the discount.
 	 *
-	 * Added in Saleor 3.1.
+	 * Added in Weenspace 3.1.
 	 */
 	variants?: InputMaybe<Array<Scalars["ID"]>>;
 };
@@ -2325,7 +2325,7 @@ export type Category = Node &
 		 * Description of the category.
 		 *
 		 * Rich text format. For reference see https://editorjs.io/
-		 * @deprecated This field will be removed in Saleor 4.0. Use the `description` field instead.
+		 * @deprecated This field will be removed in Weenspace 4.0. Use the `description` field instead.
 		 */
 		descriptionJson?: Maybe<Scalars["JSONString"]>;
 		id: Scalars["ID"];
@@ -2337,7 +2337,7 @@ export type Category = Node &
 		 *
 		 * Tip: Use GraphQL aliases to fetch multiple keys.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -2345,7 +2345,7 @@ export type Category = Node &
 		/**
 		 * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -2359,7 +2359,7 @@ export type Category = Node &
 		 *
 		 * Tip: Use GraphQL aliases to fetch multiple keys.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -2367,7 +2367,7 @@ export type Category = Node &
 		/**
 		 * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -2449,7 +2449,7 @@ export type CategoryBulkDelete = {
 	/** Returns how many objects were affected. */
 	count: Scalars["Int"];
 	errors: Array<ProductError>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	productErrors: Array<ProductError>;
 };
 
@@ -2479,14 +2479,14 @@ export type CategoryCreate = {
 	__typename?: "CategoryCreate";
 	category?: Maybe<Category>;
 	errors: Array<ProductError>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	productErrors: Array<ProductError>;
 };
 
 /**
  * Event sent when new category is created.
  *
- * Added in Saleor 3.2.
+ * Added in Weenspace 3.2.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -2500,7 +2500,7 @@ export type CategoryCreated = Event & {
 	issuingPrincipal?: Maybe<IssuingPrincipal>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
@@ -2513,14 +2513,14 @@ export type CategoryDelete = {
 	__typename?: "CategoryDelete";
 	category?: Maybe<Category>;
 	errors: Array<ProductError>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	productErrors: Array<ProductError>;
 };
 
 /**
  * Event sent when category is deleted.
  *
- * Added in Saleor 3.2.
+ * Added in Weenspace 3.2.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -2534,7 +2534,7 @@ export type CategoryDeleted = Event & {
 	issuingPrincipal?: Maybe<IssuingPrincipal>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
@@ -2559,7 +2559,7 @@ export type CategoryInput = {
 	/**
 	 * Fields required to update the category metadata.
 	 *
-	 * Added in Saleor 3.8.
+	 * Added in Weenspace 3.8.
 	 */
 	metadata?: InputMaybe<Array<MetadataInput>>;
 	/** Category name. */
@@ -2567,7 +2567,7 @@ export type CategoryInput = {
 	/**
 	 * Fields required to update the category private metadata.
 	 *
-	 * Added in Saleor 3.8.
+	 * Added in Weenspace 3.8.
 	 */
 	privateMetadata?: InputMaybe<Array<MetadataInput>>;
 	/** Search engine optimization fields. */
@@ -2588,7 +2588,7 @@ export type CategorySortingInput = {
 	/**
 	 * Specifies the channel in which to sort the data.
 	 *
-	 * DEPRECATED: this field will be removed in Saleor 4.0. Use root-level channel argument instead.
+	 * DEPRECATED: this field will be removed in Weenspace 4.0. Use root-level channel argument instead.
 	 */
 	channel?: InputMaybe<Scalars["String"]>;
 	/** Specifies the direction in which to sort products. */
@@ -2601,7 +2601,7 @@ export type CategoryTranslatableContent = Node & {
 	__typename?: "CategoryTranslatableContent";
 	/**
 	 * Represents a single category of products.
-	 * @deprecated This field will be removed in Saleor 4.0. Get model fields from the root level queries.
+	 * @deprecated This field will be removed in Weenspace 4.0. Get model fields from the root level queries.
 	 */
 	category?: Maybe<Category>;
 	/**
@@ -2614,7 +2614,7 @@ export type CategoryTranslatableContent = Node & {
 	 * Description of the category.
 	 *
 	 * Rich text format. For reference see https://editorjs.io/
-	 * @deprecated This field will be removed in Saleor 4.0. Use the `description` field instead.
+	 * @deprecated This field will be removed in Weenspace 4.0. Use the `description` field instead.
 	 */
 	descriptionJson?: Maybe<Scalars["JSONString"]>;
 	id: Scalars["ID"];
@@ -2638,7 +2638,7 @@ export type CategoryTranslate = {
 	__typename?: "CategoryTranslate";
 	category?: Maybe<Category>;
 	errors: Array<TranslationError>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	translationErrors: Array<TranslationError>;
 };
 
@@ -2654,7 +2654,7 @@ export type CategoryTranslation = Node & {
 	 * Translated description of the category.
 	 *
 	 * Rich text format. For reference see https://editorjs.io/
-	 * @deprecated This field will be removed in Saleor 4.0. Use the `description` field instead.
+	 * @deprecated This field will be removed in Weenspace 4.0. Use the `description` field instead.
 	 */
 	descriptionJson?: Maybe<Scalars["JSONString"]>;
 	id: Scalars["ID"];
@@ -2674,14 +2674,14 @@ export type CategoryUpdate = {
 	__typename?: "CategoryUpdate";
 	category?: Maybe<Category>;
 	errors: Array<ProductError>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	productErrors: Array<ProductError>;
 };
 
 /**
  * Event sent when category is updated.
  *
- * Added in Saleor 3.2.
+ * Added in Weenspace 3.2.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -2695,7 +2695,7 @@ export type CategoryUpdated = Event & {
 	issuingPrincipal?: Maybe<IssuingPrincipal>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
@@ -2705,7 +2705,7 @@ export type Channel = Node & {
 	/**
 	 * Shipping methods that are available for the channel.
 	 *
-	 * Added in Saleor 3.6.
+	 * Added in Weenspace 3.6.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -2713,7 +2713,7 @@ export type Channel = Node & {
 	/**
 	 * List of shippable countries for the channel.
 	 *
-	 * Added in Saleor 3.6.
+	 * Added in Weenspace 3.6.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -2727,7 +2727,7 @@ export type Channel = Node & {
 	/**
 	 * Default country for the channel. Default country can be used in checkout to determine the stock quantities or calculate taxes when the country was not explicitly provided.
 	 *
-	 * Added in Saleor 3.1.
+	 * Added in Weenspace 3.1.
 	 *
 	 * Requires one of the following permissions: AUTHENTICATED_APP, AUTHENTICATED_STAFF_USER.
 	 */
@@ -2754,7 +2754,7 @@ export type Channel = Node & {
 	/**
 	 * Channel-specific order settings.
 	 *
-	 * Added in Saleor 3.12.
+	 * Added in Weenspace 3.12.
 	 *
 	 * Requires one of the following permissions: MANAGE_CHANNELS, MANAGE_ORDERS.
 	 */
@@ -2764,7 +2764,7 @@ export type Channel = Node & {
 	/**
 	 * Define the stock setting for this channel.
 	 *
-	 * Added in Saleor 3.7.
+	 * Added in Weenspace 3.7.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 *
@@ -2774,7 +2774,7 @@ export type Channel = Node & {
 	/**
 	 * List of warehouses assigned to this channel.
 	 *
-	 * Added in Saleor 3.5.
+	 * Added in Weenspace 3.5.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 *
@@ -2797,7 +2797,7 @@ export type ChannelActivate = {
 	__typename?: "ChannelActivate";
 	/** Activated channel. */
 	channel?: Maybe<Channel>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	channelErrors: Array<ChannelError>;
 	errors: Array<ChannelError>;
 };
@@ -2810,7 +2810,7 @@ export type ChannelActivate = {
 export type ChannelCreate = {
 	__typename?: "ChannelCreate";
 	channel?: Maybe<Channel>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	channelErrors: Array<ChannelError>;
 	errors: Array<ChannelError>;
 };
@@ -2821,7 +2821,7 @@ export type ChannelCreateInput = {
 	/**
 	 * List of warehouses to assign to the channel.
 	 *
-	 * Added in Saleor 3.5.
+	 * Added in Weenspace 3.5.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -2831,7 +2831,7 @@ export type ChannelCreateInput = {
 	/**
 	 * Default country for the channel. Default country can be used in checkout to determine the stock quantities or calculate taxes when the country was not explicitly provided.
 	 *
-	 * Added in Saleor 3.1.
+	 * Added in Weenspace 3.1.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -2843,7 +2843,7 @@ export type ChannelCreateInput = {
 	/**
 	 * The channel order settings
 	 *
-	 * Added in Saleor 3.12.
+	 * Added in Weenspace 3.12.
 	 */
 	orderSettings?: InputMaybe<OrderSettingsInput>;
 	/** Slug of the channel. */
@@ -2851,7 +2851,7 @@ export type ChannelCreateInput = {
 	/**
 	 * The channel stock settings.
 	 *
-	 * Added in Saleor 3.7.
+	 * Added in Weenspace 3.7.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -2861,7 +2861,7 @@ export type ChannelCreateInput = {
 /**
  * Event sent when new channel is created.
  *
- * Added in Saleor 3.2.
+ * Added in Weenspace 3.2.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -2875,7 +2875,7 @@ export type ChannelCreated = Event & {
 	issuingPrincipal?: Maybe<IssuingPrincipal>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
@@ -2888,7 +2888,7 @@ export type ChannelDeactivate = {
 	__typename?: "ChannelDeactivate";
 	/** Deactivated channel. */
 	channel?: Maybe<Channel>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	channelErrors: Array<ChannelError>;
 	errors: Array<ChannelError>;
 };
@@ -2901,7 +2901,7 @@ export type ChannelDeactivate = {
 export type ChannelDelete = {
 	__typename?: "ChannelDelete";
 	channel?: Maybe<Channel>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	channelErrors: Array<ChannelError>;
 	errors: Array<ChannelError>;
 };
@@ -2914,7 +2914,7 @@ export type ChannelDeleteInput = {
 /**
  * Event sent when channel is deleted.
  *
- * Added in Saleor 3.2.
+ * Added in Weenspace 3.2.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -2928,7 +2928,7 @@ export type ChannelDeleted = Event & {
 	issuingPrincipal?: Maybe<IssuingPrincipal>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
@@ -2972,7 +2972,7 @@ export type ChannelListingUpdateInput = {
 /**
  * Reorder the warehouses of a channel.
  *
- * Added in Saleor 3.7.
+ * Added in Weenspace 3.7.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  *
@@ -2988,7 +2988,7 @@ export type ChannelReorderWarehouses = {
 /**
  * Event sent when channel status has changed.
  *
- * Added in Saleor 3.2.
+ * Added in Weenspace 3.2.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -3002,7 +3002,7 @@ export type ChannelStatusChanged = Event & {
 	issuingPrincipal?: Maybe<IssuingPrincipal>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
@@ -3015,7 +3015,7 @@ export type ChannelStatusChanged = Event & {
 export type ChannelUpdate = {
 	__typename?: "ChannelUpdate";
 	channel?: Maybe<Channel>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	channelErrors: Array<ChannelError>;
 	errors: Array<ChannelError>;
 };
@@ -3026,7 +3026,7 @@ export type ChannelUpdateInput = {
 	/**
 	 * List of warehouses to assign to the channel.
 	 *
-	 * Added in Saleor 3.5.
+	 * Added in Weenspace 3.5.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -3034,7 +3034,7 @@ export type ChannelUpdateInput = {
 	/**
 	 * Default country for the channel. Default country can be used in checkout to determine the stock quantities or calculate taxes when the country was not explicitly provided.
 	 *
-	 * Added in Saleor 3.1.
+	 * Added in Weenspace 3.1.
 	 */
 	defaultCountry?: InputMaybe<CountryCode>;
 	/** isActive flag. */
@@ -3044,7 +3044,7 @@ export type ChannelUpdateInput = {
 	/**
 	 * The channel order settings
 	 *
-	 * Added in Saleor 3.12.
+	 * Added in Weenspace 3.12.
 	 */
 	orderSettings?: InputMaybe<OrderSettingsInput>;
 	/** List of shipping zones to unassign from the channel. */
@@ -3052,7 +3052,7 @@ export type ChannelUpdateInput = {
 	/**
 	 * List of warehouses to unassign from the channel.
 	 *
-	 * Added in Saleor 3.5.
+	 * Added in Weenspace 3.5.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -3062,7 +3062,7 @@ export type ChannelUpdateInput = {
 	/**
 	 * The channel stock settings.
 	 *
-	 * Added in Saleor 3.7.
+	 * Added in Weenspace 3.7.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -3072,7 +3072,7 @@ export type ChannelUpdateInput = {
 /**
  * Event sent when channel is updated.
  *
- * Added in Saleor 3.2.
+ * Added in Weenspace 3.2.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -3086,7 +3086,7 @@ export type ChannelUpdated = Event & {
 	issuingPrincipal?: Maybe<IssuingPrincipal>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
@@ -3097,7 +3097,7 @@ export type Checkout = Node &
 		/**
 		 * The authorize status of the checkout.
 		 *
-		 * Added in Saleor 3.13.
+		 * Added in Weenspace 3.13.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -3105,7 +3105,7 @@ export type Checkout = Node &
 		/**
 		 * Collection points that can be used for this order.
 		 *
-		 * Added in Saleor 3.1.
+		 * Added in Weenspace 3.1.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -3114,7 +3114,7 @@ export type Checkout = Node &
 		availablePaymentGateways: Array<PaymentGateway>;
 		/**
 		 * Shipping methods that can be used with this checkout.
-		 * @deprecated This field will be removed in Saleor 4.0. Use `shippingMethods` instead.
+		 * @deprecated This field will be removed in Weenspace 4.0. Use `shippingMethods` instead.
 		 */
 		availableShippingMethods: Array<ShippingMethod>;
 		billingAddress?: Maybe<Address>;
@@ -3122,7 +3122,7 @@ export type Checkout = Node &
 		/**
 		 * The charge status of the checkout.
 		 *
-		 * Added in Saleor 3.13.
+		 * Added in Weenspace 3.13.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -3131,7 +3131,7 @@ export type Checkout = Node &
 		/**
 		 * The delivery method selected for this checkout.
 		 *
-		 * Added in Saleor 3.1.
+		 * Added in Weenspace 3.1.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -3141,7 +3141,7 @@ export type Checkout = Node &
 		/**
 		 * Determines whether checkout prices should include taxes when displayed in a storefront.
 		 *
-		 * Added in Saleor 3.9.
+		 * Added in Weenspace 3.9.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -3155,7 +3155,7 @@ export type Checkout = Node &
 		isShippingRequired: Scalars["Boolean"];
 		/** Checkout language code. */
 		languageCode: LanguageCodeEnum;
-		/** @deprecated This field will be removed in Saleor 4.0. Use `updatedAt` instead. */
+		/** @deprecated This field will be removed in Weenspace 4.0. Use `updatedAt` instead. */
 		lastChange: Scalars["DateTime"];
 		/** A list of checkout lines, each containing information about an item in the checkout. */
 		lines: Array<CheckoutLine>;
@@ -3166,7 +3166,7 @@ export type Checkout = Node &
 		 *
 		 * Tip: Use GraphQL aliases to fetch multiple keys.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -3174,7 +3174,7 @@ export type Checkout = Node &
 		/**
 		 * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -3187,7 +3187,7 @@ export type Checkout = Node &
 		 *
 		 * Tip: Use GraphQL aliases to fetch multiple keys.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -3195,7 +3195,7 @@ export type Checkout = Node &
 		/**
 		 * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -3205,7 +3205,7 @@ export type Checkout = Node &
 		shippingAddress?: Maybe<Address>;
 		/**
 		 * The shipping method related with checkout.
-		 * @deprecated This field will be removed in Saleor 4.0. Use `deliveryMethod` instead.
+		 * @deprecated This field will be removed in Weenspace 4.0. Use `deliveryMethod` instead.
 		 */
 		shippingMethod?: Maybe<ShippingMethod>;
 		/** Shipping methods that can be used with this checkout. */
@@ -3215,7 +3215,7 @@ export type Checkout = Node &
 		/**
 		 * Date when oldest stock reservation for this checkout expires or null if no stock is reserved.
 		 *
-		 * Added in Saleor 3.1.
+		 * Added in Weenspace 3.1.
 		 */
 		stockReservationExpires?: Maybe<Scalars["DateTime"]>;
 		/** The price of the checkout before shipping, with taxes included. */
@@ -3223,7 +3223,7 @@ export type Checkout = Node &
 		/**
 		 * Returns True if checkout has to be exempt from taxes.
 		 *
-		 * Added in Saleor 3.8.
+		 * Added in Weenspace 3.8.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -3233,7 +3233,7 @@ export type Checkout = Node &
 		/**
 		 * The difference between the paid and the checkout total amount.
 		 *
-		 * Added in Saleor 3.13.
+		 * Added in Weenspace 3.13.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -3243,7 +3243,7 @@ export type Checkout = Node &
 		/**
 		 * List of transactions for the checkout. Requires one of the following permissions: MANAGE_CHECKOUTS, HANDLE_PAYMENTS.
 		 *
-		 * Added in Saleor 3.4.
+		 * Added in Weenspace 3.4.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -3280,7 +3280,7 @@ export type CheckoutAddPromoCode = {
 	__typename?: "CheckoutAddPromoCode";
 	/** The checkout with the added gift card or voucher. */
 	checkout?: Maybe<Checkout>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	checkoutErrors: Array<CheckoutError>;
 	errors: Array<CheckoutError>;
 };
@@ -3290,7 +3290,7 @@ export type CheckoutAddressValidationRules = {
 	checkFieldsFormat?: InputMaybe<Scalars["Boolean"]>;
 	/** Determines if an error should be raised when the provided address doesn't have all the required fields. The list of required fields is dynamic and depends on the country code (use the `addressValidationRules` query to fetch them). Note: country code is mandatory for all addresses regardless of the rules provided in this input. */
 	checkRequiredFields?: InputMaybe<Scalars["Boolean"]>;
-	/** Determines if Saleor should apply normalization on address fields. Example: converting city field to uppercase letters. */
+	/** Determines if Weenspace should apply normalization on address fields. Example: converting city field to uppercase letters. */
 	enableFieldsNormalization?: InputMaybe<Scalars["Boolean"]>;
 };
 
@@ -3315,7 +3315,7 @@ export type CheckoutBillingAddressUpdate = {
 	__typename?: "CheckoutBillingAddressUpdate";
 	/** An updated checkout. */
 	checkout?: Maybe<Checkout>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	checkoutErrors: Array<CheckoutError>;
 	errors: Array<CheckoutError>;
 };
@@ -3341,7 +3341,7 @@ export type CheckoutChargeStatusEnum = "FULL" | "NONE" | "OVERCHARGED" | "PARTIA
 /** Completes the checkout. As a result a new order is created and a payment charge is made. This action requires a successful payment before it can be performed. In case additional confirmation step as 3D secure is required confirmationNeeded flag will be set to True and no order created until payment is confirmed with second call of this mutation. */
 export type CheckoutComplete = {
 	__typename?: "CheckoutComplete";
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	checkoutErrors: Array<CheckoutError>;
 	/** Confirmation data used to process additional authorization steps. */
 	confirmationData?: Maybe<Scalars["JSONString"]>;
@@ -3373,11 +3373,11 @@ export type CheckoutCountableEdge = {
 export type CheckoutCreate = {
 	__typename?: "CheckoutCreate";
 	checkout?: Maybe<Checkout>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	checkoutErrors: Array<CheckoutError>;
 	/**
 	 * Whether the checkout was created or the current active one was returned. Refer to checkoutLinesAdd and checkoutLinesUpdate to merge a cart with an active checkout.
-	 * @deprecated This field will be removed in Saleor 4.0. Always returns `true`.
+	 * @deprecated This field will be removed in Weenspace 4.0. Always returns `true`.
 	 */
 	created?: Maybe<Scalars["Boolean"]>;
 	errors: Array<CheckoutError>;
@@ -3399,7 +3399,7 @@ export type CheckoutCreateInput = {
 	/**
 	 * The checkout validation rules that can be changed.
 	 *
-	 * Added in Saleor 3.5.
+	 * Added in Weenspace 3.5.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -3409,7 +3409,7 @@ export type CheckoutCreateInput = {
 /**
  * Event sent when new checkout is created.
  *
- * Added in Saleor 3.2.
+ * Added in Weenspace 3.2.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -3423,7 +3423,7 @@ export type CheckoutCreated = Event & {
 	issuingPrincipal?: Maybe<IssuingPrincipal>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
@@ -3436,7 +3436,7 @@ export type CheckoutCustomerAttach = {
 	__typename?: "CheckoutCustomerAttach";
 	/** An updated checkout. */
 	checkout?: Maybe<Checkout>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	checkoutErrors: Array<CheckoutError>;
 	errors: Array<CheckoutError>;
 };
@@ -3450,7 +3450,7 @@ export type CheckoutCustomerDetach = {
 	__typename?: "CheckoutCustomerDetach";
 	/** An updated checkout. */
 	checkout?: Maybe<Checkout>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	checkoutErrors: Array<CheckoutError>;
 	errors: Array<CheckoutError>;
 };
@@ -3458,7 +3458,7 @@ export type CheckoutCustomerDetach = {
 /**
  * Updates the delivery method (shipping method or pick up point) of the checkout.
  *
- * Added in Saleor 3.1.
+ * Added in Weenspace 3.1.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -3474,7 +3474,7 @@ export type CheckoutEmailUpdate = {
 	__typename?: "CheckoutEmailUpdate";
 	/** An updated checkout. */
 	checkout?: Maybe<Checkout>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	checkoutErrors: Array<CheckoutError>;
 	errors: Array<CheckoutError>;
 };
@@ -3540,7 +3540,7 @@ export type CheckoutFilterInput = {
 /**
  * Filter shipping methods for checkout.
  *
- * Added in Saleor 3.6.
+ * Added in Weenspace 3.6.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -3557,19 +3557,19 @@ export type CheckoutFilterShippingMethods = Event & {
 	/**
 	 * Shipping methods that can be used with this checkout.
 	 *
-	 * Added in Saleor 3.6.
+	 * Added in Weenspace 3.6.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
 	shippingMethods?: Maybe<Array<ShippingMethod>>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
 /**
  * Event sent when checkout is fully paid with transactions.
  *
- * Added in Saleor 3.13.
+ * Added in Weenspace 3.13.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -3583,7 +3583,7 @@ export type CheckoutFullyPaid = Event & {
 	issuingPrincipal?: Maybe<IssuingPrincipal>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
@@ -3592,7 +3592,7 @@ export type CheckoutLanguageCodeUpdate = {
 	__typename?: "CheckoutLanguageCodeUpdate";
 	/** An updated checkout. */
 	checkout?: Maybe<Checkout>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	checkoutErrors: Array<CheckoutError>;
 	errors: Array<CheckoutError>;
 };
@@ -3605,7 +3605,7 @@ export type CheckoutLine = Node &
 		/**
 		 * List of public metadata items. Can be accessed without permissions.
 		 *
-		 * Added in Saleor 3.5.
+		 * Added in Weenspace 3.5.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -3615,7 +3615,7 @@ export type CheckoutLine = Node &
 		 *
 		 * Tip: Use GraphQL aliases to fetch multiple keys.
 		 *
-		 * Added in Saleor 3.5.
+		 * Added in Weenspace 3.5.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -3623,7 +3623,7 @@ export type CheckoutLine = Node &
 		/**
 		 * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
 		 *
-		 * Added in Saleor 3.5.
+		 * Added in Weenspace 3.5.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -3631,7 +3631,7 @@ export type CheckoutLine = Node &
 		/**
 		 * List of private metadata items. Requires staff permissions to access.
 		 *
-		 * Added in Saleor 3.5.
+		 * Added in Weenspace 3.5.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -3641,7 +3641,7 @@ export type CheckoutLine = Node &
 		 *
 		 * Tip: Use GraphQL aliases to fetch multiple keys.
 		 *
-		 * Added in Saleor 3.5.
+		 * Added in Weenspace 3.5.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -3649,7 +3649,7 @@ export type CheckoutLine = Node &
 		/**
 		 * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
 		 *
-		 * Added in Saleor 3.5.
+		 * Added in Weenspace 3.5.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -3710,7 +3710,7 @@ export type CheckoutLineDelete = {
 	__typename?: "CheckoutLineDelete";
 	/** An updated checkout. */
 	checkout?: Maybe<Checkout>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	checkoutErrors: Array<CheckoutError>;
 	errors: Array<CheckoutError>;
 };
@@ -3719,7 +3719,7 @@ export type CheckoutLineInput = {
 	/**
 	 * Flag that allow force splitting the same variant into multiple lines by skipping the matching logic.
 	 *
-	 * Added in Saleor 3.6.
+	 * Added in Weenspace 3.6.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -3727,13 +3727,13 @@ export type CheckoutLineInput = {
 	/**
 	 * Fields required to update the object's metadata.
 	 *
-	 * Added in Saleor 3.8.
+	 * Added in Weenspace 3.8.
 	 */
 	metadata?: InputMaybe<Array<MetadataInput>>;
 	/**
 	 * Custom price of the item. Can be set only by apps with `HANDLE_CHECKOUTS` permission. When the line with the same variant will be provided multiple times, the last price will be used.
 	 *
-	 * Added in Saleor 3.1.
+	 * Added in Weenspace 3.1.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -3748,13 +3748,13 @@ export type CheckoutLineUpdateInput = {
 	/**
 	 * ID of the line.
 	 *
-	 * Added in Saleor 3.6.
+	 * Added in Weenspace 3.6.
 	 */
 	lineId?: InputMaybe<Scalars["ID"]>;
 	/**
 	 * Custom price of the item. Can be set only by apps with `HANDLE_CHECKOUTS` permission. When the line with the same variant will be provided multiple times, the last price will be used.
 	 *
-	 * Added in Saleor 3.1.
+	 * Added in Weenspace 3.1.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -3764,7 +3764,7 @@ export type CheckoutLineUpdateInput = {
 	/**
 	 * ID of the product variant.
 	 *
-	 * DEPRECATED: this field will be removed in Saleor 4.0. Use `lineId` instead.
+	 * DEPRECATED: this field will be removed in Weenspace 4.0. Use `lineId` instead.
 	 */
 	variantId?: InputMaybe<Scalars["ID"]>;
 };
@@ -3774,7 +3774,7 @@ export type CheckoutLinesAdd = {
 	__typename?: "CheckoutLinesAdd";
 	/** An updated checkout. */
 	checkout?: Maybe<Checkout>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	checkoutErrors: Array<CheckoutError>;
 	errors: Array<CheckoutError>;
 };
@@ -3792,7 +3792,7 @@ export type CheckoutLinesUpdate = {
 	__typename?: "CheckoutLinesUpdate";
 	/** An updated checkout. */
 	checkout?: Maybe<Checkout>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	checkoutErrors: Array<CheckoutError>;
 	errors: Array<CheckoutError>;
 };
@@ -3800,7 +3800,7 @@ export type CheckoutLinesUpdate = {
 /**
  * Event sent when checkout metadata is updated.
  *
- * Added in Saleor 3.8.
+ * Added in Weenspace 3.8.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -3814,7 +3814,7 @@ export type CheckoutMetadataUpdated = Event & {
 	issuingPrincipal?: Maybe<IssuingPrincipal>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
@@ -3826,7 +3826,7 @@ export type CheckoutPaymentCreate = {
 	errors: Array<PaymentError>;
 	/** A newly created payment. */
 	payment?: Maybe<Payment>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	paymentErrors: Array<PaymentError>;
 };
 
@@ -3835,7 +3835,7 @@ export type CheckoutRemovePromoCode = {
 	__typename?: "CheckoutRemovePromoCode";
 	/** The checkout with the removed gift card or voucher. */
 	checkout?: Maybe<Checkout>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	checkoutErrors: Array<CheckoutError>;
 	errors: Array<CheckoutError>;
 };
@@ -3845,7 +3845,7 @@ export type CheckoutShippingAddressUpdate = {
 	__typename?: "CheckoutShippingAddressUpdate";
 	/** An updated checkout. */
 	checkout?: Maybe<Checkout>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	checkoutErrors: Array<CheckoutError>;
 	errors: Array<CheckoutError>;
 };
@@ -3855,7 +3855,7 @@ export type CheckoutShippingMethodUpdate = {
 	__typename?: "CheckoutShippingMethodUpdate";
 	/** An updated checkout. */
 	checkout?: Maybe<Checkout>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	checkoutErrors: Array<CheckoutError>;
 	errors: Array<CheckoutError>;
 };
@@ -3878,7 +3878,7 @@ export type CheckoutSortingInput = {
 /**
  * Event sent when checkout is updated.
  *
- * Added in Saleor 3.2.
+ * Added in Weenspace 3.2.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -3892,7 +3892,7 @@ export type CheckoutUpdated = Event & {
 	issuingPrincipal?: Maybe<IssuingPrincipal>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
@@ -3932,7 +3932,7 @@ export type Collection = Node &
 		 * Description of the collection.
 		 *
 		 * Rich text format. For reference see https://editorjs.io/
-		 * @deprecated This field will be removed in Saleor 4.0. Use the `description` field instead.
+		 * @deprecated This field will be removed in Weenspace 4.0. Use the `description` field instead.
 		 */
 		descriptionJson?: Maybe<Scalars["JSONString"]>;
 		id: Scalars["ID"];
@@ -3943,7 +3943,7 @@ export type Collection = Node &
 		 *
 		 * Tip: Use GraphQL aliases to fetch multiple keys.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -3951,7 +3951,7 @@ export type Collection = Node &
 		/**
 		 * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -3964,7 +3964,7 @@ export type Collection = Node &
 		 *
 		 * Tip: Use GraphQL aliases to fetch multiple keys.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -3972,7 +3972,7 @@ export type Collection = Node &
 		/**
 		 * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -4036,7 +4036,7 @@ export type CollectionAddProducts = {
 	__typename?: "CollectionAddProducts";
 	/** Collection to which products will be added. */
 	collection?: Maybe<Collection>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	collectionErrors: Array<CollectionError>;
 	errors: Array<CollectionError>;
 };
@@ -4048,7 +4048,7 @@ export type CollectionAddProducts = {
  */
 export type CollectionBulkDelete = {
 	__typename?: "CollectionBulkDelete";
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	collectionErrors: Array<CollectionError>;
 	/** Returns how many objects were affected. */
 	count: Scalars["Int"];
@@ -4061,12 +4061,12 @@ export type CollectionChannelListing = Node & {
 	channel: Channel;
 	id: Scalars["ID"];
 	isPublished: Scalars["Boolean"];
-	/** @deprecated This field will be removed in Saleor 4.0. Use the `publishedAt` field to fetch the publication date. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use the `publishedAt` field to fetch the publication date. */
 	publicationDate?: Maybe<Scalars["Date"]>;
 	/**
 	 * The collection publication date.
 	 *
-	 * Added in Saleor 3.3.
+	 * Added in Weenspace 3.3.
 	 */
 	publishedAt?: Maybe<Scalars["DateTime"]>;
 };
@@ -4096,7 +4096,7 @@ export type CollectionChannelListingUpdate = {
 	__typename?: "CollectionChannelListingUpdate";
 	/** An updated collection instance. */
 	collection?: Maybe<Collection>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	collectionChannelListingErrors: Array<CollectionChannelListingError>;
 	errors: Array<CollectionChannelListingError>;
 };
@@ -4133,7 +4133,7 @@ export type CollectionCountableEdge = {
 export type CollectionCreate = {
 	__typename?: "CollectionCreate";
 	collection?: Maybe<Collection>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	collectionErrors: Array<CollectionError>;
 	errors: Array<CollectionError>;
 };
@@ -4154,7 +4154,7 @@ export type CollectionCreateInput = {
 	/**
 	 * Fields required to update the collection metadata.
 	 *
-	 * Added in Saleor 3.8.
+	 * Added in Weenspace 3.8.
 	 */
 	metadata?: InputMaybe<Array<MetadataInput>>;
 	/** Name of the collection. */
@@ -4162,7 +4162,7 @@ export type CollectionCreateInput = {
 	/**
 	 * Fields required to update the collection private metadata.
 	 *
-	 * Added in Saleor 3.8.
+	 * Added in Weenspace 3.8.
 	 */
 	privateMetadata?: InputMaybe<Array<MetadataInput>>;
 	/** List of products to be added to the collection. */
@@ -4170,7 +4170,7 @@ export type CollectionCreateInput = {
 	/**
 	 * Publication date. ISO 8601 standard.
 	 *
-	 * DEPRECATED: this field will be removed in Saleor 4.0.
+	 * DEPRECATED: this field will be removed in Weenspace 4.0.
 	 */
 	publicationDate?: InputMaybe<Scalars["Date"]>;
 	/** Search engine optimization fields. */
@@ -4182,7 +4182,7 @@ export type CollectionCreateInput = {
 /**
  * Event sent when new collection is created.
  *
- * Added in Saleor 3.2.
+ * Added in Weenspace 3.2.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -4196,14 +4196,14 @@ export type CollectionCreated = Event & {
 	issuingPrincipal?: Maybe<IssuingPrincipal>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
 /**
  * Event sent when new collection is created.
  *
- * Added in Saleor 3.2.
+ * Added in Weenspace 3.2.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -4219,7 +4219,7 @@ export type CollectionCreatedCollectionArgs = {
 export type CollectionDelete = {
 	__typename?: "CollectionDelete";
 	collection?: Maybe<Collection>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	collectionErrors: Array<CollectionError>;
 	errors: Array<CollectionError>;
 };
@@ -4227,7 +4227,7 @@ export type CollectionDelete = {
 /**
  * Event sent when collection is deleted.
  *
- * Added in Saleor 3.2.
+ * Added in Weenspace 3.2.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -4241,14 +4241,14 @@ export type CollectionDeleted = Event & {
 	issuingPrincipal?: Maybe<IssuingPrincipal>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
 /**
  * Event sent when collection is deleted.
  *
- * Added in Saleor 3.2.
+ * Added in Weenspace 3.2.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -4282,7 +4282,7 @@ export type CollectionFilterInput = {
 	/**
 	 * Specifies the channel by which the data should be filtered.
 	 *
-	 * DEPRECATED: this field will be removed in Saleor 4.0. Use root-level channel argument instead.
+	 * DEPRECATED: this field will be removed in Weenspace 4.0. Use root-level channel argument instead.
 	 */
 	channel?: InputMaybe<Scalars["String"]>;
 	ids?: InputMaybe<Array<Scalars["ID"]>>;
@@ -4308,7 +4308,7 @@ export type CollectionInput = {
 	/**
 	 * Fields required to update the collection metadata.
 	 *
-	 * Added in Saleor 3.8.
+	 * Added in Weenspace 3.8.
 	 */
 	metadata?: InputMaybe<Array<MetadataInput>>;
 	/** Name of the collection. */
@@ -4316,13 +4316,13 @@ export type CollectionInput = {
 	/**
 	 * Fields required to update the collection private metadata.
 	 *
-	 * Added in Saleor 3.8.
+	 * Added in Weenspace 3.8.
 	 */
 	privateMetadata?: InputMaybe<Array<MetadataInput>>;
 	/**
 	 * Publication date. ISO 8601 standard.
 	 *
-	 * DEPRECATED: this field will be removed in Saleor 4.0.
+	 * DEPRECATED: this field will be removed in Weenspace 4.0.
 	 */
 	publicationDate?: InputMaybe<Scalars["Date"]>;
 	/** Search engine optimization fields. */
@@ -4334,7 +4334,7 @@ export type CollectionInput = {
 /**
  * Event sent when collection metadata is updated.
  *
- * Added in Saleor 3.8.
+ * Added in Weenspace 3.8.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -4348,14 +4348,14 @@ export type CollectionMetadataUpdated = Event & {
 	issuingPrincipal?: Maybe<IssuingPrincipal>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
 /**
  * Event sent when collection metadata is updated.
  *
- * Added in Saleor 3.8.
+ * Added in Weenspace 3.8.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -4374,7 +4374,7 @@ export type CollectionRemoveProducts = {
 	__typename?: "CollectionRemoveProducts";
 	/** Collection from which products will be removed. */
 	collection?: Maybe<Collection>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	collectionErrors: Array<CollectionError>;
 	errors: Array<CollectionError>;
 };
@@ -4388,7 +4388,7 @@ export type CollectionReorderProducts = {
 	__typename?: "CollectionReorderProducts";
 	/** Collection from which products are reordered. */
 	collection?: Maybe<Collection>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	collectionErrors: Array<CollectionError>;
 	errors: Array<CollectionError>;
 };
@@ -4421,7 +4421,7 @@ export type CollectionSortingInput = {
 	/**
 	 * Specifies the channel in which to sort the data.
 	 *
-	 * DEPRECATED: this field will be removed in Saleor 4.0. Use root-level channel argument instead.
+	 * DEPRECATED: this field will be removed in Weenspace 4.0. Use root-level channel argument instead.
 	 */
 	channel?: InputMaybe<Scalars["String"]>;
 	/** Specifies the direction in which to sort products. */
@@ -4434,7 +4434,7 @@ export type CollectionTranslatableContent = Node & {
 	__typename?: "CollectionTranslatableContent";
 	/**
 	 * Represents a collection of products.
-	 * @deprecated This field will be removed in Saleor 4.0. Get model fields from the root level queries.
+	 * @deprecated This field will be removed in Weenspace 4.0. Get model fields from the root level queries.
 	 */
 	collection?: Maybe<Collection>;
 	/**
@@ -4447,7 +4447,7 @@ export type CollectionTranslatableContent = Node & {
 	 * Description of the collection.
 	 *
 	 * Rich text format. For reference see https://editorjs.io/
-	 * @deprecated This field will be removed in Saleor 4.0. Use the `description` field instead.
+	 * @deprecated This field will be removed in Weenspace 4.0. Use the `description` field instead.
 	 */
 	descriptionJson?: Maybe<Scalars["JSONString"]>;
 	id: Scalars["ID"];
@@ -4471,7 +4471,7 @@ export type CollectionTranslate = {
 	__typename?: "CollectionTranslate";
 	collection?: Maybe<Collection>;
 	errors: Array<TranslationError>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	translationErrors: Array<TranslationError>;
 };
 
@@ -4487,7 +4487,7 @@ export type CollectionTranslation = Node & {
 	 * Translated description of the collection.
 	 *
 	 * Rich text format. For reference see https://editorjs.io/
-	 * @deprecated This field will be removed in Saleor 4.0. Use the `description` field instead.
+	 * @deprecated This field will be removed in Weenspace 4.0. Use the `description` field instead.
 	 */
 	descriptionJson?: Maybe<Scalars["JSONString"]>;
 	id: Scalars["ID"];
@@ -4506,7 +4506,7 @@ export type CollectionTranslation = Node & {
 export type CollectionUpdate = {
 	__typename?: "CollectionUpdate";
 	collection?: Maybe<Collection>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	collectionErrors: Array<CollectionError>;
 	errors: Array<CollectionError>;
 };
@@ -4514,7 +4514,7 @@ export type CollectionUpdate = {
 /**
  * Event sent when collection is updated.
  *
- * Added in Saleor 3.2.
+ * Added in Weenspace 3.2.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -4528,14 +4528,14 @@ export type CollectionUpdated = Event & {
 	issuingPrincipal?: Maybe<IssuingPrincipal>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
 /**
  * Event sent when collection is updated.
  *
- * Added in Saleor 3.2.
+ * Added in Weenspace 3.2.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -4578,7 +4578,7 @@ export type ConfigurationTypeFieldEnum =
 /** Confirm user account with token sent by email during registration. */
 export type ConfirmAccount = {
 	__typename?: "ConfirmAccount";
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	accountErrors: Array<AccountError>;
 	errors: Array<AccountError>;
 	/** An activated user account. */
@@ -4592,7 +4592,7 @@ export type ConfirmAccount = {
  */
 export type ConfirmEmailChange = {
 	__typename?: "ConfirmEmailChange";
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	accountErrors: Array<AccountError>;
 	errors: Array<AccountError>;
 	/** A user instance with a new email. */
@@ -4860,7 +4860,7 @@ export type CountryDisplay = {
 	country: Scalars["String"];
 	/**
 	 * Country tax.
-	 * @deprecated This field will be removed in Saleor 4.0. Use `TaxClassCountryRate` type to manage tax rates per country.
+	 * @deprecated This field will be removed in Weenspace 4.0. Use `TaxClassCountryRate` type to manage tax rates per country.
 	 */
 	vat?: Maybe<Vat>;
 };
@@ -4887,7 +4887,7 @@ export type CountryRateUpdateInput = {
 /** Create JWT token. */
 export type CreateToken = {
 	__typename?: "CreateToken";
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	accountErrors: Array<AccountError>;
 	/** CSRF token required to re-generate access token. */
 	csrfToken?: Maybe<Scalars["String"]>;
@@ -4921,7 +4921,7 @@ export type CreditCard = {
  */
 export type CustomerBulkDelete = {
 	__typename?: "CustomerBulkDelete";
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	accountErrors: Array<AccountError>;
 	/** Returns how many objects were affected. */
 	count: Scalars["Int"];
@@ -4935,7 +4935,7 @@ export type CustomerBulkDelete = {
  */
 export type CustomerCreate = {
 	__typename?: "CustomerCreate";
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	accountErrors: Array<AccountError>;
 	errors: Array<AccountError>;
 	user?: Maybe<User>;
@@ -4944,7 +4944,7 @@ export type CustomerCreate = {
 /**
  * Event sent when new customer user is created.
  *
- * Added in Saleor 3.2.
+ * Added in Weenspace 3.2.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -4958,7 +4958,7 @@ export type CustomerCreated = Event & {
 	recipient?: Maybe<App>;
 	/** The user the event relates to. */
 	user?: Maybe<User>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
@@ -4969,7 +4969,7 @@ export type CustomerCreated = Event & {
  */
 export type CustomerDelete = {
 	__typename?: "CustomerDelete";
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	accountErrors: Array<AccountError>;
 	errors: Array<AccountError>;
 	user?: Maybe<User>;
@@ -5020,7 +5020,7 @@ export type CustomerFilterInput = {
 	/**
 	 * Filter by ids.
 	 *
-	 * Added in Saleor 3.8.
+	 * Added in Weenspace 3.8.
 	 */
 	ids?: InputMaybe<Array<Scalars["ID"]>>;
 	metadata?: InputMaybe<Array<MetadataFilter>>;
@@ -5040,7 +5040,7 @@ export type CustomerInput = {
 	/**
 	 * External ID of the customer.
 	 *
-	 * Added in Saleor 3.10.
+	 * Added in Weenspace 3.10.
 	 */
 	externalReference?: InputMaybe<Scalars["String"]>;
 	/** Given name. */
@@ -5058,7 +5058,7 @@ export type CustomerInput = {
 /**
  * Event sent when customer user metadata is updated.
  *
- * Added in Saleor 3.8.
+ * Added in Weenspace 3.8.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -5072,7 +5072,7 @@ export type CustomerMetadataUpdated = Event & {
 	recipient?: Maybe<App>;
 	/** The user the event relates to. */
 	user?: Maybe<User>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
@@ -5083,7 +5083,7 @@ export type CustomerMetadataUpdated = Event & {
  */
 export type CustomerUpdate = {
 	__typename?: "CustomerUpdate";
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	accountErrors: Array<AccountError>;
 	errors: Array<AccountError>;
 	user?: Maybe<User>;
@@ -5092,7 +5092,7 @@ export type CustomerUpdate = {
 /**
  * Event sent when customer user is updated.
  *
- * Added in Saleor 3.2.
+ * Added in Weenspace 3.2.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -5106,7 +5106,7 @@ export type CustomerUpdated = Event & {
 	recipient?: Maybe<App>;
 	/** The user the event relates to. */
 	user?: Maybe<User>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
@@ -5131,7 +5131,7 @@ export type DateTimeRangeInput = {
  */
 export type DeactivateAllUserTokens = {
 	__typename?: "DeactivateAllUserTokens";
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	accountErrors: Array<AccountError>;
 	errors: Array<AccountError>;
 };
@@ -5141,7 +5141,7 @@ export type DeleteMetadata = {
 	__typename?: "DeleteMetadata";
 	errors: Array<MetadataError>;
 	item?: Maybe<ObjectWithMetadata>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	metadataErrors: Array<MetadataError>;
 };
 
@@ -5150,14 +5150,14 @@ export type DeletePrivateMetadata = {
 	__typename?: "DeletePrivateMetadata";
 	errors: Array<MetadataError>;
 	item?: Maybe<ObjectWithMetadata>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	metadataErrors: Array<MetadataError>;
 };
 
 /**
  * Represents a delivery method chosen for the checkout. `Warehouse` type is used when checkout is marked as "click and collect" and `ShippingMethod` otherwise.
  *
- * Added in Saleor 3.1.
+ * Added in Weenspace 3.1.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -5177,7 +5177,7 @@ export type DigitalContent = Node &
 		 *
 		 * Tip: Use GraphQL aliases to fetch multiple keys.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -5185,7 +5185,7 @@ export type DigitalContent = Node &
 		/**
 		 * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -5197,7 +5197,7 @@ export type DigitalContent = Node &
 		 *
 		 * Tip: Use GraphQL aliases to fetch multiple keys.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -5205,7 +5205,7 @@ export type DigitalContent = Node &
 		/**
 		 * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -5260,7 +5260,7 @@ export type DigitalContentCreate = {
 	__typename?: "DigitalContentCreate";
 	content?: Maybe<DigitalContent>;
 	errors: Array<ProductError>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	productErrors: Array<ProductError>;
 	variant?: Maybe<ProductVariant>;
 };
@@ -5273,7 +5273,7 @@ export type DigitalContentCreate = {
 export type DigitalContentDelete = {
 	__typename?: "DigitalContentDelete";
 	errors: Array<ProductError>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	productErrors: Array<ProductError>;
 	variant?: Maybe<ProductVariant>;
 };
@@ -5286,13 +5286,13 @@ export type DigitalContentInput = {
 	/**
 	 * Fields required to update the digital content metadata.
 	 *
-	 * Added in Saleor 3.8.
+	 * Added in Weenspace 3.8.
 	 */
 	metadata?: InputMaybe<Array<MetadataInput>>;
 	/**
 	 * Fields required to update the digital content private metadata.
 	 *
-	 * Added in Saleor 3.8.
+	 * Added in Weenspace 3.8.
 	 */
 	privateMetadata?: InputMaybe<Array<MetadataInput>>;
 	/** Determines for how many days a download link is active since it was generated. */
@@ -5310,7 +5310,7 @@ export type DigitalContentUpdate = {
 	__typename?: "DigitalContentUpdate";
 	content?: Maybe<DigitalContent>;
 	errors: Array<ProductError>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	productErrors: Array<ProductError>;
 	variant?: Maybe<ProductVariant>;
 };
@@ -5325,13 +5325,13 @@ export type DigitalContentUploadInput = {
 	/**
 	 * Fields required to update the digital content metadata.
 	 *
-	 * Added in Saleor 3.8.
+	 * Added in Weenspace 3.8.
 	 */
 	metadata?: InputMaybe<Array<MetadataInput>>;
 	/**
 	 * Fields required to update the digital content private metadata.
 	 *
-	 * Added in Saleor 3.8.
+	 * Added in Weenspace 3.8.
 	 */
 	privateMetadata?: InputMaybe<Array<MetadataInput>>;
 	/** Determines for how many days a download link is active since it was generated. */
@@ -5361,7 +5361,7 @@ export type DigitalContentUrlCreate = {
 	__typename?: "DigitalContentUrlCreate";
 	digitalContentUrl?: Maybe<DigitalContentUrl>;
 	errors: Array<ProductError>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	productErrors: Array<ProductError>;
 };
 
@@ -5423,7 +5423,7 @@ export type DraftOrderBulkDelete = {
 	/** Returns how many objects were affected. */
 	count: Scalars["Int"];
 	errors: Array<OrderError>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	orderErrors: Array<OrderError>;
 };
 
@@ -5437,7 +5437,7 @@ export type DraftOrderComplete = {
 	errors: Array<OrderError>;
 	/** Completed order. */
 	order?: Maybe<Order>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	orderErrors: Array<OrderError>;
 };
 
@@ -5450,7 +5450,7 @@ export type DraftOrderCreate = {
 	__typename?: "DraftOrderCreate";
 	errors: Array<OrderError>;
 	order?: Maybe<Order>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	orderErrors: Array<OrderError>;
 };
 
@@ -5466,7 +5466,7 @@ export type DraftOrderCreateInput = {
 	/**
 	 * External ID of this order.
 	 *
-	 * Added in Saleor 3.10.
+	 * Added in Weenspace 3.10.
 	 */
 	externalReference?: InputMaybe<Scalars["String"]>;
 	/** Variant line input consisting of variant ID and quantity of products. */
@@ -5488,7 +5488,7 @@ export type DraftOrderCreateInput = {
 /**
  * Event sent when new draft order is created.
  *
- * Added in Saleor 3.2.
+ * Added in Weenspace 3.2.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -5502,7 +5502,7 @@ export type DraftOrderCreated = Event & {
 	order?: Maybe<Order>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
@@ -5515,14 +5515,14 @@ export type DraftOrderDelete = {
 	__typename?: "DraftOrderDelete";
 	errors: Array<OrderError>;
 	order?: Maybe<Order>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	orderErrors: Array<OrderError>;
 };
 
 /**
  * Event sent when draft order is deleted.
  *
- * Added in Saleor 3.2.
+ * Added in Weenspace 3.2.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -5536,7 +5536,7 @@ export type DraftOrderDeleted = Event & {
 	order?: Maybe<Order>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
@@ -5552,7 +5552,7 @@ export type DraftOrderInput = {
 	/**
 	 * External ID of this order.
 	 *
-	 * Added in Saleor 3.10.
+	 * Added in Weenspace 3.10.
 	 */
 	externalReference?: InputMaybe<Scalars["String"]>;
 	/** URL of a view where users should be redirected to see the order details. URL in RFC 1808 format. */
@@ -5579,7 +5579,7 @@ export type DraftOrderLinesBulkDelete = {
 	/** Returns how many objects were affected. */
 	count: Scalars["Int"];
 	errors: Array<OrderError>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	orderErrors: Array<OrderError>;
 };
 
@@ -5592,14 +5592,14 @@ export type DraftOrderUpdate = {
 	__typename?: "DraftOrderUpdate";
 	errors: Array<OrderError>;
 	order?: Maybe<Order>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	orderErrors: Array<OrderError>;
 };
 
 /**
  * Event sent when draft order is updated.
  *
- * Added in Saleor 3.2.
+ * Added in Weenspace 3.2.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -5613,7 +5613,7 @@ export type DraftOrderUpdated = Event & {
 	order?: Maybe<Order>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
@@ -5632,7 +5632,7 @@ export type Event = {
 	issuingPrincipal?: Maybe<IssuingPrincipal>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
@@ -5854,7 +5854,7 @@ export type ExportFileSortingInput = {
 /**
  * Export gift cards to csv file.
  *
- * Added in Saleor 3.1.
+ * Added in Weenspace 3.1.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  *
@@ -5897,7 +5897,7 @@ export type ExportInfoInput = {
 export type ExportProducts = {
 	__typename?: "ExportProducts";
 	errors: Array<ExportError>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	exportErrors: Array<ExportError>;
 	/** The newly created export file job which is responsible for export data. */
 	exportFile?: Maybe<ExportFile>;
@@ -5935,7 +5935,7 @@ export type ExternalAuthentication = {
 /** Prepare external authentication URL for user by custom plugin. */
 export type ExternalAuthenticationUrl = {
 	__typename?: "ExternalAuthenticationUrl";
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	accountErrors: Array<AccountError>;
 	/** The data returned by authentication plugin. */
 	authenticationData?: Maybe<Scalars["JSONString"]>;
@@ -5945,7 +5945,7 @@ export type ExternalAuthenticationUrl = {
 /** Logout user by custom plugin. */
 export type ExternalLogout = {
 	__typename?: "ExternalLogout";
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	accountErrors: Array<AccountError>;
 	errors: Array<AccountError>;
 	/** The data returned by authentication plugin. */
@@ -5972,7 +5972,7 @@ export type ExternalNotificationErrorCodes =
 /**
  * Trigger sending a notification with the notify plugin method. Serializes nodes provided as ids parameter and includes this data in the notification payload.
  *
- * Added in Saleor 3.1.
+ * Added in Weenspace 3.1.
  */
 export type ExternalNotificationTrigger = {
 	__typename?: "ExternalNotificationTrigger";
@@ -5991,7 +5991,7 @@ export type ExternalNotificationTriggerInput = {
 /** Obtain external access tokens for user by custom plugin. */
 export type ExternalObtainAccessTokens = {
 	__typename?: "ExternalObtainAccessTokens";
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	accountErrors: Array<AccountError>;
 	/** CSRF token required to re-generate external access token. */
 	csrfToken?: Maybe<Scalars["String"]>;
@@ -6007,7 +6007,7 @@ export type ExternalObtainAccessTokens = {
 /** Refresh user's access by custom plugin. */
 export type ExternalRefresh = {
 	__typename?: "ExternalRefresh";
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	accountErrors: Array<AccountError>;
 	/** CSRF token required to re-generate external access token. */
 	csrfToken?: Maybe<Scalars["String"]>;
@@ -6023,7 +6023,7 @@ export type ExternalRefresh = {
 /** Verify external authentication data by plugin. */
 export type ExternalVerify = {
 	__typename?: "ExternalVerify";
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	accountErrors: Array<AccountError>;
 	errors: Array<AccountError>;
 	/** Determine if authentication data is valid or not. */
@@ -6053,7 +6053,7 @@ export type FileTypesEnum = "CSV" | "XLSX";
 export type FileUpload = {
 	__typename?: "FileUpload";
 	errors: Array<UploadError>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	uploadErrors: Array<UploadError>;
 	uploadedFile?: Maybe<File>;
 };
@@ -6074,7 +6074,7 @@ export type Fulfillment = Node &
 		 *
 		 * Tip: Use GraphQL aliases to fetch multiple keys.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -6082,7 +6082,7 @@ export type Fulfillment = Node &
 		/**
 		 * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -6094,7 +6094,7 @@ export type Fulfillment = Node &
 		 *
 		 * Tip: Use GraphQL aliases to fetch multiple keys.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -6102,7 +6102,7 @@ export type Fulfillment = Node &
 		/**
 		 * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -6138,7 +6138,7 @@ export type FulfillmentPrivateMetafieldsArgs = {
 /**
  * Approve existing fulfillment.
  *
- * Added in Saleor 3.1.
+ * Added in Weenspace 3.1.
  *
  * Requires one of the following permissions: MANAGE_ORDERS.
  */
@@ -6149,14 +6149,14 @@ export type FulfillmentApprove = {
 	fulfillment?: Maybe<Fulfillment>;
 	/** Order which fulfillment was approved. */
 	order?: Maybe<Order>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	orderErrors: Array<OrderError>;
 };
 
 /**
  * Event sent when fulfillment is approved.
  *
- * Added in Saleor 3.7.
+ * Added in Weenspace 3.7.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -6172,7 +6172,7 @@ export type FulfillmentApproved = Event & {
 	order?: Maybe<Order>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
@@ -6188,7 +6188,7 @@ export type FulfillmentCancel = {
 	fulfillment?: Maybe<Fulfillment>;
 	/** Order which fulfillment was cancelled. */
 	order?: Maybe<Order>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	orderErrors: Array<OrderError>;
 };
 
@@ -6200,7 +6200,7 @@ export type FulfillmentCancelInput = {
 /**
  * Event sent when fulfillment is canceled.
  *
- * Added in Saleor 3.4.
+ * Added in Weenspace 3.4.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -6216,14 +6216,14 @@ export type FulfillmentCanceled = Event & {
 	order?: Maybe<Order>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
 /**
  * Event sent when new fulfillment is created.
  *
- * Added in Saleor 3.4.
+ * Added in Weenspace 3.4.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -6239,7 +6239,7 @@ export type FulfillmentCreated = Event & {
 	order?: Maybe<Order>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
@@ -6254,7 +6254,7 @@ export type FulfillmentLine = Node & {
 /**
  * Event sent when fulfillment metadata is updated.
  *
- * Added in Saleor 3.8.
+ * Added in Weenspace 3.8.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -6270,7 +6270,7 @@ export type FulfillmentMetadataUpdated = Event & {
 	order?: Maybe<Order>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
@@ -6286,7 +6286,7 @@ export type FulfillmentRefundProducts = {
 	fulfillment?: Maybe<Fulfillment>;
 	/** Order which fulfillment was refunded. */
 	order?: Maybe<Order>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	orderErrors: Array<OrderError>;
 };
 
@@ -6300,7 +6300,7 @@ export type FulfillmentReturnProducts = {
 	errors: Array<OrderError>;
 	/** Order which fulfillment was returned. */
 	order?: Maybe<Order>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	orderErrors: Array<OrderError>;
 	/** A replace fulfillment. */
 	replaceFulfillment?: Maybe<Fulfillment>;
@@ -6332,7 +6332,7 @@ export type FulfillmentUpdateTracking = {
 	fulfillment?: Maybe<Fulfillment>;
 	/** Order for which fulfillment was updated. */
 	order?: Maybe<Order>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	orderErrors: Array<OrderError>;
 };
 
@@ -6359,7 +6359,7 @@ export type GiftCard = Node &
 		/**
 		 * App which created the gift card.
 		 *
-		 * Added in Saleor 3.1.
+		 * Added in Weenspace 3.1.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 *
@@ -6369,7 +6369,7 @@ export type GiftCard = Node &
 		/**
 		 * Slug of the channel where the gift card was bought.
 		 *
-		 * Added in Saleor 3.1.
+		 * Added in Weenspace 3.1.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -6380,7 +6380,7 @@ export type GiftCard = Node &
 		/**
 		 * The user who bought or issued a gift card.
 		 *
-		 * Added in Saleor 3.1.
+		 * Added in Weenspace 3.1.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -6388,7 +6388,7 @@ export type GiftCard = Node &
 		/**
 		 * Email address of the user who bought or issued gift card.
 		 *
-		 * Added in Saleor 3.1.
+		 * Added in Weenspace 3.1.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 *
@@ -6400,13 +6400,13 @@ export type GiftCard = Node &
 		displayCode: Scalars["String"];
 		/**
 		 * End date of gift card.
-		 * @deprecated This field will be removed in Saleor 4.0. Use `expiryDate` field instead.
+		 * @deprecated This field will be removed in Weenspace 4.0. Use `expiryDate` field instead.
 		 */
 		endDate?: Maybe<Scalars["DateTime"]>;
 		/**
 		 * List of events associated with the gift card.
 		 *
-		 * Added in Saleor 3.1.
+		 * Added in Weenspace 3.1.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 *
@@ -6427,7 +6427,7 @@ export type GiftCard = Node &
 		 *
 		 * Tip: Use GraphQL aliases to fetch multiple keys.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -6435,7 +6435,7 @@ export type GiftCard = Node &
 		/**
 		 * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -6447,7 +6447,7 @@ export type GiftCard = Node &
 		 *
 		 * Tip: Use GraphQL aliases to fetch multiple keys.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -6455,7 +6455,7 @@ export type GiftCard = Node &
 		/**
 		 * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -6463,20 +6463,20 @@ export type GiftCard = Node &
 		/**
 		 * Related gift card product.
 		 *
-		 * Added in Saleor 3.1.
+		 * Added in Weenspace 3.1.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
 		product?: Maybe<Product>;
 		/**
 		 * Start date of gift card.
-		 * @deprecated This field will be removed in Saleor 4.0.
+		 * @deprecated This field will be removed in Weenspace 4.0.
 		 */
 		startDate?: Maybe<Scalars["DateTime"]>;
 		/**
 		 * The gift card tag.
 		 *
-		 * Added in Saleor 3.1.
+		 * Added in Weenspace 3.1.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 *
@@ -6486,7 +6486,7 @@ export type GiftCard = Node &
 		/**
 		 * The customer who used a gift card.
 		 *
-		 * Added in Saleor 3.1.
+		 * Added in Weenspace 3.1.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -6494,14 +6494,14 @@ export type GiftCard = Node &
 		/**
 		 * Email address of the customer who used a gift card.
 		 *
-		 * Added in Saleor 3.1.
+		 * Added in Weenspace 3.1.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
 		usedByEmail?: Maybe<Scalars["String"]>;
 		/**
 		 * The customer who bought a gift card.
-		 * @deprecated This field will be removed in Saleor 4.0. Use `createdBy` field instead.
+		 * @deprecated This field will be removed in Weenspace 4.0. Use `createdBy` field instead.
 		 */
 		user?: Maybe<User>;
 	};
@@ -6541,14 +6541,14 @@ export type GiftCardActivate = {
 	errors: Array<GiftCardError>;
 	/** Activated gift card. */
 	giftCard?: Maybe<GiftCard>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	giftCardErrors: Array<GiftCardError>;
 };
 
 /**
  * Adds note to the gift card.
  *
- * Added in Saleor 3.1.
+ * Added in Weenspace 3.1.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  *
@@ -6571,7 +6571,7 @@ export type GiftCardAddNoteInput = {
 /**
  * Activate gift cards.
  *
- * Added in Saleor 3.1.
+ * Added in Weenspace 3.1.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  *
@@ -6587,7 +6587,7 @@ export type GiftCardBulkActivate = {
 /**
  * Create gift cards.
  *
- * Added in Saleor 3.1.
+ * Added in Weenspace 3.1.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  *
@@ -6618,7 +6618,7 @@ export type GiftCardBulkCreateInput = {
 /**
  * Deactivate gift cards.
  *
- * Added in Saleor 3.1.
+ * Added in Weenspace 3.1.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  *
@@ -6634,7 +6634,7 @@ export type GiftCardBulkDeactivate = {
 /**
  * Delete gift cards.
  *
- * Added in Saleor 3.1.
+ * Added in Weenspace 3.1.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  *
@@ -6673,7 +6673,7 @@ export type GiftCardCreate = {
 	__typename?: "GiftCardCreate";
 	errors: Array<GiftCardError>;
 	giftCard?: Maybe<GiftCard>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	giftCardErrors: Array<GiftCardError>;
 };
 
@@ -6681,7 +6681,7 @@ export type GiftCardCreateInput = {
 	/**
 	 * The gift card tags to add.
 	 *
-	 * Added in Saleor 3.1.
+	 * Added in Weenspace 3.1.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -6691,7 +6691,7 @@ export type GiftCardCreateInput = {
 	/**
 	 * Slug of a channel from which the email should be sent.
 	 *
-	 * Added in Saleor 3.1.
+	 * Added in Weenspace 3.1.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -6699,19 +6699,19 @@ export type GiftCardCreateInput = {
 	/**
 	 * Code to use the gift card.
 	 *
-	 * DEPRECATED: this field will be removed in Saleor 4.0. The code is now auto generated.
+	 * DEPRECATED: this field will be removed in Weenspace 4.0. The code is now auto generated.
 	 */
 	code?: InputMaybe<Scalars["String"]>;
 	/**
 	 * End date of the gift card in ISO 8601 format.
 	 *
-	 * DEPRECATED: this field will be removed in Saleor 4.0. Use `expiryDate` from `expirySettings` instead.
+	 * DEPRECATED: this field will be removed in Weenspace 4.0. Use `expiryDate` from `expirySettings` instead.
 	 */
 	endDate?: InputMaybe<Scalars["Date"]>;
 	/**
 	 * The gift card expiry date.
 	 *
-	 * Added in Saleor 3.1.
+	 * Added in Weenspace 3.1.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -6719,7 +6719,7 @@ export type GiftCardCreateInput = {
 	/**
 	 * Determine if gift card is active.
 	 *
-	 * Added in Saleor 3.1.
+	 * Added in Weenspace 3.1.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -6727,7 +6727,7 @@ export type GiftCardCreateInput = {
 	/**
 	 * The gift card note from the staff member.
 	 *
-	 * Added in Saleor 3.1.
+	 * Added in Weenspace 3.1.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -6735,7 +6735,7 @@ export type GiftCardCreateInput = {
 	/**
 	 * Start date of the gift card in ISO 8601 format.
 	 *
-	 * DEPRECATED: this field will be removed in Saleor 4.0.
+	 * DEPRECATED: this field will be removed in Weenspace 4.0.
 	 */
 	startDate?: InputMaybe<Scalars["Date"]>;
 	/** Email of the customer to whom gift card will be sent. */
@@ -6745,7 +6745,7 @@ export type GiftCardCreateInput = {
 /**
  * Event sent when new gift card is created.
  *
- * Added in Saleor 3.2.
+ * Added in Weenspace 3.2.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -6759,7 +6759,7 @@ export type GiftCardCreated = Event & {
 	issuingPrincipal?: Maybe<IssuingPrincipal>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
@@ -6773,14 +6773,14 @@ export type GiftCardDeactivate = {
 	errors: Array<GiftCardError>;
 	/** Deactivated gift card. */
 	giftCard?: Maybe<GiftCard>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	giftCardErrors: Array<GiftCardError>;
 };
 
 /**
  * Delete gift card.
  *
- * Added in Saleor 3.1.
+ * Added in Weenspace 3.1.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  *
@@ -6790,14 +6790,14 @@ export type GiftCardDelete = {
 	__typename?: "GiftCardDelete";
 	errors: Array<GiftCardError>;
 	giftCard?: Maybe<GiftCard>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	giftCardErrors: Array<GiftCardError>;
 };
 
 /**
  * Event sent when gift card is deleted.
  *
- * Added in Saleor 3.2.
+ * Added in Weenspace 3.2.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -6811,7 +6811,7 @@ export type GiftCardDeleted = Event & {
 	issuingPrincipal?: Maybe<IssuingPrincipal>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
@@ -6841,7 +6841,7 @@ export type GiftCardErrorCode =
 /**
  * History log of the gift card.
  *
- * Added in Saleor 3.1.
+ * Added in Weenspace 3.1.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -6924,7 +6924,7 @@ export type GiftCardFilterInput = {
 /**
  * Event sent when gift card metadata is updated.
  *
- * Added in Saleor 3.8.
+ * Added in Weenspace 3.8.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -6938,14 +6938,14 @@ export type GiftCardMetadataUpdated = Event & {
 	issuingPrincipal?: Maybe<IssuingPrincipal>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
 /**
  * Resend a gift card.
  *
- * Added in Saleor 3.1.
+ * Added in Weenspace 3.1.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  *
@@ -7015,7 +7015,7 @@ export type GiftCardSortField =
 	/**
 	 * Sort gift cards by created at.
 	 *
-	 * Added in Saleor 3.8.
+	 * Added in Weenspace 3.8.
 	 */
 	| "CREATED_AT"
 	/** Sort gift cards by current balance. */
@@ -7035,7 +7035,7 @@ export type GiftCardSortingInput = {
 /**
  * Event sent when gift card status has changed.
  *
- * Added in Saleor 3.2.
+ * Added in Weenspace 3.2.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -7049,14 +7049,14 @@ export type GiftCardStatusChanged = Event & {
 	issuingPrincipal?: Maybe<IssuingPrincipal>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
 /**
  * The gift card tag.
  *
- * Added in Saleor 3.1.
+ * Added in Weenspace 3.1.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -7096,7 +7096,7 @@ export type GiftCardUpdate = {
 	__typename?: "GiftCardUpdate";
 	errors: Array<GiftCardError>;
 	giftCard?: Maybe<GiftCard>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	giftCardErrors: Array<GiftCardError>;
 };
 
@@ -7104,7 +7104,7 @@ export type GiftCardUpdateInput = {
 	/**
 	 * The gift card tags to add.
 	 *
-	 * Added in Saleor 3.1.
+	 * Added in Weenspace 3.1.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -7112,7 +7112,7 @@ export type GiftCardUpdateInput = {
 	/**
 	 * The gift card balance amount.
 	 *
-	 * Added in Saleor 3.1.
+	 * Added in Weenspace 3.1.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -7120,13 +7120,13 @@ export type GiftCardUpdateInput = {
 	/**
 	 * End date of the gift card in ISO 8601 format.
 	 *
-	 * DEPRECATED: this field will be removed in Saleor 4.0. Use `expiryDate` from `expirySettings` instead.
+	 * DEPRECATED: this field will be removed in Weenspace 4.0. Use `expiryDate` from `expirySettings` instead.
 	 */
 	endDate?: InputMaybe<Scalars["Date"]>;
 	/**
 	 * The gift card expiry date.
 	 *
-	 * Added in Saleor 3.1.
+	 * Added in Weenspace 3.1.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -7134,7 +7134,7 @@ export type GiftCardUpdateInput = {
 	/**
 	 * The gift card tags to remove.
 	 *
-	 * Added in Saleor 3.1.
+	 * Added in Weenspace 3.1.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -7142,7 +7142,7 @@ export type GiftCardUpdateInput = {
 	/**
 	 * Start date of the gift card in ISO 8601 format.
 	 *
-	 * DEPRECATED: this field will be removed in Saleor 4.0.
+	 * DEPRECATED: this field will be removed in Weenspace 4.0.
 	 */
 	startDate?: InputMaybe<Scalars["Date"]>;
 };
@@ -7150,7 +7150,7 @@ export type GiftCardUpdateInput = {
 /**
  * Event sent when gift card is updated.
  *
- * Added in Saleor 3.2.
+ * Added in Weenspace 3.2.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -7164,7 +7164,7 @@ export type GiftCardUpdated = Event & {
 	issuingPrincipal?: Maybe<IssuingPrincipal>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
@@ -7235,7 +7235,7 @@ export type Invoice = Job &
 		 *
 		 * Tip: Use GraphQL aliases to fetch multiple keys.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -7243,7 +7243,7 @@ export type Invoice = Job &
 		/**
 		 * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -7252,7 +7252,7 @@ export type Invoice = Job &
 		/**
 		 * Order related to the invoice.
 		 *
-		 * Added in Saleor 3.10.
+		 * Added in Weenspace 3.10.
 		 */
 		order?: Maybe<Order>;
 		/** List of private metadata items. Requires staff permissions to access. */
@@ -7262,7 +7262,7 @@ export type Invoice = Job &
 		 *
 		 * Tip: Use GraphQL aliases to fetch multiple keys.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -7270,7 +7270,7 @@ export type Invoice = Job &
 		/**
 		 * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -7311,7 +7311,7 @@ export type InvoiceCreate = {
 	__typename?: "InvoiceCreate";
 	errors: Array<InvoiceError>;
 	invoice?: Maybe<Invoice>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	invoiceErrors: Array<InvoiceError>;
 };
 
@@ -7331,14 +7331,14 @@ export type InvoiceDelete = {
 	__typename?: "InvoiceDelete";
 	errors: Array<InvoiceError>;
 	invoice?: Maybe<Invoice>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	invoiceErrors: Array<InvoiceError>;
 };
 
 /**
  * Event sent when invoice is deleted.
  *
- * Added in Saleor 3.2.
+ * Added in Weenspace 3.2.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -7353,12 +7353,12 @@ export type InvoiceDeleted = Event & {
 	/**
 	 * Order related to the invoice.
 	 *
-	 * Added in Saleor 3.10.
+	 * Added in Weenspace 3.10.
 	 */
 	order?: Maybe<Order>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
@@ -7392,7 +7392,7 @@ export type InvoiceRequest = {
 	__typename?: "InvoiceRequest";
 	errors: Array<InvoiceError>;
 	invoice?: Maybe<Invoice>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	invoiceErrors: Array<InvoiceError>;
 	/** Order related to an invoice. */
 	order?: Maybe<Order>;
@@ -7407,14 +7407,14 @@ export type InvoiceRequestDelete = {
 	__typename?: "InvoiceRequestDelete";
 	errors: Array<InvoiceError>;
 	invoice?: Maybe<Invoice>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	invoiceErrors: Array<InvoiceError>;
 };
 
 /**
  * Event sent when invoice is requested.
  *
- * Added in Saleor 3.2.
+ * Added in Weenspace 3.2.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -7429,12 +7429,12 @@ export type InvoiceRequested = Event & {
 	/**
 	 * Order related to the invoice.
 	 *
-	 * Added in Saleor 3.10.
+	 * Added in Weenspace 3.10.
 	 */
 	order: Order;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
@@ -7447,14 +7447,14 @@ export type InvoiceSendNotification = {
 	__typename?: "InvoiceSendNotification";
 	errors: Array<InvoiceError>;
 	invoice?: Maybe<Invoice>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	invoiceErrors: Array<InvoiceError>;
 };
 
 /**
  * Event sent when invoice is sent.
  *
- * Added in Saleor 3.2.
+ * Added in Weenspace 3.2.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -7469,12 +7469,12 @@ export type InvoiceSent = Event & {
 	/**
 	 * Order related to the invoice.
 	 *
-	 * Added in Saleor 3.10.
+	 * Added in Weenspace 3.10.
 	 */
 	order?: Maybe<Order>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
@@ -7487,7 +7487,7 @@ export type InvoiceUpdate = {
 	__typename?: "InvoiceUpdate";
 	errors: Array<InvoiceError>;
 	invoice?: Maybe<Invoice>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	invoiceErrors: Array<InvoiceError>;
 };
 
@@ -8322,7 +8322,7 @@ export type Manifest = {
 	/**
 	 * The audience that will be included in all JWT tokens for the app.
 	 *
-	 * Added in Saleor 3.8.
+	 * Added in Weenspace 3.8.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -8330,19 +8330,19 @@ export type Manifest = {
 	/**
 	 * The App's author name.
 	 *
-	 * Added in Saleor 3.13.
+	 * Added in Weenspace 3.13.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
 	author?: Maybe<Scalars["String"]>;
 	/**
 	 * URL to iframe with the configuration for the app.
-	 * @deprecated This field will be removed in Saleor 4.0. Use `appUrl` instead.
+	 * @deprecated This field will be removed in Weenspace 4.0. Use `appUrl` instead.
 	 */
 	configurationUrl?: Maybe<Scalars["String"]>;
 	/**
 	 * Description of the data privacy defined for this app.
-	 * @deprecated This field will be removed in Saleor 4.0. Use `dataPrivacyUrl` instead.
+	 * @deprecated This field will be removed in Weenspace 4.0. Use `dataPrivacyUrl` instead.
 	 */
 	dataPrivacy?: Maybe<Scalars["String"]>;
 	dataPrivacyUrl?: Maybe<Scalars["String"]>;
@@ -8352,9 +8352,9 @@ export type Manifest = {
 	name: Scalars["String"];
 	permissions?: Maybe<Array<Permission>>;
 	/**
-	 * Determines the app's required Saleor version as semver range.
+	 * Determines the app's required Weenspace version as semver range.
 	 *
-	 * Added in Saleor 3.13.
+	 * Added in Weenspace 3.13.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -8365,7 +8365,7 @@ export type Manifest = {
 	/**
 	 * List of the app's webhooks.
 	 *
-	 * Added in Saleor 3.5.
+	 * Added in Weenspace 3.5.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -8453,7 +8453,7 @@ export type Menu = Node &
 		 *
 		 * Tip: Use GraphQL aliases to fetch multiple keys.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -8461,7 +8461,7 @@ export type Menu = Node &
 		/**
 		 * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -8474,7 +8474,7 @@ export type Menu = Node &
 		 *
 		 * Tip: Use GraphQL aliases to fetch multiple keys.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -8482,7 +8482,7 @@ export type Menu = Node &
 		/**
 		 * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -8520,7 +8520,7 @@ export type MenuBulkDelete = {
 	/** Returns how many objects were affected. */
 	count: Scalars["Int"];
 	errors: Array<MenuError>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	menuErrors: Array<MenuError>;
 };
 
@@ -8550,7 +8550,7 @@ export type MenuCreate = {
 	__typename?: "MenuCreate";
 	errors: Array<MenuError>;
 	menu?: Maybe<Menu>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	menuErrors: Array<MenuError>;
 };
 
@@ -8566,7 +8566,7 @@ export type MenuCreateInput = {
 /**
  * Event sent when new menu is created.
  *
- * Added in Saleor 3.4.
+ * Added in Weenspace 3.4.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -8580,14 +8580,14 @@ export type MenuCreated = Event & {
 	menu?: Maybe<Menu>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
 /**
  * Event sent when new menu is created.
  *
- * Added in Saleor 3.4.
+ * Added in Weenspace 3.4.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -8604,14 +8604,14 @@ export type MenuDelete = {
 	__typename?: "MenuDelete";
 	errors: Array<MenuError>;
 	menu?: Maybe<Menu>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	menuErrors: Array<MenuError>;
 };
 
 /**
  * Event sent when menu is deleted.
  *
- * Added in Saleor 3.4.
+ * Added in Weenspace 3.4.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -8625,14 +8625,14 @@ export type MenuDeleted = Event & {
 	menu?: Maybe<Menu>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
 /**
  * Event sent when menu is deleted.
  *
- * Added in Saleor 3.4.
+ * Added in Weenspace 3.4.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -8694,7 +8694,7 @@ export type MenuItem = Node &
 		 *
 		 * Tip: Use GraphQL aliases to fetch multiple keys.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -8702,7 +8702,7 @@ export type MenuItem = Node &
 		/**
 		 * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -8718,7 +8718,7 @@ export type MenuItem = Node &
 		 *
 		 * Tip: Use GraphQL aliases to fetch multiple keys.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -8726,7 +8726,7 @@ export type MenuItem = Node &
 		/**
 		 * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -8772,7 +8772,7 @@ export type MenuItemBulkDelete = {
 	/** Returns how many objects were affected. */
 	count: Scalars["Int"];
 	errors: Array<MenuError>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	menuErrors: Array<MenuError>;
 };
 
@@ -8801,7 +8801,7 @@ export type MenuItemCountableEdge = {
 export type MenuItemCreate = {
 	__typename?: "MenuItemCreate";
 	errors: Array<MenuError>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	menuErrors: Array<MenuError>;
 	menuItem?: Maybe<MenuItem>;
 };
@@ -8826,7 +8826,7 @@ export type MenuItemCreateInput = {
 /**
  * Event sent when new menu item is created.
  *
- * Added in Saleor 3.4.
+ * Added in Weenspace 3.4.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -8840,14 +8840,14 @@ export type MenuItemCreated = Event & {
 	menuItem?: Maybe<MenuItem>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
 /**
  * Event sent when new menu item is created.
  *
- * Added in Saleor 3.4.
+ * Added in Weenspace 3.4.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -8863,7 +8863,7 @@ export type MenuItemCreatedMenuItemArgs = {
 export type MenuItemDelete = {
 	__typename?: "MenuItemDelete";
 	errors: Array<MenuError>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	menuErrors: Array<MenuError>;
 	menuItem?: Maybe<MenuItem>;
 };
@@ -8871,7 +8871,7 @@ export type MenuItemDelete = {
 /**
  * Event sent when menu item is deleted.
  *
- * Added in Saleor 3.4.
+ * Added in Weenspace 3.4.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -8885,14 +8885,14 @@ export type MenuItemDeleted = Event & {
 	menuItem?: Maybe<MenuItem>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
 /**
  * Event sent when menu item is deleted.
  *
- * Added in Saleor 3.4.
+ * Added in Weenspace 3.4.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -8928,7 +8928,7 @@ export type MenuItemMove = {
 	errors: Array<MenuError>;
 	/** Assigned menu to move within. */
 	menu?: Maybe<Menu>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	menuErrors: Array<MenuError>;
 };
 
@@ -8953,7 +8953,7 @@ export type MenuItemTranslatableContent = Node & {
 	id: Scalars["ID"];
 	/**
 	 * Represents a single item of the related menu. Can store categories, collection or pages.
-	 * @deprecated This field will be removed in Saleor 4.0. Get model fields from the root level queries.
+	 * @deprecated This field will be removed in Weenspace 4.0. Get model fields from the root level queries.
 	 */
 	menuItem?: Maybe<MenuItem>;
 	name: Scalars["String"];
@@ -8974,7 +8974,7 @@ export type MenuItemTranslate = {
 	__typename?: "MenuItemTranslate";
 	errors: Array<TranslationError>;
 	menuItem?: Maybe<MenuItem>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	translationErrors: Array<TranslationError>;
 };
 
@@ -8994,7 +8994,7 @@ export type MenuItemTranslation = Node & {
 export type MenuItemUpdate = {
 	__typename?: "MenuItemUpdate";
 	errors: Array<MenuError>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	menuErrors: Array<MenuError>;
 	menuItem?: Maybe<MenuItem>;
 };
@@ -9002,7 +9002,7 @@ export type MenuItemUpdate = {
 /**
  * Event sent when menu item is updated.
  *
- * Added in Saleor 3.4.
+ * Added in Weenspace 3.4.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -9016,14 +9016,14 @@ export type MenuItemUpdated = Event & {
 	menuItem?: Maybe<MenuItem>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
 /**
  * Event sent when menu item is updated.
  *
- * Added in Saleor 3.4.
+ * Added in Weenspace 3.4.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -9057,14 +9057,14 @@ export type MenuUpdate = {
 	__typename?: "MenuUpdate";
 	errors: Array<MenuError>;
 	menu?: Maybe<Menu>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	menuErrors: Array<MenuError>;
 };
 
 /**
  * Event sent when menu is updated.
  *
- * Added in Saleor 3.4.
+ * Added in Weenspace 3.4.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -9078,14 +9078,14 @@ export type MenuUpdated = Event & {
 	menu?: Maybe<Menu>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
 /**
  * Event sent when menu is updated.
  *
- * Added in Saleor 3.4.
+ * Added in Weenspace 3.4.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -9413,7 +9413,7 @@ export type Mutation = {
 	/**
 	 * Reorder the warehouses of a channel.
 	 *
-	 * Added in Saleor 3.7.
+	 * Added in Weenspace 3.7.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 *
@@ -9450,7 +9450,7 @@ export type Mutation = {
 	/**
 	 * Updates the delivery method (shipping method or pick up point) of the checkout.
 	 *
-	 * Added in Saleor 3.1.
+	 * Added in Weenspace 3.1.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -9461,7 +9461,7 @@ export type Mutation = {
 	checkoutLanguageCodeUpdate?: Maybe<CheckoutLanguageCodeUpdate>;
 	/**
 	 * Deletes a CheckoutLine.
-	 * @deprecated This field will be removed in Saleor 4.0. Use `checkoutLinesDelete` instead.
+	 * @deprecated This field will be removed in Weenspace 4.0. Use `checkoutLinesDelete` instead.
 	 */
 	checkoutLineDelete?: Maybe<CheckoutLineDelete>;
 	/** Adds a checkout line to the existing checkout.If line was already in checkout, its quantity will be increased. */
@@ -9478,7 +9478,7 @@ export type Mutation = {
 	checkoutShippingAddressUpdate?: Maybe<CheckoutShippingAddressUpdate>;
 	/**
 	 * Updates the shipping method of the checkout.
-	 * @deprecated This field will be removed in Saleor 4.0. Use `checkoutDeliveryMethodUpdate` instead.
+	 * @deprecated This field will be removed in Weenspace 4.0. Use `checkoutDeliveryMethodUpdate` instead.
 	 */
 	checkoutShippingMethodUpdate?: Maybe<CheckoutShippingMethodUpdate>;
 	/**
@@ -9635,7 +9635,7 @@ export type Mutation = {
 	 * Deletes order lines.
 	 *
 	 * Requires one of the following permissions: MANAGE_ORDERS.
-	 * @deprecated This field will be removed in Saleor 4.0.
+	 * @deprecated This field will be removed in Weenspace 4.0.
 	 */
 	draftOrderLinesBulkDelete?: Maybe<DraftOrderLinesBulkDelete>;
 	/**
@@ -9653,7 +9653,7 @@ export type Mutation = {
 	/**
 	 * Export gift cards to csv file.
 	 *
-	 * Added in Saleor 3.1.
+	 * Added in Weenspace 3.1.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 *
@@ -9673,7 +9673,7 @@ export type Mutation = {
 	/**
 	 * Trigger sending a notification with the notify plugin method. Serializes nodes provided as ids parameter and includes this data in the notification payload.
 	 *
-	 * Added in Saleor 3.1.
+	 * Added in Weenspace 3.1.
 	 */
 	externalNotificationTrigger?: Maybe<ExternalNotificationTrigger>;
 	/** Obtain external access tokens for user by custom plugin. */
@@ -9697,7 +9697,7 @@ export type Mutation = {
 	/**
 	 * Adds note to the gift card.
 	 *
-	 * Added in Saleor 3.1.
+	 * Added in Weenspace 3.1.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 *
@@ -9707,7 +9707,7 @@ export type Mutation = {
 	/**
 	 * Activate gift cards.
 	 *
-	 * Added in Saleor 3.1.
+	 * Added in Weenspace 3.1.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 *
@@ -9717,7 +9717,7 @@ export type Mutation = {
 	/**
 	 * Create gift cards.
 	 *
-	 * Added in Saleor 3.1.
+	 * Added in Weenspace 3.1.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 *
@@ -9727,7 +9727,7 @@ export type Mutation = {
 	/**
 	 * Deactivate gift cards.
 	 *
-	 * Added in Saleor 3.1.
+	 * Added in Weenspace 3.1.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 *
@@ -9737,7 +9737,7 @@ export type Mutation = {
 	/**
 	 * Delete gift cards.
 	 *
-	 * Added in Saleor 3.1.
+	 * Added in Weenspace 3.1.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 *
@@ -9759,7 +9759,7 @@ export type Mutation = {
 	/**
 	 * Delete gift card.
 	 *
-	 * Added in Saleor 3.1.
+	 * Added in Weenspace 3.1.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 *
@@ -9769,7 +9769,7 @@ export type Mutation = {
 	/**
 	 * Resend a gift card.
 	 *
-	 * Added in Saleor 3.1.
+	 * Added in Weenspace 3.1.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 *
@@ -9917,7 +9917,7 @@ export type Mutation = {
 	/**
 	 * Create new order from existing checkout. Requires the following permissions: AUTHENTICATED_APP and HANDLE_CHECKOUTS.
 	 *
-	 * Added in Saleor 3.2.
+	 * Added in Weenspace 3.2.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -9949,7 +9949,7 @@ export type Mutation = {
 	/**
 	 * Approve existing fulfillment.
 	 *
-	 * Added in Saleor 3.1.
+	 * Added in Weenspace 3.1.
 	 *
 	 * Requires one of the following permissions: MANAGE_ORDERS.
 	 */
@@ -9981,7 +9981,7 @@ export type Mutation = {
 	/**
 	 * Adds granted refund to the order.
 	 *
-	 * Added in Saleor 3.13.
+	 * Added in Weenspace 3.13.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 *
@@ -9991,7 +9991,7 @@ export type Mutation = {
 	/**
 	 * Updates granted refund.
 	 *
-	 * Added in Saleor 3.13.
+	 * Added in Weenspace 3.13.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 *
@@ -10044,7 +10044,7 @@ export type Mutation = {
 	 * Update shop order settings across all channels. Returns `orderSettings` for the first `channel` in alphabetical order.
 	 *
 	 * Requires one of the following permissions: MANAGE_ORDERS.
-	 * @deprecated \n\nDEPRECATED: this mutation will be removed in Saleor 4.0. Use `channelUpdate` mutation instead.
+	 * @deprecated \n\nDEPRECATED: this mutation will be removed in Weenspace 4.0. Use `channelUpdate` mutation instead.
 	 */
 	orderSettingsUpdate?: Maybe<OrderSettingsUpdate>;
 	/**
@@ -10166,7 +10166,7 @@ export type Mutation = {
 	/**
 	 * Initializes a payment gateway session. It triggers the webhook `PAYMENT_GATEWAY_INITIALIZE_SESSION`, to the requested `paymentGateways`. If `paymentGateways` is not provided, the webhook will be send to all subscribed payment gateways.
 	 *
-	 * Added in Saleor 3.13.
+	 * Added in Weenspace 3.13.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -10218,7 +10218,7 @@ export type Mutation = {
 	/**
 	 * Update attributes assigned to product variant for given product type.
 	 *
-	 * Added in Saleor 3.1.
+	 * Added in Weenspace 3.1.
 	 *
 	 * Requires one of the following permissions: MANAGE_PRODUCT_TYPES_AND_ATTRIBUTES.
 	 */
@@ -10346,7 +10346,7 @@ export type Mutation = {
 	/**
 	 * Update multiple product variants.
 	 *
-	 * Added in Saleor 3.11.
+	 * Added in Weenspace 3.11.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 *
@@ -10374,7 +10374,7 @@ export type Mutation = {
 	/**
 	 * Deactivates product variant preorder. It changes all preorder allocation into regular allocation.
 	 *
-	 * Added in Saleor 3.1.
+	 * Added in Weenspace 3.1.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 *
@@ -10575,7 +10575,7 @@ export type Mutation = {
 	 * Fetch tax rates.
 	 *
 	 * Requires one of the following permissions: MANAGE_SETTINGS.
-	 * @deprecated \n\nDEPRECATED: this mutation will be removed in Saleor 4.0.
+	 * @deprecated \n\nDEPRECATED: this mutation will be removed in Weenspace 4.0.
 	 */
 	shopFetchTaxRates?: Maybe<ShopFetchTaxRates>;
 	/**
@@ -10635,7 +10635,7 @@ export type Mutation = {
 	/**
 	 * Updates stocks for a given variant and warehouse.
 	 *
-	 * Added in Saleor 3.13.
+	 * Added in Weenspace 3.13.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 *
@@ -10645,7 +10645,7 @@ export type Mutation = {
 	/**
 	 * Create a tax class.
 	 *
-	 * Added in Saleor 3.9.
+	 * Added in Weenspace 3.9.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 *
@@ -10655,7 +10655,7 @@ export type Mutation = {
 	/**
 	 * Delete a tax class. After deleting the tax class any products, product types or shipping methods using it are updated to use the default tax class.
 	 *
-	 * Added in Saleor 3.9.
+	 * Added in Weenspace 3.9.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 *
@@ -10665,7 +10665,7 @@ export type Mutation = {
 	/**
 	 * Update a tax class.
 	 *
-	 * Added in Saleor 3.9.
+	 * Added in Weenspace 3.9.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 *
@@ -10675,7 +10675,7 @@ export type Mutation = {
 	/**
 	 * Update tax configuration for a channel.
 	 *
-	 * Added in Saleor 3.9.
+	 * Added in Weenspace 3.9.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 *
@@ -10685,7 +10685,7 @@ export type Mutation = {
 	/**
 	 * Remove all tax class rates for a specific country.
 	 *
-	 * Added in Saleor 3.9.
+	 * Added in Weenspace 3.9.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 *
@@ -10695,7 +10695,7 @@ export type Mutation = {
 	/**
 	 * Update tax class rates for a specific country.
 	 *
-	 * Added in Saleor 3.9.
+	 * Added in Weenspace 3.9.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 *
@@ -10705,7 +10705,7 @@ export type Mutation = {
 	/**
 	 * Exempt checkout or order from charging the taxes. When tax exemption is enabled, taxes won't be charged for the checkout or order. Taxes may still be calculated in cases when product prices are entered with the tax included and the net price needs to be known.
 	 *
-	 * Added in Saleor 3.8.
+	 * Added in Weenspace 3.8.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 *
@@ -10727,7 +10727,7 @@ export type Mutation = {
 	/**
 	 * Create transaction for checkout or order.
 	 *
-	 * Added in Saleor 3.4.
+	 * Added in Weenspace 3.4.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 *
@@ -10737,7 +10737,7 @@ export type Mutation = {
 	/**
 	 * Report the event for the transaction.
 	 *
-	 * Added in Saleor 3.13.
+	 * Added in Weenspace 3.13.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 *
@@ -10747,7 +10747,7 @@ export type Mutation = {
 	/**
 	 * Initializes a transaction session. It triggers the webhook `TRANSACTION_INITIALIZE_SESSION`, to the requested `paymentGateways`.
 	 *
-	 * Added in Saleor 3.13.
+	 * Added in Weenspace 3.13.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -10755,7 +10755,7 @@ export type Mutation = {
 	/**
 	 * Processes a transaction session. It triggers the webhook `TRANSACTION_PROCESS_SESSION`, to the assigned `paymentGateways`.
 	 *
-	 * Added in Saleor 3.13.
+	 * Added in Weenspace 3.13.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -10763,7 +10763,7 @@ export type Mutation = {
 	/**
 	 * Request an action for payment transaction.
 	 *
-	 * Added in Saleor 3.4.
+	 * Added in Weenspace 3.4.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 *
@@ -10773,7 +10773,7 @@ export type Mutation = {
 	/**
 	 * Create transaction for checkout or order.
 	 *
-	 * Added in Saleor 3.4.
+	 * Added in Weenspace 3.4.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 *
@@ -10889,7 +10889,7 @@ export type Mutation = {
 	/**
 	 * Performs a dry run of a webhook event. Supports a single event (the first, if multiple provided in the `query`). Requires permission relevant to processed event.
 	 *
-	 * Added in Saleor 3.11.
+	 * Added in Weenspace 3.11.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 *
@@ -10899,7 +10899,7 @@ export type Mutation = {
 	/**
 	 * Trigger a webhook event. Supports a single event (the first, if multiple provided in the `webhook.subscription_query`). Requires permission relevant to processed event. Successfully delivered webhook returns `delivery` with status='PENDING' and empty payload.
 	 *
-	 * Added in Saleor 3.11.
+	 * Added in Weenspace 3.11.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 *
@@ -12411,7 +12411,7 @@ export type Order = Node &
 		/**
 		 * The authorize status of the order.
 		 *
-		 * Added in Saleor 3.4.
+		 * Added in Weenspace 3.4.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -12419,7 +12419,7 @@ export type Order = Node &
 		/**
 		 * Collection points that can be used for this order.
 		 *
-		 * Added in Saleor 3.1.
+		 * Added in Weenspace 3.1.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -12429,7 +12429,7 @@ export type Order = Node &
 		 * @deprecated Use `shippingMethods`, this field will be removed in 4.0
 		 */
 		availableShippingMethods?: Maybe<Array<ShippingMethod>>;
-		/** Billing address. The full data can be access for orders created in Saleor 3.2 and later, for other orders requires one of the following permissions: MANAGE_ORDERS, OWNER. */
+		/** Billing address. The full data can be access for orders created in Weenspace 3.2 and later, for other orders requires one of the following permissions: MANAGE_ORDERS, OWNER. */
 		billingAddress?: Maybe<Address>;
 		/** Informs whether a draft order can be finalized(turned into a regular order). */
 		canFinalize: Scalars["Boolean"];
@@ -12437,7 +12437,7 @@ export type Order = Node &
 		/**
 		 * The charge status of the order.
 		 *
-		 * Added in Saleor 3.4.
+		 * Added in Weenspace 3.4.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -12445,7 +12445,7 @@ export type Order = Node &
 		/**
 		 * ID of the checkout that the order was created from.
 		 *
-		 * Added in Saleor 3.11.
+		 * Added in Weenspace 3.11.
 		 */
 		checkoutId?: Maybe<Scalars["ID"]>;
 		collectionPointName?: Maybe<Scalars["String"]>;
@@ -12454,19 +12454,19 @@ export type Order = Node &
 		/**
 		 * The delivery method selected for this order.
 		 *
-		 * Added in Saleor 3.1.
+		 * Added in Weenspace 3.1.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
 		deliveryMethod?: Maybe<DeliveryMethod>;
 		/**
 		 * Returns applied discount.
-		 * @deprecated This field will be removed in Saleor 4.0. Use the `discounts` field instead.
+		 * @deprecated This field will be removed in Weenspace 4.0. Use the `discounts` field instead.
 		 */
 		discount?: Maybe<Money>;
 		/**
 		 * Discount name.
-		 * @deprecated This field will be removed in Saleor 4.0. Use the `discounts` field instead.
+		 * @deprecated This field will be removed in Weenspace 4.0. Use the `discounts` field instead.
 		 */
 		discountName?: Maybe<Scalars["String"]>;
 		/** List of all discounts assigned to the order. */
@@ -12474,7 +12474,7 @@ export type Order = Node &
 		/**
 		 * Determines whether checkout prices should include taxes when displayed in a storefront.
 		 *
-		 * Added in Saleor 3.9.
+		 * Added in Weenspace 3.9.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -12490,7 +12490,7 @@ export type Order = Node &
 		/**
 		 * External ID of this order.
 		 *
-		 * Added in Saleor 3.10.
+		 * Added in Weenspace 3.10.
 		 */
 		externalReference?: Maybe<Scalars["String"]>;
 		/** List of shipments for the order. */
@@ -12500,7 +12500,7 @@ export type Order = Node &
 		/**
 		 * List of granted refunds.
 		 *
-		 * Added in Saleor 3.13.
+		 * Added in Weenspace 3.13.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 *
@@ -12508,13 +12508,13 @@ export type Order = Node &
 		 */
 		grantedRefunds: Array<OrderGrantedRefund>;
 		id: Scalars["ID"];
-		/** List of order invoices. Can be fetched for orders created in Saleor 3.2 and later, for other orders requires one of the following permissions: MANAGE_ORDERS, OWNER. */
+		/** List of order invoices. Can be fetched for orders created in Weenspace 3.2 and later, for other orders requires one of the following permissions: MANAGE_ORDERS, OWNER. */
 		invoices: Array<Invoice>;
 		/** Informs if an order is fully paid. */
 		isPaid: Scalars["Boolean"];
 		/** Returns True, if order requires shipping. */
 		isShippingRequired: Scalars["Boolean"];
-		/** @deprecated This field will be removed in Saleor 4.0. Use the `languageCodeEnum` field to fetch the language code.  */
+		/** @deprecated This field will be removed in Weenspace 4.0. Use the `languageCodeEnum` field to fetch the language code.  */
 		languageCode: Scalars["String"];
 		/** Order language code. */
 		languageCodeEnum: LanguageCodeEnum;
@@ -12527,7 +12527,7 @@ export type Order = Node &
 		 *
 		 * Tip: Use GraphQL aliases to fetch multiple keys.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -12535,7 +12535,7 @@ export type Order = Node &
 		/**
 		 * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -12559,7 +12559,7 @@ export type Order = Node &
 		 *
 		 * Tip: Use GraphQL aliases to fetch multiple keys.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -12567,17 +12567,17 @@ export type Order = Node &
 		/**
 		 * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
 		privateMetafields?: Maybe<Scalars["Metadata"]>;
 		redirectUrl?: Maybe<Scalars["String"]>;
-		/** Shipping address. The full data can be access for orders created in Saleor 3.2 and later, for other orders requires one of the following permissions: MANAGE_ORDERS, OWNER. */
+		/** Shipping address. The full data can be access for orders created in Weenspace 3.2 and later, for other orders requires one of the following permissions: MANAGE_ORDERS, OWNER. */
 		shippingAddress?: Maybe<Address>;
 		/**
 		 * Shipping method for this order.
-		 * @deprecated This field will be removed in Saleor 4.0. Use `deliveryMethod` instead.
+		 * @deprecated This field will be removed in Weenspace 4.0. Use `deliveryMethod` instead.
 		 */
 		shippingMethod?: Maybe<ShippingMethod>;
 		shippingMethodName?: Maybe<Scalars["String"]>;
@@ -12588,7 +12588,7 @@ export type Order = Node &
 		/**
 		 * Denormalized tax class assigned to the shipping method.
 		 *
-		 * Added in Saleor 3.9.
+		 * Added in Weenspace 3.9.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 *
@@ -12598,7 +12598,7 @@ export type Order = Node &
 		/**
 		 * Denormalized public metadata of the shipping method's tax class.
 		 *
-		 * Added in Saleor 3.9.
+		 * Added in Weenspace 3.9.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -12606,7 +12606,7 @@ export type Order = Node &
 		/**
 		 * Denormalized name of the tax class assigned to the shipping method.
 		 *
-		 * Added in Saleor 3.9.
+		 * Added in Weenspace 3.9.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -12614,7 +12614,7 @@ export type Order = Node &
 		/**
 		 * Denormalized private metadata of the shipping method's tax class. Requires staff permissions to access.
 		 *
-		 * Added in Saleor 3.9.
+		 * Added in Weenspace 3.9.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -12629,19 +12629,19 @@ export type Order = Node &
 		/**
 		 * Returns True if order has to be exempt from taxes.
 		 *
-		 * Added in Saleor 3.8.
+		 * Added in Weenspace 3.8.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
 		taxExemption: Scalars["Boolean"];
-		/** @deprecated This field will be removed in Saleor 4.0. Use `id` instead. */
+		/** @deprecated This field will be removed in Weenspace 4.0. Use `id` instead. */
 		token: Scalars["String"];
 		/** Total amount of the order. */
 		total: TaxedMoney;
 		/**
 		 * Total amount of ongoing authorize requests for the order's transactions.
 		 *
-		 * Added in Saleor 3.13.
+		 * Added in Weenspace 3.13.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 *
@@ -12655,7 +12655,7 @@ export type Order = Node &
 		/**
 		 * Total amount of ongoing cancel requests for the order's transactions.
 		 *
-		 * Added in Saleor 3.13.
+		 * Added in Weenspace 3.13.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 *
@@ -12665,18 +12665,18 @@ export type Order = Node &
 		/**
 		 * Amount canceled for the order.
 		 *
-		 * Added in Saleor 3.13.
+		 * Added in Weenspace 3.13.
 		 */
 		totalCanceled: Money;
 		/**
 		 * Amount captured for the order.
-		 * @deprecated This field will be removed in Saleor 4.0. Use `totalCharged` instead.
+		 * @deprecated This field will be removed in Weenspace 4.0. Use `totalCharged` instead.
 		 */
 		totalCaptured: Money;
 		/**
 		 * Total amount of ongoing charge requests for the order's transactions.
 		 *
-		 * Added in Saleor 3.13.
+		 * Added in Weenspace 3.13.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 *
@@ -12686,13 +12686,13 @@ export type Order = Node &
 		/**
 		 * Amount charged for the order.
 		 *
-		 * Added in Saleor 3.13.
+		 * Added in Weenspace 3.13.
 		 */
 		totalCharged: Money;
 		/**
 		 * Total amount of granted refund.
 		 *
-		 * Added in Saleor 3.13.
+		 * Added in Weenspace 3.13.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 *
@@ -12702,7 +12702,7 @@ export type Order = Node &
 		/**
 		 * Total amount of ongoing refund requests for the order's transactions.
 		 *
-		 * Added in Saleor 3.13.
+		 * Added in Weenspace 3.13.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 *
@@ -12712,7 +12712,7 @@ export type Order = Node &
 		/**
 		 * Total refund amount for the order.
 		 *
-		 * Added in Saleor 3.13.
+		 * Added in Weenspace 3.13.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -12720,7 +12720,7 @@ export type Order = Node &
 		/**
 		 * The difference amount between granted refund and the amounts that are pending and refunded.
 		 *
-		 * Added in Saleor 3.13.
+		 * Added in Weenspace 3.13.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 *
@@ -12731,22 +12731,22 @@ export type Order = Node &
 		/**
 		 * List of transactions for the order. Requires one of the following permissions: MANAGE_ORDERS, HANDLE_PAYMENTS.
 		 *
-		 * Added in Saleor 3.4.
+		 * Added in Weenspace 3.4.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
 		transactions: Array<TransactionItem>;
 		/**
 		 * Translated discount name.
-		 * @deprecated This field will be removed in Saleor 4.0. Use the `discounts` field instead.
+		 * @deprecated This field will be removed in Weenspace 4.0. Use the `discounts` field instead.
 		 */
 		translatedDiscountName?: Maybe<Scalars["String"]>;
 		/** Undiscounted total amount of the order. */
 		undiscountedTotal: TaxedMoney;
 		updatedAt: Scalars["DateTime"];
-		/** User who placed the order. This field is set only for orders placed by authenticated users. Can be fetched for orders created in Saleor 3.2 and later, for other orders requires one of the following permissions: MANAGE_USERS, MANAGE_ORDERS, OWNER. */
+		/** User who placed the order. This field is set only for orders placed by authenticated users. Can be fetched for orders created in Weenspace 3.2 and later, for other orders requires one of the following permissions: MANAGE_USERS, MANAGE_ORDERS, OWNER. */
 		user?: Maybe<User>;
-		/** Email address of the customer. The full data can be access for orders created in Saleor 3.2 and later, for other orders requires one of the following permissions: MANAGE_ORDERS, OWNER. */
+		/** Email address of the customer. The full data can be access for orders created in Weenspace 3.2 and later, for other orders requires one of the following permissions: MANAGE_ORDERS, OWNER. */
 		userEmail?: Maybe<Scalars["String"]>;
 		voucher?: Maybe<Voucher>;
 		weight: Weight;
@@ -12794,7 +12794,7 @@ export type OrderAddNote = {
 	event?: Maybe<OrderEvent>;
 	/** Order with the note added. */
 	order?: Maybe<Order>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	orderErrors: Array<OrderError>;
 };
 
@@ -12831,7 +12831,7 @@ export type OrderBulkCancel = {
 	/** Returns how many objects were affected. */
 	count: Scalars["Int"];
 	errors: Array<OrderError>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	orderErrors: Array<OrderError>;
 };
 
@@ -12845,14 +12845,14 @@ export type OrderCancel = {
 	errors: Array<OrderError>;
 	/** Canceled order. */
 	order?: Maybe<Order>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	orderErrors: Array<OrderError>;
 };
 
 /**
  * Event sent when order is canceled.
  *
- * Added in Saleor 3.2.
+ * Added in Weenspace 3.2.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -12866,7 +12866,7 @@ export type OrderCancelled = Event & {
 	order?: Maybe<Order>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
@@ -12880,7 +12880,7 @@ export type OrderCapture = {
 	errors: Array<OrderError>;
 	/** Captured order. */
 	order?: Maybe<Order>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	orderErrors: Array<OrderError>;
 };
 
@@ -12915,14 +12915,14 @@ export type OrderConfirm = {
 	__typename?: "OrderConfirm";
 	errors: Array<OrderError>;
 	order?: Maybe<Order>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	orderErrors: Array<OrderError>;
 };
 
 /**
  * Event sent when order is confirmed.
  *
- * Added in Saleor 3.2.
+ * Added in Weenspace 3.2.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -12936,7 +12936,7 @@ export type OrderConfirmed = Event & {
 	order?: Maybe<Order>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
@@ -12960,7 +12960,7 @@ export type OrderCountableEdge = {
 /**
  * Create new order from existing checkout. Requires the following permissions: AUTHENTICATED_APP and HANDLE_CHECKOUTS.
  *
- * Added in Saleor 3.2.
+ * Added in Weenspace 3.2.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -13005,7 +13005,7 @@ export type OrderCreateFromCheckoutErrorCode =
 /**
  * Event sent when new order is created.
  *
- * Added in Saleor 3.2.
+ * Added in Weenspace 3.2.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -13019,7 +13019,7 @@ export type OrderCreated = Event & {
 	order?: Maybe<Order>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
@@ -13060,7 +13060,7 @@ export type OrderDiscountAdd = {
 	errors: Array<OrderError>;
 	/** Order which has been discounted. */
 	order?: Maybe<Order>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	orderErrors: Array<OrderError>;
 };
 
@@ -13083,7 +13083,7 @@ export type OrderDiscountDelete = {
 	errors: Array<OrderError>;
 	/** Order which has removed discount. */
 	order?: Maybe<Order>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	orderErrors: Array<OrderError>;
 };
 
@@ -13100,7 +13100,7 @@ export type OrderDiscountUpdate = {
 	errors: Array<OrderError>;
 	/** Order which has been discounted. */
 	order?: Maybe<Order>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	orderErrors: Array<OrderError>;
 };
 
@@ -13209,7 +13209,7 @@ export type OrderEvent = Node & {
 	shippingCostsIncluded?: Maybe<Scalars["Boolean"]>;
 	/**
 	 * The status of payment's transaction.
-	 * @deprecated This field will be removed in Saleor 3.14 (Preview Feature).Use `TransactionEvent` to track the status of `TransactionItem`.
+	 * @deprecated This field will be removed in Weenspace 3.14 (Preview Feature).Use `TransactionEvent` to track the status of `TransactionItem`.
 	 */
 	status?: Maybe<TransactionStatus>;
 	/** The transaction reference of captured payment. */
@@ -13325,13 +13325,13 @@ export type OrderEventsEnum =
 	| "REMOVED_PRODUCTS"
 	| "TRACKING_UPDATED"
 	| "TRANSACTION_CANCEL_REQUESTED"
-	/** This field will be removed in Saleor 3.14 (Preview Feature). Use `TRANSACTION_CHARGE_REQUESTED` instead. */
+	/** This field will be removed in Weenspace 3.14 (Preview Feature). Use `TRANSACTION_CHARGE_REQUESTED` instead. */
 	| "TRANSACTION_CAPTURE_REQUESTED"
 	| "TRANSACTION_CHARGE_REQUESTED"
 	| "TRANSACTION_EVENT"
 	| "TRANSACTION_MARK_AS_PAID_FAILED"
 	| "TRANSACTION_REFUND_REQUESTED"
-	/** This field will be removed in Saleor 3.14 (Preview Feature). Use `TRANSACTION_CANCEL_REQUESTED` instead. */
+	/** This field will be removed in Weenspace 3.14 (Preview Feature). Use `TRANSACTION_CANCEL_REQUESTED` instead. */
 	| "TRANSACTION_VOID_REQUESTED"
 	| "UPDATED_ADDRESS";
 
@@ -13358,7 +13358,7 @@ export type OrderFilterInput = {
 /**
  * Filter shipping methods for order.
  *
- * Added in Saleor 3.6.
+ * Added in Weenspace 3.6.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -13375,12 +13375,12 @@ export type OrderFilterShippingMethods = Event & {
 	/**
 	 * Shipping methods that can be used with this checkout.
 	 *
-	 * Added in Saleor 3.6.
+	 * Added in Weenspace 3.6.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
 	shippingMethods?: Maybe<Array<ShippingMethod>>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
@@ -13396,7 +13396,7 @@ export type OrderFulfill = {
 	fulfillments?: Maybe<Array<Fulfillment>>;
 	/** Fulfilled order. */
 	order?: Maybe<Order>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	orderErrors: Array<OrderError>;
 };
 
@@ -13410,7 +13410,7 @@ export type OrderFulfillInput = {
 	/**
 	 * Fulfillment tracking number.
 	 *
-	 * Added in Saleor 3.6.
+	 * Added in Weenspace 3.6.
 	 */
 	trackingNumber?: InputMaybe<Scalars["String"]>;
 };
@@ -13432,7 +13432,7 @@ export type OrderFulfillStockInput = {
 /**
  * Event sent when order is fulfilled.
  *
- * Added in Saleor 3.2.
+ * Added in Weenspace 3.2.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -13446,14 +13446,14 @@ export type OrderFulfilled = Event & {
 	order?: Maybe<Order>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
 /**
  * Event sent when order is fully paid.
  *
- * Added in Saleor 3.2.
+ * Added in Weenspace 3.2.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -13467,14 +13467,14 @@ export type OrderFullyPaid = Event & {
 	order?: Maybe<Order>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
 /**
  * Adds granted refund to the order.
  *
- * Added in Saleor 3.13.
+ * Added in Weenspace 3.13.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  *
@@ -13512,7 +13512,7 @@ export type OrderGrantRefundCreateInput = {
 /**
  * Updates granted refund.
  *
- * Added in Saleor 3.13.
+ * Added in Weenspace 3.13.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  *
@@ -13551,7 +13551,7 @@ export type OrderGrantRefundUpdateInput = {
 /**
  * The details of granted refund.
  *
- * Added in Saleor 3.13.
+ * Added in Weenspace 3.13.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -13588,7 +13588,7 @@ export type OrderLine = Node &
 		/**
 		 * List of public metadata items. Can be accessed without permissions.
 		 *
-		 * Added in Saleor 3.5.
+		 * Added in Weenspace 3.5.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -13598,7 +13598,7 @@ export type OrderLine = Node &
 		 *
 		 * Tip: Use GraphQL aliases to fetch multiple keys.
 		 *
-		 * Added in Saleor 3.5.
+		 * Added in Weenspace 3.5.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -13606,7 +13606,7 @@ export type OrderLine = Node &
 		/**
 		 * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
 		 *
-		 * Added in Saleor 3.5.
+		 * Added in Weenspace 3.5.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -13614,7 +13614,7 @@ export type OrderLine = Node &
 		/**
 		 * List of private metadata items. Requires staff permissions to access.
 		 *
-		 * Added in Saleor 3.5.
+		 * Added in Weenspace 3.5.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -13624,7 +13624,7 @@ export type OrderLine = Node &
 		 *
 		 * Tip: Use GraphQL aliases to fetch multiple keys.
 		 *
-		 * Added in Saleor 3.5.
+		 * Added in Weenspace 3.5.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -13632,7 +13632,7 @@ export type OrderLine = Node &
 		/**
 		 * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
 		 *
-		 * Added in Saleor 3.5.
+		 * Added in Weenspace 3.5.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -13645,13 +13645,13 @@ export type OrderLine = Node &
 		/**
 		 * A quantity of items remaining to be fulfilled.
 		 *
-		 * Added in Saleor 3.1.
+		 * Added in Weenspace 3.1.
 		 */
 		quantityToFulfill: Scalars["Int"];
 		/**
 		 * Denormalized tax class of the product in this order line.
 		 *
-		 * Added in Saleor 3.9.
+		 * Added in Weenspace 3.9.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 *
@@ -13661,7 +13661,7 @@ export type OrderLine = Node &
 		/**
 		 * Denormalized public metadata of the tax class.
 		 *
-		 * Added in Saleor 3.9.
+		 * Added in Weenspace 3.9.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -13669,7 +13669,7 @@ export type OrderLine = Node &
 		/**
 		 * Denormalized name of the tax class.
 		 *
-		 * Added in Saleor 3.9.
+		 * Added in Weenspace 3.9.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -13677,7 +13677,7 @@ export type OrderLine = Node &
 		/**
 		 * Denormalized private metadata of the tax class. Requires staff permissions to access.
 		 *
-		 * Added in Saleor 3.9.
+		 * Added in Weenspace 3.9.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -13736,7 +13736,7 @@ export type OrderLineCreateInput = {
 	/**
 	 * Flag that allow force splitting the same variant into multiple lines by skipping the matching logic.
 	 *
-	 * Added in Saleor 3.6.
+	 * Added in Weenspace 3.6.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -13757,7 +13757,7 @@ export type OrderLineDelete = {
 	errors: Array<OrderError>;
 	/** A related order. */
 	order?: Maybe<Order>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	orderErrors: Array<OrderError>;
 	/** An order line that was deleted. */
 	orderLine?: Maybe<OrderLine>;
@@ -13773,7 +13773,7 @@ export type OrderLineDiscountRemove = {
 	errors: Array<OrderError>;
 	/** Order which is related to line which has removed discount. */
 	order?: Maybe<Order>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	orderErrors: Array<OrderError>;
 	/** Order line which has removed discount. */
 	orderLine?: Maybe<OrderLine>;
@@ -13789,7 +13789,7 @@ export type OrderLineDiscountUpdate = {
 	errors: Array<OrderError>;
 	/** Order which is related to the discounted line. */
 	order?: Maybe<Order>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	orderErrors: Array<OrderError>;
 	/** Order line which has been discounted. */
 	orderLine?: Maybe<OrderLine>;
@@ -13810,7 +13810,7 @@ export type OrderLineUpdate = {
 	errors: Array<OrderError>;
 	/** Related order. */
 	order?: Maybe<Order>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	orderErrors: Array<OrderError>;
 	orderLine?: Maybe<OrderLine>;
 };
@@ -13825,7 +13825,7 @@ export type OrderLinesCreate = {
 	errors: Array<OrderError>;
 	/** Related order. */
 	order?: Maybe<Order>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	orderErrors: Array<OrderError>;
 	/** List of added order lines. */
 	orderLines?: Maybe<Array<OrderLine>>;
@@ -13841,14 +13841,14 @@ export type OrderMarkAsPaid = {
 	errors: Array<OrderError>;
 	/** Order marked as paid. */
 	order?: Maybe<Order>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	orderErrors: Array<OrderError>;
 };
 
 /**
  * Event sent when order metadata is updated.
  *
- * Added in Saleor 3.8.
+ * Added in Weenspace 3.8.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -13862,7 +13862,7 @@ export type OrderMetadataUpdated = Event & {
 	order?: Maybe<Order>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
@@ -13881,7 +13881,7 @@ export type OrderRefund = {
 	errors: Array<OrderError>;
 	/** A refunded order. */
 	order?: Maybe<Order>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	orderErrors: Array<OrderError>;
 };
 
@@ -13904,7 +13904,7 @@ export type OrderRefundProductsInput = {
 	amountToRefund?: InputMaybe<Scalars["PositiveDecimal"]>;
 	/** List of fulfilled lines to refund. */
 	fulfillmentLines?: InputMaybe<Array<OrderRefundFulfillmentLineInput>>;
-	/** If true, Saleor will refund shipping costs. If amountToRefund is providedincludeShippingCosts will be ignored. */
+	/** If true, Weenspace will refund shipping costs. If amountToRefund is providedincludeShippingCosts will be ignored. */
 	includeShippingCosts?: InputMaybe<Scalars["Boolean"]>;
 	/** List of unfulfilled lines to refund. */
 	orderLines?: InputMaybe<Array<OrderRefundLineInput>>;
@@ -13933,11 +13933,11 @@ export type OrderReturnProductsInput = {
 	amountToRefund?: InputMaybe<Scalars["PositiveDecimal"]>;
 	/** List of fulfilled lines to return. */
 	fulfillmentLines?: InputMaybe<Array<OrderReturnFulfillmentLineInput>>;
-	/** If true, Saleor will refund shipping costs. If amountToRefund is providedincludeShippingCosts will be ignored. */
+	/** If true, Weenspace will refund shipping costs. If amountToRefund is providedincludeShippingCosts will be ignored. */
 	includeShippingCosts?: InputMaybe<Scalars["Boolean"]>;
 	/** List of unfulfilled lines to return. */
 	orderLines?: InputMaybe<Array<OrderReturnLineInput>>;
-	/** If true, Saleor will call refund action for all lines. */
+	/** If true, Weenspace will call refund action for all lines. */
 	refund?: InputMaybe<Scalars["Boolean"]>;
 };
 
@@ -13951,7 +13951,7 @@ export type OrderSettings = {
 	/**
 	 * Determine the transaction flow strategy to be used. Include the selected option in the payload sent to the payment app, as a requested action for the transaction.
 	 *
-	 * Added in Saleor 3.13.
+	 * Added in Weenspace 3.13.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -13961,7 +13961,7 @@ export type OrderSettings = {
 	 * `PAYMENT_FLOW` - [default option] creates the `Payment` object.
 	 * `TRANSACTION_FLOW` - creates the `TransactionItem` object.
 	 *
-	 * Added in Saleor 3.13.
+	 * Added in Weenspace 3.13.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -13989,7 +13989,7 @@ export type OrderSettingsInput = {
 	/**
 	 * Determine the transaction flow strategy to be used. Include the selected option in the payload sent to the payment app, as a requested action for the transaction.
 	 *
-	 * Added in Saleor 3.13.
+	 * Added in Weenspace 3.13.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -13999,7 +13999,7 @@ export type OrderSettingsInput = {
 	 * `PAYMENT_FLOW` - [default option] creates the `Payment` object.
 	 * `TRANSACTION_FLOW` - creates the `TransactionItem` object.
 	 *
-	 * Added in Saleor 3.13.
+	 * Added in Weenspace 3.13.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -14016,7 +14016,7 @@ export type OrderSettingsUpdate = {
 	errors: Array<OrderSettingsError>;
 	/** Order settings. */
 	orderSettings?: Maybe<OrderSettings>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	orderSettingsErrors: Array<OrderSettingsError>;
 };
 
@@ -14031,13 +14031,13 @@ export type OrderSortField =
 	/**
 	 * Sort orders by creation date.
 	 *
-	 * DEPRECATED: this field will be removed in Saleor 4.0.
+	 * DEPRECATED: this field will be removed in Weenspace 4.0.
 	 */
 	| "CREATED_AT"
 	/**
 	 * Sort orders by creation date.
 	 *
-	 * DEPRECATED: this field will be removed in Saleor 4.0.
+	 * DEPRECATED: this field will be removed in Weenspace 4.0.
 	 */
 	| "CREATION_DATE"
 	/** Sort orders by customer. */
@@ -14089,7 +14089,7 @@ export type OrderUpdate = {
 	__typename?: "OrderUpdate";
 	errors: Array<OrderError>;
 	order?: Maybe<Order>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	orderErrors: Array<OrderError>;
 };
 
@@ -14099,7 +14099,7 @@ export type OrderUpdateInput = {
 	/**
 	 * External ID of this order.
 	 *
-	 * Added in Saleor 3.10.
+	 * Added in Weenspace 3.10.
 	 */
 	externalReference?: InputMaybe<Scalars["String"]>;
 	/** Shipping address of the customer. */
@@ -14118,7 +14118,7 @@ export type OrderUpdateShipping = {
 	errors: Array<OrderError>;
 	/** Order with updated shipping method. */
 	order?: Maybe<Order>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	orderErrors: Array<OrderError>;
 };
 
@@ -14130,7 +14130,7 @@ export type OrderUpdateShippingInput = {
 /**
  * Event sent when order is updated.
  *
- * Added in Saleor 3.2.
+ * Added in Weenspace 3.2.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -14144,7 +14144,7 @@ export type OrderUpdated = Event & {
 	order?: Maybe<Order>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
@@ -14158,7 +14158,7 @@ export type OrderVoid = {
 	errors: Array<OrderError>;
 	/** A voided order. */
 	order?: Maybe<Order>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	orderErrors: Array<OrderError>;
 };
 
@@ -14178,7 +14178,7 @@ export type Page = Node &
 		 * Content of the page.
 		 *
 		 * Rich text format. For reference see https://editorjs.io/
-		 * @deprecated This field will be removed in Saleor 4.0. Use the `content` field instead.
+		 * @deprecated This field will be removed in Weenspace 4.0. Use the `content` field instead.
 		 */
 		contentJson: Scalars["JSONString"];
 		created: Scalars["DateTime"];
@@ -14191,7 +14191,7 @@ export type Page = Node &
 		 *
 		 * Tip: Use GraphQL aliases to fetch multiple keys.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -14199,7 +14199,7 @@ export type Page = Node &
 		/**
 		 * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -14212,7 +14212,7 @@ export type Page = Node &
 		 *
 		 * Tip: Use GraphQL aliases to fetch multiple keys.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -14220,17 +14220,17 @@ export type Page = Node &
 		/**
 		 * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
 		privateMetafields?: Maybe<Scalars["Metadata"]>;
-		/** @deprecated This field will be removed in Saleor 4.0. Use the `publishedAt` field to fetch the publication date. */
+		/** @deprecated This field will be removed in Weenspace 4.0. Use the `publishedAt` field to fetch the publication date. */
 		publicationDate?: Maybe<Scalars["Date"]>;
 		/**
 		 * The page publication date.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 */
 		publishedAt?: Maybe<Scalars["DateTime"]>;
 		seoDescription?: Maybe<Scalars["String"]>;
@@ -14274,7 +14274,7 @@ export type PageTranslationArgs = {
 export type PageAttributeAssign = {
 	__typename?: "PageAttributeAssign";
 	errors: Array<PageError>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	pageErrors: Array<PageError>;
 	/** The updated page type. */
 	pageType?: Maybe<PageType>;
@@ -14288,7 +14288,7 @@ export type PageAttributeAssign = {
 export type PageAttributeUnassign = {
 	__typename?: "PageAttributeUnassign";
 	errors: Array<PageError>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	pageErrors: Array<PageError>;
 	/** The updated page type. */
 	pageType?: Maybe<PageType>;
@@ -14304,7 +14304,7 @@ export type PageBulkDelete = {
 	/** Returns how many objects were affected. */
 	count: Scalars["Int"];
 	errors: Array<PageError>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	pageErrors: Array<PageError>;
 };
 
@@ -14318,7 +14318,7 @@ export type PageBulkPublish = {
 	/** Returns how many objects were affected. */
 	count: Scalars["Int"];
 	errors: Array<PageError>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	pageErrors: Array<PageError>;
 };
 
@@ -14348,7 +14348,7 @@ export type PageCreate = {
 	__typename?: "PageCreate";
 	errors: Array<PageError>;
 	page?: Maybe<Page>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	pageErrors: Array<PageError>;
 };
 
@@ -14368,13 +14368,13 @@ export type PageCreateInput = {
 	/**
 	 * Publication date. ISO 8601 standard.
 	 *
-	 * DEPRECATED: this field will be removed in Saleor 4.0. Use `publishedAt` field instead.
+	 * DEPRECATED: this field will be removed in Weenspace 4.0. Use `publishedAt` field instead.
 	 */
 	publicationDate?: InputMaybe<Scalars["String"]>;
 	/**
 	 * Publication date time. ISO 8601 standard.
 	 *
-	 * Added in Saleor 3.3.
+	 * Added in Weenspace 3.3.
 	 */
 	publishedAt?: InputMaybe<Scalars["DateTime"]>;
 	/** Search engine optimization fields. */
@@ -14388,7 +14388,7 @@ export type PageCreateInput = {
 /**
  * Event sent when new page is created.
  *
- * Added in Saleor 3.2.
+ * Added in Weenspace 3.2.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -14402,7 +14402,7 @@ export type PageCreated = Event & {
 	page?: Maybe<Page>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
@@ -14415,14 +14415,14 @@ export type PageDelete = {
 	__typename?: "PageDelete";
 	errors: Array<PageError>;
 	page?: Maybe<Page>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	pageErrors: Array<PageError>;
 };
 
 /**
  * Event sent when page is deleted.
  *
- * Added in Saleor 3.2.
+ * Added in Weenspace 3.2.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -14436,7 +14436,7 @@ export type PageDeleted = Event & {
 	page?: Maybe<Page>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
@@ -14499,13 +14499,13 @@ export type PageInput = {
 	/**
 	 * Publication date. ISO 8601 standard.
 	 *
-	 * DEPRECATED: this field will be removed in Saleor 4.0. Use `publishedAt` field instead.
+	 * DEPRECATED: this field will be removed in Weenspace 4.0. Use `publishedAt` field instead.
 	 */
 	publicationDate?: InputMaybe<Scalars["String"]>;
 	/**
 	 * Publication date time. ISO 8601 standard.
 	 *
-	 * Added in Saleor 3.3.
+	 * Added in Weenspace 3.3.
 	 */
 	publishedAt?: InputMaybe<Scalars["DateTime"]>;
 	/** Search engine optimization fields. */
@@ -14526,7 +14526,7 @@ export type PageReorderAttributeValues = {
 	errors: Array<PageError>;
 	/** Page from which attribute values are reordered. */
 	page?: Maybe<Page>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	pageErrors: Array<PageError>;
 };
 
@@ -14534,25 +14534,25 @@ export type PageSortField =
 	/**
 	 * Sort pages by creation date.
 	 *
-	 * DEPRECATED: this field will be removed in Saleor 4.0.
+	 * DEPRECATED: this field will be removed in Weenspace 4.0.
 	 */
 	| "CREATED_AT"
 	/**
 	 * Sort pages by creation date.
 	 *
-	 * DEPRECATED: this field will be removed in Saleor 4.0.
+	 * DEPRECATED: this field will be removed in Weenspace 4.0.
 	 */
 	| "CREATION_DATE"
 	/**
 	 * Sort pages by publication date.
 	 *
-	 * DEPRECATED: this field will be removed in Saleor 4.0.
+	 * DEPRECATED: this field will be removed in Weenspace 4.0.
 	 */
 	| "PUBLICATION_DATE"
 	/**
 	 * Sort pages by publication date.
 	 *
-	 * DEPRECATED: this field will be removed in Saleor 4.0.
+	 * DEPRECATED: this field will be removed in Weenspace 4.0.
 	 */
 	| "PUBLISHED_AT"
 	/** Sort pages by slug. */
@@ -14583,13 +14583,13 @@ export type PageTranslatableContent = Node & {
 	 * Content of the page.
 	 *
 	 * Rich text format. For reference see https://editorjs.io/
-	 * @deprecated This field will be removed in Saleor 4.0. Use the `content` field instead.
+	 * @deprecated This field will be removed in Weenspace 4.0. Use the `content` field instead.
 	 */
 	contentJson?: Maybe<Scalars["JSONString"]>;
 	id: Scalars["ID"];
 	/**
 	 * A static page that can be manually added by a shop operator through the dashboard.
-	 * @deprecated This field will be removed in Saleor 4.0. Get model fields from the root level queries.
+	 * @deprecated This field will be removed in Weenspace 4.0. Get model fields from the root level queries.
 	 */
 	page?: Maybe<Page>;
 	seoDescription?: Maybe<Scalars["String"]>;
@@ -14612,7 +14612,7 @@ export type PageTranslate = {
 	__typename?: "PageTranslate";
 	errors: Array<TranslationError>;
 	page?: Maybe<PageTranslatableContent>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	translationErrors: Array<TranslationError>;
 };
 
@@ -14628,7 +14628,7 @@ export type PageTranslation = Node & {
 	 * Translated description of the page.
 	 *
 	 * Rich text format. For reference see https://editorjs.io/
-	 * @deprecated This field will be removed in Saleor 4.0. Use the `content` field instead.
+	 * @deprecated This field will be removed in Weenspace 4.0. Use the `content` field instead.
 	 */
 	contentJson?: Maybe<Scalars["JSONString"]>;
 	id: Scalars["ID"];
@@ -14677,7 +14677,7 @@ export type PageType = Node &
 		 *
 		 * Tip: Use GraphQL aliases to fetch multiple keys.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -14685,7 +14685,7 @@ export type PageType = Node &
 		/**
 		 * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -14698,7 +14698,7 @@ export type PageType = Node &
 		 *
 		 * Tip: Use GraphQL aliases to fetch multiple keys.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -14706,7 +14706,7 @@ export type PageType = Node &
 		/**
 		 * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -14754,7 +14754,7 @@ export type PageTypeBulkDelete = {
 	/** Returns how many objects were affected. */
 	count: Scalars["Int"];
 	errors: Array<PageError>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	pageErrors: Array<PageError>;
 };
 
@@ -14783,7 +14783,7 @@ export type PageTypeCountableEdge = {
 export type PageTypeCreate = {
 	__typename?: "PageTypeCreate";
 	errors: Array<PageError>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	pageErrors: Array<PageError>;
 	pageType?: Maybe<PageType>;
 };
@@ -14800,7 +14800,7 @@ export type PageTypeCreateInput = {
 /**
  * Event sent when new page type is created.
  *
- * Added in Saleor 3.5.
+ * Added in Weenspace 3.5.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -14814,7 +14814,7 @@ export type PageTypeCreated = Event & {
 	pageType?: Maybe<PageType>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
@@ -14826,7 +14826,7 @@ export type PageTypeCreated = Event & {
 export type PageTypeDelete = {
 	__typename?: "PageTypeDelete";
 	errors: Array<PageError>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	pageErrors: Array<PageError>;
 	pageType?: Maybe<PageType>;
 };
@@ -14834,7 +14834,7 @@ export type PageTypeDelete = {
 /**
  * Event sent when page type is deleted.
  *
- * Added in Saleor 3.5.
+ * Added in Weenspace 3.5.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -14848,7 +14848,7 @@ export type PageTypeDeleted = Event & {
 	pageType?: Maybe<PageType>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
@@ -14865,7 +14865,7 @@ export type PageTypeFilterInput = {
 export type PageTypeReorderAttributes = {
 	__typename?: "PageTypeReorderAttributes";
 	errors: Array<PageError>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	pageErrors: Array<PageError>;
 	/** Page type from which attributes are reordered. */
 	pageType?: Maybe<PageType>;
@@ -14892,7 +14892,7 @@ export type PageTypeSortingInput = {
 export type PageTypeUpdate = {
 	__typename?: "PageTypeUpdate";
 	errors: Array<PageError>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	pageErrors: Array<PageError>;
 	pageType?: Maybe<PageType>;
 };
@@ -14911,7 +14911,7 @@ export type PageTypeUpdateInput = {
 /**
  * Event sent when page type is updated.
  *
- * Added in Saleor 3.5.
+ * Added in Weenspace 3.5.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -14925,7 +14925,7 @@ export type PageTypeUpdated = Event & {
 	pageType?: Maybe<PageType>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
@@ -14938,14 +14938,14 @@ export type PageUpdate = {
 	__typename?: "PageUpdate";
 	errors: Array<PageError>;
 	page?: Maybe<Page>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	pageErrors: Array<PageError>;
 };
 
 /**
  * Event sent when page is updated.
  *
- * Added in Saleor 3.2.
+ * Added in Weenspace 3.2.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -14959,7 +14959,7 @@ export type PageUpdated = Event & {
 	page?: Maybe<Page>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
@@ -14970,7 +14970,7 @@ export type PageUpdated = Event & {
  */
 export type PasswordChange = {
 	__typename?: "PasswordChange";
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	accountErrors: Array<AccountError>;
 	errors: Array<AccountError>;
 	/** A user instance with a new password. */
@@ -15023,7 +15023,7 @@ export type Payment = Node &
 		 *
 		 * Tip: Use GraphQL aliases to fetch multiple keys.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -15031,7 +15031,7 @@ export type Payment = Node &
 		/**
 		 * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -15046,7 +15046,7 @@ export type Payment = Node &
 		 *
 		 * Tip: Use GraphQL aliases to fetch multiple keys.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -15054,7 +15054,7 @@ export type Payment = Node &
 		/**
 		 * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -15093,7 +15093,7 @@ export type PaymentPrivateMetafieldsArgs = {
 /**
  * Authorize payment.
  *
- * Added in Saleor 3.6.
+ * Added in Weenspace 3.6.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -15107,7 +15107,7 @@ export type PaymentAuthorize = Event & {
 	payment?: Maybe<Payment>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
@@ -15121,14 +15121,14 @@ export type PaymentCapture = {
 	errors: Array<PaymentError>;
 	/** Updated payment. */
 	payment?: Maybe<Payment>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	paymentErrors: Array<PaymentError>;
 };
 
 /**
  * Capture payment.
  *
- * Added in Saleor 3.6.
+ * Added in Weenspace 3.6.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -15142,7 +15142,7 @@ export type PaymentCaptureEvent = Event & {
 	payment?: Maybe<Payment>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
@@ -15163,7 +15163,7 @@ export type PaymentCheckBalance = {
 	/** Response from the gateway. */
 	data?: Maybe<Scalars["JSONString"]>;
 	errors: Array<PaymentError>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	paymentErrors: Array<PaymentError>;
 };
 
@@ -15181,7 +15181,7 @@ export type PaymentCheckBalanceInput = {
 /**
  * Confirm payment.
  *
- * Added in Saleor 3.6.
+ * Added in Weenspace 3.6.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -15195,7 +15195,7 @@ export type PaymentConfirmEvent = Event & {
 	payment?: Maybe<Payment>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
@@ -15253,7 +15253,7 @@ export type PaymentFilterInput = {
 	/**
 	 * Filter by ids.
 	 *
-	 * Added in Saleor 3.8.
+	 * Added in Weenspace 3.8.
 	 */
 	ids?: InputMaybe<Array<Scalars["ID"]>>;
 };
@@ -15296,7 +15296,7 @@ export type PaymentGatewayConfigErrorCode = "GRAPHQL_ERROR" | "INVALID" | "NOT_F
 /**
  * Initializes a payment gateway session. It triggers the webhook `PAYMENT_GATEWAY_INITIALIZE_SESSION`, to the requested `paymentGateways`. If `paymentGateways` is not provided, the webhook will be send to all subscribed payment gateways.
  *
- * Added in Saleor 3.13.
+ * Added in Weenspace 3.13.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -15322,7 +15322,7 @@ export type PaymentGatewayInitializeErrorCode = "GRAPHQL_ERROR" | "INVALID" | "N
 /**
  * Event sent when user wants to initialize the payment gateway.
  *
- * Added in Saleor 3.13.
+ * Added in Weenspace 3.13.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -15340,7 +15340,7 @@ export type PaymentGatewayInitializeSession = Event & {
 	recipient?: Maybe<App>;
 	/** Checkout or order */
 	sourceObject: OrderOrCheckout;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
@@ -15356,7 +15356,7 @@ export type PaymentInitialize = {
 	__typename?: "PaymentInitialize";
 	errors: Array<PaymentError>;
 	initializedPayment?: Maybe<PaymentInitialized>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	paymentErrors: Array<PaymentError>;
 };
 
@@ -15379,7 +15379,7 @@ export type PaymentInput = {
 	/**
 	 * User public metadata.
 	 *
-	 * Added in Saleor 3.1.
+	 * Added in Weenspace 3.1.
 	 */
 	metadata?: InputMaybe<Array<MetadataInput>>;
 	/** URL of a storefront view where user should be redirected after requiring additional actions. Payment with additional actions will not be finished if this field is not provided. */
@@ -15387,7 +15387,7 @@ export type PaymentInput = {
 	/**
 	 * Payment store type.
 	 *
-	 * Added in Saleor 3.1.
+	 * Added in Weenspace 3.1.
 	 */
 	storePaymentMethod?: InputMaybe<StorePaymentMethodEnum>;
 	/** Client-side generated payment token, representing customer's billing data in a secure manner. */
@@ -15397,7 +15397,7 @@ export type PaymentInput = {
 /**
  * List payment gateways.
  *
- * Added in Saleor 3.6.
+ * Added in Weenspace 3.6.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -15411,14 +15411,14 @@ export type PaymentListGateways = Event & {
 	issuingPrincipal?: Maybe<IssuingPrincipal>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
 /**
  * Process payment.
  *
- * Added in Saleor 3.6.
+ * Added in Weenspace 3.6.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -15432,7 +15432,7 @@ export type PaymentProcessEvent = Event & {
 	payment?: Maybe<Payment>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
@@ -15446,14 +15446,14 @@ export type PaymentRefund = {
 	errors: Array<PaymentError>;
 	/** Updated payment. */
 	payment?: Maybe<Payment>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	paymentErrors: Array<PaymentError>;
 };
 
 /**
  * Refund payment.
  *
- * Added in Saleor 3.6.
+ * Added in Weenspace 3.6.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -15467,7 +15467,7 @@ export type PaymentRefundEvent = Event & {
 	payment?: Maybe<Payment>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
@@ -15481,7 +15481,7 @@ export type PaymentSource = {
 	/**
 	 * List of public metadata items.
 	 *
-	 * Added in Saleor 3.1.
+	 * Added in Weenspace 3.1.
 	 *
 	 * Can be accessed without permissions.
 	 */
@@ -15500,14 +15500,14 @@ export type PaymentVoid = {
 	errors: Array<PaymentError>;
 	/** Updated payment. */
 	payment?: Maybe<Payment>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	paymentErrors: Array<PaymentError>;
 };
 
 /**
  * Void payment.
  *
- * Added in Saleor 3.6.
+ * Added in Weenspace 3.6.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -15521,7 +15521,7 @@ export type PaymentVoidEvent = Event & {
 	payment?: Maybe<Payment>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
@@ -15569,7 +15569,7 @@ export type PermissionGroupCreate = {
 	__typename?: "PermissionGroupCreate";
 	errors: Array<PermissionGroupError>;
 	group?: Maybe<Group>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	permissionGroupErrors: Array<PermissionGroupError>;
 };
 
@@ -15585,7 +15585,7 @@ export type PermissionGroupCreateInput = {
 /**
  * Event sent when new permission group is created.
  *
- * Added in Saleor 3.6.
+ * Added in Weenspace 3.6.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -15599,7 +15599,7 @@ export type PermissionGroupCreated = Event & {
 	permissionGroup?: Maybe<Group>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
@@ -15612,14 +15612,14 @@ export type PermissionGroupDelete = {
 	__typename?: "PermissionGroupDelete";
 	errors: Array<PermissionGroupError>;
 	group?: Maybe<Group>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	permissionGroupErrors: Array<PermissionGroupError>;
 };
 
 /**
  * Event sent when permission group is deleted.
  *
- * Added in Saleor 3.6.
+ * Added in Weenspace 3.6.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -15633,7 +15633,7 @@ export type PermissionGroupDeleted = Event & {
 	permissionGroup?: Maybe<Group>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
@@ -15688,7 +15688,7 @@ export type PermissionGroupUpdate = {
 	__typename?: "PermissionGroupUpdate";
 	errors: Array<PermissionGroupError>;
 	group?: Maybe<Group>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	permissionGroupErrors: Array<PermissionGroupError>;
 };
 
@@ -15708,7 +15708,7 @@ export type PermissionGroupUpdateInput = {
 /**
  * Event sent when permission group is updated.
  *
- * Added in Saleor 3.6.
+ * Added in Weenspace 3.6.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -15722,7 +15722,7 @@ export type PermissionGroupUpdated = Event & {
 	permissionGroup?: Maybe<Group>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
@@ -15819,7 +15819,7 @@ export type PluginUpdate = {
 	__typename?: "PluginUpdate";
 	errors: Array<PluginError>;
 	plugin?: Maybe<Plugin>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	pluginsErrors: Array<PluginError>;
 };
 
@@ -15889,14 +15889,14 @@ export type Product = Node &
 		/**
 		 * Get a single attribute attached to product by attribute slug.
 		 *
-		 * Added in Saleor 3.9.
+		 * Added in Weenspace 3.9.
 		 */
 		attribute?: Maybe<SelectedAttribute>;
 		/** List of attributes assigned to this product. */
 		attributes: Array<SelectedAttribute>;
 		/**
 		 * Date when product is available for purchase.
-		 * @deprecated This field will be removed in Saleor 4.0. Use the `availableForPurchaseAt` field to fetch the available for purchase date.
+		 * @deprecated This field will be removed in Weenspace 4.0. Use the `availableForPurchaseAt` field to fetch the available for purchase date.
 		 */
 		availableForPurchase?: Maybe<Scalars["Date"]>;
 		/** Date when product is available for purchase. */
@@ -15910,7 +15910,7 @@ export type Product = Node &
 		 * Requires one of the following permissions: MANAGE_PRODUCTS.
 		 */
 		channelListings?: Maybe<Array<ProductChannelListing>>;
-		/** @deprecated This field will be removed in Saleor 4.0. Use `Channel.taxConfiguration` field to determine whether tax collection is enabled. */
+		/** @deprecated This field will be removed in Weenspace 4.0. Use `Channel.taxConfiguration` field to determine whether tax collection is enabled. */
 		chargeTaxes: Scalars["Boolean"];
 		/** List of collections for the product. Requires the following permissions to include the unpublished items: MANAGE_ORDERS, MANAGE_DISCOUNTS, MANAGE_PRODUCTS. */
 		collections?: Maybe<Array<Collection>>;
@@ -15926,24 +15926,24 @@ export type Product = Node &
 		 * Description of the product.
 		 *
 		 * Rich text format. For reference see https://editorjs.io/
-		 * @deprecated This field will be removed in Saleor 4.0. Use the `description` field instead.
+		 * @deprecated This field will be removed in Weenspace 4.0. Use the `description` field instead.
 		 */
 		descriptionJson?: Maybe<Scalars["JSONString"]>;
 		/**
 		 * External ID of this product.
 		 *
-		 * Added in Saleor 3.10.
+		 * Added in Weenspace 3.10.
 		 */
 		externalReference?: Maybe<Scalars["String"]>;
 		id: Scalars["ID"];
 		/**
 		 * Get a single product image by ID.
-		 * @deprecated This field will be removed in Saleor 4.0. Use the `mediaById` field instead.
+		 * @deprecated This field will be removed in Weenspace 4.0. Use the `mediaById` field instead.
 		 */
 		imageById?: Maybe<ProductImage>;
 		/**
 		 * List of images for the product.
-		 * @deprecated This field will be removed in Saleor 4.0. Use the `media` field instead.
+		 * @deprecated This field will be removed in Weenspace 4.0. Use the `media` field instead.
 		 */
 		images?: Maybe<Array<ProductImage>>;
 		/** Whether the product is in stock and visible or not. */
@@ -15961,7 +15961,7 @@ export type Product = Node &
 		 *
 		 * Tip: Use GraphQL aliases to fetch multiple keys.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -15969,7 +15969,7 @@ export type Product = Node &
 		/**
 		 * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -15984,7 +15984,7 @@ export type Product = Node &
 		 *
 		 * Tip: Use GraphQL aliases to fetch multiple keys.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -15992,7 +15992,7 @@ export type Product = Node &
 		/**
 		 * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -16010,7 +16010,7 @@ export type Product = Node &
 		taxClass?: Maybe<TaxClass>;
 		/**
 		 * A type of tax. Assigned by enabled tax gateway
-		 * @deprecated This field will be removed in Saleor 4.0. Use `taxClass` field instead.
+		 * @deprecated This field will be removed in Weenspace 4.0. Use `taxClass` field instead.
 		 */
 		taxType?: Maybe<TaxType>;
 		thumbnail?: Maybe<Image>;
@@ -16020,8 +16020,8 @@ export type Product = Node &
 		/**
 		 * Get a single variant by SKU or ID.
 		 *
-		 * Added in Saleor 3.9.
-		 * @deprecated This field will be removed in Saleor 4.0. Use top-level `variant` query.
+		 * Added in Weenspace 3.9.
+		 * @deprecated This field will be removed in Weenspace 4.0. Use top-level `variant` query.
 		 */
 		variant?: Maybe<ProductVariant>;
 		/** List of variants for the product. Requires the following permissions to include the unpublished items: MANAGE_ORDERS, MANAGE_DISCOUNTS, MANAGE_PRODUCTS. */
@@ -16104,7 +16104,7 @@ export type ProductVariantArgs = {
 export type ProductAttributeAssign = {
 	__typename?: "ProductAttributeAssign";
 	errors: Array<ProductError>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	productErrors: Array<ProductError>;
 	/** The updated product type. */
 	productType?: Maybe<ProductType>;
@@ -16118,7 +16118,7 @@ export type ProductAttributeAssignInput = {
 	/**
 	 * Whether attribute is allowed in variant selection. Allowed types are: ['dropdown', 'boolean', 'swatch', 'numeric'].
 	 *
-	 * Added in Saleor 3.1.
+	 * Added in Weenspace 3.1.
 	 */
 	variantSelection?: InputMaybe<Scalars["Boolean"]>;
 };
@@ -16126,14 +16126,14 @@ export type ProductAttributeAssignInput = {
 /**
  * Update attributes assigned to product variant for given product type.
  *
- * Added in Saleor 3.1.
+ * Added in Weenspace 3.1.
  *
  * Requires one of the following permissions: MANAGE_PRODUCT_TYPES_AND_ATTRIBUTES.
  */
 export type ProductAttributeAssignmentUpdate = {
 	__typename?: "ProductAttributeAssignmentUpdate";
 	errors: Array<ProductError>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	productErrors: Array<ProductError>;
 	/** The updated product type. */
 	productType?: Maybe<ProductType>;
@@ -16145,7 +16145,7 @@ export type ProductAttributeAssignmentUpdateInput = {
 	/**
 	 * Whether attribute is allowed in variant selection. Allowed types are: ['dropdown', 'boolean', 'swatch', 'numeric'].
 	 *
-	 * Added in Saleor 3.1.
+	 * Added in Weenspace 3.1.
 	 */
 	variantSelection: Scalars["Boolean"];
 };
@@ -16160,7 +16160,7 @@ export type ProductAttributeType = "PRODUCT" | "VARIANT";
 export type ProductAttributeUnassign = {
 	__typename?: "ProductAttributeUnassign";
 	errors: Array<ProductError>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	productErrors: Array<ProductError>;
 	/** The updated product type. */
 	productType?: Maybe<ProductType>;
@@ -16176,19 +16176,19 @@ export type ProductBulkDelete = {
 	/** Returns how many objects were affected. */
 	count: Scalars["Int"];
 	errors: Array<ProductError>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	productErrors: Array<ProductError>;
 };
 
 /** Represents product channel listing. */
 export type ProductChannelListing = Node & {
 	__typename?: "ProductChannelListing";
-	/** @deprecated This field will be removed in Saleor 4.0. Use the `availableForPurchaseAt` field to fetch the available for purchase date. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use the `availableForPurchaseAt` field to fetch the available for purchase date. */
 	availableForPurchase?: Maybe<Scalars["Date"]>;
 	/**
 	 * The product available for purchase date time.
 	 *
-	 * Added in Saleor 3.3.
+	 * Added in Weenspace 3.3.
 	 */
 	availableForPurchaseAt?: Maybe<Scalars["DateTime"]>;
 	channel: Channel;
@@ -16206,12 +16206,12 @@ export type ProductChannelListing = Node & {
 	margin?: Maybe<Margin>;
 	/** Lists the storefront product's pricing, the current price and discounts, only meant for displaying. */
 	pricing?: Maybe<ProductPricingInfo>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use the `publishedAt` field to fetch the publication date. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use the `publishedAt` field to fetch the publication date. */
 	publicationDate?: Maybe<Scalars["Date"]>;
 	/**
 	 * The product publication date time.
 	 *
-	 * Added in Saleor 3.3.
+	 * Added in Weenspace 3.3.
 	 */
 	publishedAt?: Maybe<Scalars["DateTime"]>;
 	/**
@@ -16234,13 +16234,13 @@ export type ProductChannelListingAddInput = {
 	/**
 	 * A start date time from which a product will be available for purchase. When not set and `isAvailable` is set to True, the current day is assumed.
 	 *
-	 * Added in Saleor 3.3.
+	 * Added in Weenspace 3.3.
 	 */
 	availableForPurchaseAt?: InputMaybe<Scalars["DateTime"]>;
 	/**
 	 * A start date from which a product will be available for purchase. When not set and isAvailable is set to True, the current day is assumed.
 	 *
-	 * DEPRECATED: this field will be removed in Saleor 4.0. Use `availableForPurchaseAt` field instead.
+	 * DEPRECATED: this field will be removed in Weenspace 4.0. Use `availableForPurchaseAt` field instead.
 	 */
 	availableForPurchaseDate?: InputMaybe<Scalars["Date"]>;
 	/** ID of a channel. */
@@ -16252,13 +16252,13 @@ export type ProductChannelListingAddInput = {
 	/**
 	 * Publication date. ISO 8601 standard.
 	 *
-	 * DEPRECATED: this field will be removed in Saleor 4.0. Use `publishedAt` field instead.
+	 * DEPRECATED: this field will be removed in Weenspace 4.0. Use `publishedAt` field instead.
 	 */
 	publicationDate?: InputMaybe<Scalars["Date"]>;
 	/**
 	 * Publication date time. ISO 8601 standard.
 	 *
-	 * Added in Saleor 3.3.
+	 * Added in Weenspace 3.3.
 	 */
 	publishedAt?: InputMaybe<Scalars["DateTime"]>;
 	/** List of variants from which the channel should be unassigned. */
@@ -16295,7 +16295,7 @@ export type ProductChannelListingUpdate = {
 	errors: Array<ProductChannelListingError>;
 	/** An updated product instance. */
 	product?: Maybe<Product>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	productChannelListingErrors: Array<ProductChannelListingError>;
 };
 
@@ -16332,7 +16332,7 @@ export type ProductCreate = {
 	__typename?: "ProductCreate";
 	errors: Array<ProductError>;
 	product?: Maybe<Product>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	productErrors: Array<ProductError>;
 };
 
@@ -16344,7 +16344,7 @@ export type ProductCreateInput = {
 	/**
 	 * Determine if taxes are being charged for the product.
 	 *
-	 * DEPRECATED: this field will be removed in Saleor 4.0. Use `Channel.taxConfiguration` to configure whether tax collection is enabled.
+	 * DEPRECATED: this field will be removed in Weenspace 4.0. Use `Channel.taxConfiguration` to configure whether tax collection is enabled.
 	 */
 	chargeTaxes?: InputMaybe<Scalars["Boolean"]>;
 	/** List of IDs of collections that the product belongs to. */
@@ -16358,13 +16358,13 @@ export type ProductCreateInput = {
 	/**
 	 * External ID of this product.
 	 *
-	 * Added in Saleor 3.10.
+	 * Added in Weenspace 3.10.
 	 */
 	externalReference?: InputMaybe<Scalars["String"]>;
 	/**
 	 * Fields required to update the product metadata.
 	 *
-	 * Added in Saleor 3.8.
+	 * Added in Weenspace 3.8.
 	 */
 	metadata?: InputMaybe<Array<MetadataInput>>;
 	/** Product name. */
@@ -16372,7 +16372,7 @@ export type ProductCreateInput = {
 	/**
 	 * Fields required to update the product private metadata.
 	 *
-	 * Added in Saleor 3.8.
+	 * Added in Weenspace 3.8.
 	 */
 	privateMetadata?: InputMaybe<Array<MetadataInput>>;
 	/** ID of the type that product belongs to. */
@@ -16388,7 +16388,7 @@ export type ProductCreateInput = {
 	/**
 	 * Tax rate for enabled tax gateway.
 	 *
-	 * DEPRECATED: this field will be removed in Saleor 4.0. Use tax classes to control the tax calculation for a product. If taxCode is provided, Saleor will try to find a tax class with given code (codes are stored in metadata) and assign it. If no tax class is found, it would be created and assigned.
+	 * DEPRECATED: this field will be removed in Weenspace 4.0. Use tax classes to control the tax calculation for a product. If taxCode is provided, Weenspace will try to find a tax class with given code (codes are stored in metadata) and assign it. If no tax class is found, it would be created and assigned.
 	 */
 	taxCode?: InputMaybe<Scalars["String"]>;
 	/** Weight of the Product. */
@@ -16398,7 +16398,7 @@ export type ProductCreateInput = {
 /**
  * Event sent when new product is created.
  *
- * Added in Saleor 3.2.
+ * Added in Weenspace 3.2.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -16414,14 +16414,14 @@ export type ProductCreated = Event & {
 	product?: Maybe<Product>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
 /**
  * Event sent when new product is created.
  *
- * Added in Saleor 3.2.
+ * Added in Weenspace 3.2.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -16438,14 +16438,14 @@ export type ProductDelete = {
 	__typename?: "ProductDelete";
 	errors: Array<ProductError>;
 	product?: Maybe<Product>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	productErrors: Array<ProductError>;
 };
 
 /**
  * Event sent when product is deleted.
  *
- * Added in Saleor 3.2.
+ * Added in Weenspace 3.2.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -16461,14 +16461,14 @@ export type ProductDeleted = Event & {
 	product?: Maybe<Product>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
 /**
  * Event sent when product is deleted.
  *
- * Added in Saleor 3.2.
+ * Added in Weenspace 3.2.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -16532,14 +16532,14 @@ export type ProductFilterInput = {
 	/**
 	 * Filter by the date of availability for purchase.
 	 *
-	 * Added in Saleor 3.8.
+	 * Added in Weenspace 3.8.
 	 */
 	availableFrom?: InputMaybe<Scalars["DateTime"]>;
 	categories?: InputMaybe<Array<Scalars["ID"]>>;
 	/**
 	 * Specifies the channel by which the data should be filtered.
 	 *
-	 * DEPRECATED: this field will be removed in Saleor 4.0. Use root-level channel argument instead.
+	 * DEPRECATED: this field will be removed in Weenspace 4.0. Use root-level channel argument instead.
 	 */
 	channel?: InputMaybe<Scalars["String"]>;
 	collections?: InputMaybe<Array<Scalars["ID"]>>;
@@ -16551,14 +16551,14 @@ export type ProductFilterInput = {
 	/**
 	 * Filter by availability for purchase.
 	 *
-	 * Added in Saleor 3.8.
+	 * Added in Weenspace 3.8.
 	 */
 	isAvailable?: InputMaybe<Scalars["Boolean"]>;
 	isPublished?: InputMaybe<Scalars["Boolean"]>;
 	/**
 	 * Filter by visibility in product listings.
 	 *
-	 * Added in Saleor 3.8.
+	 * Added in Weenspace 3.8.
 	 */
 	isVisibleInListing?: InputMaybe<Scalars["Boolean"]>;
 	metadata?: InputMaybe<Array<MetadataFilter>>;
@@ -16569,7 +16569,7 @@ export type ProductFilterInput = {
 	/**
 	 * Filter by the publication date.
 	 *
-	 * Added in Saleor 3.8.
+	 * Added in Weenspace 3.8.
 	 */
 	publishedFrom?: InputMaybe<Scalars["DateTime"]>;
 	search?: InputMaybe<Scalars["String"]>;
@@ -16607,7 +16607,7 @@ export type ProductInput = {
 	/**
 	 * Determine if taxes are being charged for the product.
 	 *
-	 * DEPRECATED: this field will be removed in Saleor 4.0. Use `Channel.taxConfiguration` to configure whether tax collection is enabled.
+	 * DEPRECATED: this field will be removed in Weenspace 4.0. Use `Channel.taxConfiguration` to configure whether tax collection is enabled.
 	 */
 	chargeTaxes?: InputMaybe<Scalars["Boolean"]>;
 	/** List of IDs of collections that the product belongs to. */
@@ -16621,13 +16621,13 @@ export type ProductInput = {
 	/**
 	 * External ID of this product.
 	 *
-	 * Added in Saleor 3.10.
+	 * Added in Weenspace 3.10.
 	 */
 	externalReference?: InputMaybe<Scalars["String"]>;
 	/**
 	 * Fields required to update the product metadata.
 	 *
-	 * Added in Saleor 3.8.
+	 * Added in Weenspace 3.8.
 	 */
 	metadata?: InputMaybe<Array<MetadataInput>>;
 	/** Product name. */
@@ -16635,7 +16635,7 @@ export type ProductInput = {
 	/**
 	 * Fields required to update the product private metadata.
 	 *
-	 * Added in Saleor 3.8.
+	 * Added in Weenspace 3.8.
 	 */
 	privateMetadata?: InputMaybe<Array<MetadataInput>>;
 	/** Defines the product rating value. */
@@ -16649,7 +16649,7 @@ export type ProductInput = {
 	/**
 	 * Tax rate for enabled tax gateway.
 	 *
-	 * DEPRECATED: this field will be removed in Saleor 4.0. Use tax classes to control the tax calculation for a product. If taxCode is provided, Saleor will try to find a tax class with given code (codes are stored in metadata) and assign it. If no tax class is found, it would be created and assigned.
+	 * DEPRECATED: this field will be removed in Weenspace 4.0. Use tax classes to control the tax calculation for a product. If taxCode is provided, Weenspace will try to find a tax class with given code (codes are stored in metadata) and assign it. If no tax class is found, it would be created and assigned.
 	 */
 	taxCode?: InputMaybe<Scalars["String"]>;
 	/** Weight of the Product. */
@@ -16665,7 +16665,7 @@ export type ProductMedia = Node &
 		/**
 		 * List of public metadata items. Can be accessed without permissions.
 		 *
-		 * Added in Saleor 3.12.
+		 * Added in Weenspace 3.12.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -16675,7 +16675,7 @@ export type ProductMedia = Node &
 		 *
 		 * Tip: Use GraphQL aliases to fetch multiple keys.
 		 *
-		 * Added in Saleor 3.12.
+		 * Added in Weenspace 3.12.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -16683,7 +16683,7 @@ export type ProductMedia = Node &
 		/**
 		 * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
 		 *
-		 * Added in Saleor 3.12.
+		 * Added in Weenspace 3.12.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -16692,7 +16692,7 @@ export type ProductMedia = Node &
 		/**
 		 * List of private metadata items. Requires staff permissions to access.
 		 *
-		 * Added in Saleor 3.12.
+		 * Added in Weenspace 3.12.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -16702,7 +16702,7 @@ export type ProductMedia = Node &
 		 *
 		 * Tip: Use GraphQL aliases to fetch multiple keys.
 		 *
-		 * Added in Saleor 3.12.
+		 * Added in Weenspace 3.12.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -16710,7 +16710,7 @@ export type ProductMedia = Node &
 		/**
 		 * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
 		 *
-		 * Added in Saleor 3.12.
+		 * Added in Weenspace 3.12.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -16718,7 +16718,7 @@ export type ProductMedia = Node &
 		/**
 		 * Product id the media refers to.
 		 *
-		 * Added in Saleor 3.12.
+		 * Added in Weenspace 3.12.
 		 */
 		productId?: Maybe<Scalars["ID"]>;
 		sortOrder?: Maybe<Scalars["Int"]>;
@@ -16762,7 +16762,7 @@ export type ProductMediaBulkDelete = {
 	/** Returns how many objects were affected. */
 	count: Scalars["Int"];
 	errors: Array<ProductError>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	productErrors: Array<ProductError>;
 };
 
@@ -16776,7 +16776,7 @@ export type ProductMediaCreate = {
 	errors: Array<ProductError>;
 	media?: Maybe<ProductMedia>;
 	product?: Maybe<Product>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	productErrors: Array<ProductError>;
 };
 
@@ -16794,7 +16794,7 @@ export type ProductMediaCreateInput = {
 /**
  * Event sent when new product media is created.
  *
- * Added in Saleor 3.12.
+ * Added in Weenspace 3.12.
  */
 export type ProductMediaCreated = Event & {
 	__typename?: "ProductMediaCreated";
@@ -16806,7 +16806,7 @@ export type ProductMediaCreated = Event & {
 	productMedia?: Maybe<ProductMedia>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
@@ -16820,14 +16820,14 @@ export type ProductMediaDelete = {
 	errors: Array<ProductError>;
 	media?: Maybe<ProductMedia>;
 	product?: Maybe<Product>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	productErrors: Array<ProductError>;
 };
 
 /**
  * Event sent when product media is deleted.
  *
- * Added in Saleor 3.12.
+ * Added in Weenspace 3.12.
  */
 export type ProductMediaDeleted = Event & {
 	__typename?: "ProductMediaDeleted";
@@ -16839,7 +16839,7 @@ export type ProductMediaDeleted = Event & {
 	productMedia?: Maybe<ProductMedia>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
@@ -16853,7 +16853,7 @@ export type ProductMediaReorder = {
 	errors: Array<ProductError>;
 	media?: Maybe<Array<ProductMedia>>;
 	product?: Maybe<Product>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	productErrors: Array<ProductError>;
 };
 
@@ -16870,7 +16870,7 @@ export type ProductMediaUpdate = {
 	errors: Array<ProductError>;
 	media?: Maybe<ProductMedia>;
 	product?: Maybe<Product>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	productErrors: Array<ProductError>;
 };
 
@@ -16882,7 +16882,7 @@ export type ProductMediaUpdateInput = {
 /**
  * Event sent when product media is updated.
  *
- * Added in Saleor 3.12.
+ * Added in Weenspace 3.12.
  */
 export type ProductMediaUpdated = Event & {
 	__typename?: "ProductMediaUpdated";
@@ -16894,14 +16894,14 @@ export type ProductMediaUpdated = Event & {
 	productMedia?: Maybe<ProductMedia>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
 /**
  * Event sent when product metadata is updated.
  *
- * Added in Saleor 3.8.
+ * Added in Weenspace 3.8.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -16917,14 +16917,14 @@ export type ProductMetadataUpdated = Event & {
 	product?: Maybe<Product>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
 /**
  * Event sent when product metadata is updated.
  *
- * Added in Saleor 3.8.
+ * Added in Weenspace 3.8.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -16941,7 +16941,7 @@ export type ProductOrder = {
 	/**
 	 * Specifies the channel in which to sort the data.
 	 *
-	 * DEPRECATED: this field will be removed in Saleor 4.0. Use root-level channel argument instead.
+	 * DEPRECATED: this field will be removed in Weenspace 4.0. Use root-level channel argument instead.
 	 */
 	channel?: InputMaybe<Scalars["String"]>;
 	/** Specifies the direction in which to sort products. */
@@ -16960,7 +16960,7 @@ export type ProductOrderField =
 	/**
 	 * Sort products by creation date.
 	 *
-	 * Added in Saleor 3.8.
+	 * Added in Weenspace 3.8.
 	 */
 	| "CREATED_AT"
 	/** Sort products by update date. */
@@ -17018,7 +17018,7 @@ export type ProductPricingInfo = {
 	/**
 	 * Determines whether this product's price displayed in a storefront should include taxes.
 	 *
-	 * Added in Saleor 3.9.
+	 * Added in Weenspace 3.9.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -17043,7 +17043,7 @@ export type ProductReorderAttributeValues = {
 	errors: Array<ProductError>;
 	/** Product from which attribute values are reordered. */
 	product?: Maybe<Product>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	productErrors: Array<ProductError>;
 };
 
@@ -17066,14 +17066,14 @@ export type ProductTranslatableContent = Node & {
 	 * Description of the product.
 	 *
 	 * Rich text format. For reference see https://editorjs.io/
-	 * @deprecated This field will be removed in Saleor 4.0. Use the `description` field instead.
+	 * @deprecated This field will be removed in Weenspace 4.0. Use the `description` field instead.
 	 */
 	descriptionJson?: Maybe<Scalars["JSONString"]>;
 	id: Scalars["ID"];
 	name: Scalars["String"];
 	/**
 	 * Represents an individual item for sale in the storefront.
-	 * @deprecated This field will be removed in Saleor 4.0. Get model fields from the root level queries.
+	 * @deprecated This field will be removed in Weenspace 4.0. Get model fields from the root level queries.
 	 */
 	product?: Maybe<Product>;
 	seoDescription?: Maybe<Scalars["String"]>;
@@ -17095,7 +17095,7 @@ export type ProductTranslate = {
 	__typename?: "ProductTranslate";
 	errors: Array<TranslationError>;
 	product?: Maybe<Product>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	translationErrors: Array<TranslationError>;
 };
 
@@ -17111,7 +17111,7 @@ export type ProductTranslation = Node & {
 	 * Translated description of the product.
 	 *
 	 * Rich text format. For reference see https://editorjs.io/
-	 * @deprecated This field will be removed in Saleor 4.0. Use the `description` field instead.
+	 * @deprecated This field will be removed in Weenspace 4.0. Use the `description` field instead.
 	 */
 	descriptionJson?: Maybe<Scalars["JSONString"]>;
 	id: Scalars["ID"];
@@ -17129,7 +17129,7 @@ export type ProductType = Node &
 		/**
 		 * Variant attributes of that product type with attached variant selection.
 		 *
-		 * Added in Saleor 3.1.
+		 * Added in Weenspace 3.1.
 		 */
 		assignedVariantAttributes?: Maybe<Array<AssignedVariantAttribute>>;
 		/**
@@ -17151,7 +17151,7 @@ export type ProductType = Node &
 		 *
 		 * Tip: Use GraphQL aliases to fetch multiple keys.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -17159,7 +17159,7 @@ export type ProductType = Node &
 		/**
 		 * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -17172,7 +17172,7 @@ export type ProductType = Node &
 		 *
 		 * Tip: Use GraphQL aliases to fetch multiple keys.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -17180,7 +17180,7 @@ export type ProductType = Node &
 		/**
 		 * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -17189,7 +17189,7 @@ export type ProductType = Node &
 		productAttributes?: Maybe<Array<Attribute>>;
 		/**
 		 * List of products of this type.
-		 * @deprecated This field will be removed in Saleor 4.0. Use the top-level `products` query with the `productTypes` filter.
+		 * @deprecated This field will be removed in Weenspace 4.0. Use the top-level `products` query with the `productTypes` filter.
 		 */
 		products?: Maybe<ProductCountableConnection>;
 		slug: Scalars["String"];
@@ -17201,12 +17201,12 @@ export type ProductType = Node &
 		taxClass?: Maybe<TaxClass>;
 		/**
 		 * A type of tax. Assigned by enabled tax gateway
-		 * @deprecated This field will be removed in Saleor 4.0. Use `taxClass` field instead.
+		 * @deprecated This field will be removed in Weenspace 4.0. Use `taxClass` field instead.
 		 */
 		taxType?: Maybe<TaxType>;
 		/**
 		 * Variant attributes of that product type.
-		 * @deprecated This field will be removed in Saleor 4.0. Use `assignedVariantAttributes` instead.
+		 * @deprecated This field will be removed in Weenspace 4.0. Use `assignedVariantAttributes` instead.
 		 */
 		variantAttributes?: Maybe<Array<Attribute>>;
 		weight?: Maybe<Weight>;
@@ -17271,7 +17271,7 @@ export type ProductTypeBulkDelete = {
 	/** Returns how many objects were affected. */
 	count: Scalars["Int"];
 	errors: Array<ProductError>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	productErrors: Array<ProductError>;
 };
 
@@ -17302,7 +17302,7 @@ export type ProductTypeCountableEdge = {
 export type ProductTypeCreate = {
 	__typename?: "ProductTypeCreate";
 	errors: Array<ProductError>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	productErrors: Array<ProductError>;
 	productType?: Maybe<ProductType>;
 };
@@ -17315,7 +17315,7 @@ export type ProductTypeCreate = {
 export type ProductTypeDelete = {
 	__typename?: "ProductTypeDelete";
 	errors: Array<ProductError>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	productErrors: Array<ProductError>;
 	productType?: Maybe<ProductType>;
 };
@@ -17352,7 +17352,7 @@ export type ProductTypeInput = {
 	/**
 	 * Tax rate for enabled tax gateway.
 	 *
-	 * DEPRECATED: this field will be removed in Saleor 4.0.. Use tax classes to control the tax calculation for a product type. If taxCode is provided, Saleor will try to find a tax class with given code (codes are stored in metadata) and assign it. If no tax class is found, it would be created and assigned.
+	 * DEPRECATED: this field will be removed in Weenspace 4.0.. Use tax classes to control the tax calculation for a product type. If taxCode is provided, Weenspace will try to find a tax class with given code (codes are stored in metadata) and assign it. If no tax class is found, it would be created and assigned.
 	 */
 	taxCode?: InputMaybe<Scalars["String"]>;
 	/** List of attributes used to distinguish between different variants of a product. */
@@ -17372,7 +17372,7 @@ export type ProductTypeKindEnum = "GIFT_CARD" | "NORMAL";
 export type ProductTypeReorderAttributes = {
 	__typename?: "ProductTypeReorderAttributes";
 	errors: Array<ProductError>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	productErrors: Array<ProductError>;
 	/** Product type from which attributes are reordered. */
 	productType?: Maybe<ProductType>;
@@ -17401,7 +17401,7 @@ export type ProductTypeSortingInput = {
 export type ProductTypeUpdate = {
 	__typename?: "ProductTypeUpdate";
 	errors: Array<ProductError>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	productErrors: Array<ProductError>;
 	productType?: Maybe<ProductType>;
 };
@@ -17415,14 +17415,14 @@ export type ProductUpdate = {
 	__typename?: "ProductUpdate";
 	errors: Array<ProductError>;
 	product?: Maybe<Product>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	productErrors: Array<ProductError>;
 };
 
 /**
  * Event sent when product is updated.
  *
- * Added in Saleor 3.2.
+ * Added in Weenspace 3.2.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -17438,14 +17438,14 @@ export type ProductUpdated = Event & {
 	product?: Maybe<Product>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
 /**
  * Event sent when product is updated.
  *
- * Added in Saleor 3.2.
+ * Added in Weenspace 3.2.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -17477,13 +17477,13 @@ export type ProductVariant = Node &
 		/**
 		 * External ID of this product.
 		 *
-		 * Added in Saleor 3.10.
+		 * Added in Weenspace 3.10.
 		 */
 		externalReference?: Maybe<Scalars["String"]>;
 		id: Scalars["ID"];
 		/**
 		 * List of images for the product variant.
-		 * @deprecated This field will be removed in Saleor 4.0. Use the `media` field instead.
+		 * @deprecated This field will be removed in Weenspace 4.0. Use the `media` field instead.
 		 */
 		images?: Maybe<Array<ProductImage>>;
 		/** Gross margin percentage value. */
@@ -17497,7 +17497,7 @@ export type ProductVariant = Node &
 		 *
 		 * Tip: Use GraphQL aliases to fetch multiple keys.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -17505,7 +17505,7 @@ export type ProductVariant = Node &
 		/**
 		 * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -17514,7 +17514,7 @@ export type ProductVariant = Node &
 		/**
 		 * Preorder data for product variant.
 		 *
-		 * Added in Saleor 3.1.
+		 * Added in Weenspace 3.1.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -17528,7 +17528,7 @@ export type ProductVariant = Node &
 		 *
 		 * Tip: Use GraphQL aliases to fetch multiple keys.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -17536,7 +17536,7 @@ export type ProductVariant = Node &
 		/**
 		 * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -17626,7 +17626,7 @@ export type ProductVariantTranslationArgs = {
 /**
  * Event sent when product variant is back in stock.
  *
- * Added in Saleor 3.2.
+ * Added in Weenspace 3.2.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -17640,7 +17640,7 @@ export type ProductVariantBackInStock = Event & {
 	productVariant?: Maybe<ProductVariant>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 	/** Look up a warehouse. */
 	warehouse?: Maybe<Warehouse>;
@@ -17649,7 +17649,7 @@ export type ProductVariantBackInStock = Event & {
 /**
  * Event sent when product variant is back in stock.
  *
- * Added in Saleor 3.2.
+ * Added in Weenspace 3.2.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -17664,17 +17664,17 @@ export type ProductVariantBackInStockProductVariantArgs = {
  */
 export type ProductVariantBulkCreate = {
 	__typename?: "ProductVariantBulkCreate";
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	bulkProductErrors: Array<BulkProductError>;
 	/** Returns how many objects were created. */
 	count: Scalars["Int"];
 	errors: Array<BulkProductError>;
-	/** List of the created variants.This field will be removed in Saleor 4.0. */
+	/** List of the created variants.This field will be removed in Weenspace 4.0. */
 	productVariants: Array<ProductVariant>;
 	/**
 	 * List of the created variants.
 	 *
-	 * Added in Saleor 3.11.
+	 * Added in Weenspace 3.11.
 	 */
 	results: Array<ProductVariantBulkResult>;
 };
@@ -17687,13 +17687,13 @@ export type ProductVariantBulkCreateInput = {
 	/**
 	 * External ID of this product variant.
 	 *
-	 * Added in Saleor 3.10.
+	 * Added in Weenspace 3.10.
 	 */
 	externalReference?: InputMaybe<Scalars["String"]>;
 	/**
 	 * Fields required to update the product variant metadata.
 	 *
-	 * Added in Saleor 3.8.
+	 * Added in Weenspace 3.8.
 	 */
 	metadata?: InputMaybe<Array<MetadataInput>>;
 	/** Variant name. */
@@ -17701,7 +17701,7 @@ export type ProductVariantBulkCreateInput = {
 	/**
 	 * Determines if variant is in preorder.
 	 *
-	 * Added in Saleor 3.1.
+	 * Added in Weenspace 3.1.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -17709,13 +17709,13 @@ export type ProductVariantBulkCreateInput = {
 	/**
 	 * Fields required to update the product variant private metadata.
 	 *
-	 * Added in Saleor 3.8.
+	 * Added in Weenspace 3.8.
 	 */
 	privateMetadata?: InputMaybe<Array<MetadataInput>>;
 	/**
 	 * Determines maximum quantity of `ProductVariant`,that can be bought in a single checkout.
 	 *
-	 * Added in Saleor 3.1.
+	 * Added in Weenspace 3.1.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -17740,7 +17740,7 @@ export type ProductVariantBulkDelete = {
 	/** Returns how many objects were affected. */
 	count: Scalars["Int"];
 	errors: Array<ProductError>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	productErrors: Array<ProductError>;
 };
 
@@ -17753,7 +17753,7 @@ export type ProductVariantBulkError = {
 	/**
 	 * List of channel IDs which causes the error.
 	 *
-	 * Added in Saleor 3.12.
+	 * Added in Weenspace 3.12.
 	 */
 	channels?: Maybe<Array<Scalars["ID"]>>;
 	/** The error code. */
@@ -17765,7 +17765,7 @@ export type ProductVariantBulkError = {
 	/**
 	 * List of stocks IDs which causes the error.
 	 *
-	 * Added in Saleor 3.12.
+	 * Added in Weenspace 3.12.
 	 */
 	stocks?: Maybe<Array<Scalars["ID"]>>;
 	/** List of attribute values IDs which causes the error. */
@@ -17800,7 +17800,7 @@ export type ProductVariantBulkResult = {
 /**
  * Update multiple product variants.
  *
- * Added in Saleor 3.11.
+ * Added in Weenspace 3.11.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  *
@@ -17818,7 +17818,7 @@ export type ProductVariantBulkUpdate = {
 /**
  * Input fields to update product variants.
  *
- * Added in Saleor 3.11.
+ * Added in Weenspace 3.11.
  */
 export type ProductVariantBulkUpdateInput = {
 	/** List of attributes specific to this variant. */
@@ -17826,7 +17826,7 @@ export type ProductVariantBulkUpdateInput = {
 	/**
 	 * Channel listings input.
 	 *
-	 * Added in Saleor 3.12.
+	 * Added in Weenspace 3.12.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -17834,7 +17834,7 @@ export type ProductVariantBulkUpdateInput = {
 	/**
 	 * External ID of this product variant.
 	 *
-	 * Added in Saleor 3.10.
+	 * Added in Weenspace 3.10.
 	 */
 	externalReference?: InputMaybe<Scalars["String"]>;
 	/** ID of the product variant to update. */
@@ -17842,7 +17842,7 @@ export type ProductVariantBulkUpdateInput = {
 	/**
 	 * Fields required to update the product variant metadata.
 	 *
-	 * Added in Saleor 3.8.
+	 * Added in Weenspace 3.8.
 	 */
 	metadata?: InputMaybe<Array<MetadataInput>>;
 	/** Variant name. */
@@ -17850,7 +17850,7 @@ export type ProductVariantBulkUpdateInput = {
 	/**
 	 * Determines if variant is in preorder.
 	 *
-	 * Added in Saleor 3.1.
+	 * Added in Weenspace 3.1.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -17858,13 +17858,13 @@ export type ProductVariantBulkUpdateInput = {
 	/**
 	 * Fields required to update the product variant private metadata.
 	 *
-	 * Added in Saleor 3.8.
+	 * Added in Weenspace 3.8.
 	 */
 	privateMetadata?: InputMaybe<Array<MetadataInput>>;
 	/**
 	 * Determines maximum quantity of `ProductVariant`,that can be bought in a single checkout.
 	 *
-	 * Added in Saleor 3.1.
+	 * Added in Weenspace 3.1.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -17874,7 +17874,7 @@ export type ProductVariantBulkUpdateInput = {
 	/**
 	 * Stocks input.
 	 *
-	 * Added in Saleor 3.12.
+	 * Added in Weenspace 3.12.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -17901,7 +17901,7 @@ export type ProductVariantChannelListing = Node & {
 	/**
 	 * Preorder variant data.
 	 *
-	 * Added in Saleor 3.1.
+	 * Added in Weenspace 3.1.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -17917,7 +17917,7 @@ export type ProductVariantChannelListingAddInput = {
 	/**
 	 * The threshold for preorder variant in channel.
 	 *
-	 * Added in Saleor 3.1.
+	 * Added in Weenspace 3.1.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -17934,7 +17934,7 @@ export type ProductVariantChannelListingAddInput = {
 export type ProductVariantChannelListingUpdate = {
 	__typename?: "ProductVariantChannelListingUpdate";
 	errors: Array<ProductChannelListingError>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	productChannelListingErrors: Array<ProductChannelListingError>;
 	/** An updated product variant instance. */
 	variant?: Maybe<ProductVariant>;
@@ -17974,7 +17974,7 @@ export type ProductVariantCountableEdge = {
 export type ProductVariantCreate = {
 	__typename?: "ProductVariantCreate";
 	errors: Array<ProductError>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	productErrors: Array<ProductError>;
 	productVariant?: Maybe<ProductVariant>;
 };
@@ -17985,13 +17985,13 @@ export type ProductVariantCreateInput = {
 	/**
 	 * External ID of this product variant.
 	 *
-	 * Added in Saleor 3.10.
+	 * Added in Weenspace 3.10.
 	 */
 	externalReference?: InputMaybe<Scalars["String"]>;
 	/**
 	 * Fields required to update the product variant metadata.
 	 *
-	 * Added in Saleor 3.8.
+	 * Added in Weenspace 3.8.
 	 */
 	metadata?: InputMaybe<Array<MetadataInput>>;
 	/** Variant name. */
@@ -17999,7 +17999,7 @@ export type ProductVariantCreateInput = {
 	/**
 	 * Determines if variant is in preorder.
 	 *
-	 * Added in Saleor 3.1.
+	 * Added in Weenspace 3.1.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -18007,7 +18007,7 @@ export type ProductVariantCreateInput = {
 	/**
 	 * Fields required to update the product variant private metadata.
 	 *
-	 * Added in Saleor 3.8.
+	 * Added in Weenspace 3.8.
 	 */
 	privateMetadata?: InputMaybe<Array<MetadataInput>>;
 	/** Product ID of which type is the variant. */
@@ -18015,7 +18015,7 @@ export type ProductVariantCreateInput = {
 	/**
 	 * Determines maximum quantity of `ProductVariant`,that can be bought in a single checkout.
 	 *
-	 * Added in Saleor 3.1.
+	 * Added in Weenspace 3.1.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -18033,7 +18033,7 @@ export type ProductVariantCreateInput = {
 /**
  * Event sent when new product variant is created.
  *
- * Added in Saleor 3.2.
+ * Added in Weenspace 3.2.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -18047,14 +18047,14 @@ export type ProductVariantCreated = Event & {
 	productVariant?: Maybe<ProductVariant>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
 /**
  * Event sent when new product variant is created.
  *
- * Added in Saleor 3.2.
+ * Added in Weenspace 3.2.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -18070,7 +18070,7 @@ export type ProductVariantCreatedProductVariantArgs = {
 export type ProductVariantDelete = {
 	__typename?: "ProductVariantDelete";
 	errors: Array<ProductError>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	productErrors: Array<ProductError>;
 	productVariant?: Maybe<ProductVariant>;
 };
@@ -18078,7 +18078,7 @@ export type ProductVariantDelete = {
 /**
  * Event sent when product variant is deleted.
  *
- * Added in Saleor 3.2.
+ * Added in Weenspace 3.2.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -18092,14 +18092,14 @@ export type ProductVariantDeleted = Event & {
 	productVariant?: Maybe<ProductVariant>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
 /**
  * Event sent when product variant is deleted.
  *
- * Added in Saleor 3.2.
+ * Added in Weenspace 3.2.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -18121,13 +18121,13 @@ export type ProductVariantInput = {
 	/**
 	 * External ID of this product variant.
 	 *
-	 * Added in Saleor 3.10.
+	 * Added in Weenspace 3.10.
 	 */
 	externalReference?: InputMaybe<Scalars["String"]>;
 	/**
 	 * Fields required to update the product variant metadata.
 	 *
-	 * Added in Saleor 3.8.
+	 * Added in Weenspace 3.8.
 	 */
 	metadata?: InputMaybe<Array<MetadataInput>>;
 	/** Variant name. */
@@ -18135,7 +18135,7 @@ export type ProductVariantInput = {
 	/**
 	 * Determines if variant is in preorder.
 	 *
-	 * Added in Saleor 3.1.
+	 * Added in Weenspace 3.1.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -18143,13 +18143,13 @@ export type ProductVariantInput = {
 	/**
 	 * Fields required to update the product variant private metadata.
 	 *
-	 * Added in Saleor 3.8.
+	 * Added in Weenspace 3.8.
 	 */
 	privateMetadata?: InputMaybe<Array<MetadataInput>>;
 	/**
 	 * Determines maximum quantity of `ProductVariant`,that can be bought in a single checkout.
 	 *
-	 * Added in Saleor 3.1.
+	 * Added in Weenspace 3.1.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -18165,7 +18165,7 @@ export type ProductVariantInput = {
 /**
  * Event sent when product variant metadata is updated.
  *
- * Added in Saleor 3.8.
+ * Added in Weenspace 3.8.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -18179,14 +18179,14 @@ export type ProductVariantMetadataUpdated = Event & {
 	productVariant?: Maybe<ProductVariant>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
 /**
  * Event sent when product variant metadata is updated.
  *
- * Added in Saleor 3.8.
+ * Added in Weenspace 3.8.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -18197,7 +18197,7 @@ export type ProductVariantMetadataUpdatedProductVariantArgs = {
 /**
  * Event sent when product variant is out of stock.
  *
- * Added in Saleor 3.2.
+ * Added in Weenspace 3.2.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -18211,7 +18211,7 @@ export type ProductVariantOutOfStock = Event & {
 	productVariant?: Maybe<ProductVariant>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 	/** Look up a warehouse. */
 	warehouse?: Maybe<Warehouse>;
@@ -18220,7 +18220,7 @@ export type ProductVariantOutOfStock = Event & {
 /**
  * Event sent when product variant is out of stock.
  *
- * Added in Saleor 3.2.
+ * Added in Weenspace 3.2.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -18231,7 +18231,7 @@ export type ProductVariantOutOfStockProductVariantArgs = {
 /**
  * Deactivates product variant preorder. It changes all preorder allocation into regular allocation.
  *
- * Added in Saleor 3.1.
+ * Added in Weenspace 3.1.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  *
@@ -18253,7 +18253,7 @@ export type ProductVariantReorder = {
 	__typename?: "ProductVariantReorder";
 	errors: Array<ProductError>;
 	product?: Maybe<Product>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	productErrors: Array<ProductError>;
 };
 
@@ -18265,7 +18265,7 @@ export type ProductVariantReorder = {
 export type ProductVariantReorderAttributeValues = {
 	__typename?: "ProductVariantReorderAttributeValues";
 	errors: Array<ProductError>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	productErrors: Array<ProductError>;
 	/** Product variant from which attribute values are reordered. */
 	productVariant?: Maybe<ProductVariant>;
@@ -18280,7 +18280,7 @@ export type ProductVariantSetDefault = {
 	__typename?: "ProductVariantSetDefault";
 	errors: Array<ProductError>;
 	product?: Maybe<Product>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	productErrors: Array<ProductError>;
 };
 
@@ -18298,7 +18298,7 @@ export type ProductVariantSortingInput = {
 /**
  * Event sent when product variant stock is updated.
  *
- * Added in Saleor 3.11.
+ * Added in Weenspace 3.11.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -18312,7 +18312,7 @@ export type ProductVariantStockUpdated = Event & {
 	productVariant?: Maybe<ProductVariant>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 	/** Look up a warehouse. */
 	warehouse?: Maybe<Warehouse>;
@@ -18321,7 +18321,7 @@ export type ProductVariantStockUpdated = Event & {
 /**
  * Event sent when product variant stock is updated.
  *
- * Added in Saleor 3.11.
+ * Added in Weenspace 3.11.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -18336,7 +18336,7 @@ export type ProductVariantStockUpdatedProductVariantArgs = {
  */
 export type ProductVariantStocksCreate = {
 	__typename?: "ProductVariantStocksCreate";
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	bulkStockErrors: Array<BulkStockError>;
 	errors: Array<BulkStockError>;
 	/** Updated product variant. */
@@ -18353,7 +18353,7 @@ export type ProductVariantStocksDelete = {
 	errors: Array<StockError>;
 	/** Updated product variant. */
 	productVariant?: Maybe<ProductVariant>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	stockErrors: Array<StockError>;
 };
 
@@ -18364,7 +18364,7 @@ export type ProductVariantStocksDelete = {
  */
 export type ProductVariantStocksUpdate = {
 	__typename?: "ProductVariantStocksUpdate";
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	bulkStockErrors: Array<BulkStockError>;
 	errors: Array<BulkStockError>;
 	/** Updated product variant. */
@@ -18388,7 +18388,7 @@ export type ProductVariantTranslatableContent = Node & {
 	name: Scalars["String"];
 	/**
 	 * Represents a version of a product such as different size or color.
-	 * @deprecated This field will be removed in Saleor 4.0. Get model fields from the root level queries.
+	 * @deprecated This field will be removed in Weenspace 4.0. Get model fields from the root level queries.
 	 */
 	productVariant?: Maybe<ProductVariant>;
 	/** Returns translated product variant fields for the given language code. */
@@ -18408,7 +18408,7 @@ export type ProductVariantTranslate = {
 	__typename?: "ProductVariantTranslate";
 	errors: Array<TranslationError>;
 	productVariant?: Maybe<ProductVariant>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	translationErrors: Array<TranslationError>;
 };
 
@@ -18428,7 +18428,7 @@ export type ProductVariantTranslation = Node & {
 export type ProductVariantUpdate = {
 	__typename?: "ProductVariantUpdate";
 	errors: Array<ProductError>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	productErrors: Array<ProductError>;
 	productVariant?: Maybe<ProductVariant>;
 };
@@ -18436,7 +18436,7 @@ export type ProductVariantUpdate = {
 /**
  * Event sent when product variant is updated.
  *
- * Added in Saleor 3.2.
+ * Added in Weenspace 3.2.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -18450,14 +18450,14 @@ export type ProductVariantUpdated = Event & {
 	productVariant?: Maybe<ProductVariant>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
 /**
  * Event sent when product variant is updated.
  *
- * Added in Saleor 3.2.
+ * Added in Weenspace 3.2.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -18473,13 +18473,13 @@ export type PublishableChannelListingInput = {
 	/**
 	 * Publication date. ISO 8601 standard.
 	 *
-	 * DEPRECATED: this field will be removed in Saleor 4.0. Use `publishedAt` field instead.
+	 * DEPRECATED: this field will be removed in Weenspace 4.0. Use `publishedAt` field instead.
 	 */
 	publicationDate?: InputMaybe<Scalars["Date"]>;
 	/**
 	 * Publication date time. ISO 8601 standard.
 	 *
-	 * Added in Saleor 3.3.
+	 * Added in Weenspace 3.3.
 	 */
 	publishedAt?: InputMaybe<Scalars["DateTime"]>;
 };
@@ -18501,7 +18501,7 @@ export type Query = {
 	/**
 	 * Look up an app extension by ID.
 	 *
-	 * Added in Saleor 3.1.
+	 * Added in Weenspace 3.1.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 *
@@ -18511,7 +18511,7 @@ export type Query = {
 	/**
 	 * List of all extensions.
 	 *
-	 * Added in Saleor 3.1.
+	 * Added in Weenspace 3.1.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 *
@@ -18609,7 +18609,7 @@ export type Query = {
 	/**
 	 * List of gift card currencies.
 	 *
-	 * Added in Saleor 3.1.
+	 * Added in Weenspace 3.1.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 *
@@ -18625,7 +18625,7 @@ export type Query = {
 	/**
 	 * List of gift card tags.
 	 *
-	 * Added in Saleor 3.1.
+	 * Added in Weenspace 3.1.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 *
@@ -18658,14 +18658,14 @@ export type Query = {
 	order?: Maybe<Order>;
 	/**
 	 * Look up an order by token.
-	 * @deprecated This field will be removed in Saleor 4.0.
+	 * @deprecated This field will be removed in Weenspace 4.0.
 	 */
 	orderByToken?: Maybe<Order>;
 	/**
 	 * Order related settings from site settings. Returns `orderSettings` for the first `channel` in alphabetical order.
 	 *
 	 * Requires one of the following permissions: MANAGE_ORDERS.
-	 * @deprecated This field will be removed in Saleor 4.0. Use the `channel` query to fetch the `orderSettings` field instead.
+	 * @deprecated This field will be removed in Weenspace 4.0. Use the `channel` query to fetch the `orderSettings` field instead.
 	 */
 	orderSettings?: Maybe<OrderSettings>;
 	/**
@@ -18789,7 +18789,7 @@ export type Query = {
 	/**
 	 * Look up a tax class.
 	 *
-	 * Added in Saleor 3.9.
+	 * Added in Weenspace 3.9.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 *
@@ -18799,7 +18799,7 @@ export type Query = {
 	/**
 	 * List of tax classes.
 	 *
-	 * Added in Saleor 3.9.
+	 * Added in Weenspace 3.9.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 *
@@ -18809,7 +18809,7 @@ export type Query = {
 	/**
 	 * Look up a tax configuration.
 	 *
-	 * Added in Saleor 3.9.
+	 * Added in Weenspace 3.9.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 *
@@ -18819,7 +18819,7 @@ export type Query = {
 	/**
 	 * List of tax configurations.
 	 *
-	 * Added in Saleor 3.9.
+	 * Added in Weenspace 3.9.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 *
@@ -18839,7 +18839,7 @@ export type Query = {
 	/**
 	 * Look up a transaction by ID.
 	 *
-	 * Added in Saleor 3.6.
+	 * Added in Weenspace 3.6.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 *
@@ -18894,7 +18894,7 @@ export type Query = {
 	 * List of all available webhook events.
 	 *
 	 * Requires one of the following permissions: MANAGE_APPS.
-	 * @deprecated This field will be removed in Saleor 4.0. Use `WebhookEventTypeAsyncEnum` and `WebhookEventTypeSyncEnum` to get available event types.
+	 * @deprecated This field will be removed in Weenspace 4.0. Use `WebhookEventTypeAsyncEnum` and `WebhookEventTypeSyncEnum` to get available event types.
 	 */
 	webhookEvents?: Maybe<Array<WebhookEvent>>;
 	/** Retrieve a sample payload for a given webhook event based on real data. It can be useful for some integrations where sample payload is required. */
@@ -19418,7 +19418,7 @@ export type ReducedRate = {
 /** Refresh JWT token. Mutation tries to take refreshToken from the input.If it fails it will try to take refreshToken from the http-only cookie -refreshToken. csrfToken is required when refreshToken is provided as a cookie. */
 export type RefreshToken = {
 	__typename?: "RefreshToken";
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	accountErrors: Array<AccountError>;
 	errors: Array<AccountError>;
 	/** JWT token, required to authenticate. */
@@ -19443,7 +19443,7 @@ export type ReportingPeriod = "THIS_MONTH" | "TODAY";
  */
 export type RequestEmailChange = {
 	__typename?: "RequestEmailChange";
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	accountErrors: Array<AccountError>;
 	errors: Array<AccountError>;
 	/** A user instance. */
@@ -19453,7 +19453,7 @@ export type RequestEmailChange = {
 /** Sends an email with the account password modification link. */
 export type RequestPasswordReset = {
 	__typename?: "RequestPasswordReset";
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	accountErrors: Array<AccountError>;
 	errors: Array<AccountError>;
 };
@@ -19490,7 +19490,7 @@ export type Sale = Node &
 		 *
 		 * Tip: Use GraphQL aliases to fetch multiple keys.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -19498,7 +19498,7 @@ export type Sale = Node &
 		/**
 		 * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -19511,7 +19511,7 @@ export type Sale = Node &
 		 *
 		 * Tip: Use GraphQL aliases to fetch multiple keys.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -19519,7 +19519,7 @@ export type Sale = Node &
 		/**
 		 * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -19538,7 +19538,7 @@ export type Sale = Node &
 		/**
 		 * List of product variants this sale applies to.
 		 *
-		 * Added in Saleor 3.1.
+		 * Added in Weenspace 3.1.
 		 *
 		 * Requires one of the following permissions: MANAGE_DISCOUNTS.
 		 */
@@ -19609,7 +19609,7 @@ export type SaleVariantsArgs = {
  */
 export type SaleAddCatalogues = {
 	__typename?: "SaleAddCatalogues";
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	discountErrors: Array<DiscountError>;
 	errors: Array<DiscountError>;
 	/** Sale of which catalogue IDs will be modified. */
@@ -19625,7 +19625,7 @@ export type SaleBulkDelete = {
 	__typename?: "SaleBulkDelete";
 	/** Returns how many objects were affected. */
 	count: Scalars["Int"];
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	discountErrors: Array<DiscountError>;
 	errors: Array<DiscountError>;
 };
@@ -19660,7 +19660,7 @@ export type SaleChannelListingInput = {
  */
 export type SaleChannelListingUpdate = {
 	__typename?: "SaleChannelListingUpdate";
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	discountErrors: Array<DiscountError>;
 	errors: Array<DiscountError>;
 	/** An updated sale instance. */
@@ -19691,7 +19691,7 @@ export type SaleCountableEdge = {
  */
 export type SaleCreate = {
 	__typename?: "SaleCreate";
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	discountErrors: Array<DiscountError>;
 	errors: Array<DiscountError>;
 	sale?: Maybe<Sale>;
@@ -19700,7 +19700,7 @@ export type SaleCreate = {
 /**
  * Event sent when new sale is created.
  *
- * Added in Saleor 3.2.
+ * Added in Weenspace 3.2.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -19714,14 +19714,14 @@ export type SaleCreated = Event & {
 	recipient?: Maybe<App>;
 	/** The sale the event relates to. */
 	sale?: Maybe<Sale>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
 /**
  * Event sent when new sale is created.
  *
- * Added in Saleor 3.2.
+ * Added in Weenspace 3.2.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -19736,7 +19736,7 @@ export type SaleCreatedSaleArgs = {
  */
 export type SaleDelete = {
 	__typename?: "SaleDelete";
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	discountErrors: Array<DiscountError>;
 	errors: Array<DiscountError>;
 	sale?: Maybe<Sale>;
@@ -19745,7 +19745,7 @@ export type SaleDelete = {
 /**
  * Event sent when sale is deleted.
  *
- * Added in Saleor 3.2.
+ * Added in Weenspace 3.2.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -19759,14 +19759,14 @@ export type SaleDeleted = Event & {
 	recipient?: Maybe<App>;
 	/** The sale the event relates to. */
 	sale?: Maybe<Sale>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
 /**
  * Event sent when sale is deleted.
  *
- * Added in Saleor 3.2.
+ * Added in Weenspace 3.2.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -19810,7 +19810,7 @@ export type SaleInput = {
  */
 export type SaleRemoveCatalogues = {
 	__typename?: "SaleRemoveCatalogues";
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	discountErrors: Array<DiscountError>;
 	errors: Array<DiscountError>;
 	/** Sale of which catalogue IDs will be modified. */
@@ -19841,7 +19841,7 @@ export type SaleSortingInput = {
 	/**
 	 * Specifies the channel in which to sort the data.
 	 *
-	 * DEPRECATED: this field will be removed in Saleor 4.0. Use root-level channel argument instead.
+	 * DEPRECATED: this field will be removed in Weenspace 4.0. Use root-level channel argument instead.
 	 */
 	channel?: InputMaybe<Scalars["String"]>;
 	/** Specifies the direction in which to sort products. */
@@ -19853,7 +19853,7 @@ export type SaleSortingInput = {
 /**
  * The event informs about the start or end of the sale.
  *
- * Added in Saleor 3.5.
+ * Added in Weenspace 3.5.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -19868,19 +19868,19 @@ export type SaleToggle = Event & {
 	/**
 	 * The sale the event relates to.
 	 *
-	 * Added in Saleor 3.5.
+	 * Added in Weenspace 3.5.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
 	sale?: Maybe<Sale>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
 /**
  * The event informs about the start or end of the sale.
  *
- * Added in Saleor 3.5.
+ * Added in Weenspace 3.5.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -19896,7 +19896,7 @@ export type SaleTranslatableContent = Node & {
 	 * Sales allow creating discounts for categories, collections or products and are visible to all the customers.
 	 *
 	 * Requires one of the following permissions: MANAGE_DISCOUNTS.
-	 * @deprecated This field will be removed in Saleor 4.0. Get model fields from the root level queries.
+	 * @deprecated This field will be removed in Weenspace 4.0. Get model fields from the root level queries.
 	 */
 	sale?: Maybe<Sale>;
 	/** Returns translated sale fields for the given language code. */
@@ -19916,7 +19916,7 @@ export type SaleTranslate = {
 	__typename?: "SaleTranslate";
 	errors: Array<TranslationError>;
 	sale?: Maybe<Sale>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	translationErrors: Array<TranslationError>;
 };
 
@@ -19937,7 +19937,7 @@ export type SaleType = "FIXED" | "PERCENTAGE";
  */
 export type SaleUpdate = {
 	__typename?: "SaleUpdate";
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	discountErrors: Array<DiscountError>;
 	errors: Array<DiscountError>;
 	sale?: Maybe<Sale>;
@@ -19946,7 +19946,7 @@ export type SaleUpdate = {
 /**
  * Event sent when sale is updated.
  *
- * Added in Saleor 3.2.
+ * Added in Weenspace 3.2.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -19960,14 +19960,14 @@ export type SaleUpdated = Event & {
 	recipient?: Maybe<App>;
 	/** The sale the event relates to. */
 	sale?: Maybe<Sale>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
 /**
  * Event sent when sale is updated.
  *
- * Added in Saleor 3.2.
+ * Added in Weenspace 3.2.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -19994,7 +19994,7 @@ export type SeoInput = {
 /** Sets the user's password from the token sent by email using the RequestPasswordReset mutation. */
 export type SetPassword = {
 	__typename?: "SetPassword";
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	accountErrors: Array<AccountError>;
 	/** CSRF token required to re-generate access token. */
 	csrfToken?: Maybe<Scalars["String"]>;
@@ -20035,7 +20035,7 @@ export type ShippingErrorCode =
 /**
  * List shipping methods for checkout.
  *
- * Added in Saleor 3.6.
+ * Added in Weenspace 3.6.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -20052,12 +20052,12 @@ export type ShippingListMethodsForCheckout = Event & {
 	/**
 	 * Shipping methods that can be used with this checkout.
 	 *
-	 * Added in Saleor 3.6.
+	 * Added in Weenspace 3.6.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
 	shippingMethods?: Maybe<Array<ShippingMethod>>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
@@ -20081,7 +20081,7 @@ export type ShippingMethod = Node &
 		maximumOrderPrice?: Maybe<Money>;
 		/**
 		 * Maximum order weight for this shipping method.
-		 * @deprecated This field will be removed in Saleor 4.0.
+		 * @deprecated This field will be removed in Weenspace 4.0.
 		 */
 		maximumOrderWeight?: Maybe<Weight>;
 		/** Message connected to this shipping method. */
@@ -20102,7 +20102,7 @@ export type ShippingMethod = Node &
 		minimumOrderPrice?: Maybe<Money>;
 		/**
 		 * Minimum order weight for this shipping method.
-		 * @deprecated This field will be removed in Saleor 4.0.
+		 * @deprecated This field will be removed in Weenspace 4.0.
 		 */
 		minimumOrderWeight?: Maybe<Weight>;
 		/** Shipping method name. */
@@ -20123,7 +20123,7 @@ export type ShippingMethod = Node &
 		translation?: Maybe<ShippingMethodTranslation>;
 		/**
 		 * Type of the shipping method.
-		 * @deprecated This field will be removed in Saleor 4.0.
+		 * @deprecated This field will be removed in Weenspace 4.0.
 		 */
 		type?: Maybe<ShippingMethodTypeEnum>;
 	};
@@ -20189,7 +20189,7 @@ export type ShippingMethodChannelListingInput = {
 export type ShippingMethodChannelListingUpdate = {
 	__typename?: "ShippingMethodChannelListingUpdate";
 	errors: Array<ShippingError>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	shippingErrors: Array<ShippingError>;
 	/** An updated shipping method instance. */
 	shippingMethod?: Maybe<ShippingMethodType>;
@@ -20222,7 +20222,7 @@ export type ShippingMethodTranslatableContent = Node & {
 	 * Shipping method are the methods you'll use to get customer's orders  to them. They are directly exposed to the customers.
 	 *
 	 * Requires one of the following permissions: MANAGE_SHIPPING.
-	 * @deprecated This field will be removed in Saleor 4.0. Get model fields from the root level queries.
+	 * @deprecated This field will be removed in Weenspace 4.0. Get model fields from the root level queries.
 	 */
 	shippingMethod?: Maybe<ShippingMethodType>;
 	/** Returns translated shipping method fields for the given language code. */
@@ -20284,7 +20284,7 @@ export type ShippingMethodType = Node &
 		 *
 		 * Tip: Use GraphQL aliases to fetch multiple keys.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -20292,7 +20292,7 @@ export type ShippingMethodType = Node &
 		/**
 		 * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -20314,7 +20314,7 @@ export type ShippingMethodType = Node &
 		 *
 		 * Tip: Use GraphQL aliases to fetch multiple keys.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -20322,7 +20322,7 @@ export type ShippingMethodType = Node &
 		/**
 		 * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -20378,7 +20378,7 @@ export type ShippingMethodTypeEnum = "PRICE" | "WEIGHT";
 /**
  * List of shipping methods available for the country.
  *
- * Added in Saleor 3.6.
+ * Added in Weenspace 3.6.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -20407,7 +20407,7 @@ export type ShippingPriceBulkDelete = {
 	/** Returns how many objects were affected. */
 	count: Scalars["Int"];
 	errors: Array<ShippingError>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	shippingErrors: Array<ShippingError>;
 };
 
@@ -20419,7 +20419,7 @@ export type ShippingPriceBulkDelete = {
 export type ShippingPriceCreate = {
 	__typename?: "ShippingPriceCreate";
 	errors: Array<ShippingError>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	shippingErrors: Array<ShippingError>;
 	shippingMethod?: Maybe<ShippingMethodType>;
 	/** A shipping zone to which the shipping method belongs. */
@@ -20429,7 +20429,7 @@ export type ShippingPriceCreate = {
 /**
  * Event sent when new shipping price is created.
  *
- * Added in Saleor 3.2.
+ * Added in Weenspace 3.2.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -20445,14 +20445,14 @@ export type ShippingPriceCreated = Event & {
 	shippingMethod?: Maybe<ShippingMethodType>;
 	/** The shipping zone the shipping method belongs to. */
 	shippingZone?: Maybe<ShippingZone>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
 /**
  * Event sent when new shipping price is created.
  *
- * Added in Saleor 3.2.
+ * Added in Weenspace 3.2.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -20463,7 +20463,7 @@ export type ShippingPriceCreatedShippingMethodArgs = {
 /**
  * Event sent when new shipping price is created.
  *
- * Added in Saleor 3.2.
+ * Added in Weenspace 3.2.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -20479,7 +20479,7 @@ export type ShippingPriceCreatedShippingZoneArgs = {
 export type ShippingPriceDelete = {
 	__typename?: "ShippingPriceDelete";
 	errors: Array<ShippingError>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	shippingErrors: Array<ShippingError>;
 	/** A shipping method to delete. */
 	shippingMethod?: Maybe<ShippingMethodType>;
@@ -20490,7 +20490,7 @@ export type ShippingPriceDelete = {
 /**
  * Event sent when shipping price is deleted.
  *
- * Added in Saleor 3.2.
+ * Added in Weenspace 3.2.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -20506,14 +20506,14 @@ export type ShippingPriceDeleted = Event & {
 	shippingMethod?: Maybe<ShippingMethodType>;
 	/** The shipping zone the shipping method belongs to. */
 	shippingZone?: Maybe<ShippingZone>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
 /**
  * Event sent when shipping price is deleted.
  *
- * Added in Saleor 3.2.
+ * Added in Weenspace 3.2.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -20524,7 +20524,7 @@ export type ShippingPriceDeletedShippingMethodArgs = {
 /**
  * Event sent when shipping price is deleted.
  *
- * Added in Saleor 3.2.
+ * Added in Weenspace 3.2.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -20540,7 +20540,7 @@ export type ShippingPriceDeletedShippingZoneArgs = {
 export type ShippingPriceExcludeProducts = {
 	__typename?: "ShippingPriceExcludeProducts";
 	errors: Array<ShippingError>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	shippingErrors: Array<ShippingError>;
 	/** A shipping method with new list of excluded products. */
 	shippingMethod?: Maybe<ShippingMethodType>;
@@ -20586,7 +20586,7 @@ export type ShippingPriceInput = {
 export type ShippingPriceRemoveProductFromExclude = {
 	__typename?: "ShippingPriceRemoveProductFromExclude";
 	errors: Array<ShippingError>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	shippingErrors: Array<ShippingError>;
 	/** A shipping method with new list of excluded products. */
 	shippingMethod?: Maybe<ShippingMethodType>;
@@ -20601,7 +20601,7 @@ export type ShippingPriceTranslate = {
 	__typename?: "ShippingPriceTranslate";
 	errors: Array<TranslationError>;
 	shippingMethod?: Maybe<ShippingMethodType>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	translationErrors: Array<TranslationError>;
 };
 
@@ -20623,7 +20623,7 @@ export type ShippingPriceTranslationInput = {
 export type ShippingPriceUpdate = {
 	__typename?: "ShippingPriceUpdate";
 	errors: Array<ShippingError>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	shippingErrors: Array<ShippingError>;
 	shippingMethod?: Maybe<ShippingMethodType>;
 	/** A shipping zone to which the shipping method belongs. */
@@ -20633,7 +20633,7 @@ export type ShippingPriceUpdate = {
 /**
  * Event sent when shipping price is updated.
  *
- * Added in Saleor 3.2.
+ * Added in Weenspace 3.2.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -20649,14 +20649,14 @@ export type ShippingPriceUpdated = Event & {
 	shippingMethod?: Maybe<ShippingMethodType>;
 	/** The shipping zone the shipping method belongs to. */
 	shippingZone?: Maybe<ShippingZone>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
 /**
  * Event sent when shipping price is updated.
  *
- * Added in Saleor 3.2.
+ * Added in Weenspace 3.2.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -20667,7 +20667,7 @@ export type ShippingPriceUpdatedShippingMethodArgs = {
 /**
  * Event sent when shipping price is updated.
  *
- * Added in Saleor 3.2.
+ * Added in Weenspace 3.2.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -20694,7 +20694,7 @@ export type ShippingZone = Node &
 		 *
 		 * Tip: Use GraphQL aliases to fetch multiple keys.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -20702,7 +20702,7 @@ export type ShippingZone = Node &
 		/**
 		 * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -20717,7 +20717,7 @@ export type ShippingZone = Node &
 		 *
 		 * Tip: Use GraphQL aliases to fetch multiple keys.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -20725,7 +20725,7 @@ export type ShippingZone = Node &
 		/**
 		 * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -20766,7 +20766,7 @@ export type ShippingZoneBulkDelete = {
 	/** Returns how many objects were affected. */
 	count: Scalars["Int"];
 	errors: Array<ShippingError>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	shippingErrors: Array<ShippingError>;
 };
 
@@ -20795,7 +20795,7 @@ export type ShippingZoneCountableEdge = {
 export type ShippingZoneCreate = {
 	__typename?: "ShippingZoneCreate";
 	errors: Array<ShippingError>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	shippingErrors: Array<ShippingError>;
 	shippingZone?: Maybe<ShippingZone>;
 };
@@ -20818,7 +20818,7 @@ export type ShippingZoneCreateInput = {
 /**
  * Event sent when new shipping zone is created.
  *
- * Added in Saleor 3.2.
+ * Added in Weenspace 3.2.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -20832,14 +20832,14 @@ export type ShippingZoneCreated = Event & {
 	recipient?: Maybe<App>;
 	/** The shipping zone the event relates to. */
 	shippingZone?: Maybe<ShippingZone>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
 /**
  * Event sent when new shipping zone is created.
  *
- * Added in Saleor 3.2.
+ * Added in Weenspace 3.2.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -20855,7 +20855,7 @@ export type ShippingZoneCreatedShippingZoneArgs = {
 export type ShippingZoneDelete = {
 	__typename?: "ShippingZoneDelete";
 	errors: Array<ShippingError>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	shippingErrors: Array<ShippingError>;
 	shippingZone?: Maybe<ShippingZone>;
 };
@@ -20863,7 +20863,7 @@ export type ShippingZoneDelete = {
 /**
  * Event sent when shipping zone is deleted.
  *
- * Added in Saleor 3.2.
+ * Added in Weenspace 3.2.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -20877,14 +20877,14 @@ export type ShippingZoneDeleted = Event & {
 	recipient?: Maybe<App>;
 	/** The shipping zone the event relates to. */
 	shippingZone?: Maybe<ShippingZone>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
 /**
  * Event sent when shipping zone is deleted.
  *
- * Added in Saleor 3.2.
+ * Added in Weenspace 3.2.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -20900,7 +20900,7 @@ export type ShippingZoneFilterInput = {
 /**
  * Event sent when shipping zone metadata is updated.
  *
- * Added in Saleor 3.8.
+ * Added in Weenspace 3.8.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -20914,14 +20914,14 @@ export type ShippingZoneMetadataUpdated = Event & {
 	recipient?: Maybe<App>;
 	/** The shipping zone the event relates to. */
 	shippingZone?: Maybe<ShippingZone>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
 /**
  * Event sent when shipping zone metadata is updated.
  *
- * Added in Saleor 3.8.
+ * Added in Weenspace 3.8.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -20937,7 +20937,7 @@ export type ShippingZoneMetadataUpdatedShippingZoneArgs = {
 export type ShippingZoneUpdate = {
 	__typename?: "ShippingZoneUpdate";
 	errors: Array<ShippingError>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	shippingErrors: Array<ShippingError>;
 	shippingZone?: Maybe<ShippingZone>;
 };
@@ -20964,7 +20964,7 @@ export type ShippingZoneUpdateInput = {
 /**
  * Event sent when shipping zone is updated.
  *
- * Added in Saleor 3.2.
+ * Added in Weenspace 3.2.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -20978,14 +20978,14 @@ export type ShippingZoneUpdated = Event & {
 	recipient?: Maybe<App>;
 	/** The shipping zone the event relates to. */
 	shippingZone?: Maybe<ShippingZone>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
 /**
  * Event sent when shipping zone is updated.
  *
- * Added in Saleor 3.2.
+ * Added in Weenspace 3.2.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -21011,14 +21011,14 @@ export type Shop = {
 	/**
 	 * List of all currencies supported by shop's channels.
 	 *
-	 * Added in Saleor 3.1.
+	 * Added in Weenspace 3.1.
 	 *
 	 * Requires one of the following permissions: AUTHENTICATED_STAFF_USER, AUTHENTICATED_APP.
 	 */
 	channelCurrencies: Array<Scalars["String"]>;
 	/**
 	 * Charge taxes on shipping.
-	 * @deprecated This field will be removed in Saleor 4.0. Use `ShippingMethodType.taxClass` to determine whether taxes are calculated for shipping methods; if a tax class is set, the taxes will be calculated, otherwise no tax rate will be applied.
+	 * @deprecated This field will be removed in Weenspace 4.0. Use `ShippingMethodType.taxClass` to determine whether taxes are calculated for shipping methods; if a tax class is set, the taxes will be calculated, otherwise no tax rate will be applied.
 	 */
 	chargeTaxesOnShipping: Scalars["Boolean"];
 	/** Company address. */
@@ -21059,7 +21059,7 @@ export type Shop = {
 	description?: Maybe<Scalars["String"]>;
 	/**
 	 * Display prices with tax in store.
-	 * @deprecated This field will be removed in Saleor 4.0. Use `Channel.taxConfiguration` to determine whether to display gross or net prices.
+	 * @deprecated This field will be removed in Weenspace 4.0. Use `Channel.taxConfiguration` to determine whether to display gross or net prices.
 	 */
 	displayGrossPrices: Scalars["Boolean"];
 	/** Shop's domain data. */
@@ -21067,20 +21067,20 @@ export type Shop = {
 	/**
 	 * Allow to approve fulfillments which are unpaid.
 	 *
-	 * Added in Saleor 3.1.
+	 * Added in Weenspace 3.1.
 	 */
 	fulfillmentAllowUnpaid: Scalars["Boolean"];
 	/**
 	 * Automatically approve all new fulfillments.
 	 *
-	 * Added in Saleor 3.1.
+	 * Added in Weenspace 3.1.
 	 */
 	fulfillmentAutoApprove: Scalars["Boolean"];
 	/** Header text. */
 	headerText?: Maybe<Scalars["String"]>;
 	/**
 	 * Include taxes in prices.
-	 * @deprecated This field will be removed in Saleor 4.0. Use `Channel.taxConfiguration.pricesEnteredWithTax` to determine whether prices are entered with tax.
+	 * @deprecated This field will be removed in Weenspace 4.0. Use `Channel.taxConfiguration.pricesEnteredWithTax` to determine whether prices are entered with tax.
 	 */
 	includeTaxesInPrices: Scalars["Boolean"];
 	/** List of the shops's supported languages. */
@@ -21088,7 +21088,7 @@ export type Shop = {
 	/**
 	 * Default number of maximum line quantity in single checkout (per single checkout line).
 	 *
-	 * Added in Saleor 3.1.
+	 * Added in Weenspace 3.1.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 *
@@ -21110,7 +21110,7 @@ export type Shop = {
 	/**
 	 * Default number of minutes stock will be reserved for anonymous checkout or null when stock reservation is disabled.
 	 *
-	 * Added in Saleor 3.1.
+	 * Added in Weenspace 3.1.
 	 *
 	 * Requires one of the following permissions: MANAGE_SETTINGS.
 	 */
@@ -21118,15 +21118,15 @@ export type Shop = {
 	/**
 	 * Default number of minutes stock will be reserved for authenticated checkout or null when stock reservation is disabled.
 	 *
-	 * Added in Saleor 3.1.
+	 * Added in Weenspace 3.1.
 	 *
 	 * Requires one of the following permissions: MANAGE_SETTINGS.
 	 */
 	reserveStockDurationAuthenticatedUser?: Maybe<Scalars["Int"]>;
 	/**
-	 * Minor Saleor API version.
+	 * Minor Weenspace API version.
 	 *
-	 * Added in Saleor 3.5.
+	 * Added in Weenspace 3.5.
 	 */
 	schemaVersion: Scalars["String"];
 	/**
@@ -21140,7 +21140,7 @@ export type Shop = {
 	/** Returns translated shop fields for the given language code. */
 	translation?: Maybe<ShopTranslation>;
 	/**
-	 * Saleor API version.
+	 * Weenspace API version.
 	 *
 	 * Requires one of the following permissions: AUTHENTICATED_STAFF_USER, AUTHENTICATED_APP.
 	 */
@@ -21180,7 +21180,7 @@ export type ShopAddressUpdate = {
 	errors: Array<ShopError>;
 	/** Updated shop. */
 	shop?: Maybe<Shop>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	shopErrors: Array<ShopError>;
 };
 
@@ -21194,7 +21194,7 @@ export type ShopDomainUpdate = {
 	errors: Array<ShopError>;
 	/** Updated shop. */
 	shop?: Maybe<Shop>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	shopErrors: Array<ShopError>;
 };
 
@@ -21228,7 +21228,7 @@ export type ShopFetchTaxRates = {
 	errors: Array<ShopError>;
 	/** Updated shop. */
 	shop?: Maybe<Shop>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	shopErrors: Array<ShopError>;
 };
 
@@ -21238,7 +21238,7 @@ export type ShopSettingsInput = {
 	/**
 	 * Charge taxes on shipping.
 	 *
-	 * DEPRECATED: this field will be removed in Saleor 4.0. To enable taxes for a shipping method, assign a tax class to the shipping method with `shippingPriceCreate` or `shippingPriceUpdate` mutations.
+	 * DEPRECATED: this field will be removed in Weenspace 4.0. To enable taxes for a shipping method, assign a tax class to the shipping method with `shippingPriceCreate` or `shippingPriceUpdate` mutations.
 	 */
 	chargeTaxesOnShipping?: InputMaybe<Scalars["Boolean"]>;
 	/** URL of a view where customers can set their password. */
@@ -21258,19 +21258,19 @@ export type ShopSettingsInput = {
 	/**
 	 * Display prices with tax in store.
 	 *
-	 * DEPRECATED: this field will be removed in Saleor 4.0. Use `taxConfigurationUpdate` mutation to configure this setting per channel or country.
+	 * DEPRECATED: this field will be removed in Weenspace 4.0. Use `taxConfigurationUpdate` mutation to configure this setting per channel or country.
 	 */
 	displayGrossPrices?: InputMaybe<Scalars["Boolean"]>;
 	/**
 	 * Enable ability to approve fulfillments which are unpaid.
 	 *
-	 * Added in Saleor 3.1.
+	 * Added in Weenspace 3.1.
 	 */
 	fulfillmentAllowUnpaid?: InputMaybe<Scalars["Boolean"]>;
 	/**
 	 * Enable automatic approval of all new fulfillments.
 	 *
-	 * Added in Saleor 3.1.
+	 * Added in Weenspace 3.1.
 	 */
 	fulfillmentAutoApprove?: InputMaybe<Scalars["Boolean"]>;
 	/** Header text. */
@@ -21278,13 +21278,13 @@ export type ShopSettingsInput = {
 	/**
 	 * Include taxes in prices.
 	 *
-	 * DEPRECATED: this field will be removed in Saleor 4.0. Use `taxConfigurationUpdate` mutation to configure this setting per channel or country.
+	 * DEPRECATED: this field will be removed in Weenspace 4.0. Use `taxConfigurationUpdate` mutation to configure this setting per channel or country.
 	 */
 	includeTaxesInPrices?: InputMaybe<Scalars["Boolean"]>;
 	/**
 	 * Default number of maximum line quantity in single checkout. Minimum possible value is 1, default value is 50.
 	 *
-	 * Added in Saleor 3.1.
+	 * Added in Weenspace 3.1.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -21292,13 +21292,13 @@ export type ShopSettingsInput = {
 	/**
 	 * Default number of minutes stock will be reserved for anonymous checkout. Enter 0 or null to disable.
 	 *
-	 * Added in Saleor 3.1.
+	 * Added in Weenspace 3.1.
 	 */
 	reserveStockDurationAnonymousUser?: InputMaybe<Scalars["Int"]>;
 	/**
 	 * Default number of minutes stock will be reserved for authenticated checkout. Enter 0 or null to disable.
 	 *
-	 * Added in Saleor 3.1.
+	 * Added in Weenspace 3.1.
 	 */
 	reserveStockDurationAuthenticatedUser?: InputMaybe<Scalars["Int"]>;
 	/** Enable inventory tracking. */
@@ -21315,7 +21315,7 @@ export type ShopSettingsTranslate = {
 	errors: Array<TranslationError>;
 	/** Updated shop settings. */
 	shop?: Maybe<Shop>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	translationErrors: Array<TranslationError>;
 };
 
@@ -21334,7 +21334,7 @@ export type ShopSettingsUpdate = {
 	errors: Array<ShopError>;
 	/** Updated shop. */
 	shop?: Maybe<Shop>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	shopErrors: Array<ShopError>;
 };
 
@@ -21364,7 +21364,7 @@ export type StaffBulkDelete = {
 	/** Returns how many objects were affected. */
 	count: Scalars["Int"];
 	errors: Array<StaffError>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	staffErrors: Array<StaffError>;
 };
 
@@ -21376,7 +21376,7 @@ export type StaffBulkDelete = {
 export type StaffCreate = {
 	__typename?: "StaffCreate";
 	errors: Array<StaffError>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	staffErrors: Array<StaffError>;
 	user?: Maybe<User>;
 };
@@ -21402,7 +21402,7 @@ export type StaffCreateInput = {
 /**
  * Event sent when new staff user is created.
  *
- * Added in Saleor 3.5.
+ * Added in Weenspace 3.5.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -21416,7 +21416,7 @@ export type StaffCreated = Event & {
 	recipient?: Maybe<App>;
 	/** The user the event relates to. */
 	user?: Maybe<User>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
@@ -21428,7 +21428,7 @@ export type StaffCreated = Event & {
 export type StaffDelete = {
 	__typename?: "StaffDelete";
 	errors: Array<StaffError>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	staffErrors: Array<StaffError>;
 	user?: Maybe<User>;
 };
@@ -21436,7 +21436,7 @@ export type StaffDelete = {
 /**
  * Event sent when staff user is deleted.
  *
- * Added in Saleor 3.5.
+ * Added in Weenspace 3.5.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -21450,7 +21450,7 @@ export type StaffDeleted = Event & {
 	recipient?: Maybe<App>;
 	/** The user the event relates to. */
 	user?: Maybe<User>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
@@ -21479,7 +21479,7 @@ export type StaffMemberStatus =
 	/** User account has not been activated yet. */
 	| "DEACTIVATED";
 
-/** Represents a recipient of email notifications send by Saleor, such as notifications about new orders. Notifications can be assigned to staff users or arbitrary email addresses. */
+/** Represents a recipient of email notifications send by Weenspace, such as notifications about new orders. Notifications can be assigned to staff users or arbitrary email addresses. */
 export type StaffNotificationRecipient = Node & {
 	__typename?: "StaffNotificationRecipient";
 	/** Determines if a notification active. */
@@ -21499,7 +21499,7 @@ export type StaffNotificationRecipient = Node & {
 export type StaffNotificationRecipientCreate = {
 	__typename?: "StaffNotificationRecipientCreate";
 	errors: Array<ShopError>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	shopErrors: Array<ShopError>;
 	staffNotificationRecipient?: Maybe<StaffNotificationRecipient>;
 };
@@ -21512,7 +21512,7 @@ export type StaffNotificationRecipientCreate = {
 export type StaffNotificationRecipientDelete = {
 	__typename?: "StaffNotificationRecipientDelete";
 	errors: Array<ShopError>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	shopErrors: Array<ShopError>;
 	staffNotificationRecipient?: Maybe<StaffNotificationRecipient>;
 };
@@ -21534,7 +21534,7 @@ export type StaffNotificationRecipientInput = {
 export type StaffNotificationRecipientUpdate = {
 	__typename?: "StaffNotificationRecipientUpdate";
 	errors: Array<ShopError>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	shopErrors: Array<ShopError>;
 	staffNotificationRecipient?: Maybe<StaffNotificationRecipient>;
 };
@@ -21547,7 +21547,7 @@ export type StaffNotificationRecipientUpdate = {
 export type StaffUpdate = {
 	__typename?: "StaffUpdate";
 	errors: Array<StaffError>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	staffErrors: Array<StaffError>;
 	user?: Maybe<User>;
 };
@@ -21573,7 +21573,7 @@ export type StaffUpdateInput = {
 /**
  * Event sent when staff user is updated.
  *
- * Added in Saleor 3.5.
+ * Added in Weenspace 3.5.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -21587,7 +21587,7 @@ export type StaffUpdated = Event & {
 	recipient?: Maybe<App>;
 	/** The user the event relates to. */
 	user?: Maybe<User>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
@@ -21636,7 +21636,7 @@ export type StockBulkResult = {
 /**
  * Updates stocks for a given variant and warehouse.
  *
- * Added in Saleor 3.13.
+ * Added in Weenspace 3.13.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  *
@@ -21728,7 +21728,7 @@ export type StockInput = {
 /**
  * Represents the channel stock settings.
  *
- * Added in Saleor 3.7.
+ * Added in Weenspace 3.7.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -21762,7 +21762,7 @@ export type StorePaymentMethodEnum =
 /**
  * Define the filtering options for string fields.
  *
- * Added in Saleor 3.11.
+ * Added in Weenspace 3.11.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -21778,7 +21778,7 @@ export type Subscription = {
 	/**
 	 * Look up subscription event.
 	 *
-	 * Added in Saleor 3.2.
+	 * Added in Weenspace 3.2.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -21790,7 +21790,7 @@ export type TaxCalculationStrategy = "FLAT_RATES" | "TAX_APP";
 /**
  * Tax class is a named object used to define tax rates per country. Tax class can be assigned to product types, products and shipping methods to define their tax rates.
  *
- * Added in Saleor 3.9.
+ * Added in Weenspace 3.9.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -21808,7 +21808,7 @@ export type TaxClass = Node &
 		 *
 		 * Tip: Use GraphQL aliases to fetch multiple keys.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -21816,7 +21816,7 @@ export type TaxClass = Node &
 		/**
 		 * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -21830,7 +21830,7 @@ export type TaxClass = Node &
 		 *
 		 * Tip: Use GraphQL aliases to fetch multiple keys.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -21838,7 +21838,7 @@ export type TaxClass = Node &
 		/**
 		 * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -21848,7 +21848,7 @@ export type TaxClass = Node &
 /**
  * Tax class is a named object used to define tax rates per country. Tax class can be assigned to product types, products and shipping methods to define their tax rates.
  *
- * Added in Saleor 3.9.
+ * Added in Weenspace 3.9.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -21859,7 +21859,7 @@ export type TaxClassMetafieldArgs = {
 /**
  * Tax class is a named object used to define tax rates per country. Tax class can be assigned to product types, products and shipping methods to define their tax rates.
  *
- * Added in Saleor 3.9.
+ * Added in Weenspace 3.9.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -21870,7 +21870,7 @@ export type TaxClassMetafieldsArgs = {
 /**
  * Tax class is a named object used to define tax rates per country. Tax class can be assigned to product types, products and shipping methods to define their tax rates.
  *
- * Added in Saleor 3.9.
+ * Added in Weenspace 3.9.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -21881,7 +21881,7 @@ export type TaxClassPrivateMetafieldArgs = {
 /**
  * Tax class is a named object used to define tax rates per country. Tax class can be assigned to product types, products and shipping methods to define their tax rates.
  *
- * Added in Saleor 3.9.
+ * Added in Weenspace 3.9.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -21909,7 +21909,7 @@ export type TaxClassCountableEdge = {
 /**
  * Tax rate for a country. When tax class is null, it represents the default tax rate for that country; otherwise it's a country tax rate specific to the given tax class.
  *
- * Added in Saleor 3.9.
+ * Added in Weenspace 3.9.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -21926,7 +21926,7 @@ export type TaxClassCountryRate = {
 /**
  * Create a tax class.
  *
- * Added in Saleor 3.9.
+ * Added in Weenspace 3.9.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  *
@@ -21963,7 +21963,7 @@ export type TaxClassCreateInput = {
 /**
  * Delete a tax class. After deleting the tax class any products, product types or shipping methods using it are updated to use the default tax class.
  *
- * Added in Saleor 3.9.
+ * Added in Weenspace 3.9.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  *
@@ -22015,7 +22015,7 @@ export type TaxClassSortingInput = {
 /**
  * Update a tax class.
  *
- * Added in Saleor 3.9.
+ * Added in Weenspace 3.9.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  *
@@ -22054,7 +22054,7 @@ export type TaxClassUpdateInput = {
 /**
  * Channel-specific tax configuration.
  *
- * Added in Saleor 3.9.
+ * Added in Weenspace 3.9.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -22078,7 +22078,7 @@ export type TaxConfiguration = Node &
 		 *
 		 * Tip: Use GraphQL aliases to fetch multiple keys.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -22086,7 +22086,7 @@ export type TaxConfiguration = Node &
 		/**
 		 * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -22100,7 +22100,7 @@ export type TaxConfiguration = Node &
 		 *
 		 * Tip: Use GraphQL aliases to fetch multiple keys.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -22108,7 +22108,7 @@ export type TaxConfiguration = Node &
 		/**
 		 * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -22120,7 +22120,7 @@ export type TaxConfiguration = Node &
 /**
  * Channel-specific tax configuration.
  *
- * Added in Saleor 3.9.
+ * Added in Weenspace 3.9.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -22131,7 +22131,7 @@ export type TaxConfigurationMetafieldArgs = {
 /**
  * Channel-specific tax configuration.
  *
- * Added in Saleor 3.9.
+ * Added in Weenspace 3.9.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -22142,7 +22142,7 @@ export type TaxConfigurationMetafieldsArgs = {
 /**
  * Channel-specific tax configuration.
  *
- * Added in Saleor 3.9.
+ * Added in Weenspace 3.9.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -22153,7 +22153,7 @@ export type TaxConfigurationPrivateMetafieldArgs = {
 /**
  * Channel-specific tax configuration.
  *
- * Added in Saleor 3.9.
+ * Added in Weenspace 3.9.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -22186,7 +22186,7 @@ export type TaxConfigurationFilterInput = {
 /**
  * Country-specific exceptions of a channel's tax configuration.
  *
- * Added in Saleor 3.9.
+ * Added in Weenspace 3.9.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -22216,7 +22216,7 @@ export type TaxConfigurationPerCountryInput = {
 /**
  * Update tax configuration for a channel.
  *
- * Added in Saleor 3.9.
+ * Added in Weenspace 3.9.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  *
@@ -22265,7 +22265,7 @@ export type TaxConfigurationUpdateInput = {
 /**
  * Tax class rates grouped by country.
  *
- * Added in Saleor 3.9.
+ * Added in Weenspace 3.9.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -22280,7 +22280,7 @@ export type TaxCountryConfiguration = {
 /**
  * Remove all tax class rates for a specific country.
  *
- * Added in Saleor 3.9.
+ * Added in Weenspace 3.9.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  *
@@ -22309,7 +22309,7 @@ export type TaxCountryConfigurationDeleteErrorCode = "GRAPHQL_ERROR" | "INVALID"
 /**
  * Update tax class rates for a specific country.
  *
- * Added in Saleor 3.9.
+ * Added in Weenspace 3.9.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  *
@@ -22345,7 +22345,7 @@ export type TaxCountryConfigurationUpdateErrorCode =
 /**
  * Exempt checkout or order from charging the taxes. When tax exemption is enabled, taxes won't be charged for the checkout or order. Taxes may still be calculated in cases when product prices are entered with the tax included and the net price needs to be known.
  *
- * Added in Saleor 3.8.
+ * Added in Weenspace 3.8.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  *
@@ -22457,14 +22457,14 @@ export type TaxedMoneyRange = {
 /**
  * Event sent when thumbnail is created.
  *
- * Added in Saleor 3.12.
+ * Added in Weenspace 3.12.
  */
 export type ThumbnailCreated = Event & {
 	__typename?: "ThumbnailCreated";
 	/**
 	 * Thumbnail id.
 	 *
-	 * Added in Saleor 3.12.
+	 * Added in Weenspace 3.12.
 	 */
 	id?: Maybe<Scalars["ID"]>;
 	/** Time of the event. */
@@ -22474,13 +22474,13 @@ export type ThumbnailCreated = Event & {
 	/**
 	 * Original media url.
 	 *
-	 * Added in Saleor 3.12.
+	 * Added in Weenspace 3.12.
 	 */
 	mediaUrl?: Maybe<Scalars["String"]>;
 	/**
 	 * Object the thumbnail refers to.
 	 *
-	 * Added in Saleor 3.12.
+	 * Added in Weenspace 3.12.
 	 */
 	objectId?: Maybe<Scalars["ID"]>;
 	/** The application receiving the webhook. */
@@ -22488,10 +22488,10 @@ export type ThumbnailCreated = Event & {
 	/**
 	 * Thumbnail url.
 	 *
-	 * Added in Saleor 3.12.
+	 * Added in Weenspace 3.12.
 	 */
 	url?: Maybe<Scalars["String"]>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
@@ -22546,17 +22546,17 @@ export type TransactionAction = {
  *     CHARGE - Represents the charge action.
  *     REFUND - Represents a refund action.
  *     VOID - Represents a void action. This field will be removed
- *     in Saleor 3.14 (Preview Feature). Use `CANCEL` instead.
- *     CANCEL - Represents a cancel action. Added in Saleor 3.12.
+ *     in Weenspace 3.14 (Preview Feature). Use `CANCEL` instead.
+ *     CANCEL - Represents a cancel action. Added in Weenspace 3.12.
  */
 export type TransactionActionEnum = "CANCEL" | "CHARGE" | "REFUND" | "VOID";
 
 /**
  * Event sent when transaction action is requested.
  *
- * Added in Saleor 3.4.
+ * Added in Weenspace 3.4.
  *
- * DEPRECATED: this subscription will be removed in Saleor 3.14 (Preview Feature). Use `TransactionChargeRequested`, `TransactionRefundRequested`, `TransactionCancelationRequested` instead.
+ * DEPRECATED: this subscription will be removed in Weenspace 3.14 (Preview Feature). Use `TransactionChargeRequested`, `TransactionRefundRequested`, `TransactionCancelationRequested` instead.
  */
 export type TransactionActionRequest = Event & {
 	__typename?: "TransactionActionRequest";
@@ -22570,14 +22570,14 @@ export type TransactionActionRequest = Event & {
 	recipient?: Maybe<App>;
 	/** Look up a transaction. */
 	transaction?: Maybe<TransactionItem>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
 /**
  * Event sent when transaction cancelation is requested.
  *
- * Added in Saleor 3.13.
+ * Added in Weenspace 3.13.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -22593,14 +22593,14 @@ export type TransactionCancelationRequested = Event & {
 	recipient?: Maybe<App>;
 	/** Look up a transaction. */
 	transaction?: Maybe<TransactionItem>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
 /**
  * Event sent when transaction charge is requested.
  *
- * Added in Saleor 3.13.
+ * Added in Weenspace 3.13.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -22616,14 +22616,14 @@ export type TransactionChargeRequested = Event & {
 	recipient?: Maybe<App>;
 	/** Look up a transaction. */
 	transaction?: Maybe<TransactionItem>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
 /**
  * Create transaction for checkout or order.
  *
- * Added in Saleor 3.4.
+ * Added in Weenspace 3.4.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  *
@@ -22660,7 +22660,7 @@ export type TransactionCreateInput = {
 	/**
 	 * Amount canceled by this transaction.
 	 *
-	 * Added in Saleor 3.13.
+	 * Added in Weenspace 3.13.
 	 */
 	amountCanceled?: InputMaybe<MoneyInput>;
 	/** Amount charged by this transaction. */
@@ -22670,7 +22670,7 @@ export type TransactionCreateInput = {
 	/**
 	 * Amount voided by this transaction.
 	 *
-	 * DEPRECATED: this field will be removed in Saleor 3.14 (Preview Feature). Use `amountCanceled` instead.
+	 * DEPRECATED: this field will be removed in Weenspace 3.14 (Preview Feature). Use `amountCanceled` instead.
 	 */
 	amountVoided?: InputMaybe<MoneyInput>;
 	/** List of all possible actions for the transaction */
@@ -22678,13 +22678,13 @@ export type TransactionCreateInput = {
 	/**
 	 * The url that will allow to redirect user to payment provider page with transaction event details.
 	 *
-	 * Added in Saleor 3.13.
+	 * Added in Weenspace 3.13.
 	 */
 	externalUrl?: InputMaybe<Scalars["String"]>;
 	/**
 	 * The message of the transaction.
 	 *
-	 * Added in Saleor 3.13.
+	 * Added in Weenspace 3.13.
 	 */
 	message?: InputMaybe<Scalars["String"]>;
 	/** Payment public metadata. */
@@ -22692,7 +22692,7 @@ export type TransactionCreateInput = {
 	/**
 	 * Payment name of the transaction.
 	 *
-	 * Added in Saleor 3.13.
+	 * Added in Weenspace 3.13.
 	 */
 	name?: InputMaybe<Scalars["String"]>;
 	/** Payment private metadata. */
@@ -22700,25 +22700,25 @@ export type TransactionCreateInput = {
 	/**
 	 * PSP Reference of the transaction.
 	 *
-	 * Added in Saleor 3.13.
+	 * Added in Weenspace 3.13.
 	 */
 	pspReference?: InputMaybe<Scalars["String"]>;
 	/**
 	 * Reference of the transaction.
 	 *
-	 * DEPRECATED: this field will be removed in Saleor 3.14 (Preview Feature). Use `pspReference` instead.
+	 * DEPRECATED: this field will be removed in Weenspace 3.14 (Preview Feature). Use `pspReference` instead.
 	 */
 	reference?: InputMaybe<Scalars["String"]>;
 	/**
 	 * Status of the transaction.
 	 *
-	 * DEPRECATED: this field will be removed in Saleor 3.14 (Preview Feature). The `status` is not needed. The amounts can be used to define the current status of transactions.
+	 * DEPRECATED: this field will be removed in Weenspace 3.14 (Preview Feature). The `status` is not needed. The amounts can be used to define the current status of transactions.
 	 */
 	status?: InputMaybe<Scalars["String"]>;
 	/**
 	 * Payment type used for this transaction.
 	 *
-	 * DEPRECATED: this field will be removed in Saleor 3.14 (Preview Feature). Use `name` and `message` instead.
+	 * DEPRECATED: this field will be removed in Weenspace 3.14 (Preview Feature). Use `name` and `message` instead.
 	 */
 	type?: InputMaybe<Scalars["String"]>;
 };
@@ -22729,20 +22729,20 @@ export type TransactionEvent = Node & {
 	/**
 	 * The amount related to this event.
 	 *
-	 * Added in Saleor 3.13.
+	 * Added in Weenspace 3.13.
 	 */
 	amount: Money;
 	createdAt: Scalars["DateTime"];
 	/**
 	 * User or App that created the transaction event.
 	 *
-	 * Added in Saleor 3.13.
+	 * Added in Weenspace 3.13.
 	 */
 	createdBy?: Maybe<UserOrApp>;
 	/**
 	 * The url that will allow to redirect user to payment provider page with transaction details.
 	 *
-	 * Added in Saleor 3.13.
+	 * Added in Weenspace 3.13.
 	 */
 	externalUrl: Scalars["String"];
 	/** The ID of the object. */
@@ -22750,34 +22750,34 @@ export type TransactionEvent = Node & {
 	/**
 	 * Message related to the transaction's event.
 	 *
-	 * Added in Saleor 3.13.
+	 * Added in Weenspace 3.13.
 	 */
 	message: Scalars["String"];
 	/**
 	 * Name of the transaction's event.
-	 * @deprecated This field will be removed in Saleor 3.14 (Preview Feature). Use `message` instead.
+	 * @deprecated This field will be removed in Weenspace 3.14 (Preview Feature). Use `message` instead.
 	 */
 	name?: Maybe<Scalars["String"]>;
 	/**
 	 * PSP reference of transaction.
 	 *
-	 * Added in Saleor 3.13.
+	 * Added in Weenspace 3.13.
 	 */
 	pspReference: Scalars["String"];
 	/**
 	 * Reference of transaction's event.
-	 * @deprecated This field will be removed in Saleor 3.14 (Preview Feature).Use `pspReference` instead.
+	 * @deprecated This field will be removed in Weenspace 3.14 (Preview Feature).Use `pspReference` instead.
 	 */
 	reference: Scalars["String"];
 	/**
 	 * Status of transaction's event.
-	 * @deprecated This field will be removed in Saleor 3.14 (Preview Feature). Use `type` instead.
+	 * @deprecated This field will be removed in Weenspace 3.14 (Preview Feature). Use `type` instead.
 	 */
 	status?: Maybe<TransactionStatus>;
 	/**
 	 * The type of action related to this event.
 	 *
-	 * Added in Saleor 3.13.
+	 * Added in Weenspace 3.13.
 	 */
 	type?: Maybe<TransactionEventTypeEnum>;
 };
@@ -22786,31 +22786,31 @@ export type TransactionEventInput = {
 	/**
 	 * The message related to the event.
 	 *
-	 * Added in Saleor 3.13.
+	 * Added in Weenspace 3.13.
 	 */
 	message?: InputMaybe<Scalars["String"]>;
 	/**
 	 * Name of the transaction.
 	 *
-	 * DEPRECATED: this field will be removed in Saleor 3.14 (Preview Feature). Use `message` instead. `name` field will be added to `message`.
+	 * DEPRECATED: this field will be removed in Weenspace 3.14 (Preview Feature). Use `message` instead. `name` field will be added to `message`.
 	 */
 	name?: InputMaybe<Scalars["String"]>;
 	/**
 	 * PSP Reference related to this action.
 	 *
-	 * Added in Saleor 3.13.
+	 * Added in Weenspace 3.13.
 	 */
 	pspReference?: InputMaybe<Scalars["String"]>;
 	/**
 	 * Reference of the transaction.
 	 *
-	 * DEPRECATED: this field will be removed in Saleor 3.14 (Preview Feature). Use `pspReference` instead.
+	 * DEPRECATED: this field will be removed in Weenspace 3.14 (Preview Feature). Use `pspReference` instead.
 	 */
 	reference?: InputMaybe<Scalars["String"]>;
 	/**
 	 * Current status of the payment transaction.
 	 *
-	 * DEPRECATED: this field will be removed in Saleor 3.14 (Preview Feature). Status will be calculated by Saleor.
+	 * DEPRECATED: this field will be removed in Weenspace 3.14 (Preview Feature). Status will be calculated by Weenspace.
 	 */
 	status?: InputMaybe<TransactionStatus>;
 };
@@ -22818,7 +22818,7 @@ export type TransactionEventInput = {
 /**
  * Report the event for the transaction.
  *
- * Added in Saleor 3.13.
+ * Added in Weenspace 3.13.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  *
@@ -22856,7 +22856,7 @@ export type TransactionEventReportErrorCode =
 /**
  * Represents possible event types.
  *
- *     Added in Saleor 3.12.
+ *     Added in Weenspace 3.12.
  *
  *     The following types are possible:
  *     AUTHORIZATION_SUCCESS - represents success authorization.
@@ -22911,7 +22911,7 @@ export type TransactionFlowStrategyEnum = "AUTHORIZATION" | "CHARGE";
 /**
  * Initializes a transaction session. It triggers the webhook `TRANSACTION_INITIALIZE_SESSION`, to the requested `paymentGateways`.
  *
- * Added in Saleor 3.13.
+ * Added in Weenspace 3.13.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -22942,7 +22942,7 @@ export type TransactionInitializeErrorCode = "GRAPHQL_ERROR" | "INVALID" | "NOT_
 /**
  * Event sent when user starts processing the payment.
  *
- * Added in Saleor 3.13.
+ * Added in Weenspace 3.13.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -22964,14 +22964,14 @@ export type TransactionInitializeSession = Event & {
 	sourceObject: OrderOrCheckout;
 	/** Look up a transaction. */
 	transaction: TransactionItem;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
 /**
  * Represents a payment transaction.
  *
- * Added in Saleor 3.4.
+ * Added in Weenspace 3.4.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -22983,7 +22983,7 @@ export type TransactionItem = Node &
 		/**
 		 * Total amount of ongoing authorization requests for the transaction.
 		 *
-		 * Added in Saleor 3.13.
+		 * Added in Weenspace 3.13.
 		 */
 		authorizePendingAmount: Money;
 		/** Total amount authorized for this payment. */
@@ -22991,19 +22991,19 @@ export type TransactionItem = Node &
 		/**
 		 * Total amount of ongoing cancel requests for the transaction.
 		 *
-		 * Added in Saleor 3.13.
+		 * Added in Weenspace 3.13.
 		 */
 		cancelPendingAmount: Money;
 		/**
 		 * Total amount canceled for this payment.
 		 *
-		 * Added in Saleor 3.13.
+		 * Added in Weenspace 3.13.
 		 */
 		canceledAmount: Money;
 		/**
 		 * Total amount of ongoing charge requests for the transaction.
 		 *
-		 * Added in Saleor 3.13.
+		 * Added in Weenspace 3.13.
 		 */
 		chargePendingAmount: Money;
 		/** Total amount charged for this payment. */
@@ -23012,7 +23012,7 @@ export type TransactionItem = Node &
 		/**
 		 * User or App that created the transaction.
 		 *
-		 * Added in Saleor 3.13.
+		 * Added in Weenspace 3.13.
 		 */
 		createdBy?: Maybe<UserOrApp>;
 		/** List of all transaction's events. */
@@ -23020,7 +23020,7 @@ export type TransactionItem = Node &
 		/**
 		 * The url that will allow to redirect user to payment provider page with transaction details.
 		 *
-		 * Added in Saleor 3.13.
+		 * Added in Weenspace 3.13.
 		 */
 		externalUrl: Scalars["String"];
 		/** The ID of the object. */
@@ -23028,7 +23028,7 @@ export type TransactionItem = Node &
 		/**
 		 * Message related to the transaction.
 		 *
-		 * Added in Saleor 3.13.
+		 * Added in Weenspace 3.13.
 		 */
 		message: Scalars["String"];
 		/** List of public metadata items. Can be accessed without permissions. */
@@ -23038,7 +23038,7 @@ export type TransactionItem = Node &
 		 *
 		 * Tip: Use GraphQL aliases to fetch multiple keys.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -23046,7 +23046,7 @@ export type TransactionItem = Node &
 		/**
 		 * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -23055,13 +23055,13 @@ export type TransactionItem = Node &
 		/**
 		 * Name of the transaction.
 		 *
-		 * Added in Saleor 3.13.
+		 * Added in Weenspace 3.13.
 		 */
 		name: Scalars["String"];
 		/**
 		 * The related order.
 		 *
-		 * Added in Saleor 3.6.
+		 * Added in Weenspace 3.6.
 		 */
 		order?: Maybe<Order>;
 		/** List of private metadata items. Requires staff permissions to access. */
@@ -23071,7 +23071,7 @@ export type TransactionItem = Node &
 		 *
 		 * Tip: Use GraphQL aliases to fetch multiple keys.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -23079,7 +23079,7 @@ export type TransactionItem = Node &
 		/**
 		 * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -23087,35 +23087,35 @@ export type TransactionItem = Node &
 		/**
 		 * PSP reference of transaction.
 		 *
-		 * Added in Saleor 3.13.
+		 * Added in Weenspace 3.13.
 		 */
 		pspReference: Scalars["String"];
 		/**
 		 * Reference of transaction.
-		 * @deprecated This field will be removed in Saleor 3.14 (Preview Feature).Use `pspReference` instead.
+		 * @deprecated This field will be removed in Weenspace 3.14 (Preview Feature).Use `pspReference` instead.
 		 */
 		reference: Scalars["String"];
 		/**
 		 * Total amount of ongoing refund requests for the transaction.
 		 *
-		 * Added in Saleor 3.13.
+		 * Added in Weenspace 3.13.
 		 */
 		refundPendingAmount: Money;
 		/** Total amount refunded for this payment. */
 		refundedAmount: Money;
 		/**
 		 * Status of transaction.
-		 * @deprecated This field will be removed in Saleor 3.14 (Preview Feature). The `status` is not needed. The amounts can be used to define the current status of transactions.
+		 * @deprecated This field will be removed in Weenspace 3.14 (Preview Feature). The `status` is not needed. The amounts can be used to define the current status of transactions.
 		 */
 		status: Scalars["String"];
 		/**
 		 * Type of transaction.
-		 * @deprecated This field will be removed in Saleor 3.14 (Preview Feature). Use `name` or `message` instead.
+		 * @deprecated This field will be removed in Weenspace 3.14 (Preview Feature). Use `name` or `message` instead.
 		 */
 		type: Scalars["String"];
 		/**
 		 * Total amount voided for this payment.
-		 * @deprecated This field will be removed in Saleor 3.14 (Preview Feature).Use `canceledAmount` instead.
+		 * @deprecated This field will be removed in Weenspace 3.14 (Preview Feature).Use `canceledAmount` instead.
 		 */
 		voidedAmount: Money;
 	};
@@ -23123,7 +23123,7 @@ export type TransactionItem = Node &
 /**
  * Represents a payment transaction.
  *
- * Added in Saleor 3.4.
+ * Added in Weenspace 3.4.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -23134,7 +23134,7 @@ export type TransactionItemMetafieldArgs = {
 /**
  * Represents a payment transaction.
  *
- * Added in Saleor 3.4.
+ * Added in Weenspace 3.4.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -23145,7 +23145,7 @@ export type TransactionItemMetafieldsArgs = {
 /**
  * Represents a payment transaction.
  *
- * Added in Saleor 3.4.
+ * Added in Weenspace 3.4.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -23156,7 +23156,7 @@ export type TransactionItemPrivateMetafieldArgs = {
 /**
  * Represents a payment transaction.
  *
- * Added in Saleor 3.4.
+ * Added in Weenspace 3.4.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -23167,7 +23167,7 @@ export type TransactionItemPrivateMetafieldsArgs = {
 /**
  * Event sent when transaction item metadata is updated.
  *
- * Added in Saleor 3.8.
+ * Added in Weenspace 3.8.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -23185,7 +23185,7 @@ export type TransactionItemMetadataUpdated = Event & {
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
 	transaction?: Maybe<TransactionItem>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
@@ -23205,7 +23205,7 @@ export type TransactionKind =
 /**
  * Processes a transaction session. It triggers the webhook `TRANSACTION_PROCESS_SESSION`, to the assigned `paymentGateways`.
  *
- * Added in Saleor 3.13.
+ * Added in Weenspace 3.13.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -23251,7 +23251,7 @@ export type TransactionProcessErrorCode =
 /**
  * Event sent when user has additional payment action to process.
  *
- * Added in Saleor 3.13.
+ * Added in Weenspace 3.13.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -23273,14 +23273,14 @@ export type TransactionProcessSession = Event & {
 	sourceObject: OrderOrCheckout;
 	/** Look up a transaction. */
 	transaction: TransactionItem;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
 /**
  * Event sent when transaction refund is requested.
  *
- * Added in Saleor 3.13.
+ * Added in Weenspace 3.13.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -23296,14 +23296,14 @@ export type TransactionRefundRequested = Event & {
 	recipient?: Maybe<App>;
 	/** Look up a transaction. */
 	transaction?: Maybe<TransactionItem>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
 /**
  * Request an action for payment transaction.
  *
- * Added in Saleor 3.4.
+ * Added in Weenspace 3.4.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  *
@@ -23345,7 +23345,7 @@ export type TransactionStatus = "FAILURE" | "PENDING" | "SUCCESS";
 /**
  * Create transaction for checkout or order.
  *
- * Added in Saleor 3.4.
+ * Added in Weenspace 3.4.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  *
@@ -23382,7 +23382,7 @@ export type TransactionUpdateInput = {
 	/**
 	 * Amount canceled by this transaction.
 	 *
-	 * Added in Saleor 3.13.
+	 * Added in Weenspace 3.13.
 	 */
 	amountCanceled?: InputMaybe<MoneyInput>;
 	/** Amount charged by this transaction. */
@@ -23392,7 +23392,7 @@ export type TransactionUpdateInput = {
 	/**
 	 * Amount voided by this transaction.
 	 *
-	 * DEPRECATED: this field will be removed in Saleor 3.14 (Preview Feature). Use `amountCanceled` instead.
+	 * DEPRECATED: this field will be removed in Weenspace 3.14 (Preview Feature). Use `amountCanceled` instead.
 	 */
 	amountVoided?: InputMaybe<MoneyInput>;
 	/** List of all possible actions for the transaction */
@@ -23400,13 +23400,13 @@ export type TransactionUpdateInput = {
 	/**
 	 * The url that will allow to redirect user to payment provider page with transaction event details.
 	 *
-	 * Added in Saleor 3.13.
+	 * Added in Weenspace 3.13.
 	 */
 	externalUrl?: InputMaybe<Scalars["String"]>;
 	/**
 	 * The message of the transaction.
 	 *
-	 * Added in Saleor 3.13.
+	 * Added in Weenspace 3.13.
 	 */
 	message?: InputMaybe<Scalars["String"]>;
 	/** Payment public metadata. */
@@ -23414,7 +23414,7 @@ export type TransactionUpdateInput = {
 	/**
 	 * Payment name of the transaction.
 	 *
-	 * Added in Saleor 3.13.
+	 * Added in Weenspace 3.13.
 	 */
 	name?: InputMaybe<Scalars["String"]>;
 	/** Payment private metadata. */
@@ -23422,25 +23422,25 @@ export type TransactionUpdateInput = {
 	/**
 	 * PSP Reference of the transaction.
 	 *
-	 * Added in Saleor 3.13.
+	 * Added in Weenspace 3.13.
 	 */
 	pspReference?: InputMaybe<Scalars["String"]>;
 	/**
 	 * Reference of the transaction.
 	 *
-	 * DEPRECATED: this field will be removed in Saleor 3.14 (Preview Feature). Use `pspReference` instead.
+	 * DEPRECATED: this field will be removed in Weenspace 3.14 (Preview Feature). Use `pspReference` instead.
 	 */
 	reference?: InputMaybe<Scalars["String"]>;
 	/**
 	 * Status of the transaction.
 	 *
-	 * DEPRECATED: this field will be removed in Saleor 3.14 (Preview Feature). The `status` is not needed. The amounts can be used to define the current status of transactions.
+	 * DEPRECATED: this field will be removed in Weenspace 3.14 (Preview Feature). The `status` is not needed. The amounts can be used to define the current status of transactions.
 	 */
 	status?: InputMaybe<Scalars["String"]>;
 	/**
 	 * Payment type used for this transaction.
 	 *
-	 * DEPRECATED: this field will be removed in Saleor 3.14 (Preview Feature). Use `name` and `message` instead.
+	 * DEPRECATED: this field will be removed in Weenspace 3.14 (Preview Feature). Use `name` and `message` instead.
 	 */
 	type?: InputMaybe<Scalars["String"]>;
 };
@@ -23491,7 +23491,7 @@ export type TranslatableKinds =
 /**
  * Event sent when new translation is created.
  *
- * Added in Saleor 3.2.
+ * Added in Weenspace 3.2.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -23505,7 +23505,7 @@ export type TranslationCreated = Event & {
 	recipient?: Maybe<App>;
 	/** The translation the event relates to. */
 	translation?: Maybe<TranslationTypes>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
@@ -23550,7 +23550,7 @@ export type TranslationTypes =
 /**
  * Event sent when translation is updated.
  *
- * Added in Saleor 3.2.
+ * Added in Weenspace 3.2.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -23564,7 +23564,7 @@ export type TranslationUpdated = Event & {
 	recipient?: Maybe<App>;
 	/** The translation the event relates to. */
 	translation?: Maybe<TranslationTypes>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 };
 
@@ -23580,7 +23580,7 @@ export type UpdateMetadata = {
 	__typename?: "UpdateMetadata";
 	errors: Array<MetadataError>;
 	item?: Maybe<ObjectWithMetadata>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	metadataErrors: Array<MetadataError>;
 };
 
@@ -23589,7 +23589,7 @@ export type UpdatePrivateMetadata = {
 	__typename?: "UpdatePrivateMetadata";
 	errors: Array<MetadataError>;
 	item?: Maybe<ObjectWithMetadata>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	metadataErrors: Array<MetadataError>;
 };
 
@@ -23615,20 +23615,20 @@ export type User = Node &
 		avatar?: Maybe<Image>;
 		/**
 		 * Returns the last open checkout of this user.
-		 * @deprecated This field will be removed in Saleor 4.0. Use the `checkoutTokens` field to fetch the user checkouts.
+		 * @deprecated This field will be removed in Weenspace 4.0. Use the `checkoutTokens` field to fetch the user checkouts.
 		 */
 		checkout?: Maybe<Checkout>;
 		/** Returns the checkout ID's assigned to this user. */
 		checkoutIds?: Maybe<Array<Scalars["ID"]>>;
 		/**
 		 * Returns the checkout UUID's assigned to this user.
-		 * @deprecated This field will be removed in Saleor 4.0. Use `checkoutIds` instead.
+		 * @deprecated This field will be removed in Weenspace 4.0. Use `checkoutIds` instead.
 		 */
 		checkoutTokens?: Maybe<Array<Scalars["UUID"]>>;
 		/**
 		 * Returns checkouts assigned to this user.
 		 *
-		 * Added in Saleor 3.8.
+		 * Added in Weenspace 3.8.
 		 */
 		checkouts?: Maybe<CheckoutCountableConnection>;
 		dateJoined: Scalars["DateTime"];
@@ -23646,7 +23646,7 @@ export type User = Node &
 		/**
 		 * External ID of this user.
 		 *
-		 * Added in Saleor 3.10.
+		 * Added in Weenspace 3.10.
 		 */
 		externalReference?: Maybe<Scalars["String"]>;
 		firstName: Scalars["String"];
@@ -23666,7 +23666,7 @@ export type User = Node &
 		 *
 		 * Tip: Use GraphQL aliases to fetch multiple keys.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -23674,7 +23674,7 @@ export type User = Node &
 		/**
 		 * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -23696,7 +23696,7 @@ export type User = Node &
 		 *
 		 * Tip: Use GraphQL aliases to fetch multiple keys.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -23704,7 +23704,7 @@ export type User = Node &
 		/**
 		 * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -23789,7 +23789,7 @@ export type UserStoredPaymentSourcesArgs = {
  */
 export type UserAvatarDelete = {
 	__typename?: "UserAvatarDelete";
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	accountErrors: Array<AccountError>;
 	errors: Array<AccountError>;
 	/** An updated user instance. */
@@ -23803,7 +23803,7 @@ export type UserAvatarDelete = {
  */
 export type UserAvatarUpdate = {
 	__typename?: "UserAvatarUpdate";
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	accountErrors: Array<AccountError>;
 	errors: Array<AccountError>;
 	/** An updated user instance. */
@@ -23817,7 +23817,7 @@ export type UserAvatarUpdate = {
  */
 export type UserBulkSetActive = {
 	__typename?: "UserBulkSetActive";
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	accountErrors: Array<AccountError>;
 	/** Returns how many objects were affected. */
 	count: Scalars["Int"];
@@ -23853,7 +23853,7 @@ export type UserCreateInput = {
 	/**
 	 * External ID of the customer.
 	 *
-	 * Added in Saleor 3.10.
+	 * Added in Weenspace 3.10.
 	 */
 	externalReference?: InputMaybe<Scalars["String"]>;
 	/** Given name. */
@@ -23931,7 +23931,7 @@ export type VariantMediaAssign = {
 	__typename?: "VariantMediaAssign";
 	errors: Array<ProductError>;
 	media?: Maybe<ProductMedia>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	productErrors: Array<ProductError>;
 	productVariant?: Maybe<ProductVariant>;
 };
@@ -23945,7 +23945,7 @@ export type VariantMediaUnassign = {
 	__typename?: "VariantMediaUnassign";
 	errors: Array<ProductError>;
 	media?: Maybe<ProductMedia>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	productErrors: Array<ProductError>;
 	productVariant?: Maybe<ProductVariant>;
 };
@@ -23970,7 +23970,7 @@ export type VariantPricingInfo = {
 /** Verify JWT token. */
 export type VerifyToken = {
 	__typename?: "VerifyToken";
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	accountErrors: Array<AccountError>;
 	errors: Array<AccountError>;
 	/** Determine if token is valid or not. */
@@ -24035,7 +24035,7 @@ export type Voucher = Node &
 		 *
 		 * Tip: Use GraphQL aliases to fetch multiple keys.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -24043,7 +24043,7 @@ export type Voucher = Node &
 		/**
 		 * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -24060,7 +24060,7 @@ export type Voucher = Node &
 		 *
 		 * Tip: Use GraphQL aliases to fetch multiple keys.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -24068,7 +24068,7 @@ export type Voucher = Node &
 		/**
 		 * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -24089,7 +24089,7 @@ export type Voucher = Node &
 		/**
 		 * List of product variants this voucher applies to.
 		 *
-		 * Added in Saleor 3.1.
+		 * Added in Weenspace 3.1.
 		 *
 		 * Requires one of the following permissions: MANAGE_DISCOUNTS.
 		 */
@@ -24160,7 +24160,7 @@ export type VoucherVariantsArgs = {
  */
 export type VoucherAddCatalogues = {
 	__typename?: "VoucherAddCatalogues";
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	discountErrors: Array<DiscountError>;
 	errors: Array<DiscountError>;
 	/** Voucher of which catalogue IDs will be modified. */
@@ -24176,7 +24176,7 @@ export type VoucherBulkDelete = {
 	__typename?: "VoucherBulkDelete";
 	/** Returns how many objects were affected. */
 	count: Scalars["Int"];
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	discountErrors: Array<DiscountError>;
 	errors: Array<DiscountError>;
 };
@@ -24214,7 +24214,7 @@ export type VoucherChannelListingInput = {
  */
 export type VoucherChannelListingUpdate = {
 	__typename?: "VoucherChannelListingUpdate";
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	discountErrors: Array<DiscountError>;
 	errors: Array<DiscountError>;
 	/** An updated voucher instance. */
@@ -24245,7 +24245,7 @@ export type VoucherCountableEdge = {
  */
 export type VoucherCreate = {
 	__typename?: "VoucherCreate";
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	discountErrors: Array<DiscountError>;
 	errors: Array<DiscountError>;
 	voucher?: Maybe<Voucher>;
@@ -24254,7 +24254,7 @@ export type VoucherCreate = {
 /**
  * Event sent when new voucher is created.
  *
- * Added in Saleor 3.4.
+ * Added in Weenspace 3.4.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -24266,7 +24266,7 @@ export type VoucherCreated = Event & {
 	issuingPrincipal?: Maybe<IssuingPrincipal>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 	/** The voucher the event relates to. */
 	voucher?: Maybe<Voucher>;
@@ -24275,7 +24275,7 @@ export type VoucherCreated = Event & {
 /**
  * Event sent when new voucher is created.
  *
- * Added in Saleor 3.4.
+ * Added in Weenspace 3.4.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -24290,7 +24290,7 @@ export type VoucherCreatedVoucherArgs = {
  */
 export type VoucherDelete = {
 	__typename?: "VoucherDelete";
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	discountErrors: Array<DiscountError>;
 	errors: Array<DiscountError>;
 	voucher?: Maybe<Voucher>;
@@ -24299,7 +24299,7 @@ export type VoucherDelete = {
 /**
  * Event sent when voucher is deleted.
  *
- * Added in Saleor 3.4.
+ * Added in Weenspace 3.4.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -24311,7 +24311,7 @@ export type VoucherDeleted = Event & {
 	issuingPrincipal?: Maybe<IssuingPrincipal>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 	/** The voucher the event relates to. */
 	voucher?: Maybe<Voucher>;
@@ -24320,7 +24320,7 @@ export type VoucherDeleted = Event & {
 /**
  * Event sent when voucher is deleted.
  *
- * Added in Saleor 3.4.
+ * Added in Weenspace 3.4.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -24374,7 +24374,7 @@ export type VoucherInput = {
 	/**
 	 * Variants discounted by the voucher.
 	 *
-	 * Added in Saleor 3.1.
+	 * Added in Weenspace 3.1.
 	 */
 	variants?: InputMaybe<Array<Scalars["ID"]>>;
 };
@@ -24382,7 +24382,7 @@ export type VoucherInput = {
 /**
  * Event sent when voucher metadata is updated.
  *
- * Added in Saleor 3.8.
+ * Added in Weenspace 3.8.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -24394,7 +24394,7 @@ export type VoucherMetadataUpdated = Event & {
 	issuingPrincipal?: Maybe<IssuingPrincipal>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 	/** The voucher the event relates to. */
 	voucher?: Maybe<Voucher>;
@@ -24403,7 +24403,7 @@ export type VoucherMetadataUpdated = Event & {
 /**
  * Event sent when voucher metadata is updated.
  *
- * Added in Saleor 3.8.
+ * Added in Weenspace 3.8.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -24418,7 +24418,7 @@ export type VoucherMetadataUpdatedVoucherArgs = {
  */
 export type VoucherRemoveCatalogues = {
 	__typename?: "VoucherRemoveCatalogues";
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	discountErrors: Array<DiscountError>;
 	errors: Array<DiscountError>;
 	/** Voucher of which catalogue IDs will be modified. */
@@ -24453,7 +24453,7 @@ export type VoucherSortingInput = {
 	/**
 	 * Specifies the channel in which to sort the data.
 	 *
-	 * DEPRECATED: this field will be removed in Saleor 4.0. Use root-level channel argument instead.
+	 * DEPRECATED: this field will be removed in Weenspace 4.0. Use root-level channel argument instead.
 	 */
 	channel?: InputMaybe<Scalars["String"]>;
 	/** Specifies the direction in which to sort products. */
@@ -24472,7 +24472,7 @@ export type VoucherTranslatableContent = Node & {
 	 * Vouchers allow giving discounts to particular customers on categories, collections or specific products. They can be used during checkout by providing valid voucher codes.
 	 *
 	 * Requires one of the following permissions: MANAGE_DISCOUNTS.
-	 * @deprecated This field will be removed in Saleor 4.0. Get model fields from the root level queries.
+	 * @deprecated This field will be removed in Weenspace 4.0. Get model fields from the root level queries.
 	 */
 	voucher?: Maybe<Voucher>;
 };
@@ -24489,7 +24489,7 @@ export type VoucherTranslatableContentTranslationArgs = {
 export type VoucherTranslate = {
 	__typename?: "VoucherTranslate";
 	errors: Array<TranslationError>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	translationErrors: Array<TranslationError>;
 	voucher?: Maybe<Voucher>;
 };
@@ -24511,7 +24511,7 @@ export type VoucherTypeEnum = "ENTIRE_ORDER" | "SHIPPING" | "SPECIFIC_PRODUCT";
  */
 export type VoucherUpdate = {
 	__typename?: "VoucherUpdate";
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	discountErrors: Array<DiscountError>;
 	errors: Array<DiscountError>;
 	voucher?: Maybe<Voucher>;
@@ -24520,7 +24520,7 @@ export type VoucherUpdate = {
 /**
  * Event sent when voucher is updated.
  *
- * Added in Saleor 3.4.
+ * Added in Weenspace 3.4.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -24532,7 +24532,7 @@ export type VoucherUpdated = Event & {
 	issuingPrincipal?: Maybe<IssuingPrincipal>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 	/** The voucher the event relates to. */
 	voucher?: Maybe<Voucher>;
@@ -24541,7 +24541,7 @@ export type VoucherUpdated = Event & {
 /**
  * Event sent when voucher is updated.
  *
- * Added in Saleor 3.4.
+ * Added in Weenspace 3.4.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -24557,21 +24557,21 @@ export type Warehouse = Node &
 		/**
 		 * Click and collect options: local, all or disabled.
 		 *
-		 * Added in Saleor 3.1.
+		 * Added in Weenspace 3.1.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
 		clickAndCollectOption: WarehouseClickAndCollectOptionEnum;
 		/**
 		 * Warehouse company name.
-		 * @deprecated This field will be removed in Saleor 4.0. Use `Address.companyName` instead.
+		 * @deprecated This field will be removed in Weenspace 4.0. Use `Address.companyName` instead.
 		 */
 		companyName: Scalars["String"];
 		email: Scalars["String"];
 		/**
 		 * External ID of this warehouse.
 		 *
-		 * Added in Saleor 3.10.
+		 * Added in Weenspace 3.10.
 		 */
 		externalReference?: Maybe<Scalars["String"]>;
 		id: Scalars["ID"];
@@ -24583,7 +24583,7 @@ export type Warehouse = Node &
 		 *
 		 * Tip: Use GraphQL aliases to fetch multiple keys.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -24591,7 +24591,7 @@ export type Warehouse = Node &
 		/**
 		 * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -24604,7 +24604,7 @@ export type Warehouse = Node &
 		 *
 		 * Tip: Use GraphQL aliases to fetch multiple keys.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -24612,7 +24612,7 @@ export type Warehouse = Node &
 		/**
 		 * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
 		 *
-		 * Added in Saleor 3.3.
+		 * Added in Weenspace 3.3.
 		 *
 		 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 		 */
@@ -24678,7 +24678,7 @@ export type WarehouseCreate = {
 	__typename?: "WarehouseCreate";
 	errors: Array<WarehouseError>;
 	warehouse?: Maybe<Warehouse>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	warehouseErrors: Array<WarehouseError>;
 };
 
@@ -24690,7 +24690,7 @@ export type WarehouseCreateInput = {
 	/**
 	 * External ID of the warehouse.
 	 *
-	 * Added in Saleor 3.10.
+	 * Added in Weenspace 3.10.
 	 */
 	externalReference?: InputMaybe<Scalars["String"]>;
 	/** Warehouse name. */
@@ -24698,7 +24698,7 @@ export type WarehouseCreateInput = {
 	/**
 	 * Shipping zones supported by the warehouse.
 	 *
-	 * DEPRECATED: this field will be removed in Saleor 4.0. Providing the zone ids will raise a ValidationError.
+	 * DEPRECATED: this field will be removed in Weenspace 4.0. Providing the zone ids will raise a ValidationError.
 	 */
 	shippingZones?: InputMaybe<Array<Scalars["ID"]>>;
 	/** Warehouse slug. */
@@ -24708,7 +24708,7 @@ export type WarehouseCreateInput = {
 /**
  * Event sent when new warehouse is created.
  *
- * Added in Saleor 3.4.
+ * Added in Weenspace 3.4.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -24720,7 +24720,7 @@ export type WarehouseCreated = Event & {
 	issuingPrincipal?: Maybe<IssuingPrincipal>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 	/** The warehouse the event relates to. */
 	warehouse?: Maybe<Warehouse>;
@@ -24735,14 +24735,14 @@ export type WarehouseDelete = {
 	__typename?: "WarehouseDelete";
 	errors: Array<WarehouseError>;
 	warehouse?: Maybe<Warehouse>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	warehouseErrors: Array<WarehouseError>;
 };
 
 /**
  * Event sent when warehouse is deleted.
  *
- * Added in Saleor 3.4.
+ * Added in Weenspace 3.4.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -24754,7 +24754,7 @@ export type WarehouseDeleted = Event & {
 	issuingPrincipal?: Maybe<IssuingPrincipal>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 	/** The warehouse the event relates to. */
 	warehouse?: Maybe<Warehouse>;
@@ -24793,7 +24793,7 @@ export type WarehouseFilterInput = {
 /**
  * Event sent when warehouse metadata is updated.
  *
- * Added in Saleor 3.8.
+ * Added in Weenspace 3.8.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -24805,7 +24805,7 @@ export type WarehouseMetadataUpdated = Event & {
 	issuingPrincipal?: Maybe<IssuingPrincipal>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 	/** The warehouse the event relates to. */
 	warehouse?: Maybe<Warehouse>;
@@ -24820,7 +24820,7 @@ export type WarehouseShippingZoneAssign = {
 	__typename?: "WarehouseShippingZoneAssign";
 	errors: Array<WarehouseError>;
 	warehouse?: Maybe<Warehouse>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	warehouseErrors: Array<WarehouseError>;
 };
 
@@ -24833,7 +24833,7 @@ export type WarehouseShippingZoneUnassign = {
 	__typename?: "WarehouseShippingZoneUnassign";
 	errors: Array<WarehouseError>;
 	warehouse?: Maybe<Warehouse>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	warehouseErrors: Array<WarehouseError>;
 };
 
@@ -24857,7 +24857,7 @@ export type WarehouseUpdate = {
 	__typename?: "WarehouseUpdate";
 	errors: Array<WarehouseError>;
 	warehouse?: Maybe<Warehouse>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	warehouseErrors: Array<WarehouseError>;
 };
 
@@ -24867,7 +24867,7 @@ export type WarehouseUpdateInput = {
 	/**
 	 * Click and collect options: local, all or disabled.
 	 *
-	 * Added in Saleor 3.1.
+	 * Added in Weenspace 3.1.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -24877,13 +24877,13 @@ export type WarehouseUpdateInput = {
 	/**
 	 * External ID of the warehouse.
 	 *
-	 * Added in Saleor 3.10.
+	 * Added in Weenspace 3.10.
 	 */
 	externalReference?: InputMaybe<Scalars["String"]>;
 	/**
 	 * Visibility of warehouse stocks.
 	 *
-	 * Added in Saleor 3.1.
+	 * Added in Weenspace 3.1.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -24897,7 +24897,7 @@ export type WarehouseUpdateInput = {
 /**
  * Event sent when warehouse is updated.
  *
- * Added in Saleor 3.4.
+ * Added in Weenspace 3.4.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
@@ -24909,7 +24909,7 @@ export type WarehouseUpdated = Event & {
 	issuingPrincipal?: Maybe<IssuingPrincipal>;
 	/** The application receiving the webhook. */
 	recipient?: Maybe<App>;
-	/** Saleor version that triggered the event. */
+	/** Weenspace version that triggered the event. */
 	version?: Maybe<Scalars["String"]>;
 	/** The warehouse the event relates to. */
 	warehouse?: Maybe<Warehouse>;
@@ -24924,7 +24924,7 @@ export type Webhook = Node & {
 	/**
 	 * Custom headers, which will be added to HTTP request.
 	 *
-	 * Added in Saleor 3.12.
+	 * Added in Weenspace 3.12.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -24933,7 +24933,7 @@ export type Webhook = Node & {
 	eventDeliveries?: Maybe<EventDeliveryCountableConnection>;
 	/**
 	 * List of webhook events.
-	 * @deprecated This field will be removed in Saleor 4.0. Use `asyncEvents` or `syncEvents` instead.
+	 * @deprecated This field will be removed in Weenspace 4.0. Use `asyncEvents` or `syncEvents` instead.
 	 */
 	events: Array<WebhookEvent>;
 	id: Scalars["ID"];
@@ -24942,7 +24942,7 @@ export type Webhook = Node & {
 	name: Scalars["String"];
 	/**
 	 * Used to create a hash signature for each payload.
-	 * @deprecated This field will be removed in Saleor 4.0. As of Saleor 3.5, webhook payloads default to signing using a verifiable JWS.
+	 * @deprecated This field will be removed in Weenspace 4.0. As of Weenspace 3.5, webhook payloads default to signing using a verifiable JWS.
 	 */
 	secretKey?: Maybe<Scalars["String"]>;
 	/** Used to define payloads for specific events. */
@@ -24972,7 +24972,7 @@ export type WebhookCreate = {
 	__typename?: "WebhookCreate";
 	errors: Array<WebhookError>;
 	webhook?: Maybe<Webhook>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	webhookErrors: Array<WebhookError>;
 };
 
@@ -24984,7 +24984,7 @@ export type WebhookCreateInput = {
 	/**
 	 * Custom headers, which will be added to HTTP request. There is a limitation of 5 headers per webhook and 998 characters per header.Only "X-*" and "Authorization*" keys are allowed.
 	 *
-	 * Added in Saleor 3.12.
+	 * Added in Weenspace 3.12.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -24992,7 +24992,7 @@ export type WebhookCreateInput = {
 	/**
 	 * The events that webhook wants to subscribe.
 	 *
-	 * DEPRECATED: this field will be removed in Saleor 4.0. Use `asyncEvents` or `syncEvents` instead.
+	 * DEPRECATED: this field will be removed in Weenspace 4.0. Use `asyncEvents` or `syncEvents` instead.
 	 */
 	events?: InputMaybe<Array<WebhookEventTypeEnum>>;
 	/** Determine if webhook will be set active or not. */
@@ -25002,7 +25002,7 @@ export type WebhookCreateInput = {
 	/**
 	 * Subscription query used to define a webhook payload.
 	 *
-	 * Added in Saleor 3.2.
+	 * Added in Weenspace 3.2.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -25010,7 +25010,7 @@ export type WebhookCreateInput = {
 	/**
 	 * The secret key used to create a hash signature with each payload.
 	 *
-	 * DEPRECATED: this field will be removed in Saleor 4.0. As of Saleor 3.5, webhook payloads default to signing using a verifiable JWS.
+	 * DEPRECATED: this field will be removed in Weenspace 4.0. As of Weenspace 3.5, webhook payloads default to signing using a verifiable JWS.
 	 */
 	secretKey?: InputMaybe<Scalars["String"]>;
 	/** The synchronous events that webhook wants to subscribe. */
@@ -25028,14 +25028,14 @@ export type WebhookDelete = {
 	__typename?: "WebhookDelete";
 	errors: Array<WebhookError>;
 	webhook?: Maybe<Webhook>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	webhookErrors: Array<WebhookError>;
 };
 
 /**
  * Performs a dry run of a webhook event. Supports a single event (the first, if multiple provided in the `query`). Requires permission relevant to processed event.
  *
- * Added in Saleor 3.11.
+ * Added in Weenspace 3.11.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  *
@@ -25171,7 +25171,7 @@ export type WebhookEventTypeAsyncEnum =
 	/**
 	 * A checkout metadata is updated.
 	 *
-	 * Added in Saleor 3.8.
+	 * Added in Weenspace 3.8.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -25185,7 +25185,7 @@ export type WebhookEventTypeAsyncEnum =
 	/**
 	 * A collection metadata is updated.
 	 *
-	 * Added in Saleor 3.8.
+	 * Added in Weenspace 3.8.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -25199,7 +25199,7 @@ export type WebhookEventTypeAsyncEnum =
 	/**
 	 * A customer account metadata is updated.
 	 *
-	 * Added in Saleor 3.8.
+	 * Added in Weenspace 3.8.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -25221,7 +25221,7 @@ export type WebhookEventTypeAsyncEnum =
 	/**
 	 * A fulfillment metadata is updated.
 	 *
-	 * Added in Saleor 3.8.
+	 * Added in Weenspace 3.8.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -25233,7 +25233,7 @@ export type WebhookEventTypeAsyncEnum =
 	/**
 	 * A gift card metadata is updated.
 	 *
-	 * Added in Saleor 3.8.
+	 * Added in Weenspace 3.8.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -25277,7 +25277,7 @@ export type WebhookEventTypeAsyncEnum =
 	/**
 	 * An order metadata is updated.
 	 *
-	 * Added in Saleor 3.8.
+	 * Added in Weenspace 3.8.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -25309,25 +25309,25 @@ export type WebhookEventTypeAsyncEnum =
 	/**
 	 * A new product media is created.
 	 *
-	 * Added in Saleor 3.12.
+	 * Added in Weenspace 3.12.
 	 */
 	| "PRODUCT_MEDIA_CREATED"
 	/**
 	 * A product media is deleted.
 	 *
-	 * Added in Saleor 3.12.
+	 * Added in Weenspace 3.12.
 	 */
 	| "PRODUCT_MEDIA_DELETED"
 	/**
 	 * A product media is updated.
 	 *
-	 * Added in Saleor 3.12.
+	 * Added in Weenspace 3.12.
 	 */
 	| "PRODUCT_MEDIA_UPDATED"
 	/**
 	 * A product metadata is updated.
 	 *
-	 * Added in Saleor 3.8.
+	 * Added in Weenspace 3.8.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -25343,7 +25343,7 @@ export type WebhookEventTypeAsyncEnum =
 	/**
 	 * A product variant metadata is updated.
 	 *
-	 * Added in Saleor 3.8.
+	 * Added in Weenspace 3.8.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -25375,7 +25375,7 @@ export type WebhookEventTypeAsyncEnum =
 	/**
 	 * A shipping zone metadata is updated.
 	 *
-	 * Added in Saleor 3.8.
+	 * Added in Weenspace 3.8.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -25391,19 +25391,19 @@ export type WebhookEventTypeAsyncEnum =
 	/**
 	 * A thumbnail is created.
 	 *
-	 * Added in Saleor 3.12.
+	 * Added in Weenspace 3.12.
 	 */
 	| "THUMBNAIL_CREATED"
 	/**
 	 * An action requested for transaction.
 	 *
-	 * DEPRECATED: this subscription will be removed in Saleor 3.14 (Preview Feature). Use `TRANSACTION_CHARGE_REQUESTED`, `TRANSACTION_REFUND_REQUESTED`, `TRANSACTION_CANCELATION_REQUESTED` instead.
+	 * DEPRECATED: this subscription will be removed in Weenspace 3.14 (Preview Feature). Use `TRANSACTION_CHARGE_REQUESTED`, `TRANSACTION_REFUND_REQUESTED`, `TRANSACTION_CANCELATION_REQUESTED` instead.
 	 */
 	| "TRANSACTION_ACTION_REQUEST"
 	/**
 	 * Transaction item metadata is updated.
 	 *
-	 * Added in Saleor 3.8.
+	 * Added in Weenspace 3.8.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -25419,7 +25419,7 @@ export type WebhookEventTypeAsyncEnum =
 	/**
 	 * A voucher metadata is updated.
 	 *
-	 * Added in Saleor 3.8.
+	 * Added in Weenspace 3.8.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -25433,7 +25433,7 @@ export type WebhookEventTypeAsyncEnum =
 	/**
 	 * A warehouse metadata is updated.
 	 *
-	 * Added in Saleor 3.8.
+	 * Added in Weenspace 3.8.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -25488,7 +25488,7 @@ export type WebhookEventTypeEnum =
 	/**
 	 * Event called for checkout tax calculation.
 	 *
-	 * Added in Saleor 3.6.
+	 * Added in Weenspace 3.6.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -25501,7 +25501,7 @@ export type WebhookEventTypeEnum =
 	/**
 	 * A checkout metadata is updated.
 	 *
-	 * Added in Saleor 3.8.
+	 * Added in Weenspace 3.8.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -25515,7 +25515,7 @@ export type WebhookEventTypeEnum =
 	/**
 	 * A collection metadata is updated.
 	 *
-	 * Added in Saleor 3.8.
+	 * Added in Weenspace 3.8.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -25529,7 +25529,7 @@ export type WebhookEventTypeEnum =
 	/**
 	 * A customer account metadata is updated.
 	 *
-	 * Added in Saleor 3.8.
+	 * Added in Weenspace 3.8.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -25551,7 +25551,7 @@ export type WebhookEventTypeEnum =
 	/**
 	 * A fulfillment metadata is updated.
 	 *
-	 * Added in Saleor 3.8.
+	 * Added in Weenspace 3.8.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -25563,7 +25563,7 @@ export type WebhookEventTypeEnum =
 	/**
 	 * A gift card metadata is updated.
 	 *
-	 * Added in Saleor 3.8.
+	 * Added in Weenspace 3.8.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -25597,7 +25597,7 @@ export type WebhookEventTypeEnum =
 	/**
 	 * Event called for order tax calculation.
 	 *
-	 * Added in Saleor 3.6.
+	 * Added in Weenspace 3.6.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -25617,7 +25617,7 @@ export type WebhookEventTypeEnum =
 	/**
 	 * An order metadata is updated.
 	 *
-	 * Added in Saleor 3.8.
+	 * Added in Weenspace 3.8.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -25664,25 +25664,25 @@ export type WebhookEventTypeEnum =
 	/**
 	 * A new product media is created.
 	 *
-	 * Added in Saleor 3.12.
+	 * Added in Weenspace 3.12.
 	 */
 	| "PRODUCT_MEDIA_CREATED"
 	/**
 	 * A product media is deleted.
 	 *
-	 * Added in Saleor 3.12.
+	 * Added in Weenspace 3.12.
 	 */
 	| "PRODUCT_MEDIA_DELETED"
 	/**
 	 * A product media is updated.
 	 *
-	 * Added in Saleor 3.12.
+	 * Added in Weenspace 3.12.
 	 */
 	| "PRODUCT_MEDIA_UPDATED"
 	/**
 	 * A product metadata is updated.
 	 *
-	 * Added in Saleor 3.8.
+	 * Added in Weenspace 3.8.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -25698,7 +25698,7 @@ export type WebhookEventTypeEnum =
 	/**
 	 * A product variant metadata is updated.
 	 *
-	 * Added in Saleor 3.8.
+	 * Added in Weenspace 3.8.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -25732,7 +25732,7 @@ export type WebhookEventTypeEnum =
 	/**
 	 * A shipping zone metadata is updated.
 	 *
-	 * Added in Saleor 3.8.
+	 * Added in Weenspace 3.8.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -25748,19 +25748,19 @@ export type WebhookEventTypeEnum =
 	/**
 	 * A thumbnail is created.
 	 *
-	 * Added in Saleor 3.12.
+	 * Added in Weenspace 3.12.
 	 */
 	| "THUMBNAIL_CREATED"
 	/**
 	 * An action requested for transaction.
 	 *
-	 * DEPRECATED: this subscription will be removed in Saleor 3.14 (Preview Feature). Use `TRANSACTION_CHARGE_REQUESTED`, `TRANSACTION_REFUND_REQUESTED`, `TRANSACTION_CANCELATION_REQUESTED` instead.
+	 * DEPRECATED: this subscription will be removed in Weenspace 3.14 (Preview Feature). Use `TRANSACTION_CHARGE_REQUESTED`, `TRANSACTION_REFUND_REQUESTED`, `TRANSACTION_CANCELATION_REQUESTED` instead.
 	 */
 	| "TRANSACTION_ACTION_REQUEST"
 	/**
 	 * Event called when cancel has been requested for transaction.
 	 *
-	 * Added in Saleor 3.13.
+	 * Added in Weenspace 3.13.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -25768,7 +25768,7 @@ export type WebhookEventTypeEnum =
 	/**
 	 * Event called when charge has been requested for transaction.
 	 *
-	 * Added in Saleor 3.13.
+	 * Added in Weenspace 3.13.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -25777,7 +25777,7 @@ export type WebhookEventTypeEnum =
 	/**
 	 * Transaction item metadata is updated.
 	 *
-	 * Added in Saleor 3.8.
+	 * Added in Weenspace 3.8.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -25786,7 +25786,7 @@ export type WebhookEventTypeEnum =
 	/**
 	 * Event called when refund has been requested for transaction.
 	 *
-	 * Added in Saleor 3.13.
+	 * Added in Weenspace 3.13.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -25802,7 +25802,7 @@ export type WebhookEventTypeEnum =
 	/**
 	 * A voucher metadata is updated.
 	 *
-	 * Added in Saleor 3.8.
+	 * Added in Weenspace 3.8.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -25816,7 +25816,7 @@ export type WebhookEventTypeEnum =
 	/**
 	 * A warehouse metadata is updated.
 	 *
-	 * Added in Saleor 3.8.
+	 * Added in Weenspace 3.8.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -25829,7 +25829,7 @@ export type WebhookEventTypeSyncEnum =
 	/**
 	 * Event called for checkout tax calculation.
 	 *
-	 * Added in Saleor 3.6.
+	 * Added in Weenspace 3.6.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -25839,7 +25839,7 @@ export type WebhookEventTypeSyncEnum =
 	/**
 	 * Event called for order tax calculation.
 	 *
-	 * Added in Saleor 3.6.
+	 * Added in Weenspace 3.6.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -25866,7 +25866,7 @@ export type WebhookEventTypeSyncEnum =
 	/**
 	 * Event called when cancel has been requested for transaction.
 	 *
-	 * Added in Saleor 3.13.
+	 * Added in Weenspace 3.13.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -25874,7 +25874,7 @@ export type WebhookEventTypeSyncEnum =
 	/**
 	 * Event called when charge has been requested for transaction.
 	 *
-	 * Added in Saleor 3.13.
+	 * Added in Weenspace 3.13.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -25884,7 +25884,7 @@ export type WebhookEventTypeSyncEnum =
 	/**
 	 * Event called when refund has been requested for transaction.
 	 *
-	 * Added in Saleor 3.13.
+	 * Added in Weenspace 3.13.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -26008,7 +26008,7 @@ export type WebhookSampleEventTypeEnum =
 /**
  * Trigger a webhook event. Supports a single event (the first, if multiple provided in the `webhook.subscription_query`). Requires permission relevant to processed event. Successfully delivered webhook returns `delivery` with status='PENDING' and empty payload.
  *
- * Added in Saleor 3.11.
+ * Added in Weenspace 3.11.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  *
@@ -26052,7 +26052,7 @@ export type WebhookUpdate = {
 	__typename?: "WebhookUpdate";
 	errors: Array<WebhookError>;
 	webhook?: Maybe<Webhook>;
-	/** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
+	/** @deprecated This field will be removed in Weenspace 4.0. Use `errors` field instead. */
 	webhookErrors: Array<WebhookError>;
 };
 
@@ -26064,7 +26064,7 @@ export type WebhookUpdateInput = {
 	/**
 	 * Custom headers, which will be added to HTTP request. There is a limitation of 5 headers per webhook and 998 characters per header.Only "X-*" and "Authorization*" keys are allowed.
 	 *
-	 * Added in Saleor 3.12.
+	 * Added in Weenspace 3.12.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -26072,7 +26072,7 @@ export type WebhookUpdateInput = {
 	/**
 	 * The events that webhook wants to subscribe.
 	 *
-	 * DEPRECATED: this field will be removed in Saleor 4.0. Use `asyncEvents` or `syncEvents` instead.
+	 * DEPRECATED: this field will be removed in Weenspace 4.0. Use `asyncEvents` or `syncEvents` instead.
 	 */
 	events?: InputMaybe<Array<WebhookEventTypeEnum>>;
 	/** Determine if webhook will be set active or not. */
@@ -26082,7 +26082,7 @@ export type WebhookUpdateInput = {
 	/**
 	 * Subscription query used to define a webhook payload.
 	 *
-	 * Added in Saleor 3.2.
+	 * Added in Weenspace 3.2.
 	 *
 	 * Note: this API is currently in Feature Preview and can be subject to changes at later point.
 	 */
@@ -26090,7 +26090,7 @@ export type WebhookUpdateInput = {
 	/**
 	 * Use to create a hash signature with each payload.
 	 *
-	 * DEPRECATED: this field will be removed in Saleor 4.0. As of Saleor 3.5, webhook payloads default to signing using a verifiable JWS.
+	 * DEPRECATED: this field will be removed in Weenspace 4.0. As of Weenspace 3.5, webhook payloads default to signing using a verifiable JWS.
 	 */
 	secretKey?: InputMaybe<Scalars["String"]>;
 	/** The synchronous events that webhook wants to subscribe. */

@@ -17,7 +17,7 @@ test("STF_05: Checkout as a unlogged user", async ({ page }) => {
 	await page.getByTestId("CheckoutLink").click();
 	await page.getByTestId("shippingAddressSection").waitFor();
 
-	await page.getByLabel("Email").pressSequentially("example@saleor.io", { delay: 50 });
+	await page.getByLabel("Email").pressSequentially("example@weenspace.io", { delay: 50 });
 	await page.getByLabel("Country").selectOption("Poland");
 
 	await page.getByTestId("shippingAddressSection").waitFor();
