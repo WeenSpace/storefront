@@ -72,6 +72,7 @@
 ## Quickstart
 
 ### 1. Create Saleor backend instance
+
 To quickly get started with the backend, use a free developer account at [Saleor Cloud](https://cloud.saleor.io/?utm_source=storefront&utm_medium=github).
 
 Alternatively you can [run Saleor locally using docker](https://docs.saleor.io/docs/3.x/setup/docker-compose?utm_source=storefront&utm_medium=github).
@@ -95,6 +96,7 @@ saleor storefront create --url https://{SALEOR_HOSTNAME}/graphql/
 #### [Option 2] Manual install
 
 Clone repository:
+
 ```bash
 git clone https://github.com/saleor/storefront.git
 ```
@@ -113,10 +115,9 @@ Then, [install `pnpm`](https://pnpm.io/installation) and run the following comma
 pnpm i
 ```
 
-
 ## Payments
 
-Currently, Saleor Storefront supports payments via the [Saleor Adyen App](https://docs.saleor.io/docs/3.x/developer/app-store/apps/adyen). To install and configure the payment app go to the "Apps" section in the Saleor Dashboard (App Store is only available in Saleor Cloud).
+Currently, WeenSpace Storefront supports payments via the [WeenSpace Adyen App](https://docs.saleor.io/docs/3.x/developer/app-store/apps/adyen). To install and configure the payment app go to the "Apps" section in the WeenSpace Admin (App Store is only available in Saleor Cloud).
 
 > WARNING:
 > To configure the Adyen App, you must have an account with [Adyen](https://www.adyen.com/).
