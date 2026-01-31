@@ -117,7 +117,7 @@ pnpm i
 
 ## Payments
 
-Currently, WeenSpace Storefront supports payments via the [WeenSpace Adyen App](https://docs.saleor.io/docs/3.x/developer/app-store/apps/adyen). To install and configure the payment app go to the "Apps" section in the WeenSpace Admin (App Store is only available in Saleor Cloud).
+Currently, WeTravel website supports payments via the [WeenSpace Adyen App](https://docs.saleor.io/docs/3.x/developer/app-store/apps/adyen). To install and configure the payment app go to the "Apps" section in the WeenSpace Admin (App Store is only available in Saleor Cloud).
 
 > WARNING:
 > To configure the Adyen App, you must have an account with [Adyen](https://www.adyen.com/).
