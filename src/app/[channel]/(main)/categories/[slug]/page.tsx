@@ -5,21 +5,23 @@ import { executeGraphQL } from "@/lib/graphql";
 import { ProductList } from "@/ui/components/ProductList";
 
 export const generateMetadata = async (
-	{ params }: { params: { slug: string; channel: string } },
+	props: { params: Promise<{ slug: string; channel: string }> },
 	parent: ResolvingMetadata,
 ): Promise<Metadata> => {
+	const params = await props.params;
 	const { category } = await executeGraphQL(ProductListByCategoryDocument, {
 		variables: { slug: params.slug, channel: params.channel },
 		revalidate: 60,
 	});
 
 	return {
-		title: `${category?.name || "Categroy"} | ${category?.seoTitle || (await parent).title?.absolute}`,
+		title: `${category?.name || "Category"} | ${category?.seoTitle || (await parent).title?.absolute}`,
 		description: category?.seoDescription || category?.description || category?.seoTitle || category?.name,
 	};
 };
 
-export default async function Page({ params }: { params: { slug: string; channel: string } }) {
+export default async function Page(props: { params: Promise<{ slug: string; channel: string }> }) {
+	const params = await props.params;
 	const { category } = await executeGraphQL(ProductListByCategoryDocument, {
 		variables: { slug: params.slug, channel: params.channel },
 		revalidate: 60,

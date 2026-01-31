@@ -15,7 +15,9 @@ export async function LoginForm() {
 						throw new Error("Email and password are required");
 					}
 
-					const { data } = await getServerAuthClient().signIn({ email, password }, { cache: "no-store" });
+					const { data } = await (
+						await getServerAuthClient()
+					).signIn({ email, password }, { cache: "no-store" });
 
 					if (data.tokenCreate.errors.length > 0) {
 						// setErrors(data.tokenCreate.errors.map((error) => error.message));
@@ -28,6 +30,7 @@ export async function LoginForm() {
 						Email
 					</label>
 					<input
+						required
 						type="email"
 						name="email"
 						placeholder="Email"
@@ -39,6 +42,7 @@ export async function LoginForm() {
 						Password
 					</label>
 					<input
+						required
 						type="password"
 						name="password"
 						placeholder="Password"
