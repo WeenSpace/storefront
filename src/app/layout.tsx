@@ -1,29 +1,25 @@
-import { Inter } from "next/font/google";
+import { GeistSans } from "geist/font/sans";
+import { GeistMono } from "geist/font/mono";
 import "./globals.css";
-import { Suspense, type ReactNode } from "react";
-import { type Metadata } from "next";
-import { DraftModeNotification } from "@/ui/components/DraftModeNotification";
+import { type ReactNode } from "react";
+import { rootMetadata } from "@/lib/seo";
+import { localeConfig } from "@/config/locale";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
-const inter = Inter({ subsets: ["latin"] });
-
-export const metadata: Metadata = {
-	title: "Saleor Storefront example",
-	description: "Starter pack for building performant e-commerce experiences with Saleor.",
-	metadataBase: process.env.NEXT_PUBLIC_STOREFRONT_URL
-		? new URL(process.env.NEXT_PUBLIC_STOREFRONT_URL)
-		: undefined,
-};
+/**
+ * Root metadata for the entire site.
+ * Configuration is in src/lib/seo/config.ts
+ */
+export const metadata = rootMetadata;
 
 export default function RootLayout(props: { children: ReactNode }) {
 	const { children } = props;
 
 	return (
-		<html lang="en" className="min-h-dvh">
-			<body className={`${inter.className} min-h-dvh`}>
+		<html lang={localeConfig.htmlLang} className={`${GeistSans.variable} ${GeistMono.variable} min-h-dvh`}>
+			<body className="min-h-dvh font-sans">
 				{children}
-				<Suspense>
-					<DraftModeNotification />
-				</Suspense>
+				<SpeedInsights />
 			</body>
 		</html>
 	);

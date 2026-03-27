@@ -1,224 +1,309 @@
-import edjsHTML from "editorjs-html";
-import { revalidatePath } from "next/cache";
+import { Suspense } from "react";
 import { notFound } from "next/navigation";
-import { type ResolvingMetadata, type Metadata } from "next";
+import { type Metadata } from "next";
+import { ErrorBoundary } from "react-error-boundary";
+import edjsHTML from "editorjs-html";
 import xss from "xss";
-import { invariant } from "ts-invariant";
-import { type WithContext, type Product } from "schema-dts";
-import { AddButton } from "./AddButton";
-import { VariantSelector } from "@/ui/components/VariantSelector";
-import { ProductImageWrapper } from "@/ui/atoms/ProductImageWrapper";
-import { executeGraphQL } from "@/lib/graphql";
-import { formatMoney, formatMoneyRange } from "@/lib/utils";
-import { CheckoutAddLineDocument, ProductDetailsDocument, ProductListDocument } from "@/gql/graphql";
-import * as Checkout from "@/lib/checkout";
-import { AvailabilityMessage } from "@/ui/components/AvailabilityMessage";
 
-export async function generateMetadata(
-	props: {
-		params: Promise<{ slug: string; channel: string }>;
-		searchParams: Promise<{ variant?: string }>;
-	},
-	parent: ResolvingMetadata,
-): Promise<Metadata> {
-	const [searchParams, params] = await Promise.all([props.searchParams, props.params]);
+import { executePublicGraphQL } from "@/lib/graphql";
+import { ProductDetailsDocument, type ProductDetailsQuery } from "@/gql/graphql";
+import { buildPageMetadata, buildProductJsonLd } from "@/lib/seo";
+import { CACHE_PROFILES, applyCacheProfile } from "@/lib/cache-manifest";
+import { Breadcrumbs } from "@/ui/components/breadcrumbs";
+import {
+	ProductGallery,
+	ProductAttributes,
+	VariantSectionDynamic,
+	VariantSectionSkeleton,
+	VariantSectionError,
+} from "@/ui/components/pdp";
 
-	const { product } = await executeGraphQL(ProductDetailsDocument, {
+// ============================================================================
+// Cached Data Fetching
+// ============================================================================
+
+async function getProductData(slug: string, channel: string) {
+	"use cache";
+	applyCacheProfile(CACHE_PROFILES.products, slug);
+
+	const result = await executePublicGraphQL(ProductDetailsDocument, {
 		variables: {
-			slug: decodeURIComponent(params.slug),
-			channel: params.channel,
+			slug: decodeURIComponent(slug),
+			channel,
 		},
-		revalidate: 60,
+		revalidate: 300,
 	});
 
-	if (!product) {
-		notFound();
+	if (!result.ok) {
+		console.error(`[getProductData] Failed to fetch product ${slug} for ${channel}:`, result.error.message);
+		return null;
 	}
 
-	const productName = product.seoTitle || product.name;
-	const variantName = product.variants?.find(({ id }) => id === searchParams.variant)?.name;
-	const productNameAndVariant = variantName ? `${productName} - ${variantName}` : productName;
+	return result.data.product;
+}
 
-	return {
-		title: `${product.name} | ${product.seoTitle || (await parent).title?.absolute}`,
-		description: product.seoDescription || productNameAndVariant,
-		alternates: {
-			canonical: process.env.NEXT_PUBLIC_STOREFRONT_URL
-				? process.env.NEXT_PUBLIC_STOREFRONT_URL + `/products/${encodeURIComponent(params.slug)}`
+// ============================================================================
+// Metadata
+// ============================================================================
+
+export async function generateMetadata(props: {
+	params: Promise<{ slug: string; channel: string }>;
+}): Promise<Metadata> {
+	const params = await props.params;
+	const product = await getProductData(params.slug, params.channel);
+
+	if (!product) {
+		return { title: "Product Not Found" };
+	}
+
+	const description = product.seoDescription || product.name;
+	const ogImage = product.media?.[0]?.url || product.thumbnail?.url;
+	const priceAmount = product.pricing?.priceRange?.start?.gross?.amount;
+	const priceCurrency = product.pricing?.priceRange?.start?.gross?.currency;
+
+	return buildPageMetadata({
+		title: product.seoTitle || product.name,
+		description,
+		image: ogImage,
+		url: `/${params.channel}/products/${encodeURIComponent(params.slug)}`,
+		openGraph:
+			priceAmount && priceCurrency
+				? {
+						"product:price:amount": String(priceAmount),
+						"product:price:currency": priceCurrency,
+					}
 				: undefined,
-		},
-		openGraph: product.thumbnail
-			? {
-					images: [
-						{
-							url: product.thumbnail.url,
-							alt: product.name,
-						},
-					],
-				}
-			: null,
-	};
-}
-
-export async function generateStaticParams({ params }: { params: { channel: string } }) {
-	const { products } = await executeGraphQL(ProductListDocument, {
-		revalidate: 60,
-		variables: { first: 20, channel: params.channel },
-		withAuth: false,
 	});
-
-	const paths = products?.edges.map(({ node: { slug } }) => ({ slug })) || [];
-	return paths;
 }
+
+// NOTE: generateStaticParams is intentionally omitted for product pages.
+// All product pages are generated on-demand via ISR instead.
+
+// ============================================================================
+// Page Component
+// ============================================================================
 
 const parser = edjsHTML();
 
-export default async function Page(props: {
+/**
+ * Sync page shell with dedicated Suspense boundary.
+ * All cached product data + dynamic variant section stream inside
+ * this boundary, not through the layout's main Suspense.
+ */
+export default function ProductPage(props: {
 	params: Promise<{ slug: string; channel: string }>;
 	searchParams: Promise<{ variant?: string }>;
 }) {
-	const [searchParams, params] = await Promise.all([props.searchParams, props.params]);
-	const { product } = await executeGraphQL(ProductDetailsDocument, {
-		variables: {
-			slug: decodeURIComponent(params.slug),
-			channel: params.channel,
-		},
-		revalidate: 60,
-	});
+	return (
+		<Suspense fallback={<ProductPageSkeleton />}>
+			<ProductContent params={props.params} searchParams={props.searchParams} />
+		</Suspense>
+	);
+}
+
+async function ProductContent({
+	params: paramsPromise,
+	searchParams: searchParamsPromise,
+}: {
+	params: Promise<{ slug: string; channel: string }>;
+	searchParams: Promise<{ variant?: string }>;
+}) {
+	const [params, searchParams] = await Promise.all([paramsPromise, searchParamsPromise]);
+
+	const product = await getProductData(params.slug, params.channel);
 
 	if (!product) {
 		notFound();
 	}
 
-	const firstImage = product.thumbnail;
-	const description = product?.description ? parser.parse(JSON.parse(product?.description)) : null;
+	const variants = product.variants || [];
+	const selectedVariantId = searchParams.variant || (variants.length === 1 ? variants[0].id : undefined);
+	const selectedVariant = variants.find((v) => v.id === selectedVariantId);
 
-	const variants = product.variants;
-	const selectedVariantID = searchParams.variant;
-	const selectedVariant = variants?.find(({ id }) => id === selectedVariantID);
+	const descriptionHtml = parseDescription(product.description);
+	const images = getGalleryImages(product, selectedVariant);
+	const productAttributes = extractProductAttributes(product);
+	const careInstructions = extractCareInstructions(product);
 
-	async function addItem() {
-		"use server";
+	const breadcrumbs = [
+		{ label: "Home", href: `/${params.channel}` },
+		...(product.category
+			? [{ label: product.category.name, href: `/${params.channel}/categories/${product.category.slug}` }]
+			: []),
+		{ label: product.name },
+	];
 
-		const checkout = await Checkout.findOrCreate({
-			checkoutId: await Checkout.getIdFromCookies(params.channel),
-			channel: params.channel,
-		});
-		invariant(checkout, "This should never happen");
-
-		await Checkout.saveIdToCookie(params.channel, checkout.id);
-
-		if (!selectedVariantID) {
-			return;
-		}
-
-		// TODO: error handling
-		await executeGraphQL(CheckoutAddLineDocument, {
-			variables: {
-				id: checkout.id,
-				productVariantId: decodeURIComponent(selectedVariantID),
-			},
-			cache: "no-cache",
-		});
-
-		revalidatePath("/cart");
-	}
-
-	const isAvailable = variants?.some((variant) => variant.quantityAvailable) ?? false;
-
-	const price = selectedVariant?.pricing?.price?.gross
-		? formatMoney(selectedVariant.pricing.price.gross.amount, selectedVariant.pricing.price.gross.currency)
-		: isAvailable
-			? formatMoneyRange({
-					start: product?.pricing?.priceRange?.start?.gross,
-					stop: product?.pricing?.priceRange?.stop?.gross,
-				})
-			: "";
-
-	const productJsonLd: WithContext<Product> = {
-		"@context": "https://schema.org",
-		"@type": "Product",
-		image: product.thumbnail?.url,
-		...(selectedVariant
+	const productJsonLd = buildProductJsonLd({
+		name: product.name,
+		description: product.seoDescription || product.name,
+		images: images.length > 0 ? images.map((img) => img.url) : undefined,
+		brand: product.category?.name,
+		url: `/${params.channel}/products/${product.slug}`,
+		priceRange: product.pricing?.priceRange?.start?.gross
 			? {
-					name: `${product.name} - ${selectedVariant.name}`,
-					description: product.seoDescription || `${product.name} - ${selectedVariant.name}`,
-					offers: {
-						"@type": "Offer",
-						availability: selectedVariant.quantityAvailable
-							? "https://schema.org/InStock"
-							: "https://schema.org/OutOfStock",
-						priceCurrency: selectedVariant.pricing?.price?.gross.currency,
-						price: selectedVariant.pricing?.price?.gross.amount,
-					},
+					lowPrice: product.pricing.priceRange.start.gross.amount,
+					highPrice:
+						product.pricing.priceRange.stop?.gross?.amount || product.pricing.priceRange.start.gross.amount,
+					currency: product.pricing.priceRange.start.gross.currency,
 				}
-			: {
-					name: product.name,
+			: null,
+		inStock: product.variants?.some((v) => v.quantityAvailable) ?? false,
+		variantCount: product.variants?.length ?? 0,
+	});
 
-					description: product.seoDescription || product.name,
-					offers: {
-						"@type": "AggregateOffer",
-						availability: product.variants?.some((variant) => variant.quantityAvailable)
-							? "https://schema.org/InStock"
-							: "https://schema.org/OutOfStock",
-						priceCurrency: product.pricing?.priceRange?.start?.gross.currency,
-						lowPrice: product.pricing?.priceRange?.start?.gross.amount,
-						highPrice: product.pricing?.priceRange?.stop?.gross.amount,
-					},
-				}),
-	};
+	const lcpImageUrl = images[0]?.url;
 
 	return (
-		<section className="mx-auto grid max-w-7xl p-8">
-			<script
-				type="application/ld+json"
-				dangerouslySetInnerHTML={{
-					__html: JSON.stringify(productJsonLd),
-				}}
-			/>
-			<form className="grid gap-2 sm:grid-cols-2 lg:grid-cols-8" action={addItem}>
-				<div className="md:col-span-1 lg:col-span-5">
-					{firstImage && (
-						<ProductImageWrapper
-							priority={true}
-							alt={firstImage.alt ?? ""}
-							width={1024}
-							height={1024}
-							src={firstImage.url}
-						/>
-					)}
-				</div>
-				<div className="flex flex-col pt-6 sm:col-span-1 sm:px-6 sm:pt-0 lg:col-span-3 lg:pt-16">
-					<div>
-						<h1 className="mb-4 flex-auto text-3xl font-medium tracking-tight text-neutral-900">
-							{product?.name}
-						</h1>
-						<p className="mb-8 text-sm " data-testid="ProductElement_Price">
-							{price}
-						</p>
+		<div className="flex min-h-screen flex-col bg-background">
+			{lcpImageUrl && <link rel="preload" as="image" href={lcpImageUrl} fetchPriority="high" />}
 
-						{variants && (
-							<VariantSelector
-								selectedVariant={selectedVariant}
-								variants={variants}
-								product={product}
-								channel={params.channel}
+			{productJsonLd && (
+				<script
+					type="application/ld+json"
+					dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }}
+				/>
+			)}
+
+			<main className="mx-auto w-full max-w-7xl flex-1 px-4 py-4 sm:px-6 sm:py-6 lg:px-8 lg:py-10">
+				<div className="mb-6 hidden sm:block">
+					<Breadcrumbs items={breadcrumbs} />
+				</div>
+
+				<div className="grid gap-8 lg:grid-cols-2 lg:gap-16">
+					<div className="lg:sticky lg:top-24 lg:self-start">
+						<ProductGallery images={images} productName={product.name} />
+					</div>
+
+					<div className="flex flex-col gap-3">
+						<h1 className="order-2 text-balance text-3xl font-semibold tracking-tight lg:text-4xl">
+							{product.name}
+						</h1>
+
+						<ErrorBoundary FallbackComponent={VariantSectionError}>
+							<Suspense fallback={<VariantSectionSkeleton />}>
+								<VariantSectionDynamic
+									product={product}
+									channel={params.channel}
+									searchParams={searchParamsPromise}
+								/>
+							</Suspense>
+						</ErrorBoundary>
+
+						<div className="order-4 mt-6">
+							<ProductAttributes
+								descriptionHtml={descriptionHtml}
+								attributes={productAttributes}
+								careInstructions={careInstructions}
 							/>
-						)}
-						<AvailabilityMessage isAvailable={isAvailable} />
-						<div className="mt-8">
-							<AddButton disabled={!selectedVariantID || !selectedVariant?.quantityAvailable} />
 						</div>
-						{description && (
-							<div className="mt-8 space-y-6 text-sm text-neutral-500">
-								{description.map((content) => (
-									<div key={content} dangerouslySetInnerHTML={{ __html: xss(content) }} />
-								))}
-							</div>
-						)}
 					</div>
 				</div>
-			</form>
-		</section>
+			</main>
+		</div>
 	);
+}
+
+// ============================================================================
+// Skeleton
+// ============================================================================
+
+function ProductPageSkeleton() {
+	return (
+		<div className="flex min-h-screen animate-skeleton-delayed flex-col bg-background opacity-0">
+			<main className="mx-auto w-full max-w-7xl flex-1 px-4 py-4 sm:px-6 sm:py-6 lg:px-8 lg:py-10">
+				<div className="mb-6 hidden h-4 w-64 animate-pulse rounded bg-secondary sm:block" />
+				<div className="grid gap-8 lg:grid-cols-2 lg:gap-16">
+					<div className="aspect-square animate-pulse rounded-lg bg-secondary" />
+					<div className="flex flex-col gap-4">
+						<div className="h-8 w-3/4 animate-pulse rounded bg-secondary" />
+						<div className="h-6 w-24 animate-pulse rounded bg-secondary" />
+						<div className="mt-4 space-y-3">
+							<div className="h-10 w-full animate-pulse rounded bg-secondary" />
+							<div className="h-10 w-full animate-pulse rounded bg-secondary" />
+						</div>
+						<div className="mt-4 h-12 w-full animate-pulse rounded bg-secondary" />
+					</div>
+				</div>
+			</main>
+		</div>
+	);
+}
+
+// ============================================================================
+// Helper Functions
+// ============================================================================
+
+function parseDescription(description: string | null | undefined): string[] | null {
+	if (!description) return null;
+
+	try {
+		const parsed = parser.parse(JSON.parse(description));
+		return parsed.map((html: string) => xss(html));
+	} catch {
+		return [xss(`<p>${description}</p>`)];
+	}
+}
+
+function extractProductAttributes(product: NonNullable<ProductDetailsQuery["product"]>) {
+	const variantAttributeSlugs = ["size", "color", "colour", "variant"];
+	const internalAttributeSlugs = ["care-instructions", "care"];
+
+	return (product.attributes || [])
+		.filter((attr) => attr.attribute.name)
+		.filter((attr) => !variantAttributeSlugs.includes((attr.attribute.slug ?? "").toLowerCase()))
+		.filter((attr) => !internalAttributeSlugs.includes((attr.attribute.slug ?? "").toLowerCase()))
+		.map((attr) => ({
+			name: attr.attribute.name!,
+			value:
+				attr.values.length === 1
+					? attr.values[0]?.name ?? ""
+					: attr.values.map((v) => v.name ?? "").filter(Boolean),
+		}))
+		.filter((attr) => {
+			if (Array.isArray(attr.value)) return attr.value.length > 0;
+			return attr.value !== "";
+		});
+}
+
+function extractCareInstructions(product: NonNullable<ProductDetailsQuery["product"]>): string | null {
+	const careAttr = (product.attributes || []).find(
+		(attr) =>
+			attr.attribute.slug === "care-instructions" ||
+			attr.attribute.slug === "care" ||
+			(attr.attribute.name ?? "").toLowerCase().includes("care"),
+	);
+
+	return (
+		careAttr?.values
+			.map((v) => v.name)
+			.filter(Boolean)
+			.join(". ") || null
+	);
+}
+
+type Product = NonNullable<ProductDetailsQuery["product"]>;
+type Variant = NonNullable<Product["variants"]>[number];
+
+function getGalleryImages(
+	product: Product,
+	selectedVariant: Variant | null | undefined,
+): { url: string; alt: string | null | undefined }[] {
+	if (selectedVariant?.media && selectedVariant.media.length > 0) {
+		const variantImages = selectedVariant.media
+			.filter((m) => m.type === "IMAGE")
+			.map((m) => ({ url: m.url, alt: m.alt }));
+		if (variantImages.length > 0) {
+			return variantImages;
+		}
+	}
+
+	if (product.media && product.media.length > 0) {
+		return product.media.filter((m) => m.type === "IMAGE").map((m) => ({ url: m.url, alt: m.alt }));
+	}
+
+	if (product.thumbnail) {
+		return [{ url: product.thumbnail.url, alt: product.thumbnail.alt }];
+	}
+
+	return [];
 }
