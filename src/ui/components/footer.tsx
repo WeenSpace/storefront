@@ -1,31 +1,32 @@
 import Link from "next/link";
 import Image from "next/image";
-import { LinkWithChannel } from "../atoms/LinkWithChannel";
-import { ChannelSelect } from "./ChannelSelect";
+import { LinkWithChannel } from "../atoms/link-with-channel";
+import { ChannelSelect } from "./channel-select";
 import { ChannelsListDocument, MenuGetBySlugDocument } from "@/gql/graphql";
-import { executeGraphQL } from "@/lib/graphql";
+import { executePublicGraphQL } from "@/lib/graphql";
 
 export async function Footer({ channel }: { channel: string }) {
-	const footerLinks = await executeGraphQL(MenuGetBySlugDocument, {
+	const footerLinksResult = await executePublicGraphQL(MenuGetBySlugDocument, {
 		variables: { slug: "footer", channel },
 		revalidate: 60 * 60 * 24,
 	});
-	const channels = process.env.SALEOR_APP_TOKEN
-		? await executeGraphQL(ChannelsListDocument, {
-				withAuth: false, // disable cookie-based auth for this call
+	const footerLinks = footerLinksResult.ok ? footerLinksResult.data : null;
+
+	const channelsResult = process.env.SALEOR_APP_TOKEN
+		? await executePublicGraphQL(ChannelsListDocument, {
 				headers: {
-					// and use app token instead
 					Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
 				},
 			})
 		: null;
+	const channels = channelsResult?.ok ? channelsResult.data : null;
 	const currentYear = new Date().getFullYear();
 
 	return (
 		<footer className="border-neutral-300 bg-neutral-50">
 			<div className="mx-auto max-w-7xl px-4 lg:px-8">
 				<div className="grid grid-cols-3 gap-8 py-16">
-					{footerLinks.menu?.items?.map((item) => {
+					{footerLinks?.menu?.items?.map((item) => {
 						return (
 							<div key={item.id}>
 								<h3 className="text-sm font-semibold text-neutral-900">{item.name}</h3>

@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { LinkWithChannel } from "../atoms/LinkWithChannel";
+import { LinkWithChannel } from "../atoms/link-with-channel";
 
 const companyName = "WeTravel";
 

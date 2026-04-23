@@ -25,11 +25,11 @@ COPY . .
 # ENV NEXT_TELEMETRY_DISABLED 1
 
 ENV NEXT_OUTPUT=standalone
-ARG NEXT_PUBLIC_SALEOR_API_URL
+ARG NEXT_PUBLIC_SALEOR_API_URL=http://weenspace-api:8000/graphql/
 ENV NEXT_PUBLIC_SALEOR_API_URL=${NEXT_PUBLIC_SALEOR_API_URL}
-ARG NEXT_PUBLIC_STOREFRONT_URL
+ARG NEXT_PUBLIC_STOREFRONT_URL=http://localhost:3000
 ENV NEXT_PUBLIC_STOREFRONT_URL=${NEXT_PUBLIC_STOREFRONT_URL}
-ARG NEXT_PUBLIC_DEFAULT_CHANNEL
+ARG NEXT_PUBLIC_DEFAULT_CHANNEL=default-channel
 ENV NEXT_PUBLIC_DEFAULT_CHANNEL=${NEXT_PUBLIC_DEFAULT_CHANNEL}
 
 # Get PNPM version from package.json
@@ -37,19 +37,25 @@ ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 RUN corepack enable
 
+# Build using local schema file instead of requiring network access to API
+ENV GITHUB_ACTION=generate-schema-from-file
+# During build, the Saleor API is unreachable. Make GraphQL calls fail fast
+# so "use cache" functions don't exceed their timeout during prerendering.
+ENV NEXT_BUILD_RETRIES=0
+ENV SALEOR_REQUEST_TIMEOUT_MS=3000
 RUN pnpm build
 
 # Production image, copy all the files and run next
 FROM base AS runner
 WORKDIR /app
 
-ENV NODE_ENV production
+ENV NODE_ENV=production
 # Uncomment the following line in case you want to disable telemetry during runtime.
 # ENV NEXT_TELEMETRY_DISABLED 1
 
-ARG NEXT_PUBLIC_SALEOR_API_URL
+ARG NEXT_PUBLIC_SALEOR_API_URL=http://weenspace-api:8000/graphql/
 ENV NEXT_PUBLIC_SALEOR_API_URL=${NEXT_PUBLIC_SALEOR_API_URL}
-ARG NEXT_PUBLIC_STOREFRONT_URL
+ARG NEXT_PUBLIC_STOREFRONT_URL=http://localhost:3000
 ENV NEXT_PUBLIC_STOREFRONT_URL=${NEXT_PUBLIC_STOREFRONT_URL}
 
 RUN addgroup --system --gid 1001 nodejs

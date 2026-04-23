@@ -1635,4 +1635,70 @@ export default function PopularExperiences() {
 			image: "https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?w=400&h=300&fit=crop",
 			price: 200,
 			originalPrice: 250,
+			rating: 4.9,
+			reviews: 1100,
+			duration: "4 hours",
+			groupSize: "Small group",
+			badge: "Top Rated",
+			badgeColor: "bg-green-500",
+		},
+	];
+
+	return (
+		<section className="py-16 bg-gray-50">
+			<div className="container mx-auto px-4">
+				<h2 className="text-3xl font-bold text-gray-900 mb-2">Popular Experiences</h2>
+				<p className="text-gray-600 mb-8">Discover our most popular tours and activities worldwide</p>
+				<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+					{experiences.map((exp, index) => (
+						<div key={index} className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+							<div className="relative h-48">
+								<Image
+									src={exp.image}
+									alt={exp.title}
+									fill
+									className="object-cover"
+									sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+								/>
+								{exp.badge && (
+									<span className={`absolute top-3 left-3 ${exp.badgeColor} text-white text-xs font-semibold px-2 py-1 rounded-full`}>
+										{exp.badge}
+									</span>
+								)}
+								<button className="absolute top-3 right-3 p-1.5 bg-white/80 rounded-full hover:bg-white transition-colors">
+									<HeartIcon className="w-5 h-5 text-gray-600" />
+								</button>
+							</div>
+							<div className="p-4">
+								<h3 className="font-semibold text-gray-900 text-sm leading-tight mb-1 line-clamp-2">{exp.title}</h3>
+								<p className="text-gray-500 text-xs mb-2">{exp.location}</p>
+								<div className="flex items-center gap-1 mb-2">
+									<StarIcon className="w-4 h-4 text-yellow-400" />
+									<span className="text-sm font-medium text-gray-900">{exp.rating}</span>
+									<span className="text-xs text-gray-500">({exp.reviews.toLocaleString()} reviews)</span>
+								</div>
+								<div className="flex items-center gap-3 text-xs text-gray-500 mb-3">
+									<span className="flex items-center gap-1">
+										<ClockIcon className="w-3.5 h-3.5" />
+										{exp.duration}
+									</span>
+									<span className="flex items-center gap-1">
+										<UsersIcon className="w-3.5 h-3.5" />
+										{exp.groupSize}
+									</span>
+								</div>
+								<div className="flex items-center gap-2">
+									<span className="text-lg font-bold text-gray-900">${exp.price}</span>
+									{exp.originalPrice && (
+										<span className="text-sm text-gray-400 line-through">${exp.originalPrice}</span>
+									)}
+								</div>
+							</div>
+						</div>
+					))}
+				</div>
+			</div>
+		</section>
+	);
+}
 			rating: 5.

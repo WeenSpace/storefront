@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import React from 'react';
 import { StarIcon } from '@heroicons/react/24/solid';
 
 const FeaturedDestinations = () => {

@@ -1,4 +1,4 @@
-import { Loader } from "@/ui/atoms/Loader";
+import { Loader } from "@/ui/atoms/loader";
 
 export default function Loading() {
 	return (

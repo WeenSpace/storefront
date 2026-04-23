@@ -1,39 +1,46 @@
 import edjsHTML from "editorjs-html";
 import { revalidatePath } from "next/cache";
 import { notFound } from "next/navigation";
-import { type ResolvingMetadata, type Metadata } from "next";
+import { type Metadata } from "next";
 import xss from "xss";
 import { invariant } from "ts-invariant";
 import { type WithContext, type Product } from "schema-dts";
 import { AddButton } from "./AddButton";
-import { VariantSelector } from "@/ui/components/VariantSelector";
-import { ProductImageWrapper } from "@/ui/atoms/ProductImageWrapper";
-import { executeGraphQL } from "@/lib/graphql";
+import { VariantSelectionSection } from "@/ui/components/pdp/variant-selection";
+import { ProductImageWrapper } from "@/ui/atoms/product-image-wrapper";
+import { executePublicGraphQL, executeAuthenticatedGraphQL } from "@/lib/graphql";
 import { formatMoney, formatMoneyRange } from "@/lib/utils";
-import { CheckoutAddLineDocument, ProductDetailsDocument, ProductListDocument } from "@/gql/graphql";
+import { CheckoutAddLineDocument, ProductDetailsDocument } from "@/gql/graphql";
 import * as Checkout from "@/lib/checkout";
-import { AvailabilityMessage } from "@/ui/components/AvailabilityMessage";
+import { DefaultChannelSlug } from "@/app/config";
 
-export async function generateMetadata(
-	{
-		params,
-		searchParams,
-	}: {
-		params: { slug: string; channel: string };
-		searchParams: { variant?: string };
-	},
-	parent: ResolvingMetadata,
-): Promise<Metadata> {
-	const { product } = await executeGraphQL(ProductDetailsDocument, {
+const channel = DefaultChannelSlug ?? "default-channel";
+
+async function getProductData(slug: string) {
+	"use cache";
+
+	const result = await executePublicGraphQL(ProductDetailsDocument, {
 		variables: {
-			slug: decodeURIComponent(params.slug),
-			channel: params.channel,
+			slug: decodeURIComponent(slug),
+			channel,
 		},
 		revalidate: 60,
 	});
 
+	if (!result.ok) return null;
+	return result.data.product;
+}
+
+export async function generateMetadata(props: {
+	params: Promise<{ slug: string }>;
+	searchParams: Promise<{ variant?: string }>;
+}): Promise<Metadata> {
+	const params = await props.params;
+	const searchParams = await props.searchParams;
+	const product = await getProductData(params.slug);
+
 	if (!product) {
-		notFound();
+		return { title: "Product Not Found" };
 	}
 
 	const productName = product.seoTitle || product.name;
@@ -41,11 +48,11 @@ export async function generateMetadata(
 	const productNameAndVariant = variantName ? `${productName} - ${variantName}` : productName;
 
 	return {
-		title: `${product.name} | ${product.seoTitle || (await parent).title?.absolute}`,
+		title: `${product.name} | ${productName}`,
 		description: product.seoDescription || productNameAndVariant,
 		alternates: {
 			canonical: process.env.NEXT_PUBLIC_STOREFRONT_URL
-				? process.env.NEXT_PUBLIC_STOREFRONT_URL + `/products/${encodeURIComponent(params.slug)}`
+				? process.env.NEXT_PUBLIC_STOREFRONT_URL + `/home/${encodeURIComponent(params.slug)}`
 				: undefined,
 		},
 		openGraph: product.thumbnail
@@ -61,38 +68,22 @@ export async function generateMetadata(
 	};
 }
 
-export async function generateStaticParams({ params }: { params: { channel: string } }) {
-	const { products } = await executeGraphQL(ProductListDocument, {
-		revalidate: 60,
-		variables: { first: 20, channel: params.channel },
-		withAuth: false,
-	});
-
-	const paths = products?.edges.map(({ node: { slug } }) => ({ slug })) || [];
-	return paths;
-}
+// NOTE: generateStaticParams is intentionally omitted.
+// All product pages are generated on-demand via ISR instead.
 
 const parser = edjsHTML();
 
-export default async function Page({
-	params,
-	searchParams,
-}: {
-	params: { slug: string; channel: string };
-	searchParams: { variant?: string };
+export default async function Page(props: {
+	params: Promise<{ slug: string }>;
+	searchParams: Promise<{ variant?: string }>;
 }) {
-	const { product } = await executeGraphQL(ProductDetailsDocument, {
-		variables: {
-			slug: decodeURIComponent(params.slug),
-			channel: params.channel,
-		},
-		revalidate: 60,
-	});
+	const [params, searchParams] = await Promise.all([props.params, props.searchParams]);
+
+	const product = await getProductData(params.slug);
 
 	if (!product) {
 		notFound();
 	}
-
 	const firstImage = product.thumbnail;
 	const description = product?.description ? parser.parse(JSON.parse(product?.description)) : null;
 
@@ -104,19 +95,19 @@ export default async function Page({
 		"use server";
 
 		const checkout = await Checkout.findOrCreate({
-			checkoutId: Checkout.getIdFromCookies(params.channel),
-			channel: params.channel,
+			checkoutId: await Checkout.getIdFromCookies(channel),
+			channel,
 		});
 		invariant(checkout, "This should never happen");
 
-		Checkout.saveIdToCookie(params.channel, checkout.id);
+		Checkout.saveIdToCookie(channel, checkout.id);
 
 		if (!selectedVariantID) {
 			return;
 		}
 
 		// TODO: error handling
-		await executeGraphQL(CheckoutAddLineDocument, {
+		await executeAuthenticatedGraphQL(CheckoutAddLineDocument, {
 			variables: {
 				id: checkout.id,
 				productVariantId: decodeURIComponent(selectedVariantID),
@@ -201,14 +192,14 @@ export default async function Page({
 						</p>
 
 						{variants && (
-							<VariantSelector
-								selectedVariant={selectedVariant}
+							<VariantSelectionSection
+								selectedVariantId={selectedVariantID}
 								variants={variants}
-								product={product}
-								channel={params.channel}
+								productSlug={params.slug}
+								channel={channel}
 							/>
 						)}
-						<AvailabilityMessage isAvailable={isAvailable} />
+						{!isAvailable && <p className="mt-3 text-sm text-neutral-600">Out of stock</p>}
 						<div className="mt-8">
 							<AddButton disabled={!selectedVariantID || !selectedVariant?.quantityAvailable} />
 						</div>
