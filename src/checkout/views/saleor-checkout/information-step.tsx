@@ -1,16 +1,23 @@
 "use client";
 
-import { useState, useEffect, useCallback, type FC } from "react";
+/* eslint-disable react-hooks/preserve-manual-memoization -- large submit handler; refactor separately */
+
+import { useState, useCallback, useEffect, type FC } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { syncAuthSurfacesAfterSignIn } from "@/lib/auth";
+import { buildAccountConfirmationRedirectUrl } from "@/lib/auth/account-confirmation-url";
+import { resolveBrowseLocaleSlugWithFallback } from "@/lib/browse-locale";
+import { isCheckoutMarketingConsentEnabled } from "@/checkout/lib/marketing-consent";
 import { Button } from "@/ui/components/ui/button";
-import { ExpressCheckout } from "@/checkout/components/express-checkout";
 import {
-	type CheckoutFragment,
-	type CountryCode,
-	useCheckoutEmailUpdateMutation,
-	useCheckoutShippingAddressUpdateMutation,
-	useUserRegisterMutation,
-} from "@/checkout/graphql";
+	updateCheckoutEmail,
+	updateCheckoutMarketingConsent,
+	updateCheckoutShippingAddress,
+	registerCheckoutAccount,
+} from "@/app/(checkout)/actions";
+import { type CheckoutFragment, type CountryCode } from "@/checkout/graphql";
+import type { CheckoutUser, ServerCheckout } from "@/checkout/lib/checkout-types";
+import { checkoutLinesSignature } from "@/checkout/lib/checkout-sync";
 import { useAvailableShippingCountries } from "@/checkout/hooks/use-available-shipping-countries";
 import { useAddressFormUtils } from "@/checkout/components/address-form/use-address-form-utils";
 import {
@@ -19,9 +26,14 @@ import {
 	isMatchingAddressData,
 } from "@/checkout/components/address-form/utils";
 import { useUser } from "@/checkout/hooks/use-user";
+import { useOrphanedCheckoutRecovery } from "@/checkout/hooks/use-orphaned-checkout-recovery";
 import { getQueryParams, createQueryString } from "@/checkout/lib/utils/url";
-import { localeConfig } from "@/config/locale";
-import { getStepNumber } from "./flow";
+import {
+	getCheckoutSaveAddressFlag,
+	isUsingSavedShippingAddress,
+} from "@/checkout/lib/shipping-address-submit";
+import { useCheckoutStepNumber } from "@/checkout/hooks/use-checkout-steps";
+import { useTranslations } from "next-intl";
 
 // Extracted components
 import { SignInForm, ResetPasswordForm } from "@/checkout/components/contact";
@@ -36,17 +48,73 @@ type ContactView = "main" | "signIn" | "resetPassword";
 
 interface InformationStepProps {
 	checkout: CheckoutFragment;
-	onNext: () => void;
+	onComplete: (checkout: ServerCheckout) => void;
+}
+
+interface InformationStepFormProps extends InformationStepProps {
+	user: CheckoutUser | null;
+	authenticated: boolean;
+	userLoading: boolean;
+	isAuthTransitionLoading: boolean;
+	onAuthSessionPending: () => void;
 }
 
 // =============================================================================
 // Main Component
 // =============================================================================
 
-export const InformationStep: FC<InformationStepProps> = ({ checkout, onNext }) => {
+export const InformationStep: FC<InformationStepProps> = (props) => {
+	const { user, authenticated, loading: userLoading } = useUser();
+	const [isAwaitingAuthRefresh, setIsAwaitingAuthRefresh] = useState(false);
+	const linesKey = checkoutLinesSignature(props.checkout);
+	const formKey = userLoading
+		? `${props.checkout.id}:${linesKey}:loading`
+		: `${props.checkout.id}:${linesKey}:${user?.id ?? "guest"}`;
+
+	useEffect(() => {
+		if (authenticated) {
+			// eslint-disable-next-line react-hooks/set-state-in-effect -- clear sign-in transition once session is live
+			setIsAwaitingAuthRefresh(false);
+		}
+	}, [authenticated]);
+
+	const isAuthTransitionLoading = isAwaitingAuthRefresh && !authenticated;
+
+	return (
+		<InformationStepForm
+			key={formKey}
+			{...props}
+			user={user}
+			authenticated={authenticated}
+			userLoading={userLoading}
+			isAuthTransitionLoading={isAuthTransitionLoading}
+			onAuthSessionPending={() => setIsAwaitingAuthRefresh(true)}
+		/>
+	);
+};
+
+const InformationStepForm: FC<InformationStepFormProps> = ({
+	checkout,
+	onComplete,
+	user,
+	authenticated,
+	userLoading,
+	isAuthTransitionLoading,
+	onAuthSessionPending,
+}) => {
 	const router = useRouter();
 	const searchParams = useSearchParams();
-	const { user, authenticated } = useUser();
+	const t = useTranslations("checkout.actions");
+	const tErrors = useTranslations("checkout.errors");
+	const tAccount = useTranslations("account.errors");
+	const infoStep = useCheckoutStepNumber("INFO", checkout.isShippingRequired);
+	const {
+		isOrphaned,
+		isRecovering,
+		error: recoveryError,
+		recoverAsGuest,
+	} = useOrphanedCheckoutRecovery(checkout);
+	const contactLoading = userLoading || isAuthTransitionLoading;
 	const { availableShippingCountries } = useAvailableShippingCountries();
 	const shippingAddress = checkout.shippingAddress;
 
@@ -54,20 +122,17 @@ export const InformationStep: FC<InformationStepProps> = ({ checkout, onNext }) 
 	const defaultCountry =
 		(shippingAddress?.country?.code as CountryCode) || availableShippingCountries[0] || ("US" as CountryCode);
 
-	// Mutations
-	const [, updateEmail] = useCheckoutEmailUpdateMutation();
-	const [, updateShippingAddress] = useCheckoutShippingAddressUpdateMutation();
-	const [, userRegister] = useUserRegisterMutation();
-
 	// View state - what sub-view are we showing?
 	const [contactView, setContactView] = useState<ContactView>(() => {
 		const { passwordResetToken } = getQueryParams(searchParams);
-		if (passwordResetToken) return "resetPassword";
+		if (passwordResetToken) {
+			return "resetPassword";
+		}
 		return "main";
 	});
 
 	// ----- Contact form state -----
-	const [email, setEmail] = useState(checkout.email || "");
+	const [email, setEmail] = useState(() => (isOrphaned ? "" : checkout.email || ""));
 	const [createAccount, setCreateAccount] = useState(false);
 	const [accountPassword, setAccountPassword] = useState("");
 	const [subscribeNews, setSubscribeNews] = useState(false);
@@ -114,56 +179,12 @@ export const InformationStep: FC<InformationStepProps> = ({ checkout, onNext }) 
 		return !matchingId && Boolean(shippingAddress.streetAddress1);
 	});
 
-	// Sync local state with checkout data when it updates (e.g. after auto-login)
-	useEffect(() => {
-		if (checkout.email) {
-			setEmail(checkout.email);
-		}
-	}, [checkout.email]);
-
-	// Sync form data with checkout's shipping address - but only when NOT entering a new address
-	useEffect(() => {
-		if (shippingAddress && !showNewAddressForm) {
-			setCountryCode((shippingAddress.country?.code as CountryCode) || defaultCountry);
-			setFormData({
-				firstName: shippingAddress.firstName || "",
-				lastName: shippingAddress.lastName || "",
-				streetAddress1: shippingAddress.streetAddress1 || "",
-				streetAddress2: shippingAddress.streetAddress2 || "",
-				companyName: shippingAddress.companyName || "",
-				city: shippingAddress.city || "",
-				postalCode: shippingAddress.postalCode || "",
-				countryArea: shippingAddress.countryArea || "",
-				cityArea: shippingAddress.cityArea || "",
-				phone: shippingAddress.phone || "",
-			});
-		}
-	}, [shippingAddress, showNewAddressForm]);
-
-	// Update selected address when user data loads
-	useEffect(() => {
-		if (user && !selectedAddressId && !showNewAddressForm) {
-			// First check if checkout's address matches a saved address
-			if (shippingAddress && user.addresses?.length) {
-				const match = user.addresses.find((addr) => isMatchingAddressData(addr, shippingAddress));
-				if (match) {
-					setSelectedAddressId(match.id);
-					return;
-				}
-				// If shipping address exists but doesn't match, show form
-				if (shippingAddress.streetAddress1) {
-					setShowNewAddressForm(true);
-					return;
-				}
-			}
-			// Fall back to defaults
-			if (user.defaultShippingAddress?.id) {
-				setSelectedAddressId(user.defaultShippingAddress.id);
-			} else if (user.addresses?.[0]?.id) {
-				setSelectedAddressId(user.addresses[0].id);
-			}
-		}
-	}, [user, selectedAddressId, showNewAddressForm, shippingAddress]);
+	// Explicit flag: user is typing a new address (not picking a saved one)
+	const [isEnteringNewAddress, setIsEnteringNewAddress] = useState(() => {
+		if (!user?.addresses?.length) return true;
+		if (!shippingAddress?.streetAddress1) return false;
+		return !findMatchingAddressId();
+	});
 
 	// ----- Validation & Errors -----
 	const [errors, setErrors] = useState<Record<string, string>>({});
@@ -183,7 +204,7 @@ export const InformationStep: FC<InformationStepProps> = ({ checkout, onNext }) 
 
 	const handleEmailBlur = () => {
 		if (email && !validateEmail(email)) {
-			setErrors((prev) => ({ ...prev, email: "Please enter a valid email address" }));
+			setErrors((prev) => ({ ...prev, email: tAccount("invalidEmail") }));
 		}
 	};
 
@@ -197,9 +218,16 @@ export const InformationStep: FC<InformationStepProps> = ({ checkout, onNext }) 
 		setFormData((prev) => ({ ...prev, countryArea: "" }));
 	};
 
+	const handleSelectAddress = (id: string | null) => {
+		setSelectedAddressId(id);
+		setIsEnteringNewAddress(false);
+	};
+
 	const handleShowNewAddressForm = (show: boolean) => {
 		setShowNewAddressForm(show);
+		setIsEnteringNewAddress(show);
 		if (show) {
+			setSelectedAddressId(null);
 			// Clear form for new address entry
 			setFormData({
 				firstName: "",
@@ -242,24 +270,34 @@ export const InformationStep: FC<InformationStepProps> = ({ checkout, onNext }) 
 				event.preventDefault();
 			}
 
+			if (isSubmitting) return;
+
 			const newErrors: Record<string, string> = {};
 
 			// Validate email (guests only)
 			if (!authenticated) {
-				if (!email) newErrors.email = "Email is required";
-				else if (!validateEmail(email)) newErrors.email = "Please enter a valid email";
+				if (!email) newErrors.email = tErrors("emailRequired");
+				else if (!validateEmail(email)) newErrors.email = tAccount("invalidEmail");
 
 				if (createAccount) {
-					if (!accountPassword) newErrors.password = "Password is required";
-					else if (accountPassword.length < 8) newErrors.password = "Password must be at least 8 characters";
+					if (!accountPassword) newErrors.password = tAccount("passwordRequired");
+					else if (accountPassword.length < 8) newErrors.password = tAccount("passwordMinLength");
 				}
 			}
 
 			// Validate shipping address (if required)
 			if (checkout.isShippingRequired) {
-				if (authenticated && user?.addresses?.length && !showNewAddressForm) {
+				const usingSavedAddress = isUsingSavedShippingAddress({
+					isAuthenticated: authenticated,
+					savedAddressCount: user?.addresses?.length ?? 0,
+					showNewAddressForm,
+					isEnteringNewAddress,
+					selectedAddressId,
+				});
+
+				if (usingSavedAddress) {
 					if (!selectedAddressId) {
-						newErrors.address = "Please select a shipping address";
+						newErrors.address = tErrors("selectShippingAddress");
 					}
 				} else {
 					orderedAddressFields.forEach((field) => {
@@ -279,54 +317,75 @@ export const InformationStep: FC<InformationStepProps> = ({ checkout, onNext }) 
 				return;
 			}
 
-			// ----- Save to Saleor -----
+			if (isOrphaned) {
+				setErrors({
+					email: tErrors("orphanedCartBlocked"),
+				});
+				return;
+			}
+
 			setIsSubmitting(true);
 			try {
-				// Update email (guests)
+				let updatedCheckout: ServerCheckout = checkout;
+
 				if (!authenticated) {
-					const emailResult = await updateEmail({
-						checkoutId: checkout.id,
-						email,
-						languageCode: localeConfig.graphqlLanguageCode,
-					});
-					if (emailResult.error) {
-						setErrors({ email: "Failed to update email" });
+					const emailResult = await updateCheckoutEmail(checkout.id, email);
+					if (!emailResult.ok) {
+						if (emailResult.fieldErrors?.length) {
+							const errorMap: Record<string, string> = {};
+							emailResult.fieldErrors.forEach((err) => {
+								errorMap[err.field || "email"] = err.message || tErrors("invalidValue");
+							});
+							setErrors(errorMap);
+						} else {
+							setErrors({ email: emailResult.error ?? tErrors("updateEmailFailed") });
+						}
+						setIsSubmitting(false);
 						return;
 					}
-					const emailErrors = emailResult.data?.checkoutEmailUpdate?.errors;
-					if (emailErrors?.length) {
-						const errorMap: Record<string, string> = {};
-						emailErrors.forEach((err) => {
-							errorMap[err.field || "email"] = err.message || "Invalid value";
-						});
-						setErrors(errorMap);
-						return;
+					updatedCheckout = emailResult.checkout;
+
+					if (isCheckoutMarketingConsentEnabled()) {
+						await updateCheckoutMarketingConsent(updatedCheckout.id, subscribeNews);
 					}
 
-					// Create account if requested
 					if (createAccount && accountPassword) {
-						const registerResult = await userRegister({
-							input: {
-								email,
-								password: accountPassword,
-								channel: checkout.channel.slug,
-								redirectUrl: window.location.href,
-							},
+						const registerResult = await registerCheckoutAccount({
+							email,
+							password: accountPassword,
+							channel: checkout.channel.slug,
+							redirectUrl: buildAccountConfirmationRedirectUrl(
+								window.location.origin,
+								resolveBrowseLocaleSlugWithFallback(),
+								checkout.channel.slug,
+							),
 						});
-						if (registerResult.data?.accountRegister?.errors?.length) {
-							const err = registerResult.data.accountRegister.errors[0];
-							if (err.code !== "UNIQUE") {
-								setErrors({ password: err.message || "Failed to create account" });
-								return;
-							}
+						if (!registerResult.ok) {
+							const fieldError = registerResult.fieldErrors?.[0];
+							setErrors({
+								password: fieldError?.message ?? registerResult.error ?? tErrors("createAccountFailed"),
+							});
+							setIsSubmitting(false);
+							return;
 						}
 					}
 				}
 
-				// Update shipping address
 				if (checkout.isShippingRequired) {
 					let addressInput;
-					if (authenticated && user?.addresses?.length && selectedAddressId && !showNewAddressForm) {
+					const usingSavedAddress = isUsingSavedShippingAddress({
+						isAuthenticated: authenticated,
+						savedAddressCount: user?.addresses?.length ?? 0,
+						showNewAddressForm,
+						isEnteringNewAddress,
+						selectedAddressId,
+					});
+					const saveAddress = getCheckoutSaveAddressFlag({
+						isAuthenticated: authenticated,
+						isUsingSavedAddress: usingSavedAddress,
+					});
+
+					if (usingSavedAddress && user?.addresses) {
 						const selectedAddress = user.addresses.find((a) => a.id === selectedAddressId);
 						if (selectedAddress) {
 							addressInput = getAddressInputDataFromAddress(selectedAddress);
@@ -336,54 +395,54 @@ export const InformationStep: FC<InformationStepProps> = ({ checkout, onNext }) 
 					}
 
 					if (addressInput) {
-						const addressResult = await updateShippingAddress({
-							checkoutId: checkout.id,
-							shippingAddress: addressInput,
-							languageCode: localeConfig.graphqlLanguageCode,
-						});
+						const addressResult = await updateCheckoutShippingAddress(
+							updatedCheckout.id,
+							addressInput,
+							saveAddress,
+						);
 
-						if (addressResult.error) {
-							setErrors({ streetAddress1: "Failed to update address" });
+						if (!addressResult.ok) {
+							if (addressResult.fieldErrors?.length) {
+								const errorMap: Record<string, string> = {};
+								addressResult.fieldErrors.forEach((err) => {
+									const field = err.field || "streetAddress1";
+									errorMap[field] = err.message || tErrors("invalidValue");
+								});
+								setErrors(errorMap);
+							} else {
+								setErrors({ streetAddress1: addressResult.error ?? tErrors("updateAddressFailed") });
+							}
+							setIsSubmitting(false);
 							return;
 						}
-						const addressErrors = addressResult.data?.checkoutShippingAddressUpdate?.errors;
-						if (addressErrors?.length) {
-							const errorMap: Record<string, string> = {};
-							addressErrors.forEach((err) => {
-								const field = err.field || "streetAddress1";
-								errorMap[field] = err.message || "Invalid value";
-							});
-							setErrors(errorMap);
-							return;
-						}
+						updatedCheckout = addressResult.checkout;
 					}
 				}
 
-				onNext();
-			} finally {
+				onComplete(updatedCheckout);
+			} catch {
 				setIsSubmitting(false);
 			}
 		},
 		[
+			checkout,
+			isSubmitting,
 			authenticated,
+			isOrphaned,
 			email,
 			createAccount,
 			accountPassword,
-			checkout.isShippingRequired,
-			checkout.id,
-			checkout.channel.slug,
+			subscribeNews,
 			user?.addresses,
 			showNewAddressForm,
+			isEnteringNewAddress,
 			selectedAddressId,
 			orderedAddressFields,
 			isRequiredField,
 			getFieldLabel,
 			formData,
 			countryCode,
-			updateEmail,
-			userRegister,
-			updateShippingAddress,
-			onNext,
+			onComplete,
 		],
 	);
 
@@ -391,9 +450,12 @@ export const InformationStep: FC<InformationStepProps> = ({ checkout, onNext }) 
 	if (contactView === "resetPassword") {
 		return (
 			<div className="space-y-8">
-				<ExpressCheckout />
 				<ResetPasswordForm
-					onSuccess={() => setContactView("main")}
+					onSuccess={async () => {
+						onAuthSessionPending();
+						await syncAuthSurfacesAfterSignIn(checkout.channel.slug, router);
+						setContactView("main");
+					}}
 					onBackToSignIn={() => {
 						const newQuery = createQueryString(searchParams, {
 							passwordResetToken: null,
@@ -411,11 +473,14 @@ export const InformationStep: FC<InformationStepProps> = ({ checkout, onNext }) 
 	if (contactView === "signIn") {
 		return (
 			<div className="space-y-8">
-				<ExpressCheckout />
 				<SignInForm
 					initialEmail={email}
 					channelSlug={checkout.channel.slug}
-					onSuccess={() => setContactView("main")}
+					onSuccess={async () => {
+						onAuthSessionPending();
+						await syncAuthSurfacesAfterSignIn(checkout.channel.slug, router);
+						setContactView("main");
+					}}
 					onGuestCheckout={() => setContactView("main")}
 				/>
 			</div>
@@ -424,19 +489,45 @@ export const InformationStep: FC<InformationStepProps> = ({ checkout, onNext }) 
 
 	// ----- Render: Main Form -----
 	const buttonText = isSubmitting
-		? "Saving..."
+		? t("saving")
 		: checkout.isShippingRequired
-			? "Continue to shipping"
-			: "Continue to payment";
+			? t("continueToShipping")
+			: t("continueToPayment");
 
 	return (
 		<form className="space-y-8" onSubmit={handleSubmit} noValidate>
-			<ExpressCheckout />
+			{isOrphaned ? (
+				<div className="space-y-3 rounded-lg border border-border bg-muted/40 p-4">
+					<p className="text-sm text-foreground">{tErrors("orphanedCartMessage")}</p>
+					<div className="flex flex-wrap gap-3">
+						<Button
+							type="button"
+							variant="outline-solid"
+							size="sm"
+							disabled={isRecovering}
+							onClick={() => void recoverAsGuest()}
+						>
+							{isRecovering ? t("preparingGuestCart") : t("continueAsGuest")}
+						</Button>
+						<Button type="button" variant="ghost" size="sm" onClick={() => setContactView("signIn")}>
+							{t("logIn")}
+						</Button>
+					</div>
+					{recoveryError ? <p className="text-sm text-destructive">{recoveryError}</p> : null}
+				</div>
+			) : null}
 
 			<ContactSection
 				isSignedIn={authenticated}
 				user={user}
-				onSignOut={() => {}} // User signs out via header
+				checkoutId={checkout.id}
+				isLoading={contactLoading}
+				onSignOut={() => {
+					setShowNewAddressForm(false);
+					setSelectedAddressId(null);
+					setIsEnteringNewAddress(true);
+					setEmail(checkout.email || "");
+				}}
 				onSignInClick={() => setContactView("signIn")}
 				email={email}
 				onEmailChange={handleEmailChange}
@@ -453,11 +544,12 @@ export const InformationStep: FC<InformationStepProps> = ({ checkout, onNext }) 
 
 			{checkout.isShippingRequired && (
 				<ShippingAddressSection
+					isLoading={isAuthTransitionLoading}
 					isAuthenticated={authenticated}
 					userAddresses={user?.addresses || []}
 					defaultAddressId={user?.defaultShippingAddress?.id}
 					selectedAddressId={selectedAddressId}
-					onSelectAddress={setSelectedAddressId}
+					onSelectAddress={handleSelectAddress}
 					showNewAddressForm={showNewAddressForm}
 					onShowNewAddressForm={handleShowNewAddressForm}
 					countryCode={countryCode}
@@ -482,12 +574,12 @@ export const InformationStep: FC<InformationStepProps> = ({ checkout, onNext }) 
 			</Button>
 
 			<MobileStickyAction
-				step={getStepNumber("INFO", checkout.isShippingRequired)}
+				step={infoStep}
 				isShippingRequired={checkout.isShippingRequired}
 				type="submit"
 				onAction={handleSubmit}
 				isLoading={isSubmitting}
-				loadingText="Saving..."
+				loadingText={t("saving")}
 			/>
 		</form>
 	);

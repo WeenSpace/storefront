@@ -1,25 +1,14 @@
-"use client";
+import { LinkWithChannel } from "@/ui/atoms/link-with-channel";
+import { Logo as SharedLogo } from "./shared/logo";
 
-import { usePathname } from "next/navigation";
-import { LinkWithChannel } from "../atoms/link-with-channel";
-
-const companyName = "WeTravel";
-
+/**
+ * Site logo with link to homepage.
+ * Always renders as a link - no client-side pathname detection needed.
+ */
 export const Logo = () => {
-	const pathname = usePathname();
-
-	if (pathname === "/") {
-		return (
-			<h1 className="flex items-center font-bold" aria-label="homepage">
-				{companyName}
-			</h1>
-		);
-	}
 	return (
-		<div className="flex items-center font-bold">
-			<LinkWithChannel aria-label="homepage" href="/">
-				{companyName}
-			</LinkWithChannel>
-		</div>
+		<LinkWithChannel href="/" className="flex shrink-0 items-center" aria-label="Homepage">
+			<SharedLogo className="h-7 w-auto" />
+		</LinkWithChannel>
 	);
 };

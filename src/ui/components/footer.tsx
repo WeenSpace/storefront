@@ -1,98 +1,91 @@
 import Link from "next/link";
-import Image from "next/image";
-import { LinkWithChannel } from "../atoms/link-with-channel";
-import { ChannelSelect } from "./channel-select";
-import { ChannelsListDocument, MenuGetBySlugDocument } from "@/gql/graphql";
-import { executePublicGraphQL } from "@/lib/graphql";
+import { StorefrontRegionPicker } from "./storefront-region-picker";
+import {
+	getStaticStorefrontChannelSlugs,
+	needsAsyncChannelDiscovery,
+	shouldFetchChannelMetadata,
+	toChannelSelectOptions,
+} from "@/config/channels";
+import { getCachedChannelsList } from "@/lib/channels/get-channels-data";
+import { getStorefrontChannelSlugs } from "@/lib/channel-slugs";
+import { getFooterMenuItems } from "@/lib/menus/get-menu-data";
+import { getStorefrontContent } from "@/lib/content/server";
+import { getStorefrontLocaleOptions } from "@/lib/locale-display";
+import { FooterMenuColumns } from "./footer-menu-columns";
+import { CopyrightText } from "./copyright-text";
+import { FooterAttribution } from "./footer-attribution";
+import { FooterPhotoCredits } from "./footer-photo-credits";
+import { brandConfig } from "@/config/brand";
+import { Logo } from "./shared/logo";
 
-export async function Footer({ channel }: { channel: string }) {
-	const footerLinksResult = await executePublicGraphQL(MenuGetBySlugDocument, {
-		variables: { slug: "footer", channel },
-		revalidate: 60 * 60 * 24,
-	});
-	const footerLinks = footerLinksResult.ok ? footerLinksResult.data : null;
+import { buildStorefrontPath } from "@/lib/storefront-path";
 
-	const channelsResult = process.env.SALEOR_APP_TOKEN
-		? await executePublicGraphQL(ChannelsListDocument, {
-				headers: {
-					Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
-				},
-			})
-		: null;
-	const channels = channelsResult?.ok ? channelsResult.data : null;
-	const currentYear = new Date().getFullYear();
+export async function Footer({ locale, channel }: { locale: string; channel: string }) {
+	const resolvedSlugs = needsAsyncChannelDiscovery()
+		? await getStorefrontChannelSlugs()
+		: getStaticStorefrontChannelSlugs();
+
+	const [menuItems, channels, content] = await Promise.all([
+		getFooterMenuItems(channel, locale),
+		shouldFetchChannelMetadata(resolvedSlugs) ? getCachedChannelsList() : Promise.resolve(null),
+		getStorefrontContent(channel, locale),
+	]);
+
+	const footerMenuItems = menuItems ?? [];
+	const localeOptions = getStorefrontLocaleOptions();
+	const selectorChannels =
+		channels?.channels && resolvedSlugs.length > 0
+			? toChannelSelectOptions(channels.channels, resolvedSlugs)
+			: [];
 
 	return (
-		<footer className="border-neutral-300 bg-neutral-50">
-			<div className="mx-auto max-w-7xl px-4 lg:px-8">
-				<div className="grid grid-cols-3 gap-8 py-16">
-					{footerLinks?.menu?.items?.map((item) => {
-						return (
-							<div key={item.id}>
-								<h3 className="text-sm font-semibold text-neutral-900">{item.name}</h3>
-								<ul className="mt-4 space-y-4 [&>li]:text-neutral-500">
-									{item.children?.map((child) => {
-										if (child.category) {
-											return (
-												<li key={child.id} className="text-sm">
-													<LinkWithChannel href={`/categories/${child.category.slug}`}>
-														{child.category.name}
-													</LinkWithChannel>
-												</li>
-											);
-										}
-										if (child.collection) {
-											return (
-												<li key={child.id} className="text-sm">
-													<LinkWithChannel href={`/collections/${child.collection.slug}`}>
-														{child.collection.name}
-													</LinkWithChannel>
-												</li>
-											);
-										}
-										if (child.page) {
-											return (
-												<li key={child.id} className="text-sm">
-													<LinkWithChannel href={`/pages/${child.page.slug}`}>
-														{child.page.title}
-													</LinkWithChannel>
-												</li>
-											);
-										}
-										if (child.url) {
-											return (
-												<li key={child.id} className="text-sm">
-													<LinkWithChannel href={child.url}>{child.name}</LinkWithChannel>
-												</li>
-											);
-										}
-										return null;
-									})}
-								</ul>
-							</div>
-						);
-					})}
+		<footer className="bg-foreground text-background">
+			{/* Extra bottom padding on mobile to account for sticky add-to-cart bar */}
+			<div className="container-content pb-24 pt-12 sm:pb-12 lg:py-16">
+				<div className="grid grid-cols-2 gap-8 md:grid-cols-4 lg:gap-12">
+					{/* Brand */}
+					<div className="col-span-2 md:col-span-1">
+						<Link href={buildStorefrontPath(locale, channel)} prefetch={false} className="mb-4 inline-block">
+							<Logo className="h-7 w-auto" inverted />
+						</Link>
+						<p className="mt-4 max-w-xs text-sm leading-relaxed text-inverse-subtle">{brandConfig.tagline}</p>
+					</div>
+
+					<FooterMenuColumns items={footerMenuItems} />
 				</div>
 
-				{channels?.channels && (
-					<div className="mb-4 text-neutral-500">
-						<label>
-							<span className="text-sm">Change currency:</span> <ChannelSelect channels={channels.channels} />
-						</label>
+				{/* Language + market — hidden when only one option on each axis */}
+				{(localeOptions.length > 1 || selectorChannels.length > 1) && (
+					<div className="mt-10">
+						<StorefrontRegionPicker locales={localeOptions} channels={selectorChannels} variant="inverted" />
 					</div>
 				)}
 
-				<div className="flex flex-col justify-between border-t border-neutral-200 py-10 sm:flex-row">
-					<p className="text-sm text-neutral-500">Copyright &copy; {currentYear} WeTravel, Ltd.</p>
-					<p className="flex gap-1 text-sm text-neutral-500">
-						Powered by{" "}
-						<Link target={"_blank"} href={"https://www.weenspace.com/"}>
-							WeenSpace
-						</Link>{" "}
-						<Link href={"https://github.com/WeenSpace/weenspace"} target={"_blank"} className={"opacity-30"}>
-							<Image alt="WeenSpace github repository" height={20} width={20} src={"/github-mark.svg"} />
+				{/* Bottom bar */}
+				<div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-inverse pt-8 sm:flex-row">
+					<div className="flex flex-col items-center gap-2 text-center sm:items-start sm:text-left">
+						<p className="text-xs text-inverse-muted">
+							<CopyrightText />
+						</p>
+						<FooterAttribution />
+						<FooterPhotoCredits credits={content.surfaces.homepage.photoCredits} />
+					</div>
+					<div className="flex items-center gap-6">
+						<Link
+							href="/privacy"
+							prefetch={false}
+							className="text-xs text-inverse-muted transition-colors hover:text-inverse-subtle"
+						>
+							Privacy Policy
 						</Link>
-					</p>
+						<Link
+							href="/terms"
+							prefetch={false}
+							className="text-xs text-inverse-muted transition-colors hover:text-inverse-subtle"
+						>
+							Terms of Service
+						</Link>
+					</div>
 				</div>
 			</div>
 		</footer>

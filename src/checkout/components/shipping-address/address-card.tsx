@@ -1,7 +1,8 @@
 "use client";
 
 import { type FC } from "react";
-import { MapPin, ChevronRight, Check } from "lucide-react";
+import { ChevronRight } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { type AddressFragment } from "@/checkout/graphql";
 import { cn } from "@/lib/utils";
 
@@ -20,6 +21,8 @@ export interface AddressCardProps {
 	compact?: boolean;
 	/** Additional class names */
 	className?: string;
+	/** Non-interactive display (e.g. "same as shipping" preview) */
+	disabled?: boolean;
 }
 
 /**
@@ -34,7 +37,11 @@ export const AddressCard: FC<AddressCardProps> = ({
 	onChangeClick,
 	compact = false,
 	className,
+	disabled = false,
 }) => {
+	const tAddresses = useTranslations("checkout.addresses");
+	const tCommon = useTranslations("account.common");
+
 	const handleChangeClick = (e: React.MouseEvent) => {
 		e.stopPropagation();
 		onChangeClick?.();
@@ -48,23 +55,13 @@ export const AddressCard: FC<AddressCardProps> = ({
 			onKeyDown={onClick ? (e) => e.key === "Enter" && onClick() : undefined}
 			className={cn(
 				"relative flex items-start gap-3 rounded-lg border p-4 transition-colors",
-				onClick && "hover:border-muted-foreground/50 cursor-pointer",
-				isSelected && "bg-muted/30 border-foreground",
+				onClick && !disabled && "cursor-pointer hover:border-muted-foreground/50",
+				isSelected && "border-foreground bg-muted/30",
 				!isSelected && "border-border",
+				disabled && "pointer-events-none bg-muted/20 opacity-70",
 				className,
 			)}
 		>
-			{/* Icon or check mark */}
-			<div
-				className={cn(
-					"flex h-8 w-8 shrink-0 items-center justify-center rounded-full",
-					isSelected ? "bg-foreground text-background" : "bg-muted",
-				)}
-			>
-				{isSelected ? <Check className="h-4 w-4" /> : <MapPin className="h-4 w-4 text-muted-foreground" />}
-			</div>
-
-			{/* Address content */}
 			<div className="min-w-0 flex-1">
 				<div className="flex flex-col gap-0.5 sm:flex-row sm:items-center sm:gap-2">
 					<span className="font-medium">
@@ -72,7 +69,7 @@ export const AddressCard: FC<AddressCardProps> = ({
 					</span>
 					{isDefault && (
 						<span className="w-fit rounded bg-muted px-1.5 py-0.5 text-xs font-medium text-muted-foreground">
-							Default
+							{tAddresses("defaultBadge")}
 						</span>
 					)}
 				</div>
@@ -103,7 +100,7 @@ export const AddressCard: FC<AddressCardProps> = ({
 					onClick={handleChangeClick}
 					className="flex shrink-0 items-center gap-1 rounded-md px-2 py-1 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
 				>
-					Change
+					{tCommon("change")}
 					<ChevronRight className="h-4 w-4" />
 				</button>
 			)}

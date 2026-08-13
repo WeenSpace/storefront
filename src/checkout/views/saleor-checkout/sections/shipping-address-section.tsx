@@ -1,6 +1,7 @@
 "use client";
 
 import { type FC } from "react";
+import { useTranslations } from "next-intl";
 import { Label } from "@/ui/components/ui/label";
 import { FormSelect, FieldError, AddressFields } from "../address-form-fields";
 import { HybridAddressSelector } from "@/checkout/components/shipping-address";
@@ -13,6 +14,9 @@ import type { AddressField } from "@/checkout/components/address-form/types";
 // =============================================================================
 
 interface ShippingAddressSectionProps {
+	/** True while session refresh is in flight after sign-in (avoids guest form flash) */
+	isLoading?: boolean;
+
 	// Auth state
 	isAuthenticated: boolean;
 	userAddresses: AddressFragment[];
@@ -44,6 +48,7 @@ interface ShippingAddressSectionProps {
 // =============================================================================
 
 export const ShippingAddressSection: FC<ShippingAddressSectionProps> = ({
+	isLoading = false,
 	isAuthenticated,
 	userAddresses,
 	defaultAddressId,
@@ -62,12 +67,22 @@ export const ShippingAddressSection: FC<ShippingAddressSectionProps> = ({
 	isRequiredField,
 	countryAreaChoices,
 }) => {
+	const t = useTranslations("checkout.shipping");
 	const hasAddresses = userAddresses.length > 0;
 	const showAddressList = isAuthenticated && hasAddresses && !showNewAddressForm;
 
+	if (isLoading) {
+		return (
+			<section className="space-y-4">
+				<div className="h-7 w-40 animate-pulse rounded bg-muted" />
+				<div className="h-24 animate-pulse rounded-lg bg-muted" />
+			</section>
+		);
+	}
+
 	return (
 		<section className="space-y-4">
-			<h2 className="text-xl font-semibold">Shipping address</h2>
+			<h2 className="text-xl font-semibold">{t("addressTitle")}</h2>
 
 			{showAddressList ? (
 				<>
@@ -76,9 +91,9 @@ export const ShippingAddressSection: FC<ShippingAddressSectionProps> = ({
 						selectedAddressId={selectedAddressId}
 						onSelectAddress={onSelectAddress}
 						defaultAddressId={defaultAddressId}
-						emptyMessage="You don't have any saved addresses yet. Please enter your shipping address below."
+						emptyMessage={t("emptySavedShipping")}
 						addressType="SHIPPING"
-						sheetTitle="Select shipping address"
+						sheetTitle={t("selectShippingAddressSheet")}
 						onAddNew={() => onShowNewAddressForm(true)}
 					/>
 					{errors.address && <FieldError error={errors.address} />}
@@ -92,21 +107,22 @@ export const ShippingAddressSection: FC<ShippingAddressSectionProps> = ({
 							onClick={() => onShowNewAddressForm(false)}
 							className="text-sm text-muted-foreground underline underline-offset-2 hover:text-foreground hover:no-underline"
 						>
-							← Back to saved addresses
+							{t("backToSavedAddresses")}
 						</button>
 					)}
 
 					{/* Country selector */}
 					<div className="space-y-2">
 						<Label htmlFor="country" className="text-sm font-medium">
-							Country/Region
+							{t("countryRegion")}
 						</Label>
 						<FormSelect
 							id="country"
+							name="countryCode"
 							value={countryCode}
 							onChange={onCountryChange}
-							placeholder="Select country"
-							autoComplete="country"
+							placeholder={t("selectCountry")}
+							autoComplete="shipping country"
 							options={availableCountries.map((code) => ({
 								value: code,
 								label: getCountryName(code),

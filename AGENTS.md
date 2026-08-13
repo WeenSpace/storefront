@@ -1,253 +1,65 @@
-# AI Agent Guidelines for Saleor Storefront
-
-This document provides essential context for AI agents. For detailed task-specific instructions, see the **Skills** below.
-
----
-
-## Quick Reference
-
-### Critical Commands
-
-```bash
-pnpm run generate           # After ANY src/graphql/*.graphql file change
-pnpm run generate:checkout  # After ANY src/checkout/graphql/*.graphql file change
-pnpm exec tsc --noEmit      # Type check
-pnpm run build              # Full build
-pnpm run dev                # Development server
-pnpm test                   # Run tests (watch mode)
-```
-
-### Skills Architecture
-
-Skills are organized in two locations:
-
-| Location                          | Purpose                           | Contents                                                                 |
-| --------------------------------- | --------------------------------- | ------------------------------------------------------------------------ |
-| `skills/saleor-paper-storefront/` | Project-specific domain knowledge | 13 rules covering caching, PDP, checkout, GraphQL, etc.                  |
-| `.agents/skills/`                 | Installed community skills        | Vercel React best practices, composition patterns, web design guidelines |
-
-### When to Use Which Skill
-
-**Project skill** ([`saleor-paper-storefront`](skills/saleor-paper-storefront/SKILL.md)) -- use for all Saleor storefront tasks:
-
-| Task                           | Rule                  |
-| ------------------------------ | --------------------- |
-| Modifying `.graphql` files     | `data-graphql`        |
-| Caching, ISR, webhooks         | `data-caching`        |
-| Product detail page (PDP)      | `product-pdp`         |
-| Variant/attribute selection    | `product-variants`    |
-| Product list filtering/sorting | `product-filtering`   |
-| Checkout flow debugging        | `checkout-management` |
-| Checkout UI components         | `checkout-components` |
-| Creating/styling components    | `ui-components`       |
-| Channels, fulfillment & stock  | `ui-channels`         |
-| SEO, metadata, OG images       | `seo-metadata`        |
-| Investigating Saleor API       | `dev-investigation`   |
-
-**Community skills** (`.agents/skills/`) -- use for generic best practices:
+# Saleor Paper — agent guide (always-on)
 
-| Task                           | Skill                         |
-| ------------------------------ | ----------------------------- |
-| Writing React components       | `vercel-react-best-practices` |
-| Component composition patterns | `vercel-composition-patterns` |
-| UI accessibility/UX review     | `web-design-guidelines`       |
+Paper is a Saleor headless storefront on **Next.js 16** (App Router, Server Components, Server Actions, Cache Components/PPR, BFF auth). This file is the **thin always-on router** — depth lives in bundled docs and skills, loaded on demand, not here.
 
----
+## How to get context (read in this order; stop when answered)
 
-## Architecture Overview
+1. **Next.js mechanics** (`use cache`, PPR, Suspense, routing, metadata, build/prerender errors) → read the **version-matched** docs bundled at `node_modules/next/dist/docs/`, and `nextjs.org/docs/messages/*` for actionable error fixes. This Next.js diverges from your training data — do not answer from memory.
+2. **Paper decisions** (how _this_ repo does Saleor commerce) → read `skills/saleor-paper-storefront/SKILL.md`, then the **one** `rules/<task>.md` whose frontmatter `description` matches the task. **Never** load the compiled `skills/saleor-paper-storefront/AGENTS.md` (≈75k tokens; quarantined in `.cursorignore`).
+3. **Saleor API shape** (fields, enums, nullability) → grep `src/gql/graphql.ts`, or use the `saleor-storefront` skill / `user-saleor-search` MCP. Don't restate the schema from memory.
 
-### Tech Stack
+## Precedence
 
-- **Framework**: Next.js 16 (App Router, Server Components, Server Actions)
-- **Language**: TypeScript (strict mode)
-- **Styling**: Tailwind CSS with CSS custom properties
-- **UI Components**: shadcn/ui pattern (Radix UI primitives)
-- **GraphQL**: Saleor API with `graphql-codegen`
-- **State**: React Context (cart), Zustand (checkout only)
+Paper rules are **authoritative on architecture**: Server Components by default, Server Actions for mutations, Cache Components/PPR boundaries, BFF auth, no client-side Saleor GraphQL. Use the external Vercel skills (`vercel-react-best-practices`, `vercel-composition-patterns`, `web-design-guidelines`) only for micro-patterns _inside_ an already-correct Paper structure. **On any conflict, Paper wins.**
 
-### Project Structure
+## Project skill index (read `SKILL.md`, then the one matching rule)
 
-```
-src/
-├── app/                    # Next.js App Router pages
-│   ├── [channel]/          # Channel-scoped routes
-│   │   └── (main)/         # Main layout (header/footer)
-│   ├── api/                # API routes (og/, revalidate/)
-│   └── checkout/           # Checkout flow
-├── graphql/                # GraphQL queries (run `pnpm run generate` after changes)
-├── gql/                    # AUTO-GENERATED - Do not edit (storefront types)
-├── ui/components/          # UI components
-│   ├── pdp/                # Product detail page
-│   ├── plp/                # Product listing page
-│   ├── cart/               # Cart drawer
-│   ├── nav/                # Navigation
-│   └── ui/                 # Base primitives (Button, Badge, etc.)
-├── lib/                    # Utilities
-│   ├── seo/                # SEO helpers
-│   └── search/             # Search abstraction
-└── styles/brand.css        # Design tokens (CSS variables)
-```
+- **Architecture:** `paper-architecture`
+- **Data:** `data-caching`, `data-graphql`, `data-auth-routes`, `data-storefront-content`, `data-storefront-content-saleor`, `data-storefront-content-attributes`
+- **Product:** `product-pdp`, `product-variants`, `product-high-cardinality`, `product-filtering`
+- **Checkout:** `paper-surfaces`, `checkout-design-principles`, `checkout-management`, `checkout-payment-gateways`, `checkout-components`
+- **Design:** `ui-design-system`, `design-quality-rubric`, `ui-sections`, `page-composition`, `design-from-image`, `design-verification`
+- **UI & channels:** `ui-components`, `ui-channels`, `ui-locale-routing`, `ui-i18n`
+- **SEO:** `seo-metadata`
+- **Dev:** `dev-local`, `dev-investigation`, `third-party-embeds`
+- **Fork upgrades:** `skills/saleor-paper-storefront/migrations/SKILL.md` (triggers: "upgrade Paper", "apply Paper migrations")
 
----
+External skills are pinned in `skills-lock.json`; run `pnpm skills:bootstrap` after clone (symlinks the project skill into `.agents/skills/` and restores external skills). Maintainers: `npx skills add …` then commit the lockfile. Full setup detail: `skills/saleor-paper-storefront/README.md`.
 
-## Environment Variables
+## Critical commands
 
-```env
-# Required
-NEXT_PUBLIC_SALEOR_API_URL=https://your-instance.saleor.cloud/graphql/
+- **`pnpm run verify`** — the single "am I done?" gate (docs drift + design-tokens + typecheck + lint + tests, fail-fast). Iterate until green before declaring done. `pnpm run verify:quick` = design-tokens + typecheck for a fast styling loop.
+- `pnpm generate` / `pnpm generate:checkout` — **required** after editing `src/graphql/*.graphql` / `src/checkout/graphql/*.graphql` (`verify`/`typecheck` auto-run this via prehook).
+- `pnpm run build` — only gate that catches PPR dynamic-hole regressions; run on PPR-sensitive layout changes.
+- After editing `skills/.../rules/*.md`, run `pnpm run docs:compile` (or `verify` will flag the drift).
+- `pnpm run doctor` — verify the agent setup is actually healthy (project skill linked, external skills installed, docs in sync, compiled doc quarantined). Run it if a session seems off; `pnpm doctor --env` also checks required env.
+- A `stop` hook (`.cursor/hooks.json`) runs `lint:design-tokens` when you finish a turn and nudges you if banned color literals slipped in — fix them before declaring done. Fail-open; disable by removing the entry.
+- **Opt-in workflow skills** (PPR/build & cache-tightening work): `next-dev-loop`, `next-cache-components-optimizer` — see `skills/saleor-paper-storefront/README.md` for install + preconditions. Not installed by `skills:bootstrap`.
 
-# Optional
-NEXT_PUBLIC_STOREFRONT_URL=   # For canonical URLs and OG images
-REVALIDATE_SECRET=            # Manual cache invalidation
-SALEOR_WEBHOOK_SECRET=        # Webhook HMAC verification
-SALEOR_APP_TOKEN=             # For channels query (server-side only)
+## Non-negotiable rules
 
-# Rate Limiting (for build-time API calls)
-SALEOR_MAX_CONCURRENT_REQUESTS=3   # Max parallel requests to Saleor (default: 3)
-SALEOR_MIN_REQUEST_DELAY_MS=200    # Min delay between requests in ms (default: 200)
-SALEOR_REQUEST_TIMEOUT_MS=15000    # Request timeout in ms (default: 15000)
-NEXT_BUILD_RETRIES=1               # GraphQL retries during build (default: 3, use 1 for flaky APIs)
+1. Run the matching `generate` after any `.graphql` change (never edit `src/gql/` or `src/checkout/graphql/generated/`).
+2. Server Components by default; `"use client"` only for state, effects, event handlers, or browser APIs.
+3. Style with `brand.css` tokens (`bg-background`, `text-foreground`) — never hardcoded colors.
+4. Handle nullable Saleor fields intentionally — optional-chain for display, guard/throw when null is a real bug.
+5. Import via the `@/` alias. The storefront must not import `@/checkout/*` — cross-surface URLs go through `@paper/session-bridge`.
 
-# Channel Configuration (required)
-NEXT_PUBLIC_DEFAULT_CHANNEL=       # Your Saleor channel slug (e.g., "default-channel")
+## Key locations
 
-# Multi-channel builds (optional) - discovers additional channels at build time
-# SALEOR_APP_TOKEN=                # If set, fetches all active channels from API
+| Purpose                                 | Path                                                                               |
+| --------------------------------------- | ---------------------------------------------------------------------------------- |
+| Storefront GraphQL → generated          | `src/graphql/*.graphql` → `src/gql/` (generated, do not edit)                      |
+| Checkout GraphQL → generated            | `src/checkout/graphql/*.graphql` → `src/checkout/graphql/generated/` (do not edit) |
+| UI components / sections / tokens       | `src/ui/components/` · `src/ui/sections/` · `src/styles/brand.css`                 |
+| Cache manifest (single source of truth) | `src/lib/cache-manifest.ts`                                                        |
+| SEO helpers                             | `src/lib/seo/`                                                                     |
 
-# Note: Product pages are NOT pre-rendered (all on-demand via ISR) due to Cache Components limitations
-```
+<!-- BEGIN:nextjs-agent-rules -->
 
----
+# This is NOT the Next.js you know
 
-## Common Gotchas
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
 
-### 1. GraphQL Types Not Found
+**Keep this block, including in commits.** It is part of the project's agent setup, maintained by `next dev` for every agent that works here. If it appears as an uncommitted change, that is intentional — commit it as-is. Do not remove it to clean up a diff; it will be regenerated.
 
-```bash
-pnpm run generate           # Regenerate types after src/graphql/*.graphql changes
-pnpm run generate:checkout  # Regenerate types after src/checkout/graphql/*.graphql changes
-```
-
-### 2. Nullable Fields
-
-Saleor's GraphQL schema has many nullable fields. Check the generated types and handle nulls intentionally -- optional chaining with a fallback for display values, early returns or errors when null indicates a real problem:
-
-```typescript
-// Display value with fallback
-const name = product.category?.name ?? "Uncategorized";
-
-// Guard when null means something is wrong
-if (!product.defaultVariant) {
-	throw new Error(`Product ${product.slug} has no default variant`);
-}
-```
-
-### 3. Permission Errors
-
-Some Saleor GraphQL fields require admin permissions. If you see `"To access this path, you need one of the following permissions: MANAGE_..."`, the field isn't available to anonymous/customer tokens. Either remove it from the storefront query or fetch it server-side with `SALEOR_APP_TOKEN`.
-
-### 4. Server vs Client Components
-
-Default to Server Components. Only use `"use client"` when you need:
-
-- `useState`, `useEffect`, event handlers
-- Browser APIs
-
-### 5. GraphQL Auth Defaults
-
-Two explicit GraphQL helpers ensure you always know what data access level you're using:
-
-```typescript
-import { executePublicGraphQL, executeAuthenticatedGraphQL } from "@/lib/graphql";
-
-// Public queries (menus, products, categories) - no auth, only public data
-await executePublicGraphQL(MenuDocument, {
-	variables: { slug: "footer" },
-});
-
-// User queries - requires session cookies
-try {
-	const { me } = await executeAuthenticatedGraphQL(CurrentUserDocument, { cache: "no-cache" });
-} catch {
-	// Expired token = not logged in
-}
-
-// Checkout/cart mutations - requires session cookies
-await executeAuthenticatedGraphQL(CheckoutAddLineDocument, {
-	variables: { id: checkoutId, productVariantId: variantId },
-	cache: "no-cache",
-});
-```
-
-### 6. State-to-State Sync in Effects
-
-Don't derive state in effects -- compute inline or in the handler:
-
-```tsx
-// Bad - extra render, hard to trace
-useEffect(() => {
-	setDerivedValue(computeFrom(sourceValue));
-}, [sourceValue]);
-
-// Good - compute inline
-const derivedValue = computeFrom(sourceValue);
-```
-
-### 7. Child Updating Parent State via Effect
-
-Don't use effects to push state up to a parent on mount:
-
-```tsx
-// Bad - child uses effect to update parent
-useEffect(() => {
-	onLayoutChange(true);
-}, []);
-
-// Good - parent derives state from what it knows, or callback on user action
-```
-
----
-
-## Caching Strategy
-
-| Layer            | TTL          | Purpose                |
-| ---------------- | ------------ | ---------------------- |
-| ISR              | 5 min        | Product/category pages |
-| GraphQL          | 5 min - 1 hr | API responses          |
-| Static Assets    | 1 year       | JS/CSS bundles         |
-| Category Lookups | 1 hour       | Slug → ID resolution   |
-
-### On-Demand Revalidation
-
-```bash
-curl "/api/revalidate?secret=xxx&path=/channel/products/slug"
-```
-
-Or configure Saleor webhooks pointing to `/api/revalidate`.
-
----
-
-## Skills Reference
-
-### Project Skill
-
-**[saleor-paper-storefront](skills/saleor-paper-storefront/SKILL.md)** -- 13 rules covering all Saleor storefront patterns. Follows the [agentskills.io](https://agentskills.io) specification.
-
-Rules by category:
-
-1. **Data Layer** (CRITICAL): `data-caching`, `data-graphql`
-2. **Product Pages** (HIGH): `product-pdp`, `product-variants`, `product-filtering`
-3. **Checkout Flow** (HIGH): `checkout-management`, `checkout-components`
-4. **UI & Channels** (MEDIUM): `ui-components`, `ui-channels`
-5. **SEO** (MEDIUM): `seo-metadata`
-6. **Development** (MEDIUM): `dev-investigation`
-
-Full compiled document: [`skills/saleor-paper-storefront/AGENTS.md`](skills/saleor-paper-storefront/AGENTS.md)
-
-### Installed Community Skills
-
-Installed via `npx skills add vercel-labs/agent-skills`:
-
-1. **[vercel-react-best-practices](.agents/skills/vercel-react-best-practices/SKILL.md)** - 57 React/Next.js performance rules
-2. **[vercel-composition-patterns](.agents/skills/vercel-composition-patterns/SKILL.md)** - React composition patterns (compound components, state management)
-3. **[web-design-guidelines](.agents/skills/web-design-guidelines/SKILL.md)** - 100+ accessibility, UX, and performance rules
+<!-- END:nextjs-agent-rules -->

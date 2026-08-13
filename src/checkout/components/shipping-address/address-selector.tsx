@@ -1,12 +1,14 @@
 "use client";
 
 import { type FC, useState, useCallback } from "react";
-import {
-	type AddressFragment,
-	type AddressTypeEnum,
-	useUserSetDefaultAddressMutation,
-} from "@/checkout/graphql";
+import { useTranslations } from "next-intl";
+
+import { setUserDefaultAddress } from "@/app/(checkout)/actions";
+import { useRefreshCheckoutRsc } from "@/checkout/hooks/use-refresh-checkout-rsc";
+import { type AddressFragment, type AddressTypeEnum } from "@/checkout/graphql";
+import { Plus } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Button } from "@/ui/components/ui/button";
 import { Checkbox } from "@/ui/components/ui/checkbox";
 import { Label } from "@/ui/components/ui/label";
 import { LoadingSpinner } from "@/checkout/ui-kit/loading-spinner";
@@ -32,6 +34,8 @@ export interface AddressSelectorProps {
 	onEdit?: (id: string) => void;
 	/** Whether to show the "set as default" checkbox (default: true) */
 	showSetAsDefault?: boolean;
+	/** Called when "Add new address" is clicked */
+	onAddNew?: () => void;
 }
 
 /** Radio-button list for selecting from saved addresses. */
@@ -46,8 +50,12 @@ export const AddressSelector: FC<AddressSelectorProps> = ({
 	onDefaultChange,
 	onEdit,
 	showSetAsDefault = true,
+	onAddNew,
 }) => {
-	const [, setDefaultAddress] = useUserSetDefaultAddressMutation();
+	const t = useTranslations("checkout.addresses");
+	const tAccount = useTranslations("account");
+	const resolvedEmptyMessage = emptyMessage ?? t("emptySaved");
+	const refreshCheckoutRsc = useRefreshCheckoutRsc();
 	const [isSettingDefault, setIsSettingDefault] = useState(false);
 	const [setAsDefault, setSetAsDefault] = useState(false);
 
@@ -68,17 +76,13 @@ export const AddressSelector: FC<AddressSelectorProps> = ({
 			if (checked && selectedAddressId) {
 				setIsSettingDefault(true);
 				try {
-					const result = await setDefaultAddress({
-						id: selectedAddressId,
-						type: addressType,
-					});
+					const result = await setUserDefaultAddress(selectedAddressId, addressType);
 
-					if (result.data?.accountSetDefaultAddress?.errors?.length) {
-						// If there's an error, uncheck the box
+					if (!result.ok) {
 						setSetAsDefault(false);
 					} else {
-						// Notify parent of the change
 						onDefaultChange?.(selectedAddressId);
+						refreshCheckoutRsc();
 					}
 				} catch {
 					setSetAsDefault(false);
@@ -87,11 +91,11 @@ export const AddressSelector: FC<AddressSelectorProps> = ({
 				}
 			}
 		},
-		[selectedAddressId, setDefaultAddress, addressType, onDefaultChange],
+		[addressType, onDefaultChange, refreshCheckoutRsc, selectedAddressId],
 	);
 
 	if (addresses.length === 0) {
-		return <p className="text-sm text-muted-foreground">{emptyMessage}</p>;
+		return <p className="text-sm text-muted-foreground">{resolvedEmptyMessage}</p>;
 	}
 
 	const shouldShowSetAsDefault =
@@ -109,7 +113,7 @@ export const AddressSelector: FC<AddressSelectorProps> = ({
 						className={cn(
 							"flex cursor-pointer items-start gap-4 rounded-lg border p-4 transition-colors",
 							"focus-within:ring-2 focus-within:ring-foreground focus-within:ring-offset-2",
-							isSelected ? "bg-muted/30 border-foreground" : "hover:border-muted-foreground/50 border-border",
+							isSelected ? "border-foreground bg-muted/30" : "border-border hover:border-muted-foreground/50",
 						)}
 					>
 						<input
@@ -135,7 +139,7 @@ export const AddressSelector: FC<AddressSelectorProps> = ({
 								</span>
 								{isDefault && (
 									<span className="rounded bg-muted px-2 py-0.5 text-xs font-medium text-muted-foreground">
-										Default
+										{t("defaultBadge")}
 									</span>
 								)}
 							</div>
@@ -160,7 +164,7 @@ export const AddressSelector: FC<AddressSelectorProps> = ({
 								}}
 								className="shrink-0 rounded px-2 py-1 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
 							>
-								Edit
+								{tAccount("common.edit")}
 							</button>
 						)}
 					</label>
@@ -181,9 +185,16 @@ export const AddressSelector: FC<AddressSelectorProps> = ({
 						className="flex cursor-pointer items-center gap-2 text-sm text-muted-foreground"
 					>
 						{isSettingDefault && <LoadingSpinner />}
-						Set as my default {addressType === "SHIPPING" ? "shipping" : "billing"} address
+						{addressType === "SHIPPING" ? t("setDefaultShipping") : t("setDefaultBilling")}
 					</Label>
 				</div>
+			)}
+
+			{onAddNew && (
+				<Button type="button" variant="outline-solid" className="w-full" onClick={onAddNew}>
+					<Plus className="h-4 w-4" />
+					{tAccount("addresses.addNewAddress")}
+				</Button>
 			)}
 		</div>
 	);

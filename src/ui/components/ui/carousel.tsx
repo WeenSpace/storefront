@@ -130,9 +130,10 @@ const Carousel = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivEl
 				<div
 					ref={ref}
 					onKeyDownCapture={handleKeyDown}
-					className={cn("relative", className)}
+					className={cn("relative select-none", className)}
 					role="region"
 					aria-roledescription="carousel"
+					onDragStart={(e) => e.preventDefault()}
 					{...props}
 				>
 					{children}
@@ -143,12 +144,29 @@ const Carousel = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivEl
 );
 Carousel.displayName = "Carousel";
 
-const CarouselContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
-	({ className, ...props }, ref) => {
+type CarouselContentProps = React.HTMLAttributes<HTMLDivElement> & {
+	viewportClassName?: string;
+};
+
+const CarouselContent = React.forwardRef<HTMLDivElement, CarouselContentProps>(
+	({ className, viewportClassName, ...props }, ref) => {
 		const { carouselRef, orientation } = useCarousel();
 
 		return (
-			<div ref={carouselRef} className="overflow-hidden">
+			<div
+				ref={carouselRef}
+				className={cn(
+					"select-none overflow-hidden",
+					// Embla 8 doesn't set touch-action; without this, iOS Safari arbitrates
+					// the gesture itself and cancels Embla's pointer drag (swipe works in
+					// Chrome's device toolbar because that uses mouse pointer events, which
+					// ignore touch-action). pan-y/pan-x lets the page scroll on the cross axis
+					// while Embla owns the drag axis.
+					orientation === "horizontal" ? "touch-pan-y" : "touch-pan-x",
+					viewportClassName,
+				)}
+				onDragStart={(e) => e.preventDefault()}
+			>
 				<div
 					ref={ref}
 					className={cn("flex", orientation === "horizontal" ? "-ml-4" : "-mt-4 flex-col", className)}
@@ -170,7 +188,7 @@ const CarouselItem = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLD
 				role="group"
 				aria-roledescription="slide"
 				className={cn(
-					"min-w-0 shrink-0 grow-0 basis-full",
+					"min-w-0 shrink-0 grow-0 basis-full select-none",
 					orientation === "horizontal" ? "pl-4" : "pt-4",
 					className,
 				)}
@@ -237,22 +255,28 @@ const CarouselNext = React.forwardRef<HTMLButtonElement, React.ComponentProps<ty
 );
 CarouselNext.displayName = "CarouselNext";
 
-const CarouselDots = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
-	({ className, ...props }, ref) => {
-		const { selectedIndex, scrollTo, slideCount } = useCarousel();
+type CarouselDotsProps = React.HTMLAttributes<HTMLDivElement> & {
+	/** Known slide count — avoids a layout shift before Embla reports slideCount */
+	count?: number;
+};
 
-		if (slideCount <= 1) return null;
+const CarouselDots = React.forwardRef<HTMLDivElement, CarouselDotsProps>(
+	({ className, count, ...props }, ref) => {
+		const { selectedIndex, scrollTo, slideCount } = useCarousel();
+		const dotCount = count ?? slideCount;
+
+		if (dotCount <= 1) return null;
 
 		return (
 			<div ref={ref} className={cn("flex justify-center gap-1.5", className)} {...props}>
-				{Array.from({ length: slideCount }).map((_, index) => (
+				{Array.from({ length: dotCount }).map((_, index) => (
 					<button
 						key={index}
 						type="button"
 						onClick={() => scrollTo(index)}
 						className={cn(
 							"h-2 w-2 rounded-full transition-colors",
-							selectedIndex === index ? "bg-foreground" : "hover:bg-muted-foreground/50 bg-border",
+							selectedIndex === index ? "bg-foreground" : "bg-border hover:bg-muted-foreground/50",
 						)}
 						aria-label={`Go to slide ${index + 1}`}
 						aria-current={selectedIndex === index ? "true" : undefined}

@@ -11,6 +11,8 @@
  * - Filter bar (color filter options)
  */
 
+import { isPlpColorFacetSlug, isPlpSizeFacetSlug } from "@/config/facets";
+
 /**
  * Common color name to hex mappings.
  * Used as fallback when Saleor attributes don't have hex values.
@@ -81,6 +83,17 @@ export function normalizeHex(value: string): string {
 	return `#${value}`;
 }
 
+export type SaleorAttributeValue = {
+	name?: string | null;
+	value?: string | null;
+	file?: { url?: string | null } | null;
+};
+
+export type SwatchData = {
+	colorHex?: string;
+	imageUrl?: string;
+};
+
 /**
  * Get hex color from a Saleor attribute value.
  *
@@ -92,7 +105,7 @@ export function normalizeHex(value: string): string {
  * @param value - The attribute value from Saleor
  * @returns Hex color string (with #) or undefined
  */
-export function getColorHex(value: { name?: string | null; value?: string | null }): string | undefined {
+export function getColorHex(value: SaleorAttributeValue): string | undefined {
 	// Try hex value first (from Swatch attributes)
 	if (value.value && isValidHex(value.value)) {
 		return normalizeHex(value.value);
@@ -108,17 +121,47 @@ export function getColorHex(value: { name?: string | null; value?: string | null
 }
 
 /**
+ * Extract swatch display data from a Saleor attribute value.
+ * Swatch attributes may provide a hex color, an image file, or both.
+ */
+export function getSwatchData(value: SaleorAttributeValue): SwatchData {
+	const colorHex = getColorHex(value);
+	const imageUrl = value.file?.url ?? undefined;
+
+	return {
+		...(colorHex ? { colorHex } : {}),
+		...(imageUrl ? { imageUrl } : {}),
+	};
+}
+
+/** Saleor attribute input type for swatch pickers. */
+export function isSwatchInputType(inputType?: string | null): boolean {
+	return inputType === "SWATCH";
+}
+
+/**
+ * Whether an attribute should render as visual swatches in variant selectors.
+ */
+export function shouldRenderAsSwatch(
+	inputType: string | null | undefined,
+	slug: string,
+	swatch: SwatchData,
+): boolean {
+	return isSwatchInputType(inputType) || isColorAttribute(slug) || !!swatch.colorHex || !!swatch.imageUrl;
+}
+
+/**
  * Check if an attribute slug is a color attribute.
+ * Alias list lives in {@link PLP_FACETS} (`src/config/facets.ts`).
  */
 export function isColorAttribute(slug: string): boolean {
-	const normalizedSlug = slug.toLowerCase();
-	return normalizedSlug === "color" || normalizedSlug === "colour";
+	return isPlpColorFacetSlug(slug);
 }
 
 /**
  * Check if an attribute slug is a size attribute.
+ * Alias list lives in {@link PLP_FACETS} (`src/config/facets.ts`).
  */
 export function isSizeAttribute(slug: string): boolean {
-	const normalizedSlug = slug.toLowerCase();
-	return normalizedSlug === "size" || normalizedSlug === "shoe-size" || normalizedSlug === "clothing-size";
+	return isPlpSizeFacetSlug(slug);
 }

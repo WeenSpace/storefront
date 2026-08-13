@@ -1,9 +1,21 @@
 /** @type {import('next').NextConfig} */
+import createNextIntlPlugin from "next-intl/plugin";
+import { paperCacheLifeProfiles } from "./src/lib/cache-life-profiles.data.mjs";
+
+/** Hostnames for mobile/tunnel dev (ngrok, LAN). See ALLOWED_DEV_ORIGINS in .env.example */
+const allowedDevOrigins = process.env.ALLOWED_DEV_ORIGINS?.split(",")
+	.map((origin) => origin.trim())
+	.filter(Boolean);
+
 const config = {
+	...(allowedDevOrigins?.length ? { allowedDevOrigins } : {}),
 	// Cache Components (Partial Prerendering)
 	// Enables mixing static, cached, and dynamic content in a single route.
 	// See: https://nextjs.org/docs/app/getting-started/cache-components
 	cacheComponents: true,
+
+	// Named cacheLife tiers for `"use cache"` — see src/lib/cache-life-profiles.ts
+	cacheLife: paperCacheLifeProfiles,
 
 	// Optimize barrel file imports for better bundle size and cold start performance
 	// See: https://vercel.com/blog/how-we-optimized-package-imports-in-next-js
@@ -13,6 +25,8 @@ const config = {
 		// (max 3 concurrent requests + 200ms delay between requests)
 	},
 	images: {
+		// WebP only: AVIF cold-encodes add ~500ms+ to first /_next/image hit on Vercel (hurts LCP).
+		formats: ["image/webp"],
 		remotePatterns: [
 			{
 				// Saleor Cloud CDN
@@ -92,4 +106,9 @@ const config = {
 	},
 };
 
-export default config;
+// next-intl powers code-owned UI/functional strings (messages/*.json). It does NOT own
+// routing — our locale lives in the `[locale]` URL segment (ADR 0001). The request config
+// resolves the locale we pass explicitly; see src/i18n/request.ts.
+const withNextIntl = createNextIntlPlugin();
+
+export default withNextIntl(config);

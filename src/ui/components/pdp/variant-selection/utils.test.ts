@@ -1,10 +1,13 @@
 import { describe, it, expect } from "vitest";
 import {
 	groupVariantsByAttributes,
+	getInteractiveAttributeGroups,
+	getImplicitSelections,
 	findMatchingVariant,
 	getAdjustedSelections,
 	getOptionsForAttribute,
 	getUnavailableAttributeInfo,
+	type SaleorVariant,
 } from "./utils";
 import {
 	tshirtVariants,
@@ -14,6 +17,7 @@ import {
 	singleAttributeVariants,
 	nameOnlyVariants,
 	nameOnlyDifferentPrices,
+	audiobookVariants,
 } from "./__fixtures__/variants";
 
 // =============================================================================
@@ -60,6 +64,34 @@ describe("findMatchingVariant", () => {
 		const result = findMatchingVariant(singleAttributeVariants, { color: "navy" });
 		expect(result).toBe("single-navy");
 	});
+
+	it("auto-applies single-option attributes when resolving a variant", () => {
+		const variants = [
+			{
+				id: "hoodie-m",
+				name: "Hoodie / M",
+				quantityAvailable: 5,
+				selectionAttributes: [
+					{ attribute: { slug: "brand", name: "Brand" }, values: [{ name: "Saleor" }] },
+					{ attribute: { slug: "size", name: "Size" }, values: [{ name: "M" }] },
+				],
+			},
+			{
+				id: "hoodie-l",
+				name: "Hoodie / L",
+				quantityAvailable: 5,
+				selectionAttributes: [
+					{ attribute: { slug: "brand", name: "Brand" }, values: [{ name: "Saleor" }] },
+					{ attribute: { slug: "size", name: "Size" }, values: [{ name: "L" }] },
+				],
+			},
+		];
+		const groups = groupVariantsByAttributes(variants);
+
+		expect(getInteractiveAttributeGroups(groups).map((g) => g.slug)).toEqual(["size"]);
+		expect(getImplicitSelections(groups)).toEqual({ brand: "saleor" });
+		expect(findMatchingVariant(variants, { size: "m" }, groups)).toBe("hoodie-m");
+	});
 });
 
 // =============================================================================
@@ -99,6 +131,24 @@ describe("getAdjustedSelections", () => {
 		// Blue comes in S, M, L - switching sizes should preserve color
 		const result = getAdjustedSelections(sparseVariants, { color: "blue", size: "s" }, "size", "m");
 		expect(result).toEqual({ color: "blue", size: "m" });
+	});
+
+	it("keeps partial selections across attribute groups when compatible", () => {
+		// 3-attribute product: picking medium then audio quality must not wipe medium
+		const afterMedium = getAdjustedSelections(audiobookVariants, {}, "medium", "mp3");
+		expect(afterMedium).toEqual({ medium: "mp3" });
+
+		const afterQuality = getAdjustedSelections(audiobookVariants, afterMedium, "audio-quality", "standard");
+		expect(afterQuality).toEqual({ medium: "mp3", "audio-quality": "standard" });
+	});
+
+	it("resolves a full audiobook selection to the matching variant", () => {
+		const selections = {
+			medium: "mp3",
+			"audio-quality": "standard",
+			"instant-delivery": "instant-delivery:-yes",
+		};
+		expect(findMatchingVariant(audiobookVariants, selections)).toBe("audiobook-mp3");
 	});
 });
 
@@ -157,11 +207,136 @@ describe("groupVariantsByAttributes", () => {
 		expect(sOption?.hasDiscount).toBe(true);
 	});
 
-	it("sorts color attributes first, then size", () => {
+	it("preserves product-type attribute order (first-seen on variants), not fashion swatch-first", () => {
 		const groups = groupVariantsByAttributes(tshirtVariants);
 
+		// tshirt fixtures list color before size on each variant
 		expect(groups[0]?.slug).toBe("color");
 		expect(groups[1]?.slug).toBe("size");
+	});
+
+	it("does not reorder size ahead of color when the API lists size first", () => {
+		const sizeThenColor: SaleorVariant[] = [
+			{
+				id: "shoe-1",
+				name: "42 / Black",
+				quantityAvailable: 1,
+				selectionAttributes: [
+					{ attribute: { slug: "shoe-size", name: "Shoe size" }, values: [{ name: "42" }] },
+					{ attribute: { slug: "color", name: "Color" }, values: [{ name: "Black", value: "#000" }] },
+				],
+			},
+			{
+				id: "shoe-2",
+				name: "39 / White",
+				quantityAvailable: 1,
+				selectionAttributes: [
+					{ attribute: { slug: "shoe-size", name: "Shoe size" }, values: [{ name: "39" }] },
+					{ attribute: { slug: "color", name: "Color" }, values: [{ name: "White", value: "#fff" }] },
+				],
+			},
+		];
+
+		const groups = groupVariantsByAttributes(sizeThenColor);
+		expect(groups.map((g) => g.slug)).toEqual(["shoe-size", "color"]);
+		expect(groups[0]?.options.map((o) => o.name)).toEqual(["39", "42"]);
+	});
+
+	it("naturally sorts numeric option values (Row 10 after Row 2)", () => {
+		const rowSeat: SaleorVariant[] = [
+			{
+				id: "a",
+				name: "Row 10",
+				quantityAvailable: 1,
+				selectionAttributes: [{ attribute: { slug: "row", name: "Row" }, values: [{ name: "10" }] }],
+			},
+			{
+				id: "b",
+				name: "Row 2",
+				quantityAvailable: 1,
+				selectionAttributes: [{ attribute: { slug: "row", name: "Row" }, values: [{ name: "2" }] }],
+			},
+			{
+				id: "c",
+				name: "Row 1",
+				quantityAvailable: 1,
+				selectionAttributes: [{ attribute: { slug: "row", name: "Row" }, values: [{ name: "1" }] }],
+			},
+		];
+
+		const groups = groupVariantsByAttributes(rowSeat);
+		expect(groups[0]?.options.map((o) => o.name)).toEqual(["1", "2", "10"]);
+	});
+
+	it("extracts hex from SWATCH color attributes", () => {
+		const swatchVariants = [
+			{
+				id: "sneaker-39",
+				name: "Sky blue / 39",
+				quantityAvailable: 5,
+				selectionAttributes: [
+					{
+						attribute: { slug: "color", name: "Color", inputType: "SWATCH" },
+						values: [{ name: "Sky blue", value: "#87CEEB" }],
+					},
+				],
+			},
+		];
+
+		const groups = groupVariantsByAttributes(swatchVariants);
+		const colorGroup = groups.find((g) => g.slug === "color");
+
+		expect(colorGroup?.options[0]?.colorHex).toBe("#87CEEB");
+	});
+
+	it("extracts image URL from SWATCH attributes (non-color slug)", () => {
+		const swatchVariants = [
+			{
+				id: "audio-standard",
+				name: "MP3 / Standard",
+				quantityAvailable: 10,
+				selectionAttributes: [
+					{
+						attribute: { slug: "audio-quality", name: "Audio quality", inputType: "SWATCH" },
+						values: [
+							{
+								name: "Standard",
+								value: "",
+								file: { url: "https://example.com/waveform.svg" },
+							},
+						],
+					},
+				],
+			},
+			{
+				id: "audio-hires",
+				name: "MP3 / Hi-Res",
+				quantityAvailable: 10,
+				selectionAttributes: [
+					{
+						attribute: { slug: "audio-quality", name: "Audio quality", inputType: "SWATCH" },
+						values: [
+							{
+								name: "Hi-Res 24-bit",
+								value: "",
+								file: { url: "https://example.com/hires.svg" },
+							},
+						],
+					},
+				],
+			},
+		];
+
+		const groups = groupVariantsByAttributes(swatchVariants);
+		const qualityGroup = groups.find((g) => g.slug === "audio-quality");
+
+		expect(qualityGroup?.options).toHaveLength(2);
+		expect(qualityGroup?.options.find((o) => o.name === "Standard")?.swatchImageUrl).toBe(
+			"https://example.com/waveform.svg",
+		);
+		expect(qualityGroup?.options.find((o) => o.name === "Hi-Res 24-bit")?.swatchImageUrl).toBe(
+			"https://example.com/hires.svg",
+		);
 	});
 });
 
@@ -201,6 +376,23 @@ describe("getOptionsForAttribute", () => {
 		sizeOptions.forEach((opt) => {
 			expect(opt.existsWithCurrentSelection).toBe(true);
 		});
+	});
+
+	it("uses contextual discounts based on other selections", () => {
+		const groups = groupVariantsByAttributes(discountedVariants);
+
+		// Without context, Purple shows max discount across S (20%) and M (0%)
+		const colorOptions = getOptionsForAttribute(discountedVariants, groups, {}, "color");
+		expect(colorOptions.find((o) => o.name === "Purple")?.discountPercent).toBe(20);
+
+		// With size M selected, Purple has no discount on that variant
+		const colorWithSizeM = getOptionsForAttribute(discountedVariants, groups, { size: "m" }, "color");
+		expect(colorWithSizeM.find((o) => o.name === "Purple")?.discountPercent).toBeUndefined();
+
+		// With color Purple selected, only size S is discounted (20%), not Orange's 100%
+		const sizeWithPurple = getOptionsForAttribute(discountedVariants, groups, { color: "purple" }, "size");
+		expect(sizeWithPurple.find((o) => o.name === "S")?.discountPercent).toBe(20);
+		expect(sizeWithPurple.find((o) => o.name === "M")?.discountPercent).toBeUndefined();
 	});
 });
 
@@ -333,5 +525,30 @@ describe("edge cases", () => {
 		// Red should be available
 		const redOption = groups[0]?.options.find((o) => o.name === "Red");
 		expect(redOption?.available).toBe(true);
+	});
+});
+
+describe("attribute value translations", () => {
+	it("uses translated labels while keeping stable selection ids", () => {
+		const groups = groupVariantsByAttributes([
+			{
+				id: "v1",
+				name: "Black S",
+				quantityAvailable: 1,
+				selectionAttributes: [
+					{
+						attribute: {
+							slug: "color",
+							name: "Color",
+							translation: { name: "Kolor" },
+						},
+						values: [{ name: "black", value: "black", translation: { name: "czarny" } }],
+					},
+				],
+			},
+		]);
+
+		expect(groups[0]?.name).toBe("Kolor");
+		expect(groups[0]?.options[0]).toMatchObject({ id: "black", name: "czarny" });
 	});
 });

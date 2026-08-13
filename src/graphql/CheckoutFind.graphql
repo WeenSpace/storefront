@@ -1,4 +1,4 @@
-query CheckoutFind($id: ID!) {
+query CheckoutFind($id: ID!, $languageCode: LanguageCodeEnum!) {
 	checkout(id: $id) {
 		id
 		email
@@ -12,16 +12,25 @@ query CheckoutFind($id: ID!) {
 				}
 			}
 			variant {
+				translation(languageCode: $languageCode) {
+					name
+				}
 				product {
 					id
 					name
 					slug
+					translation(languageCode: $languageCode) {
+						name
+					}
 					thumbnail {
 						url
 						alt
 					}
 					category {
 						name
+						translation(languageCode: $languageCode) {
+							name
+						}
 					}
 				}
 				pricing {
@@ -44,20 +53,40 @@ query CheckoutFind($id: ID!) {
 					attribute {
 						name
 						slug
+						inputType
+						translation(languageCode: $languageCode) {
+							name
+						}
 					}
 					values {
 						name
 						value
+						translation(languageCode: $languageCode) {
+							name
+						}
+						file {
+							url
+						}
 					}
 				}
 				nonSelectionAttributes: attributes(variantSelection: NOT_VARIANT_SELECTION) {
 					attribute {
 						name
 						slug
+						inputType
+						translation(languageCode: $languageCode) {
+							name
+						}
 					}
 					values {
 						name
 						value
+						translation(languageCode: $languageCode) {
+							name
+						}
+						file {
+							url
+						}
 					}
 				}
 			}

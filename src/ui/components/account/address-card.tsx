@@ -1,3 +1,6 @@
+"use client";
+
+import { useTranslations } from "next-intl";
 import { type AddressDetailsFragment } from "@/gql/graphql";
 import { cn } from "@/lib/utils";
 
@@ -7,6 +10,7 @@ type Props = {
 	isDefaultBilling?: boolean;
 	className?: string;
 	children?: React.ReactNode;
+	footer?: React.ReactNode;
 };
 
 export function AccountAddressCard({
@@ -15,23 +19,26 @@ export function AccountAddressCard({
 	isDefaultBilling,
 	className,
 	children,
+	footer,
 }: Props) {
+	const t = useTranslations("account.addresses");
+
 	return (
-		<div className={cn("rounded-lg border p-4", className)}>
-			<div className="flex items-start justify-between gap-4">
-				<div className="min-w-0 space-y-1">
+		<div className={cn("flex h-full flex-col rounded-lg border p-4", className)}>
+			<div className="flex flex-1 items-start justify-between gap-4">
+				<div className="min-w-0 flex-1 space-y-1">
 					<div className="flex flex-wrap items-center gap-2">
 						<span className="font-semibold">
 							{address.firstName} {address.lastName}
 						</span>
 						{isDefaultShipping && (
 							<span className="rounded bg-secondary px-1.5 py-0.5 text-xs font-medium text-muted-foreground">
-								Default shipping
+								{t("defaultShipping")}
 							</span>
 						)}
 						{isDefaultBilling && (
 							<span className="rounded bg-secondary px-1.5 py-0.5 text-xs font-medium text-muted-foreground">
-								Default billing
+								{t("defaultBilling")}
 							</span>
 						)}
 					</div>
@@ -48,6 +55,11 @@ export function AccountAddressCard({
 				</div>
 				{children && <div className="flex shrink-0 items-center gap-1">{children}</div>}
 			</div>
+			{footer && (
+				<div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 border-t border-border pt-3">
+					{footer}
+				</div>
+			)}
 		</div>
 	);
 }

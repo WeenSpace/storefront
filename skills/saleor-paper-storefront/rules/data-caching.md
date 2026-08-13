@@ -1,502 +1,199 @@
+---
+name: data-caching
+description: Paper caching decisions: Cache Components (PPR), the static/hybrid page-boundary model (cached shell rendered directly; Suspense only for dynamic holes), cache-manifest.ts as source of truth, webhook revalidation, per-locale cache keys. Use when touching catalog data fetching, ISR, stale content, or revalidation.
+---
+
 # Data Caching
 
-Understanding the caching architecture, Cache Components (PPR), and revalidation mechanisms ensures correct data freshness, avoids stale content, and enables targeted cache invalidation when Saleor data changes.
+This rule holds **Paper's caching decisions** — what we cache, the contracts that keep it consistent, and how we invalidate. It is **not** a Next.js tutorial.
 
-> **Reference**: [Next.js Cache Components](https://nextjs.org/docs/app/getting-started/cache-components) — the official documentation for `use cache`, `cacheLife`, `cacheTag`, and Partial Prerendering.
+> **Next.js mechanics live in bundled docs — read them, don't restate them.**
+>
+> - `use cache`, `cacheLife`, `cacheTag`, PPR: `node_modules/next/dist/docs/` (version-matched).
+> - PPR build/prerender errors (the “uncached data outside Suspense” family) come with an actionable **Stream / Cache / Block** fix menu in the dev overlay, terminal, and `next build`. The canonical fixes are at `nextjs.org/docs/messages/blocking-prerender-dynamic`.
+>
+> When the framework already explains a mechanic or emits a fix, link it — don't duplicate it here.
 
 ---
 
-## Data Freshness Model
-
-### The Key Principle
+## The one decision: cached browse, live commerce
 
 > **Display pages are cached for performance. Transactional flows are always real-time.**
 
-| Page/Component                | Data Source                                 | Freshness              | Why                         |
-| ----------------------------- | ------------------------------------------- | ---------------------- | --------------------------- |
-| **PDP (Product Detail)**      | `getProductData()`                          | ⚠️ Cached (5 min TTL)  | Performance - instant loads |
-| **Category/Collection pages** | `getCategoryData()` / `getCollectionData()` | ⚠️ Cached (5 min TTL)  | Performance                 |
-| **Homepage**                  | `getFeaturedProducts()`                     | ⚠️ Cached (5 min TTL)  | Performance                 |
-| **Navigation**                | `NavLinks`                                  | ⚠️ Cached (1 hour TTL) | Rarely changes              |
-| **Cart Drawer**               | `Checkout.find()`                           | ✅ Always fresh        | Uses `cache: "no-cache"`    |
-| **Checkout Page**             | `useCheckoutQuery()`                        | ✅ Always fresh        | Direct API call via urql    |
-| **Add to Cart action**        | Saleor mutation                             | ✅ Always fresh        | Saleor calculates price     |
+| Surface                                | Data source                                                         | Freshness                              |
+| -------------------------------------- | ------------------------------------------------------------------- | -------------------------------------- |
+| PDP / category / collection / homepage | `getProductData()`, `getCategoryData()`, `getFeaturedProducts()`, … | Cached (~5 min)                        |
+| Navigation / footer menus              | `getNavbarMenuItems()` / `getFooterMenuItems()`                     | Cached (~1 hr)                         |
+| Cart drawer, checkout, add-to-cart     | `Checkout.find()`, server actions, Saleor mutations                 | **Always fresh** (`cache: "no-cache"`) |
 
-### Price Flow Diagram
+**Why a stale PDP price is safe:** Saleor is the source of truth. Cart fetches fresh (`cache: "no-cache"`), `checkoutLinesAdd`/`checkoutComplete` recalculate server-side, and webhooks bust the cache on change. A shopper may see a stale price on the PDP but **cannot check out at it**.
 
-```
-┌─────────────────────────────────────────────────────────────────────┐
-│                         PRICE FLOW                                  │
-├─────────────────────────────────────────────────────────────────────┤
-│                                                                     │
-│   PDP Display          Cart/Checkout          Payment               │
-│   ────────────         ─────────────          ───────               │
-│                                                                     │
-│   ┌───────────┐        ┌───────────┐         ┌───────────┐         │
-│   │  Cached   │───────▶│  FRESH    │────────▶│  FRESH    │         │
-│   │  $29.99   │  Add   │  $35.99   │  Pay    │  $35.99   │         │
-│   └───────────┘  to    └───────────┘         └───────────┘         │
-│                  Cart                                               │
-│   "use cache"          cache:"no-cache"      Saleor validates       │
-│   5 min TTL            Always from API       at checkout            │
-│                                                                     │
-└─────────────────────────────────────────────────────────────────────┘
-
-⚠️ User may see different price in cart than on PDP if price changed.
-✅ User CANNOT checkout at stale price - Saleor always uses current price.
-```
-
-### Why This Is Safe
-
-1. **Saleor is the source of truth**: When you call `checkoutLinesAdd`, Saleor calculates the price server-side using current data
-2. **Cart always fetches fresh**: `Checkout.find()` uses `cache: "no-cache"`
-3. **Checkout validates**: `checkoutComplete` will fail if something is wrong
-4. **Webhooks enable instant updates**: When configured, price changes trigger immediate cache invalidation
+Paper runs Next.js 16 with [`cacheComponents: true`](../../../next.config.js) (stable — not the Next 15 `experimental.ppr`/`dynamicIO` flags). **Nothing is cached by default**; catalog speed is opt-in via `"use cache"` at the data boundary (`src/lib/catalog/`, `src/lib/menus/`, `src/lib/channels/`, `src/lib/content/`). Paper does **not** use `"use cache: private"` — locale/channel are passed as function args instead.
 
 ---
 
-## Cache Components Architecture
+## Cache manifest — single source of truth
 
-### What It Is
-
-Cache Components enable **Partial Prerendering (PPR)** - mixing static, cached, and dynamic content in a single route. The static shell is served instantly from CDN, while dynamic parts stream in via Suspense.
-
-### Current Status: ✅ ENABLED (Experimental)
-
-> ⚠️ **Note**: Cache Components are still marked **experimental** in Next.js. The patterns are functional but evolving. See [Disabling Cache Components](#disabling-cache-components) if you need to rollback.
-
-Cache Components are enabled in `next.config.js`:
-
-```javascript
-const config = {
-	cacheComponents: true,
-};
-```
-
-### How It Works
-
-```
-┌─────────────────────────────────────────────────────────────────┐
-│  STATIC SHELL (Instant from CDN)                                │
-│  ┌─────────────────────────────────────────────────────────┐   │
-│  │  Header skeleton, layout, cached product data            │   │
-│  │  Source: "use cache" functions (getProductData, etc.)    │   │
-│  └─────────────────────────────────────────────────────────┘   │
-│                                                                 │
-│  ┌─────────────────────────────────────────────────────────┐   │
-│  │  <Suspense fallback={<Skeleton />}>                     │   │
-│  │    Dynamic content (streams in after initial render)     │   │
-│  │    - Variant selection (reads searchParams)              │   │
-│  │    - Logo, NavLinks (use usePathname)                    │   │
-│  │    - Cart count (reads cookies)                          │   │
-│  │  </Suspense>                                             │   │
-│  └─────────────────────────────────────────────────────────┘   │
-└─────────────────────────────────────────────────────────────────┘
-```
-
-### Cache Manifest — Single Source of Truth
-
-All cache profiles are defined in `src/lib/cache-manifest.ts`. This module is imported by:
-
-- **Cached functions** — for `cacheLife()` / `cacheTag()` calls
-- **`/api/cache-info`** — to serve the manifest to the saleor-paper-app (Dashboard)
+All TTLs and tags are defined in **`src/lib/cache-manifest.ts`**. Cached functions read it via `applyCacheProfile()`; `/api/cache-info` serves it to the saleor-paper-app. Change a TTL or tag pattern in **one** place and both behavior and the Dashboard view update.
 
 ```typescript
-import { PROFILES, applyCacheProfile } from "@/lib/cache-manifest";
+import { CACHE_PROFILES, applyCacheProfile } from "@/lib/cache-manifest";
+import { graphqlLanguageCodeVariables } from "@/lib/graphql-locale";
 
-async function getProductData(slug: string, channel: string) {
+async function getProductData(slug: string, channel: string, localeSlug: string) {
 	"use cache";
-	applyCacheProfile(PROFILES.products, slug);
+	applyCacheProfile(CACHE_PROFILES.products, slug); // sets cacheLife tier + cacheTag
 
 	return executePublicGraphQL(ProductDetailsDocument, {
-		variables: { slug, channel },
+		variables: { slug, channel, ...graphqlLanguageCodeVariables(localeSlug) },
 	});
 }
 ```
 
-To change a TTL or tag pattern, edit `src/lib/cache-manifest.ts`. Both the actual caching behavior and the dashboard app's view of the cache update automatically.
+Always use `applyCacheProfile(CACHE_PROFILES.*, slugOrChannel)` — **never** raw `cacheLife("minutes")` or hand-rolled `cacheTag` strings that drift from the manifest. Do **not** add fetch-level `revalidate` inside `"use cache"` — `cacheLife` + webhooks own freshness.
 
-### Tag Registry
+### Tag registry
 
-| Tag Pattern         | Profile ID    | Used By                                        | Invalidated When          |
-| ------------------- | ------------- | ---------------------------------------------- | ------------------------- |
-| `product:{slug}`    | `products`    | `getProductData()`                             | Product updated in Saleor |
-| `category:{slug}`   | `categories`  | `getCategoryData()`                            | Category updated          |
-| `collection:{slug}` | `collections` | `getCollectionData()`, `getFeaturedProducts()` | Collection updated        |
-| `navigation`        | `navigation`  | `NavLinks`                                     | Menu structure changed    |
-| `footer-menu`       | `footerMenu`  | `getFooterMenu()`                              | Footer menu changed       |
-| `channels`          | `channels`    | `getChannels()`                                | Channel list changed      |
+| Tag pattern                                         | Profile              | Used by                                                   | Invalidated when                  |
+| --------------------------------------------------- | -------------------- | --------------------------------------------------------- | --------------------------------- |
+| `product:{slug}`                                    | `products`           | `getProductData()`                                        | Product updated                   |
+| `category:{slug}`                                   | `categories`         | `getCategoryData()`                                       | Category updated                  |
+| `collection:{slug}`                                 | `collections`        | `getCollectionData()`, `getFeaturedProducts()`            | Collection updated                |
+| `page:{slug}`                                       | `pages`              | `getPageData()` (CMS)                                     | Page updated                      |
+| `products` / `categories` / `collections` / `pages` | same (sharedTag)     | Applied alongside each entity tag via `applyCacheProfile` | Full purge (`?all=1`), promotions |
+| `navigation:{channel}`                              | `navigation`         | `getNavbarMenuItems()`                                    | Navbar changed                    |
+| `footer-menu:{channel}`                             | `footerMenu`         | `getFooterMenuItems()`                                    | Footer changed                    |
+| `storefront-content:{channel}:{locale}`             | `storefront-content` | `getStorefrontContent()`                                  | `storefront-*` Page updated       |
+| `channels`                                          | `channels`           | `getCachedChannelsList()`                                 | Channel list changed              |
 
-### Cache Introspection Endpoint
+Slug-scoped catalog entries carry **two** tags: the entity tag (`product:{slug}`) and the profile `sharedTag` (`products`). Entity webhooks bust the precise tag; `?all=1` revalidates shared tags so the whole catalog clears without enumerating slugs.
+Named `cacheLife` tiers (configured in `next.config.js`): `catalog` ~5 min (products/categories/collections/CMS pages), `menus` ~1 hr (nav/footer) and ~5 min (storefront-content), `channels` longer.
 
-`GET /api/cache-info` returns a machine-readable manifest of all profiles. Protected by `REVALIDATE_SECRET` via `Authorization: Bearer` header (timing-safe comparison). Used by the saleor-paper-app to discover what the storefront caches and build its invalidation UI dynamically.
+`GET /api/cache-info` returns the machine-readable manifest (Bearer `REVALIDATE_SECRET`, timing-safe) so the saleor-paper-app can build its invalidation UI dynamically. Manifest **v6+** includes an optional `identity` block (`saleorApiUrl`, `environment`, deploy metadata) for the Paper handshake. `saleorApiUrl` comes from `NEXT_PUBLIC_SALEOR_API_URL`. `environment` defaults from `VERCEL_ENV` / `NODE_ENV`; set `PAPER_STOREFRONT_ENVIRONMENT` only when those lie (true staging, or non-Vercel hosts that aren't prod).
+
+---
+
+## The page-boundary model (Paper convention)
+
+The PPR layer stack — pick the page shape by **whether the route reads runtime data** (`searchParams`/`cookies`/uncached fetch): a **static page** (no runtime data) is an `async` page that awaits `params` + `"use cache"` data and renders the shell **directly** (no page-level `Suspense`, no skeleton — e.g. homepage); a **hybrid page** renders the cached shell **eagerly** and wraps **only** the dynamic island (`searchParams`/cookies) in `Suspense` (e.g. PLP grid, PDP variant section). A skeleton is a **per-hole** affordance, never a **per-page** default. It is documented once in [`paper-architecture.md`](paper-architecture.md) and [`page-composition.md`](page-composition.md); PDP specifics are in [`product-pdp.md`](product-pdp.md); auth routes in [`data-auth-routes.md`](data-auth-routes.md). The essentials here:
+
+- **Catalog fetches live in modules**, not inline in pages long-term: `src/lib/catalog/`, `src/lib/menus/get-menu-data.ts`, `src/lib/channels/`.
+- **`executePublicGraphQL`** is safe inside `"use cache"`; **`executeAuthenticatedGraphQL`** is **not** (needs cookies) — keep it out of cached functions.
+- **Don't re-export server cached helpers from client-mixed barrels** (import catalog/menu modules directly; e.g. `ProductGalleryLcp` directly, not via a mixed `pdp/index.ts`).
+- **CSS `order`** lets dynamic content appear above static `<h1>` while keeping the `h1` in the cached shell for SEO (PDP uses `order-1..4`).
+
+### Browse chrome boundaries
+
+The `(main)` layout is **sync**; each chrome region is an async **slot** in its own Suspense boundary. `<main>{children}</main>` is **never** wrapped in layout or chrome Suspense.
+
+| Slot         | File                                              | Awaits                                                                     |
+| ------------ | ------------------------------------------------- | -------------------------------------------------------------------------- |
+| Announcement | `browse-chrome-slots.tsx` → `AnnouncementBarSlot` | `params`, `getAnnouncementBarProps` (+ nested Suspense for dismiss cookie) |
+| Header       | `HeaderSlot` → `Header`                           | `params`, menus + `getStorefrontContent`                                   |
+| Footer       | `FooterSlot` → `Footer`                           | `params`, menus + `getStorefrontContent`                                   |
+| Cart drawer  | `CartDrawerSlot`                                  | `params`, `getStorefrontContent`, checkout cookies                         |
+
+Account routes use the **auth-gate** variant (sync layout → Suspense → async `AccountShell`, children inside the shell) — see `data-auth-routes.md`. Key files: `(main)/layout.tsx`, `main-chrome.tsx`, `browse-chrome-slots.tsx`.
+
+### PPR pitfalls → let the framework guide the fix
+
+When you hit an “uncached data accessed outside `<Suspense>`” error, the overlay/terminal gives you **Stream / Cache / Block** with per-rule docs. Paper's defaults for that choice:
+
+| Situation                                                                   | Paper choice                                                                     |
+| --------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| Catalog display data (product, category, menus)                             | **Cache** — `"use cache"` + `applyCacheProfile`                                  |
+| `searchParams`/cookies UI (variant gallery, cart badge, user menu)          | **Stream** — nested `<Suspense>` island                                          |
+| Awaiting `searchParams`/`cookies()` in a page shell or inside `"use cache"` | Don't — it collapses the route into a dynamic hole; move the read into an island |
+
+Never silence a PPR error by wrapping only `<main>{children}</main>` in Suspense (especially `fallback={null}`) — fix the segment that owns the dynamic work.
+
+---
+
+## Locale & caching
+
+Browse routes are `/{locale}/{channel}/…` (see `ui-locale-routing.md`). Locale affects **what** is cached, not **how fast** repeat visits are.
+
+| Mechanism                                  | Includes locale? | Role                                                                  |
+| ------------------------------------------ | ---------------- | --------------------------------------------------------------------- |
+| `"use cache"` function args (`localeSlug`) | ✅               | Separate cache entry per language — `/pl/…` and `/en/…` never collide |
+| `cacheTag` (catalog)                       | ❌               | One tag per slug/channel; one webhook busts all locale variants       |
+| `storefront-content:{channel}:{locale}`    | ✅ (BCP 47)      | Marketing copy from Saleor Models                                     |
+
+```typescript
+getProductData("hoodie", "default-channel", "en"); // English entry
+getProductData("hoodie", "default-channel", "pl"); // Polish entry
+applyCacheProfile(CACHE_PROFILES.products, slug); // single tag product:hoodie clears both
+```
+
+- Cached fetches pass `graphqlLanguageCodeVariables(localeSlug)`; map URL slugs to Saleor **base** codes in `src/config/locale.ts` (`pl` → `PL`, not `PL_PL`). Merge translations with `withTranslatedProductFields()` (`src/lib/saleor-translations.ts`) after the fetch.
+- **Invalidation fan-out:** catalog tags stay slug-scoped; `buildPathsForAllLocales()` revalidates every configured locale path on a generic `PRODUCT_UPDATED`.
+- Adding locales adds ~N cache entries (one per locale × page), not per-request work. Each locale warms independently after deploy.
+
+---
+
+## Invalidation
+
+**Production path: [saleor-paper-app](https://github.com/saleor/saleor-paper-app).** On install it registers managed webhooks and proxies them to the storefront:
+
+```
+Saleor event → saleor-paper-app → POST /api/revalidate → revalidateTag + revalidatePath
+```
+
+| Event family                              | Storefront effect                                                                      |
+| ----------------------------------------- | -------------------------------------------------------------------------------------- |
+| `PRODUCT_*`, `CATEGORY_*`, `COLLECTION_*` | Catalog tags + paths (all locales via `buildPathsForAllLocales`)                       |
+| `PAGE_*`                                  | `page:{slug}`, and `storefront-content:{channel}:{locale}` when slug is `storefront-*` |
+| `MENU_*`, `MENU_ITEM_*`                   | `navigation:{channel}`, `footer-menu:{channel}`                                        |
+
+`revalidateTag` takes the manifest profile (`resolveRevalidateCacheLifeProfile("products")`); paths use `getStorefrontChannelSlugs()` × `buildPathsForAllLocales()`. **Don't** point Saleor webhooks directly at `/api/revalidate` while the app is installed (duplicate deliveries, no logging). Direct webhooks remain valid for self-hosted setups without the app (set `SALEOR_WEBHOOK_SECRET`).
+
+**Manual / emergency** (Bearer header, timing-safe; `?secret=` is deprecated):
 
 ```bash
-curl -H "Authorization: Bearer <REVALIDATE_SECRET>" "https://store.com/api/cache-info"
-# Returns: { version: 1, profiles: [{ id, label, ttlSeconds, cacheProfile, tagPattern, pathPattern }, ...] }
-```
-
----
-
-## Key Patterns
-
-### 1. Suspense Around Dynamic Content
-
-Any component accessing runtime data must be wrapped in Suspense.
-
-**What counts as "dynamic data" (triggers Suspense requirement):**
-
-| Data Access                 | Why It's Dynamic    |
-| --------------------------- | ------------------- |
-| `cookies()`                 | Per-request         |
-| `headers()`                 | Per-request         |
-| `searchParams`              | URL-dependent       |
-| `usePathname()`             | Client-side routing |
-| `useParams()`               | Client-side routing |
-| `Date.now()`                | Time-dependent      |
-| Server Actions              | Form submissions    |
-| `cache: "no-cache"` fetches | Always fresh        |
-
-```tsx
-// Layout wraps children in Suspense
-<main className="flex-1">
-  <Suspense>{props.children}</Suspense>
-</main>
-
-// Header wraps NavLinks in Suspense (uses usePathname for active state)
-<Suspense fallback={<NavLinksSkeleton />}>
-  <NavLinks channel={channel} />
-</Suspense>
-```
-
-### 2. Sync Page Shell Pattern (CRITICAL)
-
-Page components that use `"use cache"` data must be **synchronous** and wrap their async content in a **dedicated Suspense boundary**. This prevents the cached async work from flowing through the layout's main Suspense, which can cause hydration/reconciliation issues.
-
-```tsx
-// ✅ CORRECT - Page is sync, async content has its own Suspense
-export default function Page(props: PageProps) {
-	return (
-		<Suspense fallback={<PageSkeleton />}>
-			<PageContent params={props.params} />
-		</Suspense>
-	);
-}
-
-async function PageContent({ params: paramsPromise }) {
-	const params = await paramsPromise;
-	const data = await getCachedData(params.slug, params.channel);
-	return <ProductList products={data} />;
-}
-```
-
-```tsx
-// ❌ BAD - async Page relies on layout's Suspense for streaming
-export default async function Page(props: PageProps) {
-	const params = await props.params;
-	const data = await getCachedData(params.slug, params.channel);
-	return <ProductList products={data} />;
-}
-```
-
-**Why**: When Cache Components are enabled, the boundary between the static shell and streamed content is determined by Suspense boundaries. If the page itself is async and relies on the layout's `<Suspense>{children}</Suspense>`, the reconciliation between the static shell and the streamed RSC payload happens at the layout level, which can cause DOM structure mismatches and memory issues. A dedicated page-level Suspense isolates this boundary.
-
-All page routes in this project follow this pattern:
-
-- `src/app/[channel]/(main)/page.tsx` (homepage)
-- `src/app/[channel]/(main)/categories/[slug]/page.tsx`
-- `src/app/[channel]/(main)/collections/[slug]/page.tsx`
-- `src/app/[channel]/(main)/products/[slug]/page.tsx`
-
-### 3. Public vs Authenticated Queries
-
-Two explicit GraphQL helpers:
-
-- `executePublicGraphQL` - Safe inside `"use cache"` (no cookies needed)
-- `executeAuthenticatedGraphQL` - NOT safe inside `"use cache"` (requires cookies)
-
-```typescript
-import { executePublicGraphQL, executeAuthenticatedGraphQL } from "@/lib/graphql";
-
-// ✅ Public data - safe inside "use cache"
-async function getProductData(slug: string, channel: string) {
-	"use cache";
-	return executePublicGraphQL(ProductDetailsDocument, {
-		variables: { slug, channel },
-	});
-}
-
-// ✅ User data - NOT inside "use cache" (requires cookies)
-const { me } = await executeAuthenticatedGraphQL(CurrentUserDocument, {
-	cache: "no-cache",
-});
-```
-
-### 4. Don't Use `searchParams` Inside `"use cache"`
-
-```typescript
-// ❌ BAD - searchParams is runtime data
-export async function generateMetadata(props) {
-	"use cache";
-	const searchParams = await props.searchParams; // Error!
-}
-
-// ✅ GOOD - Only access params (becomes cache key)
-export async function generateMetadata(props) {
-	"use cache";
-	const params = await props.params; // OK
-}
-
-// ✅ GOOD - Access searchParams outside cache scope
-export async function generateMetadata(props) {
-	const searchParams = await props.searchParams; // No "use cache"
-}
-```
-
-### 5. CSS Order Pattern for Mixed Static/Dynamic Layouts
-
-When you need dynamic content to appear **above** static content visually, use CSS `order`:
-
-```tsx
-// PDP: Category (dynamic) appears above Product Name (static)
-<div className="flex flex-col gap-3">
-	{/* Static shell - renders first but order:2 */}
-	<h1 className="order-2">{product.name}</h1>
-
-	{/* Dynamic - streams in, order:1 appears above h1 */}
-	<Suspense fallback={<Skeleton className="order-1" />}>
-		<VariantSection /> {/* Contains order-1 and order-3 elements */}
-	</Suspense>
-
-	{/* Static - order:4 appears last */}
-	<div className="order-4">
-		<ProductAttributes />
-	</div>
-</div>
-```
-
-**Visual result:**
-
-```
-1. Category + Sale badge  (dynamic, order-1)
-2. Product Name           (static, order-2)
-3. Variant selectors      (dynamic, order-3)
-4. Product details        (static, order-4)
-```
-
-This keeps `<h1>` in the static shell for SEO while allowing dynamic content to appear above it.
-
-### 6. GraphQL Auth Defaults
-
-Two explicit GraphQL helpers ensure you always know what data access level you're using:
-
-- `executePublicGraphQL` - Public queries only (products, menus, categories)
-- `executeAuthenticatedGraphQL` - Requires user session cookies (checkout, user data)
-
-This ensures:
-
-- Only publicly visible products are fetched
-- No user cookies in cache scope (safe for `"use cache"`)
-- No "Signature has expired" errors on public pages
-
-```typescript
-import { executePublicGraphQL, executeAuthenticatedGraphQL } from "@/lib/graphql";
-
-// ✅ Public data (menus, products) - no auth, only public data
-const menu = await executePublicGraphQL(MenuDocument, {
-	variables: { slug: "footer" },
-});
-
-// ✅ User data - requires session cookies
-let user = null;
-try {
-	const result = await executeAuthenticatedGraphQL(CurrentUserDocument, {
-		cache: "no-cache",
-	});
-	user = result.me;
-} catch {
-	// Expired token = treat as not logged in
-}
-
-// ✅ Checkout/cart - requires session cookies
-await executeAuthenticatedGraphQL(CheckoutAddLineDocument, {
-	variables: { id: checkoutId, productVariantId: variantId },
-	cache: "no-cache",
-});
-
-// ✅ App token (server-side only) - explicit header
-const channels = await executePublicGraphQL(ChannelsListDocument, {
-	headers: {
-		Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
-	},
-});
-```
-
----
-
-## Cache Invalidation
-
-### Automatic via Webhooks (Recommended)
-
-When configured, Saleor sends webhooks on data changes, triggering instant invalidation.
-
-**Setup in Saleor Dashboard:**
-
-1. Go to **Configuration → Webhooks**
-2. Create webhook pointing to: `https://your-site.com/api/revalidate`
-3. Subscribe to events:
-   - `PRODUCT_CREATED`, `PRODUCT_UPDATED`, `PRODUCT_DELETED`
-   - `CATEGORY_CREATED`, `CATEGORY_UPDATED`, `CATEGORY_DELETED`
-   - `COLLECTION_CREATED`, `COLLECTION_UPDATED`, `COLLECTION_DELETED`
-4. Copy the **secret key** to `SALEOR_WEBHOOK_SECRET` env var
-
-**What happens on webhook:**
-
-```typescript
-// Product update webhook triggers:
-revalidateTag(`product:${slug}`, "minutes"); // Invalidates "use cache" data
-revalidatePath(`/channel/products/${slug}`); // Invalidates ISR page
-```
-
-### Manual Invalidation
-
-All manual invalidation requests use the `Authorization: Bearer` header (timing-safe comparison):
-
-```bash
-# Invalidate a specific product (both tag and path)
+# One product
 curl -H "Authorization: Bearer <REVALIDATE_SECRET>" \
-  "https://store.com/api/revalidate?tag=product:blue-hoodie&path=/default-channel/products/blue-hoodie"
+  "https://store.com/api/revalidate?tag=product:blue-hoodie&path=/en/default-channel/products/blue-hoodie"
 
-# Invalidate just the cached function data
+# Full purge (path layout + shared/enumerable tags — what paper-app "Revalidate all" calls)
 curl -H "Authorization: Bearer <REVALIDATE_SECRET>" \
-  "https://store.com/api/revalidate?tag=product:blue-hoodie"
-
-# Invalidate navigation (uses "hours" profile)
-curl -H "Authorization: Bearer <REVALIDATE_SECRET>" \
-  "https://store.com/api/revalidate?tag=navigation&profile=hours"
+  "https://store.com/api/revalidate?all=1"
 ```
 
-### No Webhooks? TTL Takes Over
+Without webhooks, TTL takes over (catalog ~5 min, menus ~1 hr).
 
-| Data        | Default TTL |
-| ----------- | ----------- |
-| Products    | 5 minutes   |
-| Categories  | 5 minutes   |
-| Collections | 5 minutes   |
-| Navigation  | 1 hour      |
+### Debugging stale content
 
----
-
-## Environment Variables
-
-```env
-# Cache invalidation — use ≥32 character random strings in production
-REVALIDATE_SECRET=your-secret       # Bearer token for manual revalidation & cache-info
-SALEOR_WEBHOOK_SECRET=webhook-hmac  # Saleor webhook HMAC verification
-```
-
-**Security**: Both endpoints use timing-safe comparison and `Authorization: Bearer` header authentication. Query-string `?secret=` still works but logs a deprecation warning — migrate callers to the header.
-
----
-
-## Debugging Stale Content
-
-### Checklist
-
-1. **Is the webhook configured?**
-
-   - Check Saleor Dashboard → Webhooks → Deliveries
-
-2. **Did the webhook fire?**
-
-   - Check server logs for `[Revalidate]` entries
-
-3. **Is the tag correct?**
-
-   - Product slugs must match exactly: `product:blue-hoodie`
-
-4. **Force manual revalidation:**
-
-   ```bash
-   curl -H "Authorization: Bearer <REVALIDATE_SECRET>" \
-     "https://store.com/api/revalidate?tag=product:my-product"
-   ```
-
-5. **Check browser cache:**
-   - Hard refresh: Cmd+Shift+R / Ctrl+Shift+R
+1. Webhook configured + firing? (Dashboard → Webhooks → Deliveries; server logs for `[Revalidate]`).
+2. Tag exact? (`product:blue-hoodie` — slug must match).
+3. Force: `curl … "?tag=product:my-product"`.
+4. Translation still wrong language on `/pl/…`? Confirm a `PL` base translation exists; bust the tag; restart dev if you changed `src/config/locale.ts`.
 
 ---
 
 ## Anti-patterns
 
-❌ **Don't use `cache: "no-cache"` for display pages** - Destroys performance  
-❌ **Don't skip webhook setup in production** - Users see stale prices  
-❌ **Don't access cookies/searchParams inside `"use cache"`** - Will error  
-❌ **Don't use `executeAuthenticatedGraphQL` inside `"use cache"`** - Requires cookies  
-❌ **Don't pass `REVALIDATE_SECRET` in query strings** - Always use the `Authorization: Bearer` header  
-❌ **Don't make page components async when using `"use cache"` data** - Use the sync page shell pattern (see Key Pattern #2) to avoid reconciliation issues with the layout's main Suspense boundary
+❌ `cache: "no-cache"` on display pages — destroys performance
+❌ Skipping webhook setup in production — users see stale prices
+❌ `executeAuthenticatedGraphQL` (or `cookies()`/`searchParams`) inside `"use cache"` — needs runtime data
+❌ Awaiting `searchParams` in a shell — collapses the route into a dynamic hole (move to an island)
+❌ Raw `cacheLife("minutes")` / hand-rolled `cacheTag` — use `applyCacheProfile(CACHE_PROFILES.*)`
+❌ Fetch-level `revalidate` inside `"use cache"` — `cacheLife` + webhooks own freshness
+❌ Wrapping only `<main>` in Suspense to silence a PPR error — fix the segment that owns the work
+❌ Omitting `localeSlug` from cached fetches — all locales share one entry, wrong language
+❌ Regional Saleor codes (`PL_PL`) in `graphqlLanguageCode` — Dashboard uses base codes (`PL`)
+❌ Re-exporting server cached helpers from client-mixed barrels
 
 ---
 
-## Disabling Cache Components
+## Key files
 
-If you need to rollback to standard ISR caching:
+| File                                                                                              | Purpose                                               |
+| ------------------------------------------------------------------------------------------------- | ----------------------------------------------------- |
+| `src/lib/cache-manifest.ts`                                                                       | Cache profiles — **single source of truth**           |
+| `src/app/api/revalidate/route.ts`                                                                 | Webhook endpoint + manual revalidation                |
+| `src/app/api/cache-info/route.ts`                                                                 | Manifest introspection for the Dashboard app          |
+| `src/lib/catalog/*.ts`, `src/lib/menus/get-menu-data.ts`, `src/lib/channels/get-channels-data.ts` | `"use cache"` data boundaries                         |
+| `src/lib/graphql-locale.ts`, `src/lib/saleor-translations.ts`, `src/config/locale.ts`             | Locale → GraphQL `languageCode` + translation merge   |
+| `src/lib/channel-slugs.ts`                                                                        | Storefront channel allowlist for invalidation fan-out |
 
-### Step 1: Disable in Config
-
-```javascript
-// next.config.js
-const config = {
-	cacheComponents: false, // or comment out entirely
-};
-```
-
-### Step 2: Remove Cache Directives
-
-Remove `"use cache"`, `cacheLife()`, and `cacheTag()` from these files:
-
-| File                                                   | What to Remove                           |
-| ------------------------------------------------------ | ---------------------------------------- |
-| `src/app/[channel]/(main)/products/[slug]/page.tsx`    | `getProductData()` cache directives      |
-| `src/app/[channel]/(main)/categories/[slug]/page.tsx`  | `getCategoryData()` cache directives     |
-| `src/app/[channel]/(main)/collections/[slug]/page.tsx` | `getCollectionData()` cache directives   |
-| `src/app/[channel]/(main)/page.tsx`                    | `getFeaturedProducts()` cache directives |
-| `src/ui/components/nav/components/nav-links.tsx`       | Navigation cache directives              |
-
-### Step 3: Update Revalidation
-
-```typescript
-// src/app/api/revalidate/route.ts
-// Change from:
-revalidateTag(`product:${slug}`, "minutes");
-// To:
-revalidateTag(`product:${slug}`); // Remove second argument
-```
-
-### What You Can Keep
-
-- **Suspense boundaries** - Still useful for loading states
-- **CSS order layout** - Pure CSS, no impact
-- **`executeAuthenticatedGraphQL`** - Good separation regardless
-- **ISR via `revalidate` option** - Works as fallback
-
----
-
-## Files Reference
-
-| File                                                   | Purpose                                                               |
-| ------------------------------------------------------ | --------------------------------------------------------------------- |
-| `src/lib/api-auth.ts`                                  | Shared auth: timing-safe secret verification, Bearer token extraction |
-| `src/lib/cache-manifest.ts`                            | Cache profile definitions (single source of truth)                    |
-| `src/app/api/cache-info/route.ts`                      | Cache introspection endpoint for dashboard app                        |
-| `src/app/api/revalidate/route.ts`                      | Webhook endpoint and manual revalidation                              |
-| `src/app/[channel]/(main)/products/[slug]/page.tsx`    | PDP with "use cache"                                                  |
-| `src/app/[channel]/(main)/categories/[slug]/page.tsx`  | Category with "use cache"                                             |
-| `src/app/[channel]/(main)/collections/[slug]/page.tsx` | Collection with "use cache"                                           |
-| `src/app/[channel]/(main)/page.tsx`                    | Homepage with "use cache"                                             |
-| `src/ui/components/nav/components/nav-links.tsx`       | Navigation with "use cache"                                           |
-| `src/ui/components/footer.tsx`                         | Footer menu + channels with "use cache"                               |
-| `src/ui/components/pdp/variant-section-dynamic.tsx`    | Dynamic variant section                                               |
-| `src/ui/components/header.tsx`                         | Header with Suspense boundaries                                       |
-| `src/lib/checkout.ts`                                  | Cart operations (always fresh)                                        |
-| `next.config.js`                                       | `cacheComponents: true`                                               |
+**Rolling back to plain ISR** (rarely needed): set `cacheComponents: false`, remove `"use cache"` + `applyCacheProfile` from the data modules above, and drop the profile argument from `revalidateTag` calls. Suspense boundaries, CSS-order layout, and the public/authenticated GraphQL split stay useful regardless.

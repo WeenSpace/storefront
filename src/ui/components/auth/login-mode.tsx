@@ -3,8 +3,10 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { Mail, Lock, Eye, EyeOff } from "lucide-react";
-import { useSaleorAuthContext } from "@saleor/auth-sdk/react";
+import { loginWithBff, syncAuthSurfacesAfterSignIn } from "@/lib/auth";
+import { buildStorefrontPath } from "@/lib/storefront-path";
 import { Button } from "@/ui/components/ui/button";
 import { Input } from "@/ui/components/ui/input";
 import { Label } from "@/ui/components/ui/label";
@@ -12,9 +14,9 @@ import { Label } from "@/ui/components/ui/label";
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export function LoginMode() {
+	const t = useTranslations("account");
+	const params = useParams<{ locale: string; channel: string }>();
 	const router = useRouter();
-	const params = useParams<{ channel: string }>();
-	const { signIn } = useSaleorAuthContext();
 
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
@@ -29,39 +31,48 @@ export function LoginMode() {
 		setError("");
 
 		if (!email || !EMAIL_RE.test(email)) {
-			setError("Please enter a valid email address");
+			setError(t("errors.invalidEmail"));
 			return;
 		}
 
 		if (!password) {
-			setError("Please enter your password");
+			setError(t("errors.passwordRequired"));
 			return;
 		}
 
 		setIsSubmitting(true);
 
 		try {
-			const result = await signIn({ email, password });
+			const result = await loginWithBff(email, password);
 
-			if (result.data?.tokenCreate?.errors?.length) {
-				const err = result.data.tokenCreate.errors[0];
+			if (result.errors?.length) {
+				const err = result.errors[0];
 				const isInvalidCredentials =
+					err.code === "INVALID_CREDENTIALS" ||
+					err.code === "INVALID_PASSWORD" ||
 					err.message?.toLowerCase().includes("invalid") ||
 					err.message?.toLowerCase().includes("credentials");
+				const isRateLimited = err.code === "RATE_LIMITED";
 				setError(
-					isInvalidCredentials
-						? "Invalid email or password. Please try again."
-						: err.message || "Sign in failed",
+					isRateLimited
+						? t("errors.rateLimited")
+						: isInvalidCredentials
+							? t("errors.invalidCredentials")
+							: t("errors.signInFailed"),
 				);
 				return;
 			}
 
-			if (result.data?.tokenCreate?.token) {
-				router.push(`/${params.channel}`);
-				router.refresh();
+			if (result.ok) {
+				await syncAuthSurfacesAfterSignIn(params.channel, router, {
+					redirectTo: buildStorefrontPath(params.locale, params.channel),
+				});
+				return;
 			}
+
+			setError(t("errors.signInFailed"));
 		} catch {
-			setError("An error occurred. Please try again.");
+			setError(t("errors.generic"));
 		} finally {
 			setIsSubmitting(false);
 		}
@@ -72,20 +83,21 @@ export function LoginMode() {
 		setResetMessage("");
 
 		if (!email || !EMAIL_RE.test(email)) {
-			setError("Please enter a valid email address first");
+			setError(t("errors.invalidEmailFirst"));
 			return;
 		}
 
 		setIsSubmitting(true);
 
 		try {
+			const loginPath = buildStorefrontPath(params.locale, params.channel, "/login");
 			const response = await fetch("/api/auth/reset-password", {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify({
 					email,
 					channel: params.channel,
-					redirectUrl: `${window.location.origin}/${params.channel}/login`,
+					redirectUrl: `${window.location.origin}${loginPath}`,
 				}),
 			});
 
@@ -95,16 +107,14 @@ export function LoginMode() {
 			};
 
 			if (data.errors?.length) {
-				setError(data.errors[0].message || "Failed to send reset link");
+				setError(t("errors.resetLinkFailed"));
 				return;
 			}
 
 			setResetEmailSent(true);
-			setResetMessage(
-				`If an account exists for ${email}, a password reset link has been sent. Note: You can only request one reset link every 15 minutes.`,
-			);
+			setResetMessage(t("login.resetSent", { email }));
 		} catch {
-			setError("An error occurred. Please try again.");
+			setError(t("errors.generic"));
 		} finally {
 			setIsSubmitting(false);
 		}
@@ -114,48 +124,44 @@ export function LoginMode() {
 		<div className="mx-auto my-16 w-full max-w-md">
 			<div className="rounded-lg border border-border bg-card p-8 shadow-sm">
 				<div className="mb-6 text-center">
-					<h1 className="text-2xl font-semibold">Welcome Back</h1>
+					<h1 className="text-balance text-h1">{t("login.title")}</h1>
 					<p className="mt-2 text-sm text-muted-foreground">
-						Don&apos;t have an account?{" "}
+						{t("login.noAccount")}{" "}
 						<Link
-							href={`/${params.channel}/signup`}
+							href={buildStorefrontPath(params.locale, params.channel, "/signup")}
 							className="font-medium text-foreground underline underline-offset-2 hover:no-underline"
 						>
-							Sign up
+							{t("login.signUp")}
 						</Link>
 					</p>
 				</div>
 
 				<form onSubmit={handleLogin} className="space-y-4">
 					{error && (
-						<div role="alert" className="bg-destructive/10 rounded-md p-3 text-sm text-destructive">
+						<div role="alert" className="rounded-md bg-destructive/10 p-3 text-sm text-destructive">
 							{error}
 						</div>
 					)}
 
 					{resetMessage && (
-						<div aria-live="polite" className="rounded-md bg-green-100 p-3 text-sm text-green-800">
+						<div role="status" className="rounded-md bg-muted p-3 text-sm text-muted-foreground">
 							{resetMessage}
 						</div>
 					)}
 
 					<div className="space-y-1.5">
 						<Label htmlFor="email" className="text-sm font-medium">
-							Email address
+							{t("fields.email")}
 						</Label>
 						<div className="relative">
 							<Mail className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
 							<Input
 								id="email"
 								type="email"
-								placeholder="you@example.com"
+								placeholder={t("placeholders.email")}
 								autoComplete="email"
-								spellCheck={false}
 								value={email}
-								onChange={(e) => {
-									setEmail(e.target.value);
-									setResetEmailSent(false);
-								}}
+								onChange={(e) => setEmail(e.target.value)}
 								className="h-12 pl-10"
 								required
 							/>
@@ -164,14 +170,14 @@ export function LoginMode() {
 
 					<div className="space-y-1.5">
 						<Label htmlFor="password" className="text-sm font-medium">
-							Password
+							{t("fields.password")}
 						</Label>
 						<div className="relative">
 							<Lock className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
 							<Input
 								id="password"
 								type={showPassword ? "text" : "password"}
-								placeholder="Enter your password"
+								placeholder={t("placeholders.password")}
 								autoComplete="current-password"
 								value={password}
 								onChange={(e) => setPassword(e.target.value)}
@@ -181,7 +187,7 @@ export function LoginMode() {
 							<button
 								type="button"
 								onClick={() => setShowPassword(!showPassword)}
-								aria-label={showPassword ? "Hide password" : "Show password"}
+								aria-label={showPassword ? t("common.hidePassword") : t("common.showPassword")}
 								className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
 							>
 								{showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
@@ -192,16 +198,16 @@ export function LoginMode() {
 					<div className="flex justify-end">
 						<button
 							type="button"
-							onClick={handleForgotPassword}
-							disabled={isSubmitting}
+							onClick={() => void handleForgotPassword()}
+							disabled={isSubmitting || resetEmailSent}
 							className="text-sm text-muted-foreground underline underline-offset-2 hover:text-foreground hover:no-underline disabled:opacity-50"
 						>
-							{resetEmailSent ? "Resend link?" : "Forgot password?"}
+							{t("login.forgotPassword")}
 						</button>
 					</div>
 
 					<Button type="submit" disabled={isSubmitting} className="h-12 w-full text-base font-semibold">
-						{isSubmitting ? "Signing in…" : "Sign In"}
+						{isSubmitting ? t("login.submitting") : t("login.submit")}
 					</Button>
 				</form>
 			</div>

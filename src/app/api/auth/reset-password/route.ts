@@ -1,4 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
+import { rejectIfRateLimited } from "@/lib/auth/auth-rate-limit";
+import { isAllowedRedirectUrl } from "@/lib/auth/validate-redirect-url";
 import { executeRawGraphQL, getUserMessage } from "@/lib/graphql";
 
 const REQUEST_PASSWORD_RESET_MUTATION = `
@@ -26,12 +28,42 @@ interface RequestPasswordResetResult {
 }
 
 export async function POST(request: NextRequest) {
-	const body = (await request.json()) as ResetPasswordRequest;
+	const rateLimited = rejectIfRateLimited(request, "reset-password", { limit: 5, windowMs: 60 * 60 * 1000 });
+	if (rateLimited) {
+		return rateLimited;
+	}
+
+	let body: ResetPasswordRequest;
+	try {
+		body = (await request.json()) as ResetPasswordRequest;
+	} catch {
+		return NextResponse.json(
+			{ errors: [{ message: "Invalid request body", code: "INVALID_JSON" }] },
+			{ status: 400 },
+		);
+	}
+
 	const { email, channel, redirectUrl } = body;
 
 	if (!email || !channel || !redirectUrl) {
 		return NextResponse.json(
 			{ errors: [{ message: "Email, channel, and redirectUrl are required", code: "REQUIRED" }] },
+			{ status: 400 },
+		);
+	}
+
+	// Reset emails embed this URL — only this deployment's surfaces are allowed.
+	if (!isAllowedRedirectUrl(redirectUrl)) {
+		console.warn(
+			"Received an invalid redirection URL for password reset. " +
+				"Make sure to configure NEXT_PUBLIC_STOREFRONT_URL, " +
+				"see https://github.com/saleor/saleor-docs/blob/-/docs/configuration/allowed-origins.md",
+			{ redirectUrl },
+		);
+		return NextResponse.json(
+			{
+				errors: [{ message: "Invalid redirect URL. See server logs for more information.", code: "INVALID" }],
+			},
 			{ status: 400 },
 		);
 	}

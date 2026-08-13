@@ -1,29 +1,34 @@
 "use client";
 
-import Link from "next/link";
 import { Lock, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useCheckoutBrowseLocale } from "@/checkout/providers/checkout-browse";
+import { useTranslations } from "next-intl";
+import { useCheckoutSteps } from "@/checkout/hooks/use-checkout-steps";
 import { Logo } from "@/ui/components/shared/logo";
-import { getCheckoutSteps } from "./flow";
+import { StorefrontHomeLink } from "@/ui/components/shared/storefront-home-link";
 
 interface CheckoutHeaderProps {
 	step: number;
 	onStepClick?: (step: number) => void;
 	isShippingRequired?: boolean;
+	storefrontChannel?: string | null;
 }
 
-export function CheckoutHeader({ step, onStepClick, isShippingRequired = true }: CheckoutHeaderProps) {
-	// Use centralized flow definition, filtering out confirmation for progress bar
-	const allSteps = getCheckoutSteps(isShippingRequired);
-	const steps = allSteps
-		.filter((s) => s.id !== "CONFIRMATION")
-		.map((s) => ({
-			number: s.index,
-			label: s.label,
-		}));
+export function CheckoutHeader({
+	step,
+	onStepClick,
+	isShippingRequired = true,
+	storefrontChannel,
+}: CheckoutHeaderProps) {
+	const storefrontLocale = useCheckoutBrowseLocale();
+	const t = useTranslations("checkout.steps");
+	const steps = useCheckoutSteps(isShippingRequired).map((s) => ({
+		number: s.index,
+		label: s.label,
+	}));
 
 	const totalSteps = steps.length;
-	const confirmationStepIndex = allSteps.find((s) => s.id === "CONFIRMATION")?.index ?? steps.length + 1;
 
 	// Calculate progress percentage dynamically
 	const progressPercentage = Math.min((step / totalSteps) * 100, 100);
@@ -33,12 +38,16 @@ export function CheckoutHeader({ step, onStepClick, isShippingRequired = true }:
 			<div className="mx-auto max-w-7xl px-4 pt-4 sm:px-6 md:pb-4 md:pt-4 lg:px-8">
 				<div className="flex items-center justify-between">
 					{/* Logo */}
-					<Link href="/" className="flex items-center">
+					<StorefrontHomeLink
+						locale={storefrontLocale}
+						channel={storefrontChannel}
+						className="flex items-center"
+					>
 						<Logo className="h-7 w-auto" />
-					</Link>
+					</StorefrontHomeLink>
 
 					{/* Progress Steps - Desktop */}
-					<nav className="hidden items-center gap-2 md:flex" aria-label="Checkout steps">
+					<nav className="hidden items-center gap-2 md:flex" aria-label={t("stepsAriaLabel")}>
 						{steps.map((s, i) => (
 							<div key={s.number} className="flex items-center">
 								<button
@@ -72,14 +81,14 @@ export function CheckoutHeader({ step, onStepClick, isShippingRequired = true }:
 					{/* Secure Badge */}
 					<div className="flex items-center gap-1.5 text-muted-foreground">
 						<Lock className="h-3.5 w-3.5" />
-						<span className="text-xs">Secure checkout</span>
+						<span className="text-xs">{t("secureCheckout")}</span>
 					</div>
 				</div>
 
 				{/* Mobile Progress Bar */}
 				<div className="mt-3 md:hidden">
 					<div className="mb-2 flex items-center justify-between text-xs text-muted-foreground">
-						<span>{step === confirmationStepIndex ? "Complete" : `Step ${step} of ${totalSteps}`}</span>
+						<span>{step > totalSteps ? t("complete") : t("stepOf", { step, total: totalSteps })}</span>
 						<span>{steps[step - 1]?.label}</span>
 					</div>
 					<div

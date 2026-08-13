@@ -2,9 +2,14 @@
 
 import { type FC } from "react";
 import { ChevronRight } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { Button } from "@/ui/components/ui/button";
 import { LoadingSpinner } from "@/checkout/ui-kit/loading-spinner";
-import { getStepNumber } from "./flow";
+import { useCheckoutStepNumber } from "@/checkout/hooks/use-checkout-steps";
+import {
+	PaymentTrustSignals,
+	type PaymentTrustProvider,
+} from "@/checkout/components/payment/payment-trust-signals";
 
 interface MobileStickyActionProps {
 	/** Current step number */
@@ -23,6 +28,9 @@ interface MobileStickyActionProps {
 	onAction?: () => void;
 	/** Button type */
 	type?: "button" | "submit";
+	/** Show payment trust copy above the CTA (payment step, server-submit flows). */
+	showPaymentTrust?: boolean;
+	paymentTrustProvider?: PaymentTrustProvider;
 }
 
 /**
@@ -38,35 +46,42 @@ export const MobileStickyAction: FC<MobileStickyActionProps> = ({
 	total,
 	onAction,
 	type = "button",
+	showPaymentTrust = false,
+	paymentTrustProvider = "default",
 }) => {
-	// Determine button text based on step
+	const t = useTranslations("checkout.actions");
+	const paymentStep = useCheckoutStepNumber("PAYMENT", isShippingRequired);
+	const shippingStep = useCheckoutStepNumber("SHIPPING", isShippingRequired);
+	const infoStep = useCheckoutStepNumber("INFO", isShippingRequired);
+
 	const getButtonText = () => {
 		if (isLoading && loadingText) return loadingText;
 
-		const paymentStep = getStepNumber("PAYMENT", isShippingRequired);
-		const shippingStep = getStepNumber("SHIPPING", isShippingRequired);
-		const infoStep = getStepNumber("INFO", isShippingRequired);
-
 		if (step === paymentStep) {
-			return total ? `Pay ${total}` : "Pay now";
+			return total ? t("payTotal", { total }) : t("payNow");
 		}
 
 		if (step === infoStep) {
-			return isShippingRequired ? "Continue to shipping" : "Continue to payment";
+			return isShippingRequired ? t("continueToShipping") : t("continueToPayment");
 		}
 
 		if (step === shippingStep) {
-			return "Continue to payment";
+			return t("continueToPayment");
 		}
 
-		return "Continue";
+		return t("continue");
 	};
+
+	const isPaymentStep = step === paymentStep;
 
 	return (
 		<div className="fixed inset-x-0 bottom-0 z-50 border-t border-border bg-card p-4 md:hidden">
+			{showPaymentTrust && isPaymentStep ? (
+				<PaymentTrustSignals variant="compact" provider={paymentTrustProvider} className="mb-3" />
+			) : null}
 			<Button
 				type={type}
-				onClick={onAction}
+				onClick={type === "button" ? onAction : undefined}
 				disabled={disabled || isLoading}
 				className="h-12 w-full text-base font-semibold"
 			>

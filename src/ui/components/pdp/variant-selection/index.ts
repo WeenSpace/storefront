@@ -49,19 +49,31 @@ export { VariantNameSelector } from "./variant-name-selector";
 export { VariantAttributeBadges, OptionalAttributes, extractOptionalAttributes } from "./optional-attributes";
 
 // Option renderers (for custom compositions)
-export { ColorSwatchOption, ButtonOption, SizeButtonOption, TextOption, defaultRenderers } from "./renderers";
+export {
+	ColorSwatchOption,
+	ImageSwatchPillOption,
+	ButtonOption,
+	SizeButtonOption,
+	TextOption,
+	defaultRenderers,
+} from "./renderers";
 
 // Utilities (for custom implementations)
 export {
 	groupVariantsByAttributes,
+	getInteractiveAttributeGroups,
+	getImplicitSelections,
 	findMatchingVariant,
 	getSelectionsFromVariant,
 	getOptionsForAttribute,
 	getAdjustedSelections,
 	getUnavailableAttributeInfo,
+	buildVariantSelectionIndex,
 	COLOR_NAME_TO_HEX,
 	type SaleorVariant,
+	type VariantSelectionIndex,
 } from "./utils";
+export { resolveVariantGroupControl, type VariantGroupControl } from "./resolve-group-control";
 
 // Legacy utilities (deprecated)
 export { extractColorHex, transformVariantsToOptions, inferSelectorLabel } from "./utils-legacy";

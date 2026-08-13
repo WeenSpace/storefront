@@ -2,30 +2,26 @@
 
 import { type FC, useState } from "react";
 import { Mail, Lock, Eye, EyeOff } from "lucide-react";
-import { useSaleorAuthContext } from "@saleor/auth-sdk/react";
+import { useTranslations } from "next-intl";
+import { loginWithBff } from "@/lib/auth/bff-client";
 import { Button } from "@/ui/components/ui/button";
 import { Input } from "@/ui/components/ui/input";
-import { useRequestPasswordResetMutation } from "@/checkout/graphql";
+import { requestCheckoutPasswordReset } from "@/app/(checkout)/actions";
+import { contactFieldAttributes } from "@/checkout/lib/consts/input-attributes";
 
 export interface SignInFormProps {
 	/** Pre-filled email address */
 	initialEmail?: string;
 	/** Saleor channel slug for password reset */
 	channelSlug: string;
-	/** Called when sign-in is successful */
-	onSuccess: () => void;
+	/** Called when sign-in is successful (may be async — form waits before clearing loading state) */
+	onSuccess: () => void | Promise<void>;
 	/** Called when user wants to checkout as guest */
 	onGuestCheckout: () => void;
 }
 
 /**
  * Sign-in form with email, password, and forgot password functionality.
- *
- * Features:
- * - Email/password authentication via Saleor
- * - Password visibility toggle
- * - Forgot password flow with rate limit messaging
- * - "Guest checkout" option
  */
 export const SignInForm: FC<SignInFormProps> = ({
 	initialEmail = "",
@@ -33,8 +29,8 @@ export const SignInForm: FC<SignInFormProps> = ({
 	onSuccess,
 	onGuestCheckout,
 }) => {
-	const { signIn } = useSaleorAuthContext();
-	const [, requestPasswordReset] = useRequestPasswordResetMutation();
+	const t = useTranslations("account");
+	const tCheckout = useTranslations("checkout.contact");
 	const [email, setEmail] = useState(initialEmail);
 	const [password, setPassword] = useState("");
 	const [showPassword, setShowPassword] = useState(false);
@@ -52,17 +48,22 @@ export const SignInForm: FC<SignInFormProps> = ({
 		setIsSubmitting(true);
 
 		try {
-			const result = await signIn({ email, password });
-			if (result.data?.tokenCreate?.errors?.length) {
-				const err = result.data.tokenCreate.errors[0];
-				setError(err.message || "Invalid email or password");
-			} else if (result.data?.tokenCreate?.token) {
-				onSuccess();
+			const result = await loginWithBff(email, password);
+			if (result.errors?.length) {
+				const err = result.errors[0];
+				const isInvalidCredentials =
+					err.code === "INVALID_CREDENTIALS" ||
+					err.code === "INVALID_PASSWORD" ||
+					err.message?.toLowerCase().includes("invalid") ||
+					err.message?.toLowerCase().includes("credentials");
+				setError(isInvalidCredentials ? t("errors.invalidCredentials") : t("errors.signInFailed"));
+			} else if (result.ok) {
+				await onSuccess();
 			} else {
-				setError("Sign in failed. Please try again.");
+				setError(t("errors.signInFailed"));
 			}
 		} catch {
-			setError("An error occurred. Please try again.");
+			setError(t("errors.generic"));
 		} finally {
 			setIsSubmitting(false);
 		}
@@ -73,40 +74,32 @@ export const SignInForm: FC<SignInFormProps> = ({
 		setSuccessMessage("");
 
 		if (!email) {
-			setError("Please enter your email address first");
+			setError(t("errors.invalidEmailFirst"));
 			return;
 		}
 
 		if (!validateEmail(email)) {
-			setError("Please enter a valid email address");
+			setError(t("errors.invalidEmail"));
 			return;
 		}
 
 		setIsSubmitting(true);
 		try {
-			const result = await requestPasswordReset({
+			const result = await requestCheckoutPasswordReset({
 				email,
 				channel: channelSlug,
 				redirectUrl: window.location.href,
 			});
 
-			if (result.error) {
-				setError(result.error.message || "Failed to send reset link");
+			if (!result.ok) {
+				setError(result.error || t("errors.resetLinkFailed"));
 				return;
 			}
 
-			if (result.data?.requestPasswordReset?.errors?.length) {
-				const err = result.data.requestPasswordReset.errors[0];
-				setError(err.message || "Failed to send reset link");
-			} else {
-				setPasswordResetSent(true);
-				setSuccessMessage(
-					`If an account exists for ${email}, a password reset link has been sent. ` +
-						`Note: You can only request one reset link every 15 minutes.`,
-				);
-			}
+			setPasswordResetSent(true);
+			setSuccessMessage(t("login.resetSent", { email }));
 		} catch {
-			setError("An error occurred. Please try again.");
+			setError(t("errors.generic"));
 		} finally {
 			setIsSubmitting(false);
 		}
@@ -115,20 +108,20 @@ export const SignInForm: FC<SignInFormProps> = ({
 	return (
 		<form onSubmit={handleSubmit} className="space-y-4">
 			<div className="flex items-center justify-between">
-				<h2 className="text-xl font-semibold">Sign in</h2>
+				<h2 className="text-xl font-semibold">{tCheckout("signInTitle")}</h2>
 				<p className="text-sm text-muted-foreground">
-					New customer?{" "}
+					{tCheckout("newCustomer")}{" "}
 					<button
 						type="button"
 						onClick={onGuestCheckout}
 						className="font-medium text-foreground underline underline-offset-2 hover:no-underline"
 					>
-						Guest checkout
+						{tCheckout("guestCheckout")}
 					</button>
 				</p>
 			</div>
 
-			{error && <div className="bg-destructive/10 rounded-md p-3 text-sm text-destructive">{error}</div>}
+			{error && <div className="rounded-md bg-destructive/10 p-3 text-sm text-destructive">{error}</div>}
 
 			{successMessage && (
 				<div className="rounded-md bg-green-100 p-3 text-sm text-green-800">{successMessage}</div>
@@ -139,13 +132,15 @@ export const SignInForm: FC<SignInFormProps> = ({
 					<Mail className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
 					<Input
 						type="email"
-						placeholder="Email address"
+						name={contactFieldAttributes.email.name}
+						inputMode={contactFieldAttributes.email.inputMode}
+						placeholder={t("fields.emailAddress")}
 						value={email}
 						onChange={(e) => {
 							setEmail(e.target.value);
 							setPasswordResetSent(false);
 						}}
-						autoComplete="email"
+						autoComplete={contactFieldAttributes.email.autoComplete}
 						className="h-12 pl-10"
 						required
 					/>
@@ -157,10 +152,11 @@ export const SignInForm: FC<SignInFormProps> = ({
 					<Lock className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
 					<Input
 						type={showPassword ? "text" : "password"}
-						placeholder="Password"
+						name={contactFieldAttributes.currentPassword.name}
+						placeholder={t("fields.password")}
 						value={password}
 						onChange={(e) => setPassword(e.target.value)}
-						autoComplete="current-password"
+						autoComplete={contactFieldAttributes.currentPassword.autoComplete}
 						className="h-12 pl-10 pr-10"
 						required
 					/>
@@ -168,6 +164,7 @@ export const SignInForm: FC<SignInFormProps> = ({
 						type="button"
 						onClick={() => setShowPassword(!showPassword)}
 						className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+						aria-label={showPassword ? t("common.hidePassword") : t("common.showPassword")}
 					>
 						{showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
 					</button>
@@ -181,10 +178,10 @@ export const SignInForm: FC<SignInFormProps> = ({
 					disabled={isSubmitting}
 					className="text-sm text-muted-foreground underline underline-offset-2 hover:text-foreground hover:no-underline disabled:opacity-50"
 				>
-					{passwordResetSent ? "Resend link?" : "Forgot password?"}
+					{passwordResetSent ? t("login.resendResetLink") : t("login.forgotPassword")}
 				</button>
 				<Button type="submit" disabled={isSubmitting}>
-					{isSubmitting ? "Processing..." : "Sign in"}
+					{isSubmitting ? tCheckout("processing") : t("login.submit")}
 				</Button>
 			</div>
 		</form>

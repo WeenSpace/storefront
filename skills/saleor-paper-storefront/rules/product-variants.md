@@ -1,8 +1,18 @@
+---
+name: product-variants
+description: Variant selection state machine on PDP: selection vs non-selection attributes, control ladder, selection-index, merchant order, URL-driven variant param. Use when changing variant pickers or add-to-cart enablement.
+---
+
 # Variant Selection
 
 Variant and attribute selection on product detail pages. Ensures correct "Add to Cart" button state, option availability, discount badges, and URL-driven selection.
 
+For caps, buy-box strategies, and over-budget deep links, see [`product-high-cardinality.md`](product-high-cardinality.md).
+
 > **Source**: [Saleor Docs - Attributes](https://docs.saleor.io/developer/attributes/overview) - How product/variant attributes work
+
+> **UI & renderers:** For border states, swatch pills, sizing, and renderer routing, see
+> [../references/variant-selector-ui.md](../references/variant-selector-ui.md).
 
 ## Core Concept: Variants, Not Products
 
@@ -35,91 +45,132 @@ nonSelectionAttributes: attributes(variantSelection: NOT_VARIANT_SELECTION) { ..
 
 Non-selection attributes are **display-only** - shown as informational badges, not interactive selectors.
 
+## Saleor Swatch Attributes
+
+Saleor `inputType: SWATCH` attributes may provide a **hex color** (`value`), an **image** (`file.url`), or both. Common on demo catalog for Color and Audio quality.
+
+Required GraphQL on `VariantDetailsFragment.graphql`:
+
+```graphql
+values {
+  name
+  value
+  file { url }
+}
+attribute {
+  slug
+  name
+  inputType
+}
+```
+
+After changes: `pnpm run generate`.
+
+| Swatch data    | Renderer                | UI                                |
+| -------------- | ----------------------- | --------------------------------- |
+| `file.url`     | `ImageSwatchPillOption` | `h-12` labeled pill (icon + name) |
+| hex in `value` | `ColorSwatchOption`     | `h-12` circle                     |
+
+See [variant-selector-ui.md](../references/variant-selector-ui.md) for border/state classes.
+
 ## File Structure
 
 ```
 src/ui/components/pdp/variant-selection/
-├── index.ts                      # Public exports
-├── types.ts                      # TypeScript interfaces
-├── utils.ts                      # Data transformation & logic
-├── variant-selector.tsx          # Single attribute selector
-├── variant-selection-section.tsx # Main container
-├── optional-attributes.tsx       # Non-selection attribute badges
+├── index.ts
+├── types.ts
+├── saleor-variant.ts              # Shared Saleor variant shapes + value IDs
+├── selection-index.ts             # Once-built Map/Set indexes + *FromIndex helpers
+├── utils.ts                       # Public API (delegates to index; rebuilds per call)
+├── resolve-group-control.ts       # chips | select | combobox ladder
+├── variant-selector.tsx
+├── variant-selection-section.tsx  # Builds index once via useMemo
+├── optional-attributes.tsx
 └── renderers/
-    ├── color-swatch-option.tsx   # Color swatch (circular)
-    └── button-option.tsx         # Button for size/text (unified)
+    ├── color-swatch-option.tsx
+    ├── image-swatch-pill-option.tsx
+    ├── button-option.tsx
+    └── index.ts
 ```
 
-## Key Functions in `utils.ts`
+Thresholds: `src/config/variants.ts`. Select/combobox are lazy-loaded so the chips path stays lean.
 
-| Function                        | Purpose                                          |
-| ------------------------------- | ------------------------------------------------ |
-| `groupVariantsByAttributes()`   | Extract unique attribute values from variants    |
-| `findMatchingVariant()`         | Find variant matching ALL selected attributes    |
-| `getOptionsForAttribute()`      | Get options with availability/compatibility info |
-| `getAdjustedSelections()`       | Clear conflicting selections when needed         |
-| `getUnavailableAttributeInfo()` | Detect dead-end selections                       |
+## Merchant order + natural sort
 
-For detailed function signatures and usage, see [../references/variant-utils-reference.md](../references/variant-utils-reference.md).
+- **Group order** = first-seen order from Saleor's `selectionAttributes` (product-type assignment). Do not re-sort groups with a swatch-first heuristic.
+- **Option values** = `sortByOptionLabel` / `compareOptionLabels` (natural / size-aware).
+
+## Key Functions
+
+Prefer building `buildVariantSelectionIndex(variants)` once and calling `*FromIndex` in UI hot paths.
+
+| Function / area                     | Purpose                                    |
+| ----------------------------------- | ------------------------------------------ |
+| `buildVariantSelectionIndex()`      | Groups + Maps/Sets for O(1)-ish lookups    |
+| `findMatchingVariantFromIndex()`    | Complete selection → variant id            |
+| `getOptionsForAttributeFromIndex()` | Availability + compatibility per option    |
+| `getAdjustedSelectionsFromIndex()`  | Partial accumulation + conflict auto-clear |
+| `groupVariantsByAttributes()`       | Public wrapper → `index.groups`            |
+| `resolveVariantGroupControl()`      | Per-group chips / select / combobox        |
+
+Compat wrappers in `utils.ts` still exist for tests; they rebuild the index each call.
+
+For detailed function signatures, see [../references/variant-utils-reference.md](../references/variant-utils-reference.md).
 
 ## Option States
 
-| State            | Meaning                                   | Visual        | Clickable?        |
-| ---------------- | ----------------------------------------- | ------------- | ----------------- |
-| **Available**    | In stock                                  | Normal        | ✓                 |
-| **Incompatible** | No variant with this + current selections | Dimmed        | ✓ (clears others) |
-| **Out of stock** | Variant exists but quantity = 0           | Strikethrough | ✗                 |
+| State            | Meaning                                 | Visual (buttons/pills)      | Clickable?        |
+| ---------------- | --------------------------------------- | --------------------------- | ----------------- |
+| **Compatible**   | Works with current other selections     | `border-gray-400`           | ✓                 |
+| **Selected**     | Currently chosen                        | `border-foreground`, fill   | ✓                 |
+| **Incompatible** | No variant with this + other selections | `border-gray-200`, muted    | ✓ (clears others) |
+| **Out of stock** | Variant exists but quantity = 0         | strikethrough, `opacity-60` | ✗                 |
+
+Compatibility flag: `existsWithCurrentSelection` from `getOptionsForAttribute()`.
+
+**Do not** use `border-border` for default compatible buttons — too light (see variant-selector-ui.md).
+
+## Partial vs Complete Selection
+
+| Phase                                   | `findMatchingVariant` | `getAdjustedSelections` behavior                            |
+| --------------------------------------- | --------------------- | ----------------------------------------------------------- |
+| **Partial** (some groups empty)         | `undefined`           | **Keep** new + prior selections if `hasCompatibleVariant()` |
+| **Complete** (all groups filled, match) | variant id            | Keep all; set `?variant=`                                   |
+| **Complete** (all filled, no match)     | `undefined`           | AUTO_ADJUST: clear to `{ [clickedAttr]: value }` only       |
+
+**Bug to avoid:** Calling `findMatchingVariant()` alone to decide whether to keep partial selections — it always returns `undefined` until every attribute group is filled.
+
+Multi-attribute example (demo audiobooks): Medium + Audio quality + Instant Delivery — user must select all three before add to cart enables.
 
 ## URL Parameter Pattern
 
-Selections are stored in URL params:
-
 ```
-?color=black&size=m&variant=abc123
-  ↑           ↑       ↑
-Color sel  Size sel  Matching variant (set automatically)
+?medium=mp3&audio-quality=standard&instant-delivery=instant-delivery:-yes&variant=abc123
 ```
 
-The `variant` param is only set when ALL attributes are selected.
+The `variant` param is only set when ALL attributes are selected and a match exists.
+
+Over-cap / external buy boxes also honor `?sku=` (see [`product-high-cardinality.md`](product-high-cardinality.md)); when both are present, `variant` wins.
 
 ## Discount Badges
 
-Options can show discount percentages:
-
-```typescript
-// In utils.ts
-interface VariantOption {
-	id: string;
-	name: string;
-	available: boolean;
-	hasDiscount?: boolean; // Any variant with this option is discounted
-	discountPercent?: number; // Max discount percentage
-	// ...
-}
-```
-
-The renderers display a small badge when `discountPercent` is set.
+Options can show discount percentages on any renderer (`discountPercent` on `VariantOption`). Badge: small red pill at bottom-right of the option control.
 
 ## Examples
 
-### Smart Selection Adjustment
-
-When user selects an incompatible option:
+### Smart Selection Adjustment (complete selection only)
 
 ```
-State: ?color=red (Red only exists in Size S)
-User clicks: Size L
-Result: ?size=l (Red is cleared, not blocked)
+State: ?color=red&size=s (all attrs filled, but user clicks Size L)
+Red/L doesn't exist → AUTO_ADJUST → ?size=l (color cleared)
 ```
 
-Users are never "stuck" - they can always explore all options.
+### Building partial selection (multi-attribute)
 
-### Dead End Detection
-
-```typescript
-const deadEnd = getUnavailableAttributeInfo(variants, groups, selections);
-// Returns: { slug: "size", name: "Size", blockedBy: "Red" }
-// UI shows: "No size available in Red"
+```
+1. Click Medium → MP3     → ?medium=mp3
+2. Click Standard         → ?medium=mp3&audio-quality=standard  (medium kept!)
+3. Click Instant Delivery → complete → ?variant=... added
 ```
 
 ### Custom Renderers
@@ -136,24 +187,33 @@ const deadEnd = getUnavailableAttributeInfo(variants, groups, selections);
 
 ## State Machine
 
-The selection system has 5 states with automatic conflict resolution. For the full state diagram and transition rules, see [../references/variant-state-machine.md](../references/variant-state-machine.md).
+For the full state diagram and transition rules, see [../references/variant-state-machine.md](../references/variant-state-machine.md).
 
-**Quick reference:**
+| State        | Add to Cart | Description                    |
+| ------------ | ----------- | ------------------------------ |
+| **Empty**    | ❌          | No selections                  |
+| **Partial**  | ❌          | Some attributes selected       |
+| **Complete** | ✅          | All selected, variant found    |
+| **Conflict** | —           | All filled, impossible → clear |
+| **DeadEnd**  | ❌          | Selection blocks other groups  |
 
-| State        | Add to Cart | Description                   |
-| ------------ | ----------- | ----------------------------- |
-| **Empty**    | ❌          | No selections                 |
-| **Partial**  | ❌          | Some attributes selected      |
-| **Complete** | ✅          | All selected, variant found   |
-| **Conflict** | —           | Auto-clears to Partial        |
-| **DeadEnd**  | ❌          | Selection blocks other groups |
+## Testing
 
-**Key behavior:** When user selects an incompatible option, other selections are cleared automatically (not blocked). Users can always explore all options.
+```bash
+pnpm test src/ui/components/pdp/variant-selection/utils.test.ts
+pnpm test src/ui/components/pdp/variant-selection/selection-index.test.ts
+```
+
+Fixture `audiobookVariants` in `__fixtures__/variants.ts` covers 3-attribute partial selection.
 
 ## Anti-patterns
 
 ❌ **Don't enable "Add to Cart" without full selection** - Needs variant ID  
-❌ **Don't block incompatible options** - Let users click, clear others  
-❌ **Don't assume single attribute** - Products can have multiple  
+❌ **Don't block incompatible options** - Let users click, clear others when complete  
+❌ **Don't clear partial selections** when `findMatchingVariant` is undefined — use `hasCompatibleVariant`  
+❌ **Don't assume single attribute** - Products can have multiple (incl. BOOLEAN selection attrs)  
 ❌ **Don't use `0` in boolean checks for prices** - Use `typeof === "number"`  
-❌ **Don't make non-selection attributes interactive** - They're display-only (badges, not toggles)
+❌ **Don't make non-selection attributes interactive** - They're display-only (badges, not toggles)  
+❌ **Don't use `border-border` on compatible button/pill options** - Use `border-gray-400`  
+❌ **Don't re-sort attribute groups** away from merchant/API order  
+❌ **Don't rebuild the selection index on every click** in the picker — memoize once

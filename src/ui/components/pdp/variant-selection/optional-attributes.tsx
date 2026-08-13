@@ -1,3 +1,6 @@
+import { pickTranslatedName } from "@/lib/saleor-translations";
+import { getAttributeValueDisplayName, type SaleorVariantAttribute } from "./utils";
+
 interface VariantAttribute {
 	name: string;
 	slug: string;
@@ -23,7 +26,7 @@ export function VariantAttributeBadges({ attributes }: VariantAttributeBadgesPro
 			{attributes.map((attr) => (
 				<span
 					key={attr.slug}
-					className="inline-flex items-center gap-1.5 rounded-full border border-gray-200 bg-gray-50 px-3 py-1 text-xs text-muted-foreground"
+					className="inline-flex items-center gap-1.5 rounded-full border border-border bg-muted px-3 py-1 text-xs text-muted-foreground"
 				>
 					<span className="font-medium">{attr.name}:</span>
 					<span>{attr.values.join(", ")}</span>
@@ -38,10 +41,7 @@ export const OptionalAttributes = VariantAttributeBadges;
 
 type VariantWithAttributes = {
 	id: string;
-	nonSelectionAttributes?: Array<{
-		attribute: { name?: string | null; slug?: string | null };
-		values: Array<{ name?: string | null }>;
-	}>;
+	nonSelectionAttributes?: SaleorVariantAttribute[];
 };
 
 /**
@@ -52,9 +52,9 @@ export function extractOptionalAttributes(
 	variants: VariantWithAttributes[],
 	selectedVariantId?: string,
 ): VariantAttribute[] {
-	// Find the selected variant, or fall back to first if none selected
-	const variant = selectedVariantId ? variants.find((v) => v.id === selectedVariantId) : variants[0];
+	if (!selectedVariantId) return [];
 
+	const variant = variants.find((v) => v.id === selectedVariantId);
 	if (!variant?.nonSelectionAttributes) {
 		return [];
 	}
@@ -62,9 +62,12 @@ export function extractOptionalAttributes(
 	return variant.nonSelectionAttributes
 		.filter((attr) => attr.attribute.name && attr.attribute.slug)
 		.map((attr) => ({
-			name: attr.attribute.name!,
+			name: pickTranslatedName({
+				name: attr.attribute.name!,
+				translation: attr.attribute.translation,
+			}),
 			slug: attr.attribute.slug!,
-			values: attr.values.map((v) => v.name).filter((n): n is string => !!n),
+			values: attr.values.map((v) => getAttributeValueDisplayName(v)).filter((n) => n.length > 0),
 		}))
 		.filter((attr) => attr.values.length > 0);
 }
