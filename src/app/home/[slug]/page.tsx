@@ -106,14 +106,17 @@ export default async function Page(props: {
 			return;
 		}
 
-		// TODO: error handling
-		await executeAuthenticatedGraphQL(CheckoutAddLineDocument, {
+		const result = await executeAuthenticatedGraphQL(CheckoutAddLineDocument, {
 			variables: {
 				id: checkout.id,
 				productVariantId: decodeURIComponent(selectedVariantID),
 			},
 			cache: "no-cache",
 		});
+
+		if (!result.ok) {
+			return;
+		}
 
 		revalidatePath("/cart");
 	}
