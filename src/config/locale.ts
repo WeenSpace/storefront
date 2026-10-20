@@ -1,7 +1,8 @@
 /**
- * Locale settings for display formatting. Currency comes from Saleor channels, not here.
+ * Locale settings for routing, display formatting, language, and default currency.
  *
- * URL browse routes use lowercase **locale slugs** (`en`, `pl`) under `/{locale}/{channel}/…`.
+ * URL browse routes use lowercase **locale slugs** (`en`, `pl`) under `/{locale}/…`.
+ * Currency is configured independently per locale; it is not encoded in the URL.
  * Cache tags and GraphQL use BCP 47 / Saleor `LanguageCodeEnum` from {@link LOCALE_DEFINITIONS}.
  */
 
@@ -10,6 +11,8 @@ export type LocaleSlug = keyof typeof LOCALE_DEFINITIONS;
 export type LocaleDefinition = {
 	/** BCP 47 — Intl APIs, content cache tags */
 	bcp47: string;
+	/** Monetary currency resolved from the locale configuration, not the URL. */
+	defaultCurrencyCode: string;
 	/** Saleor GraphQL translations (`LanguageCodeEnum` string) */
 	graphqlLanguageCode: string;
 	htmlLang: string;
@@ -26,30 +29,35 @@ export type LocaleDefinition = {
 export const LOCALE_DEFINITIONS = {
 	en: {
 		bcp47: "en-US",
+		defaultCurrencyCode: "USD",
 		graphqlLanguageCode: "EN",
 		htmlLang: "en",
 		ogLocale: "en_US",
 	},
 	pl: {
 		bcp47: "pl-PL",
+		defaultCurrencyCode: "USD",
 		graphqlLanguageCode: "PL",
 		htmlLang: "pl",
 		ogLocale: "pl_PL",
 	},
 	de: {
 		bcp47: "de-DE",
+		defaultCurrencyCode: "USD",
 		graphqlLanguageCode: "DE",
 		htmlLang: "de",
 		ogLocale: "de_DE",
 	},
 	fr: {
 		bcp47: "fr-FR",
+		defaultCurrencyCode: "USD",
 		graphqlLanguageCode: "FR",
 		htmlLang: "fr",
 		ogLocale: "fr_FR",
 	},
 	fi: {
 		bcp47: "fi-FI",
+		defaultCurrencyCode: "USD",
 		graphqlLanguageCode: "FI",
 		htmlLang: "fi",
 		ogLocale: "fi_FI",
@@ -57,6 +65,7 @@ export const LOCALE_DEFINITIONS = {
 	/** Norwegian Bokmål — slug `nb`, not `no` (avoids collision with channel navigation / ISO ambiguity). */
 	nb: {
 		bcp47: "nb-NO",
+		defaultCurrencyCode: "USD",
 		/** Saleor `LanguageCodeEnum` is `NB` (Bokmål), not `NO`. */
 		graphqlLanguageCode: "NB",
 		htmlLang: "nb",
@@ -64,12 +73,14 @@ export const LOCALE_DEFINITIONS = {
 	},
 	ja: {
 		bcp47: "ja-JP",
+		defaultCurrencyCode: "USD",
 		graphqlLanguageCode: "JA",
 		htmlLang: "ja",
 		ogLocale: "ja_JP",
 	},
 	ko: {
 		bcp47: "ko-KR",
+		defaultCurrencyCode: "USD",
 		graphqlLanguageCode: "KO",
 		htmlLang: "ko",
 		ogLocale: "ko_KR",
@@ -123,6 +134,11 @@ export function isStorefrontLocaleSlug(value: string): value is LocaleSlug {
 export function getLocaleDefinition(slug: string): LocaleDefinition | null {
 	if (!isLocaleSlug(slug)) return null;
 	return LOCALE_DEFINITIONS[slug];
+}
+
+/** Currency code configured for a URL locale; unknown locales use the default locale. */
+export function getDefaultCurrencyCode(slug: string): string {
+	return resolveLocaleFromSlug(slug).defaultCurrencyCode;
 }
 
 /** BCP 47 locales for content cache tags (all configured storefront locales). */

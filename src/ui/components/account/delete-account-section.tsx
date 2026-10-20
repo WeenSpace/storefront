@@ -5,7 +5,7 @@ import { useParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { AlertTriangle } from "lucide-react";
 import { Button } from "@/ui/components/ui/button";
-import { requestAccountDeletion } from "@/app/(storefront)/[locale]/[channel]/(main)/account/actions";
+import { requestAccountDeletion } from "@/app/(storefront)/[locale]/(main)/account/actions";
 import { resolveAccountActionError } from "@/ui/components/account/account-action-result";
 import { buildStorefrontPath } from "@/lib/storefront-path";
 

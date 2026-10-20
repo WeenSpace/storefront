@@ -16,7 +16,7 @@ import {
 	SheetDescription,
 	SheetCloseButton,
 } from "@/ui/components/ui/sheet";
-import { createAddress, updateAddress } from "@/app/(storefront)/[locale]/[channel]/(main)/account/actions";
+import { createAddress, updateAddress } from "@/app/(storefront)/[locale]/(main)/account/actions";
 import { resolveAccountActionError } from "@/ui/components/account/account-action-result";
 
 type Props = {

@@ -5,7 +5,6 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { rootMetadata } from "@/lib/seo";
-import { getConfiguredLocaleChannelPairs } from "@/config/locale-channel";
 import {
 	getDefaultLocaleSlug,
 	getStorefrontLocaleSlugs,
@@ -37,12 +36,6 @@ export async function generateMetadata({
 }
 
 export function generateStaticParams() {
-	const pairs = getConfiguredLocaleChannelPairs();
-	if (pairs) {
-		const locales = [...new Set(pairs.map((pair) => pair.locale))];
-		return locales.map((locale) => ({ locale }));
-	}
-
 	return getStorefrontLocaleSlugs().map((locale) => ({ locale }));
 }
 
@@ -50,15 +43,15 @@ export function generateStaticParams() {
  * Storefront root layout — renders `<html lang>` server-side from the URL locale segment.
  *
  * Invalid locale slugs fall back to the default `htmlLang` here so the not-found boundary
- * still has an HTML shell; the actual `notFound()` for invalid pairs lives in `[channel]/layout`.
+ * still has an HTML shell; the locale route validates the public locale segment.
  */
 export default async function LocaleRootLayout({
 	children,
 	params,
-}: {
+}: Readonly<{
 	children: ReactNode;
 	params: Promise<{ locale: string }>;
-}) {
+}>) {
 	const { locale } = await params;
 	const localeSlug = isStorefrontLocaleSlug(locale) ? locale : getDefaultLocaleSlug();
 	const htmlLang = resolveLocaleFromSlug(localeSlug).htmlLang;
@@ -71,7 +64,7 @@ export default async function LocaleRootLayout({
 	const htmlProps = getRootHtmlFontProps(htmlLang);
 
 	return (
-		<html {...htmlProps}>
+		<html {...htmlProps} lang={htmlLang}>
 			<body className="min-h-dvh font-sans">
 				<NextIntlClientProvider locale={localeSlug} messages={messages}>
 					<PersistBrowseLocaleCookie locale={localeSlug} />

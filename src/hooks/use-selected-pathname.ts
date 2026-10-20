@@ -5,10 +5,10 @@ import { stripStorefrontPrefix } from "@/lib/storefront-path";
 
 function useSelectedPathname() {
 	const pathname = usePathname();
-	const { locale, channel } = useParams<{ locale?: string; channel?: string }>();
+	const { locale } = useParams<{ locale?: string }>();
 
-	if (locale && channel) {
-		return stripStorefrontPrefix(pathname, locale, channel);
+	if (locale) {
+		return stripStorefrontPrefix(pathname, locale);
 	}
 
 	return pathname;

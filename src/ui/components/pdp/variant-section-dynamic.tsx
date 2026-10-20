@@ -1,7 +1,6 @@
 import { formatMoney, formatMoneyRange } from "@/lib/utils";
-import { resolveLocaleFromSlug } from "@/config/locale";
+import { getDefaultCurrencyCode, resolveLocaleFromSlug } from "@/config/locale";
 import { getDiscountInfo } from "@/lib/pricing";
-import { resolveChannelCurrency } from "@/lib/channels/resolve-channel-currency";
 import { getStorefrontContent } from "@/lib/content/server";
 import {
 	revalidateStorefrontBrowsePath,
@@ -46,11 +45,11 @@ export async function VariantSectionDynamic({
 }: VariantSectionDynamicProps) {
 	const { variant: variantParam, sku: skuParam } = await searchParams;
 	const intlLocale = resolveLocaleFromSlug(localeSlug).bcp47;
+	const currency = getDefaultCurrencyCode(localeSlug);
 
-	const [t, content, currency, variantResult] = await Promise.all([
+	const [t, content, variantResult] = await Promise.all([
 		getTranslations({ locale: localeSlug, namespace: "pdp" }),
 		getStorefrontContent(channel, localeSlug),
-		resolveChannelCurrency(channel),
 		resolvePdpVariants(product, channel, localeSlug, {
 			variantId: variantParam,
 			sku: skuParam,

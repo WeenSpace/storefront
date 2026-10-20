@@ -10,12 +10,7 @@ import {
 	toChannelSelectOptions,
 } from "./channels";
 
-const ENV_KEYS = [
-	"STOREFRONT_CHANNELS",
-	"STOREFRONT_DISCOVER_CHANNELS",
-	"NEXT_PUBLIC_DEFAULT_CHANNEL",
-	"SALEOR_APP_TOKEN",
-] as const;
+const ENV_KEYS = ["STOREFRONT_CHANNELS", "STOREFRONT_DISCOVER_CHANNELS", "SALEOR_APP_TOKEN"] as const;
 
 function saveEnv(): Record<(typeof ENV_KEYS)[number], string | undefined> {
 	return Object.fromEntries(ENV_KEYS.map((key) => [key, process.env[key]])) as Record<
@@ -46,10 +41,9 @@ describe("storefront channel config", () => {
 		expect(getStaticStorefrontChannelSlugs()).toEqual(["us", "uk"]);
 	});
 
-	it("falls back to default channel when no allowlist", () => {
+	it("does not expose a public channel fallback", () => {
 		delete process.env.STOREFRONT_CHANNELS;
-		process.env.NEXT_PUBLIC_DEFAULT_CHANNEL = "default-channel";
-		expect(getStaticStorefrontChannelSlugs()).toEqual(["default-channel"]);
+		expect(getStaticStorefrontChannelSlugs()).toEqual([]);
 	});
 
 	it("discovery is opt-in", () => {
@@ -70,16 +64,6 @@ describe("storefront channel config", () => {
 
 		process.env.STOREFRONT_CHANNELS = "us,uk";
 		expect(needsAsyncChannelDiscovery()).toBe(false);
-	});
-
-	it("warns when default channel is missing from allowlist", () => {
-		const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
-		process.env.STOREFRONT_CHANNELS = "us,uk";
-		process.env.NEXT_PUBLIC_DEFAULT_CHANNEL = "default-channel";
-
-		getStaticStorefrontChannelSlugs();
-
-		expect(warn).toHaveBeenCalledWith(expect.stringContaining("default-channel"));
 	});
 
 	it("filters API channels to storefront allowlist", () => {

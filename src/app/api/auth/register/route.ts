@@ -24,7 +24,7 @@ interface RegisterRequest {
 	password: string;
 	firstName?: string;
 	lastName?: string;
-	channel: string;
+	currency: string;
 	redirectUrl: string;
 }
 
@@ -51,7 +51,7 @@ export async function POST(request: NextRequest) {
 		);
 	}
 
-	const { email, password, firstName, lastName, channel, redirectUrl } = body;
+	const { email, password, firstName, lastName, currency, redirectUrl } = body;
 
 	if (!email || !password) {
 		return NextResponse.json(
@@ -84,7 +84,7 @@ export async function POST(request: NextRequest) {
 				password,
 				firstName: firstName || "",
 				lastName: lastName || "",
-				channel,
+				currency,
 				redirectUrl,
 			},
 		},

@@ -1,5 +1,5 @@
-mutation CheckoutCreate($channel: String!, $languageCode: LanguageCodeEnum!) {
-	checkoutCreate(input: { channel: $channel, languageCode: $languageCode, lines: [] }) {
+mutation CheckoutCreate($currency: String!, $languageCode: LanguageCodeEnum!) {
+	checkoutCreate(input: { currency: $currency, languageCode: $languageCode, lines: [] }) {
 		checkout {
 			id
 			email

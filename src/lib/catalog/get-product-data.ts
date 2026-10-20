@@ -59,7 +59,7 @@ export async function getProductData(
 		const result = await executePublicGraphQL(ProductDetailsDocument, {
 			variables: {
 				slug: vars.slug,
-				channel,
+				currency: channel,
 				...languageVariables,
 				...(vars.slugLanguageCode ? { slugLanguageCode: vars.slugLanguageCode } : {}),
 			},
@@ -251,7 +251,7 @@ async function getProductVariantForPdp(
 		variables: {
 			id,
 			sku,
-			channel,
+			currency: channel,
 			...graphqlLanguageCodeVariables(localeSlug),
 		},
 	});
@@ -294,7 +294,7 @@ async function fetchVariantPage(
 	const result = await executePublicGraphQL(ProductVariantsForPdpDocument, {
 		variables: {
 			slug,
-			channel,
+			currency: channel,
 			first,
 			after,
 			...languageVariables,

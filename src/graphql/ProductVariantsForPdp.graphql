@@ -2,12 +2,12 @@
 # Callers page up to PDP_VARIANT_CAP; over-budget products must not hydrate a partial matrix.
 query ProductVariantsForPdp(
 	$slug: String!
-	$channel: String!
+	$currency: String!
 	$languageCode: LanguageCodeEnum!
 	$first: Int!
 	$after: String
 ) {
-	product(slug: $slug, channel: $channel) {
+	product(slug: $slug, currency: $currency) {
 		id
 		productVariants(first: $first, after: $after) {
 			totalCount

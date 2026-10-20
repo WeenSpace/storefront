@@ -1,6 +1,8 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import {
+	getDefaultCurrencyCode,
 	getGraphqlLanguageCode,
+	LOCALE_DEFINITIONS,
 	getStorefrontLocaleSlugs,
 	isLocaleSlug,
 	isStorefrontLocaleSlug,
@@ -40,5 +42,17 @@ describe("getGraphqlLanguageCode", () => {
 		expect(getGraphqlLanguageCode("nb")).toBe("NB");
 		expect(getGraphqlLanguageCode("ja")).toBe("JA");
 		expect(getGraphqlLanguageCode("ko")).toBe("KO");
+	});
+});
+
+describe("getDefaultCurrencyCode", () => {
+	it("resolves the configured currency for every locale", () => {
+		for (const locale of Object.keys(LOCALE_DEFINITIONS)) {
+			expect(getDefaultCurrencyCode(locale)).toBe("USD");
+		}
+	});
+
+	it("uses the default locale currency for an unknown locale", () => {
+		expect(getDefaultCurrencyCode("unknown")).toBe("USD");
 	});
 });

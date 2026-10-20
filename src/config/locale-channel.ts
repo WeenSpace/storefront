@@ -39,6 +39,23 @@ export function getConfiguredLocaleChannelPairs(): readonly LocaleChannelPair[] 
 	return parseEnvLocaleChannelPairs(process.env.NEXT_PUBLIC_STOREFRONT_LOCALE_CHANNELS);
 }
 
+/** Resolve a legacy channel URL only when its explicit mapping names one locale. */
+export function getUniqueLocaleForLegacyChannel(channel: string): LocaleSlug | null {
+	const pairs = getConfiguredLocaleChannelPairs();
+	if (!pairs) return null;
+
+	const locales = new Set(pairs.filter((pair) => pair.channel === channel).map((pair) => pair.locale));
+	return locales.size === 1 ? [...locales][0] : null;
+}
+
+/** Whether an old `/{locale}/{channel}/…` path has an explicit mapping. */
+export function isConfiguredLocaleChannelPair(locale: string, channel: string): boolean {
+	return (
+		getConfiguredLocaleChannelPairs()?.some((pair) => pair.locale === locale && pair.channel === channel) ??
+		false
+	);
+}
+
 /** When a pair matrix is configured, return the channel bound to a locale; otherwise keep the current channel. */
 export function getPairedChannelForLocale(locale: string, currentChannel: string): string {
 	const pairs = getConfiguredLocaleChannelPairs();
@@ -64,7 +81,7 @@ export function isAllowedLocaleChannelPair(locale: string, channel: string): boo
 	return pairs.some((pair) => pair.locale === locale && pair.channel === channel);
 }
 
-/** Static params for `[locale]/[channel]` when a pair matrix is configured. */
+/** Legacy Saleor compatibility mapping; public routes are locale-only. */
 export function getLocaleChannelStaticParams(): Array<{ locale: string; channel: string }> {
 	const pairs = getConfiguredLocaleChannelPairs();
 	if (pairs) {

@@ -1,10 +1,10 @@
 query ProductDetails(
 	$slug: String!
-	$channel: String!
+	$currency: String!
 	$languageCode: LanguageCodeEnum!
 	$slugLanguageCode: LanguageCodeEnum
 ) {
-	product(slug: $slug, channel: $channel, slugLanguageCode: $slugLanguageCode) {
+	product(slug: $slug, currency: $currency, slugLanguageCode: $slugLanguageCode) {
 		id
 		name
 		slug

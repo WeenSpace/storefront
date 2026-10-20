@@ -12,9 +12,9 @@ import { executePublicGraphQL, executeAuthenticatedGraphQL } from "@/lib/graphql
 import { formatMoney, formatMoneyRange } from "@/lib/utils";
 import { CheckoutAddLineDocument, ProductDetailsDocument } from "@/gql/graphql";
 import * as Checkout from "@/lib/checkout";
-import { DefaultChannelSlug } from "@/app/config";
+import { DefaultCurrency } from "@/app/config";
 
-const channel = DefaultChannelSlug ?? "default-channel";
+const currency = DefaultCurrency;
 
 async function getProductData(slug: string) {
 	"use cache";
@@ -22,7 +22,7 @@ async function getProductData(slug: string) {
 	const result = await executePublicGraphQL(ProductDetailsDocument, {
 		variables: {
 			slug: decodeURIComponent(slug),
-			channel,
+			currency,
 		},
 		revalidate: 60,
 	});

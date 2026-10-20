@@ -1,49 +1,50 @@
-/**
- * Helpers for `/{locale}/{channel}/…` browse URLs (ADR 0001).
- */
+import { getDefaultCurrencyCode } from "@/config/locale";
+
+/** Helpers for locale-only `/{locale}/…` browse URLs and their configured currency context. */
 
 export type StorefrontPathPrefix = {
 	locale: string;
-	channel: string;
-	/** Path after channel, including leading slash — e.g. `/products/foo` or `` for homepage */
+	currency: string;
+	/** Path after currency, including leading slash — e.g. `/products/foo` or `` for homepage */
 	suffix: string;
 };
 
-export function buildStorefrontPath(locale: string, channel: string, suffix = ""): string {
+export function buildStorefrontPath(locale: string, currency: string, suffix = ""): string {
 	const normalizedSuffix = suffix.startsWith("/") || suffix === "" ? suffix : `/${suffix}`;
-	return `/${encodeURIComponent(locale)}/${encodeURIComponent(channel)}${normalizedSuffix}`;
+	return `/${encodeURIComponent(locale)}${normalizedSuffix}`;
 }
 
 /**
- * Parse a pathname into locale + channel + suffix when it matches the browse prefix.
+ * Parse a pathname into locale + currency + suffix when it matches the browse prefix.
  */
 export function parseStorefrontPathname(pathname: string): StorefrontPathPrefix | null {
 	const segments = pathname.split("/").filter(Boolean);
-	if (segments.length < 2) return null;
+	if (segments.length < 1) return null;
 
-	const [locale, channel, ...rest] = segments;
+	const [localeSegment, ...rest] = segments;
+	const locale = decodeURIComponent(localeSegment);
 	return {
-		locale: decodeURIComponent(locale),
-		channel: decodeURIComponent(channel),
+		locale,
+		currency: getDefaultCurrencyCode(locale),
 		suffix: rest.length > 0 ? `/${rest.join("/")}` : "",
 	};
-}
-
-export function replaceStorefrontChannel(pathname: string, newChannel: string): string | null {
-	const parsed = parseStorefrontPathname(pathname);
-	if (!parsed) return null;
-	return buildStorefrontPath(parsed.locale, newChannel, parsed.suffix);
 }
 
 export function replaceStorefrontLocale(pathname: string, newLocale: string): string | null {
 	const parsed = parseStorefrontPathname(pathname);
 	if (!parsed) return null;
-	return buildStorefrontPath(newLocale, parsed.channel, parsed.suffix);
+	return buildStorefrontPath(newLocale, parsed.currency, parsed.suffix);
 }
 
-/** Strip `/{locale}/{channel}` for nav active-state matching. */
-export function stripStorefrontPrefix(pathname: string, locale: string, channel: string): string {
-	const prefix = `/${locale}/${channel}`;
+/** Compatibility helper for internal Saleor channel callers; channel is not public URL state. */
+export function replaceStorefrontChannel(pathname: string, _newChannel: string): string | null {
+	const parsed = parseStorefrontPathname(pathname);
+	return parsed ? buildStorefrontPath(parsed.locale, parsed.currency, parsed.suffix) : null;
+}
+
+/** Strip `/{locale}` for nav active-state matching. */
+export function stripStorefrontPrefix(pathname: string, locale: string, _channel?: string): string {
+	const prefix = `/${locale}`;
 	if (pathname === prefix || pathname === `${prefix}/`) {
 		return "/";
 	}

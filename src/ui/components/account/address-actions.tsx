@@ -5,10 +5,7 @@ import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { Trash2 } from "lucide-react";
 import { Button } from "@/ui/components/ui/button";
-import {
-	deleteAddress,
-	setDefaultAddress,
-} from "@/app/(storefront)/[locale]/[channel]/(main)/account/actions";
+import { deleteAddress, setDefaultAddress } from "@/app/(storefront)/[locale]/(main)/account/actions";
 
 type DeleteProps = {
 	addressId: string;

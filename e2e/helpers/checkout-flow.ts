@@ -1,6 +1,6 @@
 import { expect, type Page } from "@playwright/test";
 
-const browsePath = "/fr/default-channel";
+const browsePath = "/fr";
 /** Apparel SKU with size variant — shipping required. */
 const checkoutProductPath = `${browsePath}/products/ascii-tee?size=s&variant=UHJvZHVjdFZhcmlhbnQ6MzQ4`;
 const checkoutLocale = "fr";

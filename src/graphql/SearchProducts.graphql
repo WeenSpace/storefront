@@ -6,7 +6,7 @@ query SearchProducts(
 	$after: String
 	$last: Int
 	$before: String
-	$channel: String!
+	$currency: String!
 	$languageCode: LanguageCodeEnum!
 ) {
 	products(
@@ -14,7 +14,7 @@ query SearchProducts(
 		after: $after
 		last: $last
 		before: $before
-		channel: $channel
+		currency: $currency
 		sortBy: { field: $sortBy, direction: $sortDirection }
 		filter: { search: $search }
 	) {

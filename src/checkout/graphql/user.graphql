@@ -34,8 +34,8 @@ mutation userRegister($input: AccountRegisterInput!) {
 	}
 }
 
-mutation requestPasswordReset($email: String!, $channel: String!, $redirectUrl: String!) {
-	requestPasswordReset(email: $email, channel: $channel, redirectUrl: $redirectUrl) {
+mutation requestPasswordReset($email: String!, $currency: String!, $redirectUrl: String!) {
+	requestPasswordReset(email: $email, currency: $currency, redirectUrl: $redirectUrl) {
 		errors {
 			message
 			field

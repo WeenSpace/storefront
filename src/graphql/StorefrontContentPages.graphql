@@ -1,5 +1,5 @@
-query StorefrontContentPages($channel: String!, $slugs: [String!]!, $languageCode: LanguageCodeEnum!) {
-	pages(channel: $channel, where: { slug: { oneOf: $slugs } }, first: 20) {
+query StorefrontContentPages($currency: String!, $slugs: [String!]!, $languageCode: LanguageCodeEnum!) {
+	pages(currency: $currency, where: { slug: { oneOf: $slugs } }, first: 20) {
 		edges {
 			node {
 				...StorefrontContentPage

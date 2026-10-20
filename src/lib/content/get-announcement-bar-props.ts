@@ -1,5 +1,4 @@
-import { resolveLocaleFromSlug } from "@/config/locale";
-import { resolveChannelCurrency } from "@/lib/channels/resolve-channel-currency";
+import { getDefaultCurrencyCode, resolveLocaleFromSlug } from "@/config/locale";
 import { applyCacheProfile, CACHE_PROFILES } from "@/lib/cache-manifest";
 import { defaultStorefrontContent } from "@/lib/content/defaults";
 import { getStorefrontContent } from "@/lib/content/get-storefront-content";
@@ -38,10 +37,8 @@ export async function getAnnouncementBarProps(
 	const bcp47 = resolveLocaleFromSlug(localeSlug).bcp47;
 	applyCacheProfile(CACHE_PROFILES.storefrontContent, { channel, locale: bcp47 });
 
-	const [content, currency] = await Promise.all([
-		getStorefrontContent(channel, localeSlug),
-		resolveChannelCurrency(channel),
-	]);
+	const content = await getStorefrontContent(channel, localeSlug);
+	const currency = getDefaultCurrencyCode(localeSlug);
 
 	return buildAnnouncementBarContent(content, { currency, localeSlug });
 }

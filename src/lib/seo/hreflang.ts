@@ -1,34 +1,13 @@
-import { getDefaultLocaleSlug, getLocaleDefinition, getStorefrontLocaleSlugs } from "@/config/locale";
-import { getConfiguredLocaleChannelPairs } from "@/config/locale-channel";
-import { getStaticStorefrontChannelSlugs } from "@/config/channels";
+import {
+	getDefaultCurrencyCode,
+	getDefaultLocaleSlug,
+	getLocaleDefinition,
+	getStorefrontLocaleSlugs,
+} from "@/config/locale";
 import { buildStorefrontPath } from "@/lib/storefront-path";
-
-type LocaleChannelTarget = { locale: string; channel: string };
 
 /** Same suffix for every locale, or a per-locale suffix map (translated catalog slugs). */
 export type HreflangPathInput = string | Record<string, string>;
-
-function getHreflangTargets(fallbackChannel: string): LocaleChannelTarget[] {
-	const pairs = getConfiguredLocaleChannelPairs();
-	if (pairs) {
-		return pairs.map(({ locale, channel }) => ({ locale, channel }));
-	}
-
-	return getStorefrontLocaleSlugs().map((locale) => ({ locale, channel: fallbackChannel }));
-}
-
-function getXDefaultTarget(fallbackChannel: string): LocaleChannelTarget {
-	const pairs = getConfiguredLocaleChannelPairs();
-	const defaultLocale = getDefaultLocaleSlug();
-
-	if (pairs) {
-		const defaultPair = pairs.find((pair) => pair.locale === defaultLocale) ?? pairs[0];
-		if (defaultPair) return defaultPair;
-	}
-
-	const defaultChannel = getStaticStorefrontChannelSlugs()[0] ?? fallbackChannel;
-	return { locale: defaultLocale, channel: defaultChannel };
-}
 
 function resolvePathSuffix(pathInput: HreflangPathInput, locale: string, fallbackSuffix: string): string {
 	if (typeof pathInput === "string") return pathInput;
@@ -36,44 +15,41 @@ function resolvePathSuffix(pathInput: HreflangPathInput, locale: string, fallbac
 }
 
 /**
- * hreflang language key for a locale.
- *
- * - Locale×channel pairs configured → BCP 47 region form (`ja-JP`): each alternate is a
- *   language+market URL, so a region-aware code matches Google's guidance.
- * - No pairs (any locale × any channel) → language-only (`ja`): the same language may
- *   exist on multiple markets; claiming `ja-JP` for one channel would over-assert.
+ * The locale definition is the source of hreflang identity. Channel mappings do not
+ * participate because channels are no longer part of public route state.
  */
-function getHreflangLanguageKey(locale: string, regionAware: boolean): string | null {
+function getHreflangLanguageKey(locale: string): string | null {
 	const definition = getLocaleDefinition(locale);
-	if (!definition) return null;
-	return regionAware ? definition.bcp47 : definition.htmlLang;
+	return definition?.bcp47 ?? null;
 }
 
 /**
  * hreflang alternates for browse URLs.
  * Pass a single path suffix, or a per-locale map when catalog slugs are translated (ADR 0004).
- * When `NEXT_PUBLIC_STOREFRONT_LOCALE_CHANNELS` is set, each locale uses its paired channel
- * and hreflang keys are region-aware (`ja-JP`); otherwise keys stay language-only (`ja`).
- * Includes `x-default` pointing at default locale + its channel.
+ * Channel is retained as an ignored argument for existing metadata call sites during migration.
+ * Includes `x-default` pointing at the configured default locale.
  */
 export function buildLocaleHreflangAlternates(
-	channel: string,
+	_channel: string,
 	pathSuffix: HreflangPathInput,
 ): Record<string, string> {
 	const languages: Record<string, string> = {};
-	const fallbackSuffix = typeof pathSuffix === "string" ? pathSuffix : Object.values(pathSuffix)[0] ?? "";
-	const regionAware = getConfiguredLocaleChannelPairs() !== null;
+	const fallbackSuffix = typeof pathSuffix === "string" ? pathSuffix : (Object.values(pathSuffix)[0] ?? "");
 
-	for (const { locale, channel: targetChannel } of getHreflangTargets(channel)) {
-		const languageKey = getHreflangLanguageKey(locale, regionAware);
+	for (const locale of getStorefrontLocaleSlugs()) {
+		const languageKey = getHreflangLanguageKey(locale);
 		if (!languageKey) continue;
 		const suffix = resolvePathSuffix(pathSuffix, locale, fallbackSuffix);
-		languages[languageKey] = buildStorefrontPath(locale, targetChannel, suffix);
+		languages[languageKey] = buildStorefrontPath(locale, getDefaultCurrencyCode(locale), suffix);
 	}
 
-	const xDefault = getXDefaultTarget(channel);
-	const xDefaultSuffix = resolvePathSuffix(pathSuffix, xDefault.locale, fallbackSuffix);
-	languages["x-default"] = buildStorefrontPath(xDefault.locale, xDefault.channel, xDefaultSuffix);
+	const defaultLocale = getDefaultLocaleSlug();
+	const xDefaultSuffix = resolvePathSuffix(pathSuffix, defaultLocale, fallbackSuffix);
+	languages["x-default"] = buildStorefrontPath(
+		defaultLocale,
+		getDefaultCurrencyCode(defaultLocale),
+		xDefaultSuffix,
+	);
 
 	return languages;
 }

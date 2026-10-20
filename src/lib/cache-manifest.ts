@@ -58,7 +58,7 @@ const profiles = {
 		label: "Product Pages",
 		cacheProfile: "catalog",
 		tagPattern: "product:{slug}",
-		pathPattern: "/{locale}/{channel}/products/{slug}",
+		pathPattern: "/{locale}/products/{slug}",
 		sharedTag: "products",
 	},
 	categories: {
@@ -66,7 +66,7 @@ const profiles = {
 		label: "Category Pages",
 		cacheProfile: "catalog",
 		tagPattern: "category:{slug}",
-		pathPattern: "/{locale}/{channel}/categories/{slug}",
+		pathPattern: "/{locale}/categories/{slug}",
 		sharedTag: "categories",
 	},
 	collections: {
@@ -74,7 +74,7 @@ const profiles = {
 		label: "Collection Pages",
 		cacheProfile: "catalog",
 		tagPattern: "collection:{slug}",
-		pathPattern: "/{locale}/{channel}/collections/{slug}",
+		pathPattern: "/{locale}/collections/{slug}",
 		sharedTag: "collections",
 	},
 	pages: {
@@ -82,7 +82,7 @@ const profiles = {
 		label: "CMS Pages",
 		cacheProfile: "catalog",
 		tagPattern: "page:{slug}",
-		pathPattern: "/{locale}/{channel}/pages/{slug}",
+		pathPattern: "/{locale}/pages/{slug}",
 		sharedTag: "pages",
 	},
 	navigation: {
@@ -111,7 +111,7 @@ const profiles = {
 		label: "Storefront Content",
 		cacheProfile: "menus",
 		tagPattern: "storefront-content:{channel}:{locale}",
-		pathPattern: "/{locale}/{channel}",
+		pathPattern: "/{locale}",
 	},
 } as const satisfies Record<string, CacheProfile>;
 

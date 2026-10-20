@@ -21,7 +21,7 @@ import {
 async function fetchStorefrontPages(channel: string, localeSlug: string) {
 	const slugs = collectStorefrontContentPageSlugs(channel);
 	const result = await executePublicGraphQL(StorefrontContentPagesDocument, {
-		variables: { channel, slugs, ...graphqlLanguageCodeVariables(localeSlug) },
+		variables: { currency: channel, slugs, ...graphqlLanguageCodeVariables(localeSlug) },
 	});
 
 	if (!result.ok) {

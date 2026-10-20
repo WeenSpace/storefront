@@ -1,7 +1,11 @@
 import { type NextRequest, NextResponse } from "next/server";
-import { DefaultChannelSlug } from "@/app/config";
-import { getStaticStorefrontChannelSlugs, isAllowedStorefrontChannel } from "@/config/channels";
-import { getDefaultLocaleSlug, isLocaleSlug, isStorefrontLocaleSlug } from "@/config/locale";
+import {
+	getDefaultCurrencyCode,
+	getDefaultLocaleSlug,
+	isLocaleSlug,
+	isStorefrontLocaleSlug,
+} from "@/config/locale";
+import { getUniqueLocaleForLegacyChannel, isConfiguredLocaleChannelPair } from "@/config/locale-channel";
 import { BROWSE_LOCALE_COOKIE, getBrowseLocaleCookieOptions } from "@/lib/browse-locale";
 import { buildStorefrontPath } from "@/lib/storefront-path";
 
@@ -14,10 +18,18 @@ const RESERVED_ROOT_SEGMENTS = new Set([
 	"sitemap.xml",
 ]);
 
-function isChannelSlug(segment: string): boolean {
-	const allowed = getStaticStorefrontChannelSlugs();
-	return isAllowedStorefrontChannel(segment, allowed);
-}
+const RESERVED_LOCALE_SEGMENTS = new Set([
+	"account",
+	"cart",
+	"categories",
+	"collections",
+	"login",
+	"orders",
+	"pages",
+	"products",
+	"search",
+	"signup",
+]);
 
 function withBrowseLocaleCookie(request: NextRequest, response: NextResponse, locale: string): NextResponse {
 	if (!isStorefrontLocaleSlug(locale)) {
@@ -35,6 +47,29 @@ function withBrowseLocaleCookie(request: NextRequest, response: NextResponse, lo
 	return response;
 }
 
+function redirectLegacyChannelPath(request: NextRequest, segments: string[]): NextResponse | null {
+	const [first, second, ...rest] = segments;
+	let locale: string | null = null;
+	let suffixSegments: string[] = [];
+
+	if (isStorefrontLocaleSlug(first)) {
+		if (!second || RESERVED_LOCALE_SEGMENTS.has(second) || !isConfiguredLocaleChannelPair(first, second)) {
+			return null;
+		}
+		locale = first;
+		suffixSegments = rest;
+	} else {
+		locale = getUniqueLocaleForLegacyChannel(first);
+		if (!locale || !isStorefrontLocaleSlug(locale)) return null;
+		suffixSegments = [second, ...rest].filter((segment): segment is string => Boolean(segment));
+	}
+
+	const url = request.nextUrl.clone();
+	const suffix = suffixSegments.length > 0 ? `/${suffixSegments.join("/")}` : "";
+	url.pathname = buildStorefrontPath(locale, getDefaultCurrencyCode(locale), suffix);
+	return withBrowseLocaleCookie(request, NextResponse.redirect(url, 308), locale);
+}
+
 export function middleware(request: NextRequest) {
 	const { pathname } = request.nextUrl;
 
@@ -48,19 +83,15 @@ export function middleware(request: NextRequest) {
 
 	const segments = pathname.split("/").filter(Boolean);
 	const defaultLocale = getDefaultLocaleSlug();
-	const defaultChannel = DefaultChannelSlug ?? getStaticStorefrontChannelSlugs()[0];
 
 	// Root → default browse home
 	if (segments.length === 0) {
-		if (!defaultChannel) {
-			return NextResponse.next();
-		}
 		const url = request.nextUrl.clone();
-		url.pathname = buildStorefrontPath(defaultLocale, defaultChannel);
+		url.pathname = buildStorefrontPath(defaultLocale, getDefaultCurrencyCode(defaultLocale));
 		return withBrowseLocaleCookie(request, NextResponse.redirect(url, 308), defaultLocale);
 	}
 
-	const [first, second, ...rest] = segments;
+	const [first] = segments;
 
 	if (RESERVED_ROOT_SEGMENTS.has(first)) {
 		return NextResponse.next();
@@ -68,37 +99,17 @@ export function middleware(request: NextRequest) {
 
 	// Disabled locale slug (defined but not in NEXT_PUBLIC_STOREFRONT_LOCALES) → canonical default locale
 	if (isLocaleSlug(first) && !isStorefrontLocaleSlug(first)) {
-		if (second && isChannelSlug(second)) {
-			const url = request.nextUrl.clone();
-			const suffix = rest.length > 0 ? `/${rest.join("/")}` : "";
-			url.pathname = buildStorefrontPath(defaultLocale, second, suffix);
-			return withBrowseLocaleCookie(request, NextResponse.redirect(url, 308), defaultLocale);
-		}
 		return NextResponse.next();
 	}
 
-	// Canonical format: /{locale}/{channel}/…
+	const legacyRedirect = redirectLegacyChannelPath(request, segments);
+	if (legacyRedirect) {
+		return legacyRedirect;
+	}
+
+	// Canonical format: /{locale}/…
 	if (isStorefrontLocaleSlug(first)) {
-		if (second && isChannelSlug(second)) {
-			return withBrowseLocaleCookie(request, NextResponse.next(), first);
-		}
-
-		// /{locale} only → add default channel
-		if (!second && defaultChannel) {
-			const url = request.nextUrl.clone();
-			url.pathname = buildStorefrontPath(first, defaultChannel);
-			return withBrowseLocaleCookie(request, NextResponse.redirect(url, 308), first);
-		}
-
-		return NextResponse.next();
-	}
-
-	// Legacy: /{channel}/… → /{defaultLocale}/{channel}/…
-	if (isChannelSlug(first)) {
-		const url = request.nextUrl.clone();
-		const suffix = [second, ...rest].filter(Boolean).join("/");
-		url.pathname = buildStorefrontPath(defaultLocale, first, suffix ? `/${suffix}` : "");
-		return withBrowseLocaleCookie(request, NextResponse.redirect(url, 308), defaultLocale);
+		return withBrowseLocaleCookie(request, NextResponse.next(), first);
 	}
 
 	return NextResponse.next();

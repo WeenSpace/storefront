@@ -19,7 +19,7 @@ export async function getFeaturedProducts(
 	const result = await executePublicGraphQL(ProductListByCollectionDocument, {
 		variables: {
 			slug: collectionSlug,
-			channel,
+			currency: channel,
 			first: limit,
 			sortBy: { field: ProductOrderField.Collection, direction: OrderDirection.Asc },
 			...graphqlLanguageCodeVariables(localeSlug),

@@ -10,7 +10,6 @@ describe("buildBrowsePageMetadata OpenGraph locale", () => {
 
 	it("sets og:locale from the URL locale and lists other locales as alternates", () => {
 		vi.stubEnv("NEXT_PUBLIC_STOREFRONT_LOCALES", "en,ja,pl");
-		vi.stubEnv("NEXT_PUBLIC_DEFAULT_CHANNEL", "default-channel");
 		vi.stubEnv("STOREFRONT_CHANNELS", "default-channel");
 
 		const metadata = buildBrowsePageMetadata({
@@ -25,9 +24,8 @@ describe("buildBrowsePageMetadata OpenGraph locale", () => {
 		expect(og.alternateLocale).toEqual(["en_US", "pl_PL"]);
 	});
 
-	it("limits og:locale:alternate to locales in the locale×channel matrix", () => {
+	it("uses all configured locales for locale-only browse URLs", () => {
 		vi.stubEnv("NEXT_PUBLIC_STOREFRONT_LOCALES", "en,ja,pl,de");
-		vi.stubEnv("NEXT_PUBLIC_DEFAULT_CHANNEL", "default-channel");
 		vi.stubEnv("STOREFRONT_CHANNELS", "default-channel,japan");
 		vi.stubEnv("NEXT_PUBLIC_STOREFRONT_LOCALE_CHANNELS", "en:default-channel,ja:japan");
 
@@ -40,13 +38,11 @@ describe("buildBrowsePageMetadata OpenGraph locale", () => {
 
 		const og = metadata.openGraph as OgRecord;
 		expect(og.locale).toBe("ja_JP");
-		// pl/de are in STOREFRONT_LOCALES but not in the matrix — must not appear.
-		expect(og.alternateLocale).toEqual(["en_US"]);
+		expect(og.alternateLocale).toEqual(["en_US", "pl_PL", "de_DE"]);
 	});
 
 	it("omits og:locale for unknown locale slugs", () => {
 		vi.stubEnv("NEXT_PUBLIC_STOREFRONT_LOCALES", "en");
-		vi.stubEnv("NEXT_PUBLIC_DEFAULT_CHANNEL", "default-channel");
 
 		const metadata = buildBrowsePageMetadata({
 			title: "Page",
@@ -62,7 +58,7 @@ describe("buildBrowsePageMetadata OpenGraph locale", () => {
 	it("omits openGraph.type for product pages (Next rejects the OG protocol `product` type)", () => {
 		const metadata = buildPageMetadata({
 			title: "Plimsolls",
-			url: "/en/default-channel/products/plimsolls",
+			url: "/en/products/plimsolls",
 			ogType: "product",
 		});
 
@@ -71,14 +67,14 @@ describe("buildBrowsePageMetadata OpenGraph locale", () => {
 	});
 
 	it("keeps og:type website by default", () => {
-		const metadata = buildPageMetadata({ title: "Page", url: "/en/default-channel" });
+		const metadata = buildPageMetadata({ title: "Page", url: "/en" });
 		expect((metadata.openGraph as OgRecord).type).toBe("website");
 	});
 
 	it("strips a smuggled openGraph.type so callers cannot trigger Next E237", () => {
 		const metadata = buildPageMetadata({
 			title: "Plimsolls",
-			url: "/en/default-channel/products/plimsolls",
+			url: "/en/products/plimsolls",
 			ogType: "product",
 			openGraph: { type: "product", "product:price:amount": "10" },
 		});

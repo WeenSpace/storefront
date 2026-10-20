@@ -17,7 +17,7 @@ export default defineConfig({
 		? undefined
 		: {
 				command: "PORT=3020 pnpm start",
-				url: `${baseURL}/en/default-channel`,
+				url: `${baseURL}/en`,
 				reuseExistingServer: true,
 				timeout: 120_000,
 			},

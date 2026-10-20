@@ -1,6 +1,6 @@
 query ProductListByCategory(
 	$slug: String!
-	$channel: String!
+	$currency: String!
 	$languageCode: LanguageCodeEnum!
 	$slugLanguageCode: LanguageCodeEnum
 	$first: Int
@@ -31,7 +31,7 @@ query ProductListByCategory(
 		products(
 			first: $first
 			after: $after
-			channel: $channel
+			currency: $currency
 			sortBy: $sortBy
 			filter: $filter
 			where: $where

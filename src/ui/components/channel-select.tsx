@@ -13,7 +13,7 @@ export const ChannelSelect = ({
 	variant?: "default" | "inverted";
 	className?: string;
 }) => {
-	const { channel, navigateToChannel } = useStorefrontRegionNavigation();
+	const { currency, navigateToCurrency } = useStorefrontRegionNavigation();
 
 	return (
 		<select
@@ -28,11 +28,11 @@ export const ChannelSelect = ({
 					: "border-input bg-background text-foreground focus-visible:ring-offset-background",
 				className,
 			)}
-			onChange={(e) => navigateToChannel(e.currentTarget.value)}
-			value={channel}
+			onChange={(e) => navigateToCurrency(e.currentTarget.value)}
+			value={currency}
 		>
 			{channels.map((item) => (
-				<option key={item.id} value={item.slug}>
+				<option key={item.id} value={item.currencyCode}>
 					{item.currencyCode}
 				</option>
 			))}

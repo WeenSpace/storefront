@@ -17,7 +17,7 @@ export async function getCategoryData(slug: string, channel: string, localeSlug:
 		const result = await executePublicGraphQL(ProductListByCategoryDocument, {
 			variables: {
 				slug: vars.slug,
-				channel,
+				currency: channel,
 				first: 1,
 				...languageVariables,
 				...(vars.slugLanguageCode ? { slugLanguageCode: vars.slugLanguageCode } : {}),

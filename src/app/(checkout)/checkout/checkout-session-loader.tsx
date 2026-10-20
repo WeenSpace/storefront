@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import { invariant } from "ts-invariant";
 import { buildCheckoutPath, buildOrderConfirmationPath } from "@paper/session-bridge";
-import { DefaultChannelSlug } from "@/app/config";
+import { DefaultCurrency } from "@/app/config";
 import { CheckoutApp } from "@/checkout/checkout-app";
 import { resolveBrowseLocaleForCheckout } from "@/lib/browse-locale-server";
 import { getStorefrontContent } from "@/lib/content/server";
@@ -70,8 +70,9 @@ export async function CheckoutSessionLoader({
 		loadState = "not_found";
 		await Checkout.clearCheckoutCookieByValue(checkoutIdFromUrl);
 	} else {
-		channelSlug = checkoutResult.checkout.channel.slug;
-		const checkoutIdFromChannelCookie = await Checkout.getIdFromCookies(channelSlug);
+		const resolvedChannelSlug = checkoutResult.checkout.channel.slug;
+		channelSlug = resolvedChannelSlug;
+		const checkoutIdFromChannelCookie = await Checkout.getIdFromCookies(resolvedChannelSlug);
 
 		if (checkoutIdFromChannelCookie && checkoutIdFromChannelCookie !== checkoutIdFromUrl) {
 			redirect(buildCheckoutPath({ checkoutId: checkoutIdFromChannelCookie, browseLocale }));
@@ -90,7 +91,7 @@ export async function CheckoutSessionLoader({
 	}
 
 	const browseChannel = channelSlug ?? (await Checkout.getChannelSlugFromCartCookies());
-	const contentChannel = browseChannel ?? DefaultChannelSlug ?? "default-channel";
+	const contentChannel = browseChannel ?? DefaultCurrency;
 	const [checkoutContent, messages] = await Promise.all([
 		getStorefrontContent(contentChannel, browseLocale).then((content) => content.surfaces.checkout),
 		loadCheckoutMessages(browseLocale),

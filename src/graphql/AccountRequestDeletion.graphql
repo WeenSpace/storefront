@@ -1,5 +1,5 @@
-mutation AccountRequestDeletion($redirectUrl: String!, $channel: String) {
-	accountRequestDeletion(redirectUrl: $redirectUrl, channel: $channel) {
+mutation AccountRequestDeletion($redirectUrl: String!, $currency: String) {
+	accountRequestDeletion(redirectUrl: $redirectUrl, currency: $currency) {
 		errors {
 			field
 			message

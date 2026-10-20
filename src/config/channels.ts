@@ -7,12 +7,8 @@
  * Resolution order (see getStorefrontChannelSlugs in channel-slugs.ts):
  * 1. STOREFRONT_CHANNELS — comma-separated allowlist (recommended for production)
  * 2. STOREFRONT_DISCOVER_CHANNELS=true + SALEOR_APP_TOKEN — fetch all active from API
- * 3. NEXT_PUBLIC_DEFAULT_CHANNEL only — single-channel storefront
+ * 3. No public fallback — currency is the storefront selector.
  */
-
-function getDefaultChannelSlug(): string | null {
-	return process.env.NEXT_PUBLIC_DEFAULT_CHANNEL ?? null;
-}
 
 function parseEnvChannelList(raw: string | undefined): string[] | null {
 	if (!raw?.trim()) return null;
@@ -45,26 +41,10 @@ export function needsAsyncChannelDiscovery(): boolean {
 	);
 }
 
-function warnIfDefaultChannelMissingFromAllowlist(allowed: readonly string[]) {
-	const defaultSlug = getDefaultChannelSlug();
-	if (defaultSlug && allowed.length > 0 && !allowed.includes(defaultSlug)) {
-		console.warn(
-			`[Channels] NEXT_PUBLIC_DEFAULT_CHANNEL "${defaultSlug}" is not in STOREFRONT_CHANNELS. ` +
-				"The root redirect targets a channel that is not exposed in the storefront.",
-		);
-	}
-}
-
-/** Sync resolution — configured allowlist or default channel only. */
+/** Sync resolution for internal Saleor compatibility only. */
 export function getStaticStorefrontChannelSlugs(): string[] {
 	const configured = getConfiguredStorefrontChannelSlugs();
-	if (configured) {
-		warnIfDefaultChannelMissingFromAllowlist(configured);
-		return configured;
-	}
-
-	const defaultSlug = getDefaultChannelSlug();
-	return defaultSlug ? [defaultSlug] : [];
+	return configured ?? [];
 }
 
 export function isAllowedStorefrontChannel(slug: string, allowedSlugs: readonly string[]): boolean {

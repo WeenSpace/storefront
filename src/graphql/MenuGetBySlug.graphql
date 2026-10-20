@@ -35,8 +35,8 @@ fragment MenuItem on MenuItem {
 	url
 }
 
-query MenuGetBySlug($slug: String!, $channel: String!, $languageCode: LanguageCodeEnum!) {
-	menu(slug: $slug, channel: $channel) {
+query MenuGetBySlug($slug: String!, $currency: String!, $languageCode: LanguageCodeEnum!) {
+	menu(slug: $slug, currency: $currency) {
 		items {
 			...MenuItem
 			children {

@@ -2,7 +2,6 @@ import { type Metadata } from "next";
 import { seoConfig, getMetadataBase } from "./config";
 import { buildLocaleHreflangAlternates } from "./hreflang";
 import { getLocaleDefinition, getStorefrontLocaleSlugs, type LocaleSlug } from "@/config/locale";
-import { getConfiguredLocaleChannelPairs } from "@/config/locale-channel";
 import { parseEditorJSToText } from "@/lib/editorjs";
 import { buildStorefrontPath } from "@/lib/storefront-path";
 
@@ -241,7 +240,7 @@ export function buildPageMetadata(options: {
 	};
 }
 
-/** Browse metadata with canonical `/{locale}/{channel}/…` URL and locale hreflang alternates. */
+/** Browse metadata with canonical `/{locale}/…` URL and locale hreflang alternates. */
 export function buildBrowsePageMetadata(options: {
 	title: string;
 	description?: string;
@@ -281,17 +280,9 @@ export function buildBrowsePageMetadata(options: {
 	});
 }
 
-/**
- * Locales advertised as `og:locale:alternate`.
- * When a locale×channel matrix is configured, only locales that appear in the matrix
- * (same set as hreflang) — never every `STOREFRONT_LOCALES` entry, which may include
- * languages with no valid browse URL.
- */
+/** Locales advertised as `og:locale:alternate` for locale-only browse URLs. */
 function getBrowseOgAlternateLocales(currentLocale: string): string[] {
-	const pairs = getConfiguredLocaleChannelPairs();
-	const slugs: readonly LocaleSlug[] = pairs
-		? [...new Set(pairs.map((pair) => pair.locale))]
-		: getStorefrontLocaleSlugs();
+	const slugs: readonly LocaleSlug[] = getStorefrontLocaleSlugs();
 
 	return slugs
 		.filter((slug) => slug !== currentLocale)

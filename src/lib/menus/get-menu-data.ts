@@ -20,7 +20,7 @@ async function getCachedMenuItems(
 	applyCacheProfile(STOREFRONT_MENU_SLUGS[slug], { channel });
 
 	const result = await executePublicGraphQL(MenuGetBySlugDocument, {
-		variables: { slug, channel, ...graphqlLanguageCodeVariables(localeSlug) },
+		variables: { slug, currency: channel, ...graphqlLanguageCodeVariables(localeSlug) },
 	});
 
 	if (!result.ok) {

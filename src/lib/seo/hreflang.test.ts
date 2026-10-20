@@ -6,36 +6,33 @@ describe("buildLocaleHreflangAlternates", () => {
 		vi.unstubAllEnvs();
 	});
 
-	it("builds language-only hreflang keys when locale×channel pairs are unset", () => {
+	it("builds locale-defined BCP 47 hreflang keys without channel routing", () => {
 		vi.stubEnv("NEXT_PUBLIC_STOREFRONT_LOCALES", "en,pl");
-		vi.stubEnv("NEXT_PUBLIC_DEFAULT_CHANNEL", "default-channel");
 		vi.stubEnv("STOREFRONT_CHANNELS", "default-channel");
 
 		expect(buildLocaleHreflangAlternates("default-channel", "/products/hoodie")).toEqual({
-			en: "/en/default-channel/products/hoodie",
-			pl: "/pl/default-channel/products/hoodie",
-			"x-default": "/en/default-channel/products/hoodie",
+			"en-US": "/en/products/hoodie",
+			"pl-PL": "/pl/products/hoodie",
+			"x-default": "/en/products/hoodie",
 		});
 	});
 
-	it("uses paired channels and region-aware keys when LOCALE_CHANNELS is configured", () => {
+	it("keeps locale-only alternates when legacy locale-channel mappings are configured", () => {
 		vi.stubEnv("NEXT_PUBLIC_STOREFRONT_LOCALES", "en,pl,ja");
-		vi.stubEnv("NEXT_PUBLIC_DEFAULT_CHANNEL", "default-channel");
 		vi.stubEnv("STOREFRONT_CHANNELS", "default-channel,channel-pln,japan");
 		vi.stubEnv("NEXT_PUBLIC_STOREFRONT_LOCALE_CHANNELS", "en:default-channel,pl:channel-pln,ja:japan");
 
 		expect(buildLocaleHreflangAlternates("default-channel", "/products/hoodie")).toEqual({
-			"en-US": "/en/default-channel/products/hoodie",
-			"pl-PL": "/pl/channel-pln/products/hoodie",
-			"ja-JP": "/ja/japan/products/hoodie",
-			"x-default": "/en/default-channel/products/hoodie",
+			"en-US": "/en/products/hoodie",
+			"pl-PL": "/pl/products/hoodie",
+			"ja-JP": "/ja/products/hoodie",
+			"x-default": "/en/products/hoodie",
 		});
 	});
 
 	it("uses per-locale path suffixes for translated catalog slugs", () => {
 		vi.stubEnv("NEXT_PUBLIC_STOREFRONT_LOCALES", "en,pl");
 		vi.stubEnv("NEXT_PUBLIC_DEFAULT_LOCALE", "en");
-		vi.stubEnv("NEXT_PUBLIC_DEFAULT_CHANNEL", "default-channel");
 		vi.stubEnv("STOREFRONT_CHANNELS", "default-channel");
 
 		expect(
@@ -44,9 +41,9 @@ describe("buildLocaleHreflangAlternates", () => {
 				pl: "/products/bluza",
 			}),
 		).toEqual({
-			en: "/en/default-channel/products/hoodie",
-			pl: "/pl/default-channel/products/bluza",
-			"x-default": "/en/default-channel/products/hoodie",
+			"en-US": "/en/products/hoodie",
+			"pl-PL": "/pl/products/bluza",
+			"x-default": "/en/products/hoodie",
 		});
 	});
 });

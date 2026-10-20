@@ -2,7 +2,7 @@
 
 import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
-import { DefaultChannelSlug } from "@/app/config";
+import { DefaultCurrency } from "@/app/config";
 import { useCheckoutBrowseLocale } from "@/checkout/providers/checkout-browse";
 import { buildStorefrontPath } from "@/lib/storefront-path";
 import {
@@ -56,7 +56,7 @@ export const RootViews = () => {
 	}
 
 	if (accountCredentials && shouldPrioritizeAccountConfirmation(searchParams, loadState)) {
-		const channel = checkout?.channel.slug ?? DefaultChannelSlug ?? "default-channel";
+		const channel = checkout?.channel.slug ?? DefaultCurrency;
 		const signInHref = buildStorefrontPath(storefrontLocale, channel, "/login");
 
 		return (

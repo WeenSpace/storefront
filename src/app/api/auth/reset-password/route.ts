@@ -4,8 +4,8 @@ import { isAllowedRedirectUrl } from "@/lib/auth/validate-redirect-url";
 import { executeRawGraphQL, getUserMessage } from "@/lib/graphql";
 
 const REQUEST_PASSWORD_RESET_MUTATION = `
-  mutation RequestPasswordReset($email: String!, $channel: String!, $redirectUrl: String!) {
-    requestPasswordReset(email: $email, channel: $channel, redirectUrl: $redirectUrl) {
+	mutation RequestPasswordReset($email: String!, $currency: String!, $redirectUrl: String!) {
+		requestPasswordReset(email: $email, currency: $currency, redirectUrl: $redirectUrl) {
       errors {
         field
         message
@@ -17,7 +17,7 @@ const REQUEST_PASSWORD_RESET_MUTATION = `
 
 interface ResetPasswordRequest {
 	email: string;
-	channel: string;
+	currency: string;
 	redirectUrl: string;
 }
 
@@ -43,11 +43,11 @@ export async function POST(request: NextRequest) {
 		);
 	}
 
-	const { email, channel, redirectUrl } = body;
+	const { email, currency, redirectUrl } = body;
 
-	if (!email || !channel || !redirectUrl) {
+	if (!email || !currency || !redirectUrl) {
 		return NextResponse.json(
-			{ errors: [{ message: "Email, channel, and redirectUrl are required", code: "REQUIRED" }] },
+			{ errors: [{ message: "Email, currency, and redirectUrl are required", code: "REQUIRED" }] },
 			{ status: 400 },
 		);
 	}
@@ -70,7 +70,7 @@ export async function POST(request: NextRequest) {
 
 	const result = await executeRawGraphQL<RequestPasswordResetResult>({
 		query: REQUEST_PASSWORD_RESET_MUTATION,
-		variables: { email, channel, redirectUrl },
+		variables: { email, currency, redirectUrl },
 	});
 
 	// Network or GraphQL error

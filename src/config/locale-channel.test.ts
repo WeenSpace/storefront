@@ -1,9 +1,11 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import {
 	getConfiguredLocaleChannelPairs,
+	getUniqueLocaleForLegacyChannel,
 	getLocalesForChannel,
 	getPairedChannelForLocale,
 	isAllowedLocaleChannelPair,
+	isConfiguredLocaleChannelPair,
 } from "./locale-channel";
 
 describe("locale-channel pairs", () => {
@@ -54,5 +56,20 @@ describe("locale-channel pairs", () => {
 
 		expect(getLocalesForChannel("default-channel")).toEqual(["en", "nb"]);
 		expect(getLocalesForChannel("channel-pln")).toEqual(["pl"]);
+	});
+
+	it("resolves legacy channel routes only for one explicitly mapped locale", () => {
+		vi.stubEnv("NEXT_PUBLIC_STOREFRONT_LOCALE_CHANNELS", "en:default-channel,pl:channel-pln");
+
+		expect(getUniqueLocaleForLegacyChannel("channel-pln")).toBe("pl");
+		expect(getUniqueLocaleForLegacyChannel("unknown")).toBeNull();
+		expect(isConfiguredLocaleChannelPair("pl", "channel-pln")).toBe(true);
+		expect(isConfiguredLocaleChannelPair("en", "channel-pln")).toBe(false);
+	});
+
+	it("does not guess a locale when a legacy channel maps to multiple locales", () => {
+		vi.stubEnv("NEXT_PUBLIC_STOREFRONT_LOCALE_CHANNELS", "en:shared,pl:shared");
+
+		expect(getUniqueLocaleForLegacyChannel("shared")).toBeNull();
 	});
 });

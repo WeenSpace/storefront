@@ -17,7 +17,7 @@ export async function getCollectionData(slug: string, channel: string, localeSlu
 		const result = await executePublicGraphQL(ProductListByCollectionDocument, {
 			variables: {
 				slug: vars.slug,
-				channel,
+				currency: channel,
 				first: 1,
 				...languageVariables,
 				...(vars.slugLanguageCode ? { slugLanguageCode: vars.slugLanguageCode } : {}),

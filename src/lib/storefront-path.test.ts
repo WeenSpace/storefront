@@ -9,37 +9,42 @@ import {
 
 describe("storefront-path", () => {
 	it("builds browse paths", () => {
-		expect(buildStorefrontPath("en", "uk")).toBe("/en/uk");
-		expect(buildStorefrontPath("en", "uk", "/products/hoodie")).toBe("/en/uk/products/hoodie");
+		expect(buildStorefrontPath("en", "USD")).toBe("/en");
+		expect(buildStorefrontPath("en", "USD", "/products/hoodie")).toBe("/en/products/hoodie");
 	});
 
 	it("parses browse paths", () => {
-		expect(parseStorefrontPathname("/en/uk/products/hoodie")).toEqual({
+		expect(parseStorefrontPathname("/en/products/hoodie")).toEqual({
 			locale: "en",
-			channel: "uk",
+			currency: "USD",
 			suffix: "/products/hoodie",
 		});
-		expect(parseStorefrontPathname("/en/uk")).toEqual({
+		expect(parseStorefrontPathname("/en")).toEqual({
 			locale: "en",
-			channel: "uk",
+			currency: "USD",
 			suffix: "",
 		});
-		expect(parseStorefrontPathname("/checkout")).toBeNull();
+		expect(parseStorefrontPathname("/")).toBeNull();
+	});
+
+	it("resolves currency from locale configuration without adding it to the path", () => {
+		expect(parseStorefrontPathname("/pl/produkty/buty")).toEqual({
+			locale: "pl",
+			currency: "USD",
+			suffix: "/produkty/buty",
+		});
 	});
 
 	it("swaps channel while preserving locale and suffix", () => {
-		expect(replaceStorefrontChannel("/en/uk/products/hoodie", "us")).toBe("/en/us/products/hoodie");
+		expect(replaceStorefrontChannel("/en/products/hoodie", "EUR")).toBe("/en/products/hoodie");
 	});
 
 	it("swaps locale while preserving channel and suffix", () => {
-		expect(replaceStorefrontLocale("/en/uk/products/hoodie", "pl")).toBe("/pl/uk/products/hoodie");
-		expect(replaceStorefrontLocale("/en/default-channel/products", "nb")).toBe(
-			"/nb/default-channel/products",
-		);
+		expect(replaceStorefrontLocale("/en/products/hoodie", "pl")).toBe("/pl/products/hoodie");
 	});
 
 	it("strips locale/channel prefix", () => {
-		expect(stripStorefrontPrefix("/en/uk/products", "en", "uk")).toBe("/products");
-		expect(stripStorefrontPrefix("/en/uk", "en", "uk")).toBe("/");
+		expect(stripStorefrontPrefix("/en/products", "en")).toBe("/products");
+		expect(stripStorefrontPrefix("/en", "en")).toBe("/");
 	});
 });

@@ -1,6 +1,5 @@
 import { revalidatePath } from "next/cache";
 import { NextRequest } from "next/server";
-import { DefaultChannelSlug } from "@/app/config";
 import { getStorefrontChannelSlugs } from "@/lib/channel-slugs";
 import {
 	CACHE_PROFILES,
@@ -167,7 +166,7 @@ export async function POST(request: NextRequest) {
 			if (plan.action === "error") {
 				console.warn(
 					"[Revalidate] Menu webhook: no storefront channels resolved. " +
-						"Set NEXT_PUBLIC_DEFAULT_CHANNEL or STOREFRONT_CHANNELS.",
+						"Set STOREFRONT_CHANNELS for internal Saleor webhook compatibility.",
 				);
 				return Response.json({ error: "No storefront channels configured" }, { status: 400 });
 			}
@@ -195,12 +194,12 @@ export async function POST(request: NextRequest) {
 		const storefrontChannels = await getStorefrontChannelSlugs();
 
 		if (type === "page") {
-			const plan = planPageRevalidation(slug, storefrontChannels, DefaultChannelSlug);
+			const plan = planPageRevalidation(slug, storefrontChannels);
 
 			if (plan.action === "error") {
 				console.warn(
 					"[Revalidate] Page webhook: no storefront channels resolved. " +
-						"Set NEXT_PUBLIC_DEFAULT_CHANNEL or STOREFRONT_CHANNELS.",
+						"Set STOREFRONT_CHANNELS for internal Saleor webhook compatibility.",
 				);
 				return Response.json({ error: "No storefront channels configured" }, { status: 400 });
 			}
@@ -216,11 +215,7 @@ export async function POST(request: NextRequest) {
 				revalidatedPaths.push(path);
 			}
 
-			const storefrontPlan = planStorefrontContentRevalidation(
-				plan.slug,
-				storefrontChannels,
-				DefaultChannelSlug,
-			);
+			const storefrontPlan = planStorefrontContentRevalidation(plan.slug, storefrontChannels, undefined);
 			if (storefrontPlan.action === "revalidate") {
 				tagEntries.push(...storefrontPlan.tags);
 				for (const path of storefrontPlan.paths) {
@@ -241,12 +236,9 @@ export async function POST(request: NextRequest) {
 			return Response.json({ paths: revalidatedPaths, tags: revalidatedTags, success: true });
 		}
 
-		const targetChannel = channel || DefaultChannelSlug;
+		const targetChannel = channel;
 		if (!targetChannel) {
-			return Response.json(
-				{ error: "Channel not specified in webhook and NEXT_PUBLIC_DEFAULT_CHANNEL not set" },
-				{ status: 400 },
-			);
+			return Response.json({ error: "Channel not specified in webhook" }, { status: 400 });
 		}
 
 		switch (type) {
@@ -360,7 +352,7 @@ export async function GET(request: NextRequest) {
 			if (channelSlugs.length === 0) {
 				console.warn(
 					"[Revalidate] Full purge: no channel slugs resolved — channel/locale-scoped tags skipped. " +
-						"Set NEXT_PUBLIC_DEFAULT_CHANNEL or STOREFRONT_CHANNELS.",
+						"Set STOREFRONT_CHANNELS for internal Saleor webhook compatibility.",
 				);
 			}
 

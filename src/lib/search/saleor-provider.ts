@@ -40,7 +40,7 @@ export async function searchProducts(options: SearchOptions): Promise<SearchResu
 	const result = await executePublicGraphQL(SearchProductsDocument, {
 		variables: {
 			search: query,
-			channel,
+			currency: channel,
 			sortBy: field,
 			sortDirection: order,
 			first: isBackward ? undefined : limit,

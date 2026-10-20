@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
 
 test("guest user icon navigates to login", async ({ page }) => {
-	await page.goto("/fr/default-channel", { waitUntil: "networkidle" });
+	await page.goto("/fr", { waitUntil: "networkidle" });
 
 	const loginLink = page.locator('#storefront-header a[href*="/login"]');
 	await expect(loginLink).toBeVisible({ timeout: 15_000 });

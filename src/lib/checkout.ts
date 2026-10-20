@@ -4,6 +4,7 @@ import { CheckoutCreateDocument, CheckoutCustomerDetachDocument, CheckoutFindDoc
 import { type CartCheckout, withTranslatedCartCheckout } from "@/lib/cart-checkout";
 import { checkoutGraphqlLocaleVariables } from "@/lib/checkout-locale";
 import { executeAuthenticatedGraphQL, executePublicGraphQL } from "@/lib/graphql";
+import { DefaultCurrency } from "@/app/config";
 
 /** Checkout id from this channel's cart cookie (`checkoutId-{channel}`). */
 export async function getIdFromCookies(channel: string) {
@@ -37,7 +38,7 @@ export async function getChannelSlugFromCartCookies(): Promise<string | null> {
 
 		const channelFromCookie = (name: string) => name.slice(checkoutIdCookieName("").length);
 
-		const defaultChannel = process.env.NEXT_PUBLIC_DEFAULT_CHANNEL;
+		const defaultChannel = DefaultCurrency;
 		if (defaultChannel) {
 			const preferred = cartCookies.find((cookie) => cookie.name === checkoutIdCookieName(defaultChannel));
 			if (preferred) {
@@ -61,7 +62,7 @@ export async function getFirstCheckoutIdFromCartCookies(): Promise<string | null
 			return null;
 		}
 
-		const defaultChannel = process.env.NEXT_PUBLIC_DEFAULT_CHANNEL;
+		const defaultChannel = DefaultCurrency;
 		if (defaultChannel) {
 			const preferred = cartCookies.find((cookie) => cookie.name === checkoutIdCookieName(defaultChannel));
 			if (preferred) {
@@ -151,7 +152,7 @@ export async function findOrCreate({
 export async function create({ channel, localeSlug }: { channel: string; localeSlug?: string }) {
 	return executeAuthenticatedGraphQL(CheckoutCreateDocument, {
 		cache: "no-cache",
-		variables: { channel, ...(await checkoutGraphqlLocaleVariables(localeSlug)) },
+		variables: { currency: channel, ...(await checkoutGraphqlLocaleVariables(localeSlug)) },
 	});
 }
 

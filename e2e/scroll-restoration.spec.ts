@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-const browsePath = "/en/default-channel";
+const browsePath = "/en";
 
 test.describe("scroll restoration (forward → top, Back → restore)", () => {
 	const scrollTo = (page: import("@playwright/test").Page, y: number) =>
